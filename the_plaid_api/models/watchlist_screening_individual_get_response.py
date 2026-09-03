@@ -1,0 +1,50 @@
+from __future__ import annotations
+
+from typing_extensions import TypedDict
+
+from ..core import SdkBaseModel
+from .enums.watchlist_screening_status import WatchlistScreeningStatusOrStr
+from .watchlist_screening_audit_trail import WatchlistScreeningAuditTrail, WatchlistScreeningAuditTrailDict
+from .watchlist_screening_search_terms import WatchlistScreeningSearchTerms, WatchlistScreeningSearchTermsDict
+
+
+class WatchlistScreeningIndividualGetResponse(SdkBaseModel):
+    """The screening object allows you to represent a customer in your system, update their profile, and search for them
+    on various watchlists. Note: Rejected customers will not receive new hits, regardless of program configuration."""
+
+    id: str
+    """ID of the associated screening."""
+
+    search_terms: WatchlistScreeningSearchTerms
+    """Search terms for creating an individual watchlist screening"""
+
+    assignee: str | None
+    """ID of the associated user. To retrieve the email address or other details of the person corresponding to this ID,
+    use ``/dashboard_user/get``."""
+
+    status: WatchlistScreeningStatusOrStr
+    """A status enum indicating whether a screening is still pending review, has been rejected, or has been cleared."""
+
+    client_user_id: str | None
+    """A unique ID that identifies the end user in your system. Either a ``user_id`` or the ``client_user_id`` must be
+    provided. This ID can also be used to associate user-specific data from other Plaid products. Financial Account
+    Matching requires this field and the ``/link/token/create`` ``client_user_id`` to be consistent. Personally
+    identifiable information, such as an email address or phone number, should not be used in the ``client_user_id``."""
+
+    audit_trail: WatchlistScreeningAuditTrail
+    """Information about the last change made to the parent object specifying what caused the change as well as when it
+    occurred."""
+
+    request_id: str
+    """A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid
+    identifiers, is case sensitive."""
+
+
+class WatchlistScreeningIndividualGetResponseDict(TypedDict):
+    id: str
+    search_terms: WatchlistScreeningSearchTerms | WatchlistScreeningSearchTermsDict
+    assignee: str | None
+    status: WatchlistScreeningStatusOrStr
+    client_user_id: str | None
+    audit_trail: WatchlistScreeningAuditTrail | WatchlistScreeningAuditTrailDict
+    request_id: str

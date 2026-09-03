@@ -1,0 +1,26 @@
+from __future__ import annotations
+
+from typing_extensions import NotRequired, TypedDict
+
+from ..core import UNSET, Optional, SdkBaseModel
+
+
+class BeaconUserGetRequest(SdkBaseModel):
+    """Request input for fetching a Beacon User"""
+
+    beacon_user_id: str
+    """ID of the associated Beacon User."""
+
+    client_id: Optional[str] = UNSET
+    """Your Plaid API ``client_id``. The ``client_id`` is required and may be provided either in the ``PLAID-CLIENT-ID``
+    header or as part of a request body."""
+
+    secret: Optional[str] = UNSET
+    """Your Plaid API ``secret``. The ``secret`` is required and may be provided either in the ``PLAID-SECRET`` header
+    or as part of a request body."""
+
+
+class BeaconUserGetRequestDict(TypedDict):
+    beacon_user_id: str
+    client_id: NotRequired[str]
+    secret: NotRequired[str]

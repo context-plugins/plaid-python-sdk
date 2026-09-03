@@ -1,0 +1,61 @@
+from __future__ import annotations
+
+from typing_extensions import NotRequired, TypedDict
+
+from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
+from .asset_report_user import AssetReportUser, AssetReportUserDict
+from .enums.asset_report_add_ons import AssetReportAddOnsOrStr
+
+
+class AssetReportCreateRequestOptions(SdkBaseModel):
+    """An optional object to filter ``/asset_report/create`` results. If provided, must be non-``null``. The optional
+    ``user`` object is required for the report to be eligible for Fannie Mae's Day 1 Certainty program."""
+
+    client_report_id: OptionalNullable[str] = UNSET
+    """Client-generated identifier, which can be used by lenders to track loan applications."""
+
+    webhook: OptionalNullable[str] = UNSET
+    """URL to which Plaid will send Assets webhooks, for example when the requested Asset Report is ready."""
+
+    include_fast_report: OptionalNullable[bool] = UNSET
+    """true to return balance and identity earlier as a fast report. Defaults to false if omitted."""
+
+    products: Optional[list[str]] = UNSET
+    """Additional information that can be included in the asset report. Possible values: ``"investments"``"""
+
+    add_ons: Optional[list[AssetReportAddOnsOrStr]] = UNSET
+    """A list of add-ons that should be included in the Asset Report.
+
+    When Fast Assets is requested, Plaid will create two versions of the Asset Report: the Fast Asset Report, which will
+    contain only Identity and Balance information, and the Full Asset Report, which will also contain Transactions
+    information. A ``PRODUCT_READY`` webhook will be fired for each Asset Report when it is ready, and the
+    ``report_type`` field will indicate whether the webhook is firing for the ``FULL`` or ``FAST`` Asset Report. To
+    retrieve the Fast Asset Report, call ``/asset_report/get`` with ``fast_report`` set to ``true``. There is no
+    additional charge for using Fast Assets. To create a Fast Asset Report, Plaid must successfully retrieve both
+    Identity and Balance data; if Plaid encounters an error obtaining this data, the Fast Asset Report will not be
+    created. However, as long as Plaid can obtain Transactions data, the Full Asset Report will still be available.
+
+    When Investments is requested, ``investments`` must be specified in the ``optional_products`` array when
+    initializing Link."""
+
+    user: Optional[AssetReportUser] = UNSET
+    """The user object allows you to provide additional information about the user to be appended to the Asset Report.
+    All fields are optional. The ``first_name``, ``last_name``, and ``ssn`` fields are required if you would like the
+    Report to be eligible for Fannie Mae's Day 1 Certainty™ program."""
+
+    require_all_items: OptionalNullable[bool] = UNSET
+    """By default (``true``), the asynchronous report generation fails unless all Items extract successfully. If set to
+    ``false``, the report will still be generated as long as at least one Item extracts successfully; extraction
+    failures on the remaining Items are tolerated. This setting applies only to failures that occur during asynchronous
+    extraction. It does not relax the synchronous check at call time: if any Item is already unhealthy when
+    ``/asset_report/create`` is invoked, the request fails immediately regardless of this value."""
+
+
+class AssetReportCreateRequestOptionsDict(TypedDict):
+    client_report_id: NotRequired[str | None]
+    webhook: NotRequired[str | None]
+    include_fast_report: NotRequired[bool | None]
+    products: NotRequired[list[str]]
+    add_ons: NotRequired[list[AssetReportAddOnsOrStr]]
+    user: NotRequired[AssetReportUser | AssetReportUserDict]
+    require_all_items: NotRequired[bool | None]

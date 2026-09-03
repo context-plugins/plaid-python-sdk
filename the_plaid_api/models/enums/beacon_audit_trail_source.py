@@ -1,0 +1,32 @@
+from enum import Enum
+from typing import Annotated, TypeAlias
+
+from ...core import open_enum_validator
+
+
+class BeaconAuditTrailSource(str, Enum):
+    """A type indicating what caused a resource to be changed or updated.
+
+
+    ``dashboard`` - The resource was created or updated by a member of your team via the Plaid dashboard.
+
+    ``api`` - The resource was created or updated via the Plaid API.
+
+    ``system`` - The resource was created or updated automatically by a part of the Plaid Beacon system. For example, if
+    another business using Plaid Beacon created a fraud report that matched one of your users, your matching user's
+    status would automatically be updated and the audit trail source would be ``system``.
+
+    ``bulk_import`` - The resource was created or updated as part of a bulk import process. For example, if your company
+    provided a CSV of user data as part of your initial onboarding, the audit trail source would be ``bulk_import``."""
+
+    DASHBOARD = "dashboard"
+    API = "api"
+    SYSTEM = "system"
+    BULK_IMPORT = "bulk_import"
+
+    __str__ = str.__str__
+
+
+BeaconAuditTrailSourceOrStr: TypeAlias = Annotated[
+    BeaconAuditTrailSource | str, open_enum_validator(BeaconAuditTrailSource)
+]
