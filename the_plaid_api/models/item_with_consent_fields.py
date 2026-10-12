@@ -124,7 +124,7 @@ class ItemWithConsentFieldsDict(TypedDict):
     institution_name: NotRequired[str | None]
     webhook: str | None
     auth_method: NotRequired[ItemAuthMethodOrStr | None]
-    error: Error | ErrorDict | None
+    error: ErrorDict | None
     available_products: list[ProductsOrStr]
     billed_products: list[ProductsOrStr]
     products: NotRequired[list[ProductsOrStr]]

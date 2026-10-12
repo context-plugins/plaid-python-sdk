@@ -31,8 +31,8 @@ class Asset(SdkBaseModel):
 
 
 class AssetDict(TypedDict):
-    asset_detail: AssetDetail | AssetDetailDict
-    asset_owners: AssetOwners | AssetOwnersDict
-    asset_holder: AssetHolder | AssetHolderDict
-    asset_transactions: AssetTransactions | AssetTransactionsDict
-    validation_sources: ValidationSources | ValidationSourcesDict
+    asset_detail: AssetDetailDict
+    asset_owners: AssetOwnersDict
+    asset_holder: AssetHolderDict
+    asset_transactions: AssetTransactionsDict
+    validation_sources: ValidationSourcesDict

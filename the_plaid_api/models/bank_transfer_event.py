@@ -72,6 +72,6 @@ class BankTransferEventDict(TypedDict):
     bank_transfer_type: BankTransferTypeOrStr
     bank_transfer_amount: str
     bank_transfer_iso_currency_code: str
-    failure_reason: BankTransferFailure | BankTransferFailureDict | None
+    failure_reason: BankTransferFailureDict | None
     direction: BankTransferDirectionOrStr | None
-    receiver_details: ReceiverDetails | ReceiverDetailsDict | None
+    receiver_details: ReceiverDetailsDict | None

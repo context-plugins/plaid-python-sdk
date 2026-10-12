@@ -23,5 +23,5 @@ class CraLoanUpdate(SdkBaseModel):
 
 class CraLoanUpdateDict(TypedDict):
     loan_id: NotRequired[str]
-    status_history: NotRequired[list[CraLoanStatusHistoryUpdate | CraLoanStatusHistoryUpdateDict]]
-    payment_history: NotRequired[list[CraLoanPaymentHistory | CraLoanPaymentHistoryDict]]
+    status_history: NotRequired[list[CraLoanStatusHistoryUpdateDict]]
+    payment_history: NotRequired[list[CraLoanPaymentHistoryDict]]

@@ -16,5 +16,5 @@ class BankTransferEventListResponse(SdkBaseModel):
 
 
 class BankTransferEventListResponseDict(TypedDict):
-    bank_transfer_events: list[BankTransferEvent | BankTransferEventDict]
+    bank_transfer_events: list[BankTransferEventDict]
     request_id: str

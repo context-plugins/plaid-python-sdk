@@ -17,5 +17,5 @@ class CraVerificationModeledIncome(SdkBaseModel):
 
 
 class CraVerificationModeledIncomeDict(TypedDict):
-    monthly: CraVerificationIncomeValues | CraVerificationIncomeValuesDict
-    annual: CraVerificationIncomeValues | CraVerificationIncomeValuesDict
+    monthly: CraVerificationIncomeValuesDict
+    annual: CraVerificationIncomeValuesDict

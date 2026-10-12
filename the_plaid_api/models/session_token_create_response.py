@@ -19,4 +19,4 @@ class SessionTokenCreateResponse(SdkBaseModel):
 
 class SessionTokenCreateResponseDict(TypedDict):
     request_id: str
-    link: NotRequired[SessionTokenCreateResponseLink | SessionTokenCreateResponseLinkDict]
+    link: NotRequired[SessionTokenCreateResponseLinkDict]

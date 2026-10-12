@@ -28,5 +28,5 @@ class TransferSweepGetResponse(SdkBaseModel):
 
 
 class TransferSweepGetResponseDict(TypedDict):
-    sweep: TransferSweep | TransferSweepDict
+    sweep: TransferSweepDict
     request_id: str

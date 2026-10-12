@@ -32,5 +32,5 @@ class LatestScoredEventDict(TypedDict):
     event_id: str
     timestamp: RFC3339DateTime
     event_type: NotRequired[str]
-    trust_index: TrustIndex | TrustIndexDict | None
+    trust_index: TrustIndexDict | None
     fraud_attributes: Any | None

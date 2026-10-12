@@ -16,5 +16,5 @@ class TransferRepaymentReturnListResponse(SdkBaseModel):
 
 
 class TransferRepaymentReturnListResponseDict(TypedDict):
-    repayment_returns: list[TransferRepaymentReturn | TransferRepaymentReturnDict]
+    repayment_returns: list[TransferRepaymentReturnDict]
     request_id: str

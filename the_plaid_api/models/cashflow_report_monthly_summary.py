@@ -119,33 +119,18 @@ class CashflowReportMonthlySummary(SdkBaseModel):
 class CashflowReportMonthlySummaryDict(TypedDict):
     start_date: Date
     end_date: Date
-    starting_balance: (
-        CashflowReportMonthlySummaryStartingBalance | CashflowReportMonthlySummaryStartingBalanceDict | None
-    )
-    ending_balance: CashflowReportMonthlySummaryEndingBalance | CashflowReportMonthlySummaryEndingBalanceDict | None
-    average_daily_ending_balance: (
-        CashflowReportMonthlySummaryAverageDailyEndingBalance
-        | CashflowReportMonthlySummaryAverageDailyEndingBalanceDict
-    )
-    average_daily_inflow_amount: (
-        CashflowReportMonthlySummaryAverageDailyInflowAmount | CashflowReportMonthlySummaryAverageDailyInflowAmountDict
-    )
-    average_daily_outflow_amount: (
-        CashflowReportMonthlySummaryAverageDailyOutflowAmount
-        | CashflowReportMonthlySummaryAverageDailyOutflowAmountDict
-    )
-    average_daily_net_cashflow_amount: (
-        CashflowReportMonthlySummaryAverageDailyNetCashflowAmount
-        | CashflowReportMonthlySummaryAverageDailyNetCashflowAmountDict
-    )
+    starting_balance: CashflowReportMonthlySummaryStartingBalanceDict | None
+    ending_balance: CashflowReportMonthlySummaryEndingBalanceDict | None
+    average_daily_ending_balance: CashflowReportMonthlySummaryAverageDailyEndingBalanceDict
+    average_daily_inflow_amount: CashflowReportMonthlySummaryAverageDailyInflowAmountDict
+    average_daily_outflow_amount: CashflowReportMonthlySummaryAverageDailyOutflowAmountDict
+    average_daily_net_cashflow_amount: CashflowReportMonthlySummaryAverageDailyNetCashflowAmountDict
     average_daily_inflow_transaction_count: float
     average_daily_outflow_transaction_count: float
-    total_revenue: CashflowReportMonthlySummaryTotalRevenue | CashflowReportMonthlySummaryTotalRevenueDict
-    total_loan_payment: CashflowReportMonthlySummaryTotalLoanPayment | CashflowReportMonthlySummaryTotalLoanPaymentDict
-    total_variable_expense: (
-        CashflowReportMonthlySummaryTotalVariableExpense | CashflowReportMonthlySummaryTotalVariableExpenseDict
-    )
-    total_payroll: CashflowReportMonthlySummaryTotalPayroll | CashflowReportMonthlySummaryTotalPayrollDict
+    total_revenue: CashflowReportMonthlySummaryTotalRevenueDict
+    total_loan_payment: CashflowReportMonthlySummaryTotalLoanPaymentDict
+    total_variable_expense: CashflowReportMonthlySummaryTotalVariableExpenseDict
+    total_payroll: CashflowReportMonthlySummaryTotalPayrollDict
     nsf_transaction_count: int
     overdraft_transaction_count: int
     negative_ending_balance_day_count: int

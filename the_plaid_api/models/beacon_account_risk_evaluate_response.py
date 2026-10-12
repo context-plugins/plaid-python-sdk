@@ -19,4 +19,4 @@ class BeaconAccountRiskEvaluateResponse(SdkBaseModel):
 
 class BeaconAccountRiskEvaluateResponseDict(TypedDict):
     request_id: str
-    accounts: list[BeaconAccountRiskEvaluateAccount | BeaconAccountRiskEvaluateAccountDict]
+    accounts: list[BeaconAccountRiskEvaluateAccountDict]

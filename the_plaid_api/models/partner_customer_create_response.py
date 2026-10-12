@@ -18,5 +18,5 @@ class PartnerCustomerCreateResponse(SdkBaseModel):
 
 
 class PartnerCustomerCreateResponseDict(TypedDict):
-    end_customer: NotRequired[PartnerEndCustomerWithSecrets | PartnerEndCustomerWithSecretsDict]
+    end_customer: NotRequired[PartnerEndCustomerWithSecretsDict]
     request_id: NotRequired[str]

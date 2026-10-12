@@ -153,7 +153,7 @@ class TransferEventDict(TypedDict):
     origination_account_id: str | None
     transfer_type: NotRequired[OmittableTransferTypeOrStr]
     transfer_amount: NotRequired[str]
-    failure_reason: TransferFailure | TransferFailureDict | None
+    failure_reason: TransferFailureDict | None
     sweep_id: str | None
     sweep_amount: str | None
     event_amount: NotRequired[str | None]

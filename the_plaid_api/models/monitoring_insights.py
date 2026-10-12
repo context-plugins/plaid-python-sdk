@@ -18,5 +18,5 @@ class MonitoringInsights(SdkBaseModel):
 
 
 class MonitoringInsightsDict(TypedDict):
-    income: MonitoringIncomeInsights | MonitoringIncomeInsightsDict
-    loans: MonitoringLoanInsights | MonitoringLoanInsightsDict
+    income: MonitoringIncomeInsightsDict
+    loans: MonitoringLoanInsightsDict

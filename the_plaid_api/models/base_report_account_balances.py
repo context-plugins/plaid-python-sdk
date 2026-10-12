@@ -101,5 +101,5 @@ class BaseReportAccountBalancesDict(TypedDict):
     unofficial_currency_code: str | None
     last_updated_datetime: NotRequired[RFC3339DateTime | None]
     average_balance: NotRequired[float | None]
-    average_monthly_balances: NotRequired[list[BaseReportAverageMonthlyBalances | BaseReportAverageMonthlyBalancesDict]]
+    average_monthly_balances: NotRequired[list[BaseReportAverageMonthlyBalancesDict]]
     most_recent_thirty_day_average_balance: NotRequired[float | None]

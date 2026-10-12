@@ -21,6 +21,6 @@ class WatchlistScreeningEntityHistoryListResponse(SdkBaseModel):
 
 
 class WatchlistScreeningEntityHistoryListResponseDict(TypedDict):
-    entity_watchlist_screenings: list[EntityWatchlistScreening | EntityWatchlistScreeningDict]
+    entity_watchlist_screenings: list[EntityWatchlistScreeningDict]
     next_cursor: str | None
     request_id: str

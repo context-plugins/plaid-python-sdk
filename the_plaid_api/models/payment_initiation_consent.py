@@ -65,7 +65,7 @@ class PaymentInitiationConsentDict(TypedDict):
     created_at: RFC3339DateTime
     recipient_id: str
     reference: str
-    constraints: PaymentInitiationConsentConstraints | PaymentInitiationConsentConstraintsDict
+    constraints: PaymentInitiationConsentConstraintsDict
     scopes: NotRequired[list[PaymentInitiationConsentScopeOrStr]]
     type_: NotRequired[PaymentInitiationConsentTypeOrStr]
-    payer_details: NotRequired[ExternalPaymentRefundDetails | ExternalPaymentRefundDetailsDict | None]
+    payer_details: NotRequired[ExternalPaymentRefundDetailsDict | None]

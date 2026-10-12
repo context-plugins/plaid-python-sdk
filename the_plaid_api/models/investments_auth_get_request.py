@@ -28,4 +28,4 @@ class InvestmentsAuthGetRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     access_token: str
-    options: NotRequired[InvestmentsAuthGetRequestOptions | InvestmentsAuthGetRequestOptionsDict]
+    options: NotRequired[InvestmentsAuthGetRequestOptionsDict]

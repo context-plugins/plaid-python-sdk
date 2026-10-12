@@ -38,4 +38,4 @@ class TransactionsRulesCreateRequestDict(TypedDict):
     client_user_id: str
     pfc_primary_category: str
     pfc_detailed_category: str
-    rule_details: TransactionsRuleDetails | TransactionsRuleDetailsDict
+    rule_details: TransactionsRuleDetailsDict

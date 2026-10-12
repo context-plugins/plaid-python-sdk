@@ -107,18 +107,18 @@ class BaseReportAccount(SdkBaseModel):
 
 class BaseReportAccountDict(TypedDict):
     account_id: str
-    balances: BaseReportAccountBalances | BaseReportAccountBalancesDict
-    consumer_disputes: list[ConsumerDispute | ConsumerDisputeDict]
+    balances: BaseReportAccountBalancesDict
+    consumer_disputes: list[ConsumerDisputeDict]
     mask: str | None
-    metadata: BaseReportAccountMetadata | BaseReportAccountMetadataDict
+    metadata: BaseReportAccountMetadataDict
     name: str
     official_name: str | None
     type_: AccountTypeOrStr
     subtype: AccountSubtypeOrStr | None
     days_available: float
-    transactions: list[BaseReportTransaction | BaseReportTransactionDict]
-    owners: list[Owner | OwnerDict]
+    transactions: list[BaseReportTransactionDict]
+    owners: list[OwnerDict]
     ownership_type: OwnershipTypeOrStr | None
-    historical_balances: NotRequired[list[BaseReportHistoricalBalance | BaseReportHistoricalBalanceDict]]
-    account_insights: NotRequired[BaseReportAccountInsights | BaseReportAccountInsightsDict]
-    attributes: NotRequired[BaseReportAttributes | BaseReportAttributesDict]
+    historical_balances: NotRequired[list[BaseReportHistoricalBalanceDict]]
+    account_insights: NotRequired[BaseReportAccountInsightsDict]
+    attributes: NotRequired[BaseReportAttributesDict]

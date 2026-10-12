@@ -37,9 +37,9 @@ class EntityScreeningHitData(SdkBaseModel):
 
 
 class EntityScreeningHitDataDict(TypedDict):
-    documents: NotRequired[list[EntityScreeningHitDocumentsItems | EntityScreeningHitDocumentsItemsDict]]
-    email_addresses: NotRequired[list[EntityScreeningHitEmailsItems | EntityScreeningHitEmailsItemsDict]]
-    locations: NotRequired[list[GenericScreeningHitLocationItems | GenericScreeningHitLocationItemsDict]]
-    names: NotRequired[list[EntityScreeningHitNamesItems | EntityScreeningHitNamesItemsDict]]
-    phone_numbers: NotRequired[list[EntityScreeningHitsPhoneNumberItems | EntityScreeningHitsPhoneNumberItemsDict]]
-    urls: NotRequired[list[EntityScreeningHitUrlsItems | EntityScreeningHitUrlsItemsDict]]
+    documents: NotRequired[list[EntityScreeningHitDocumentsItemsDict]]
+    email_addresses: NotRequired[list[EntityScreeningHitEmailsItemsDict]]
+    locations: NotRequired[list[GenericScreeningHitLocationItemsDict]]
+    names: NotRequired[list[EntityScreeningHitNamesItemsDict]]
+    phone_numbers: NotRequired[list[EntityScreeningHitsPhoneNumberItemsDict]]
+    urls: NotRequired[list[EntityScreeningHitUrlsItemsDict]]

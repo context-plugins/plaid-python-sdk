@@ -61,7 +61,7 @@ class FdxNotificationEntityDict(TypedDict):
     category: NotificationCategoryOrStr
     severity: NotRequired[NotificationSeverityOrStr]
     priority: NotRequired[NotificationPriorityOrStr]
-    publisher: NotRequired[PartyEntity | PartyEntityDict]
-    subscriber: NotRequired[PartyEntity | PartyEntityDict]
-    notification_payload: NotificationPayloadEntity | NotificationPayloadEntityDict
-    url: NotRequired[HateoasLink | HateoasLinkDict]
+    publisher: NotRequired[PartyEntityDict]
+    subscriber: NotRequired[PartyEntityDict]
+    notification_payload: NotificationPayloadEntityDict
+    url: NotRequired[HateoasLinkDict]

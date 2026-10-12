@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, Optional, SdkBaseModel
+from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
 from .beacon_user_request_data import BeaconUserRequestData, BeaconUserRequestDataDict
 
 
@@ -29,7 +29,7 @@ class BeaconUserCreateRequest(SdkBaseModel):
     In order to create a Beacon User, in addition to the ``name``, _either_ the ``date_of_birth`` _or_ the
     ``depository_accounts`` field must be provided."""
 
-    access_tokens: Optional[list[str | None]] = UNSET
+    access_tokens: OptionalNullable[list[str]] = UNSET
     """Send this array of access tokens to link accounts to the Beacon User and have them evaluated for Account
     Insights. A maximum of 50 accounts total can be added to a single Beacon User."""
 
@@ -45,7 +45,7 @@ class BeaconUserCreateRequest(SdkBaseModel):
 class BeaconUserCreateRequestDict(TypedDict):
     program_id: str
     client_user_id: str
-    user: BeaconUserRequestData | BeaconUserRequestDataDict
-    access_tokens: NotRequired[list[str | None]]
+    user: BeaconUserRequestDataDict
+    access_tokens: NotRequired[list[str] | None]
     client_id: NotRequired[str]
     secret: NotRequired[str]

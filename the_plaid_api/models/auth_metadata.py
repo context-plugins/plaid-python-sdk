@@ -14,4 +14,4 @@ class AuthMetadata(SdkBaseModel):
 
 
 class AuthMetadataDict(TypedDict):
-    supported_methods: AuthSupportedMethods | AuthSupportedMethodsDict | None
+    supported_methods: AuthSupportedMethodsDict | None

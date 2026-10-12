@@ -30,8 +30,8 @@ class CreditBankIncomeItem(SdkBaseModel):
 
 
 class CreditBankIncomeItemDict(TypedDict):
-    bank_income_accounts: NotRequired[list[CreditBankIncomeAccount | CreditBankIncomeAccountDict]]
-    bank_income_sources: NotRequired[list[CreditBankIncomeSource | CreditBankIncomeSourceDict]]
+    bank_income_accounts: NotRequired[list[CreditBankIncomeAccountDict]]
+    bank_income_sources: NotRequired[list[CreditBankIncomeSourceDict]]
     last_updated_time: NotRequired[RFC3339DateTime]
     institution_id: NotRequired[str]
     institution_name: NotRequired[str]

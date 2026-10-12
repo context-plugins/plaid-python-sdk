@@ -62,9 +62,9 @@ class BusinessVerificationGetResponseDict(TypedDict):
     completed_at: RFC3339DateTime | None
     redacted_at: RFC3339DateTime | None
     status: BusinessVerificationStatusOverallOrStr
-    search_terms: BusinessSearchTerms | BusinessSearchTermsDict
-    kyb_check: BusinessKybcheck | BusinessKybcheckDict | None
-    risk_check: BusinessRiskCheck | BusinessRiskCheckDict | None
-    digital_presence_check: BusinessDigitalPresenceCheck | BusinessDigitalPresenceCheckDict | None
+    search_terms: BusinessSearchTermsDict
+    kyb_check: BusinessKybcheckDict | None
+    risk_check: BusinessRiskCheckDict | None
+    digital_presence_check: BusinessDigitalPresenceCheckDict | None
     request_id: str
     shareable_url: str | None

@@ -28,4 +28,4 @@ class HealthIncidentDict(TypedDict):
     start_date: RFC3339DateTime
     end_date: NotRequired[RFC3339DateTime | None]
     title: str
-    incident_updates: list[IncidentUpdate | IncidentUpdateDict]
+    incident_updates: list[IncidentUpdateDict]

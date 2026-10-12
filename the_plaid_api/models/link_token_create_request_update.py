@@ -2,13 +2,13 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, Optional, SdkBaseModel
+from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
 
 
 class LinkTokenCreateRequestUpdate(SdkBaseModel):
     """Specifies options for initializing Link for `update mode <https://plaid.com/docs/link/update-mode>`__."""
 
-    account_selection_enabled: Optional[bool] = UNSET
+    account_selection_enabled: bool = False
     """If ``true``, enables `update mode with Account Select
     <https://plaid.com/docs/link/update-mode/#using-update-mode-to-request-new-accounts>`__ for institutions in the US
     and Canada that do not use OAuth, or that use OAuth but do not have their own account selection flow. For
@@ -29,11 +29,11 @@ class LinkTokenCreateRequestUpdate(SdkBaseModel):
     reauthorization flow for a given update mode session. This field does not impact the flow for Items at institutions
     in the EU or UK."""
 
-    user: Optional[bool] = UNSET
+    user: bool = False
     """If ``true``, a ``user_token`` or ``user_id`` must also be provided, and Link will open in update mode for the
     given user."""
 
-    item_ids: Optional[list[str | None]] = UNSET
+    item_ids: OptionalNullable[list[str]] = UNSET
     """An array of ``item_id``s associated with the user to be updated in update mode. If empty or ``null``, this field
     will default to initializing update mode for the most recent unhealthy Item associated with the user. A
     ``user_token`` must also be provided to use this field."""
@@ -43,4 +43,4 @@ class LinkTokenCreateRequestUpdateDict(TypedDict):
     account_selection_enabled: NotRequired[bool]
     reauthorization_enabled: NotRequired[bool]
     user: NotRequired[bool]
-    item_ids: NotRequired[list[str | None]]
+    item_ids: NotRequired[list[str] | None]

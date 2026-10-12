@@ -18,5 +18,5 @@ class ProcessorBankTransferCreateResponse(SdkBaseModel):
 
 
 class ProcessorBankTransferCreateResponseDict(TypedDict):
-    bank_transfer: BankTransfer | BankTransferDict
+    bank_transfer: BankTransferDict
     request_id: str

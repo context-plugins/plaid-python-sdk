@@ -46,7 +46,7 @@ class ProcessorHistoricalUpdateWebhook(SdkBaseModel):
 class ProcessorHistoricalUpdateWebhookDict(TypedDict):
     webhook_type: str
     webhook_code: str
-    error: NotRequired[Error | ErrorDict | None]
+    error: NotRequired[ErrorDict | None]
     new_transactions: float
     account_id: str
     environment: WebhookEnvironmentValuesOrStr

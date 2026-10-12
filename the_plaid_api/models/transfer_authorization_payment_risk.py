@@ -41,4 +41,4 @@ class TransferAuthorizationPaymentRiskDict(TypedDict):
     bank_initiated_return_score: int | None
     customer_initiated_return_score: int | None
     risk_level: TransferAuthorizationRiskLevelOrStr | None
-    warnings: list[SignalWarning | SignalWarningDict]
+    warnings: list[SignalWarningDict]

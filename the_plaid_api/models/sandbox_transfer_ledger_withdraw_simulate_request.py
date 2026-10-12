@@ -46,4 +46,4 @@ class SandboxTransferLedgerWithdrawSimulateRequestDict(TypedDict):
     secret: NotRequired[str]
     sweep_id: str
     event_type: TransferLedgerSweepSimulateEventTypeOrStr
-    failure_reason: NotRequired[TransferFailure | TransferFailureDict | None]
+    failure_reason: NotRequired[TransferFailureDict | None]

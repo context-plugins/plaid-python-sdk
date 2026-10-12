@@ -20,5 +20,5 @@ class CraCheckReportPartnerInsightsGetPartnerInsights(SdkBaseModel):
 
 
 class CraCheckReportPartnerInsightsGetPartnerInsightsDict(TypedDict):
-    prism_versions: NotRequired[PrismVersions | PrismVersionsDict | None]
-    fico: NotRequired[CraPartnerInsightsFicoInput | CraPartnerInsightsFicoInputDict | None]
+    prism_versions: NotRequired[PrismVersionsDict | None]
+    fico: NotRequired[CraPartnerInsightsFicoInputDict | None]

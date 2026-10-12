@@ -22,6 +22,6 @@ class IdentityMatchResponse(SdkBaseModel):
 
 
 class IdentityMatchResponseDict(TypedDict):
-    accounts: list[AccountIdentityMatchScore | AccountIdentityMatchScoreDict]
-    item: Item | ItemDict
+    accounts: list[AccountIdentityMatchScoreDict]
+    item: ItemDict
     request_id: str

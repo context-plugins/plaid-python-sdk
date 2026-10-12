@@ -29,7 +29,7 @@ class IncomeVerificationPaystubsGetResponse(SdkBaseModel):
 
 
 class IncomeVerificationPaystubsGetResponseDict(TypedDict):
-    document_metadata: NotRequired[list[DocumentMetadata | DocumentMetadataDict]]
-    paystubs: list[Paystub | PaystubDict]
-    error: NotRequired[Error | ErrorDict | None]
+    document_metadata: NotRequired[list[DocumentMetadataDict]]
+    paystubs: list[PaystubDict]
+    error: NotRequired[ErrorDict | None]
     request_id: str

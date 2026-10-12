@@ -40,9 +40,7 @@ class PaystubOverridePayPeriodDetails(SdkBaseModel):
 
 class PaystubOverridePayPeriodDetailsDict(TypedDict):
     check_amount: NotRequired[float | None]
-    distribution_breakdown: NotRequired[
-        list[PaystubOverrideDistributionBreakdown | PaystubOverrideDistributionBreakdownDict]
-    ]
+    distribution_breakdown: NotRequired[list[PaystubOverrideDistributionBreakdownDict]]
     end_date: NotRequired[Date | None]
     gross_earnings: NotRequired[float | None]
     pay_date: NotRequired[Date | None]

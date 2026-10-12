@@ -9,7 +9,7 @@ from .enums.personal_finance_category_version import PersonalFinanceCategoryVers
 class TransactionsRecurringGetRequestOptions(SdkBaseModel):
     """An optional object to be used with the request. If specified, ``options`` must not be ``null``."""
 
-    include_personal_finance_category: Optional[bool] = UNSET
+    include_personal_finance_category: bool = False
     """Personal finance categories are now returned by default."""
 
     personal_finance_category_version: Optional[PersonalFinanceCategoryVersionOrStr] = UNSET

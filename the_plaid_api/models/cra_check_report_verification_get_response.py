@@ -23,6 +23,6 @@ class CraCheckReportVerificationGetResponse(SdkBaseModel):
 
 
 class CraCheckReportVerificationGetResponseDict(TypedDict):
-    report: CraVerificationReport | CraVerificationReportDict
+    report: CraVerificationReportDict
     request_id: str
-    warnings: list[CraReportWarning | CraReportWarningDict]
+    warnings: list[CraReportWarningDict]

@@ -36,6 +36,6 @@ class CraVerificationReportDict(TypedDict):
     report_id: str
     gse_reference_id: NotRequired[str]
     client_report_id: NotRequired[str | None]
-    voa: NotRequired[CraVoaReport | CraVoaReportDict | None]
-    employment_refresh: NotRequired[CraEmploymentRefreshReport | CraEmploymentRefreshReportDict | None]
-    income: NotRequired[CraVerificationIncomeReport | CraVerificationIncomeReportDict | None]
+    voa: NotRequired[CraVoaReportDict | None]
+    employment_refresh: NotRequired[CraEmploymentRefreshReportDict | None]
+    income: NotRequired[CraVerificationIncomeReportDict | None]

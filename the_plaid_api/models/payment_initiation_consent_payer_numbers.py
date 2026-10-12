@@ -21,5 +21,5 @@ class PaymentInitiationConsentPayerNumbers(SdkBaseModel):
 
 
 class PaymentInitiationConsentPayerNumbersDict(TypedDict):
-    bacs: NotRequired[PaymentInitiationOptionalRestrictionBacs | PaymentInitiationOptionalRestrictionBacsDict | None]
+    bacs: NotRequired[PaymentInitiationOptionalRestrictionBacsDict | None]
     iban: NotRequired[str | None]

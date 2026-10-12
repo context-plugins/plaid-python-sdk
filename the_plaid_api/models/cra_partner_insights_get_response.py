@@ -16,5 +16,5 @@ class CraPartnerInsightsGetResponse(SdkBaseModel):
 
 
 class CraPartnerInsightsGetResponseDict(TypedDict):
-    report: NotRequired[list[CraPartnerInsights | CraPartnerInsightsDict]]
+    report: NotRequired[list[CraPartnerInsightsDict]]
     request_id: str

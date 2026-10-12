@@ -30,6 +30,6 @@ class CraVerificationIncomeReport(SdkBaseModel):
 class CraVerificationIncomeReportDict(TypedDict):
     generated_time: RFC3339DateTime
     days_requested: int
-    user_summary: CraVerificationIncomeUserSummary | CraVerificationIncomeUserSummaryDict | None
-    income_streams: list[CraVerificationIncomeStream | CraVerificationIncomeStreamDict]
-    items: list[CraVerificationIncomeItem | CraVerificationIncomeItemDict]
+    user_summary: CraVerificationIncomeUserSummaryDict | None
+    income_streams: list[CraVerificationIncomeStreamDict]
+    items: list[CraVerificationIncomeItemDict]

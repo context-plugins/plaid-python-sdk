@@ -42,6 +42,6 @@ class ItemApplicationScopesUpdateRequestDict(TypedDict):
     secret: NotRequired[str]
     access_token: str
     application_id: str
-    scopes: Scopes | ScopesDict
+    scopes: ScopesDict
     state: NotRequired[str]
     context: ScopesContextOrStr

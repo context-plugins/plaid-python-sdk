@@ -15,4 +15,4 @@ class Parties(SdkBaseModel):
 
 
 class PartiesDict(TypedDict):
-    party: list[Party | PartyDict]
+    party: list[PartyDict]

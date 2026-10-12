@@ -29,7 +29,7 @@ class WalletTransactionListRequest(SdkBaseModel):
     transaction and transactions created before it. If omitted, the response will contain transactions starting from the
     most recent, and in descending order by the ``created_at`` time."""
 
-    count: Optional[int] = UNSET
+    count: int = 10
     """The number of transactions to fetch"""
 
     options: OptionalNullable[WalletTransactionListRequestOptions] = UNSET
@@ -42,4 +42,4 @@ class WalletTransactionListRequestDict(TypedDict):
     wallet_id: str
     cursor: NotRequired[str]
     count: NotRequired[int]
-    options: NotRequired[WalletTransactionListRequestOptions | WalletTransactionListRequestOptionsDict | None]
+    options: NotRequired[WalletTransactionListRequestOptionsDict | None]

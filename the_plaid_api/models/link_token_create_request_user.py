@@ -73,12 +73,12 @@ class LinkTokenCreateRequestUser(SdkBaseModel):
 class LinkTokenCreateRequestUserDict(TypedDict):
     client_user_id: str
     legal_name: NotRequired[str]
-    name: NotRequired[Name2 | Name2Dict | None]
+    name: NotRequired[Name2Dict | None]
     phone_number: NotRequired[str]
     phone_number_verified_time: NotRequired[RFC3339DateTime | None]
     email_address: NotRequired[str]
     email_address_verified_time: NotRequired[RFC3339DateTime | None]
     ssn: NotRequired[str]
     date_of_birth: NotRequired[Date | None]
-    address: NotRequired[Address1 | Address1Dict | None]
-    id_number: NotRequired[IdNumber | IdNumberDict | None]
+    address: NotRequired[Address1Dict | None]
+    id_number: NotRequired[IdNumberDict | None]

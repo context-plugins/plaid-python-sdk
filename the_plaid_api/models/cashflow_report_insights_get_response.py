@@ -31,8 +31,8 @@ class CashflowReportInsightsGetResponse(SdkBaseModel):
 
 
 class CashflowReportInsightsGetResponseDict(TypedDict):
-    item: Item | ItemDict
-    accounts: list[BusinessAccount | BusinessAccountDict]
-    account_insights: CashflowAccountInsights | CashflowAccountInsightsDict
+    item: ItemDict
+    accounts: list[BusinessAccountDict]
+    account_insights: CashflowAccountInsightsDict
     last_generated_time: RFC3339DateTime
     request_id: str

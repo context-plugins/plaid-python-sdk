@@ -25,6 +25,6 @@ class OriginatingFundSource(SdkBaseModel):
 
 class OriginatingFundSourceDict(TypedDict):
     full_name: str
-    address: PaymentInitiationAddress | PaymentInitiationAddressDict | None
+    address: PaymentInitiationAddressDict | None
     account_number: str
     bic: str

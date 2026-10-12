@@ -14,4 +14,4 @@ class AssetTransactions(SdkBaseModel):
 
 
 class AssetTransactionsDict(TypedDict):
-    asset_transaction: list[AssetTransaction | AssetTransactionDict]
+    asset_transaction: list[AssetTransactionDict]

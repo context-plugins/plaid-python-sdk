@@ -18,5 +18,5 @@ class InstitutionSupportedNetworks(SdkBaseModel):
 
 
 class InstitutionSupportedNetworksDict(TypedDict):
-    rtp: TransferCapabilitiesGetRtp | TransferCapabilitiesGetRtpDict
-    rfp: TransferCapabilitiesGetRfP | TransferCapabilitiesGetRfPDict
+    rtp: TransferCapabilitiesGetRtpDict
+    rfp: TransferCapabilitiesGetRfPDict

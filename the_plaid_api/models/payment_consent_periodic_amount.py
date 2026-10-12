@@ -28,6 +28,6 @@ class PaymentConsentPeriodicAmount(SdkBaseModel):
 
 
 class PaymentConsentPeriodicAmountDict(TypedDict):
-    amount: PaymentAmount | PaymentAmountDict
+    amount: PaymentAmountDict
     interval: PaymentConsentPeriodicIntervalOrStr
     alignment: PaymentConsentPeriodicAlignmentOrStr

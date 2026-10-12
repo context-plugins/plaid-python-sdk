@@ -24,10 +24,10 @@ class TransferRecurringListRequest(SdkBaseModel):
     """The end ``created`` datetime of recurring transfers to list. This should be in RFC 3339 format (i.e.
     ``2019-12-06T22:35:49Z``)"""
 
-    count: Optional[int] = UNSET
+    count: int = 25
     """The maximum number of recurring transfers to return."""
 
-    offset: Optional[int] = UNSET
+    offset: int = 0
     """The number of recurring transfers to skip before returning results."""
 
     funding_account_id: OptionalNullable[str] = UNSET

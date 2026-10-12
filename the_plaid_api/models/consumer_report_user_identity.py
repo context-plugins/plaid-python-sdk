@@ -55,4 +55,4 @@ class ConsumerReportUserIdentityDict(TypedDict):
     ssn_full: NotRequired[str | None]
     ssn_last_4: NotRequired[str | None]
     date_of_birth: Date | None
-    primary_address: AddressData | AddressDataDict
+    primary_address: AddressDataDict

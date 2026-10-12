@@ -20,5 +20,5 @@ class CraVoaReportAttributes(SdkBaseModel):
 
 
 class CraVoaReportAttributesDict(TypedDict):
-    total_inflow_amount: TotalReportInflowAmount | TotalReportInflowAmountDict | None
-    total_outflow_amount: TotalReportOutflowAmount | TotalReportOutflowAmountDict | None
+    total_inflow_amount: TotalReportInflowAmountDict | None
+    total_outflow_amount: TotalReportOutflowAmountDict | None

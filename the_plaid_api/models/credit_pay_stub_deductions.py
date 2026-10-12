@@ -16,5 +16,5 @@ class CreditPayStubDeductions(SdkBaseModel):
 
 
 class CreditPayStubDeductionsDict(TypedDict):
-    breakdown: list[PayStubDeductionsBreakdown | PayStubDeductionsBreakdownDict]
-    total: PayStubDeductionsTotal | PayStubDeductionsTotalDict
+    breakdown: list[PayStubDeductionsBreakdownDict]
+    total: PayStubDeductionsTotalDict

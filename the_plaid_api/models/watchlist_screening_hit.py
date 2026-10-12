@@ -90,5 +90,5 @@ class WatchlistScreeningHitDict(TypedDict):
     plaid_uid: str
     source_uid: str | None
     sub_programs: list[str]
-    analysis: NotRequired[ScreeningHitAnalysis | ScreeningHitAnalysisDict]
-    data: NotRequired[ScreeningHitData | ScreeningHitDataDict]
+    analysis: NotRequired[ScreeningHitAnalysisDict]
+    data: NotRequired[ScreeningHitDataDict]

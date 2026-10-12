@@ -19,5 +19,5 @@ class WalletNumbers(SdkBaseModel):
 
 
 class WalletNumbersDict(TypedDict):
-    bacs: NotRequired[RecipientBacs | RecipientBacsDict | None]
-    international: NotRequired[NumbersInternationalIban | NumbersInternationalIbanDict | None]
+    bacs: NotRequired[RecipientBacsDict | None]
+    international: NotRequired[NumbersInternationalIbanDict | None]

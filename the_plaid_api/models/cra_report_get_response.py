@@ -27,7 +27,7 @@ class CraReportGetResponse(SdkBaseModel):
 
 
 class CraReportGetResponseDict(TypedDict):
-    report: CraReportGetReport | CraReportGetReportDict
+    report: CraReportGetReportDict
     request_id: str
     user_id: str
-    warnings: list[CraReportWarning | CraReportWarningDict]
+    warnings: list[CraReportWarningDict]

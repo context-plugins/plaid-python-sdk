@@ -1,10 +1,9 @@
 from __future__ import annotations
 
-from typing import Literal
-
 from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, OptionalNullable, SdkBaseModel
+from .enums.income_insights_version import IncomeInsightsVersionOrStr
 from .income_insights_filter import IncomeInsightsFilter, IncomeInsightsFilterDict
 
 
@@ -32,12 +31,12 @@ class CraCheckReportIncomeInsightsGetOptions(SdkBaseModel):
     For a list of income categories, see the `Income V2 Category Taxonomy
     <https://plaid.com/documents/income-v2-category-taxonomy.csv>`__."""
 
-    income_insights_version: Literal["II2"] = "II2"
+    income_insights_version: IncomeInsightsVersionOrStr | None
     """The version of Income Insights to use. This value is not shared across API calls for the same resource. If it is
     omitted from a request, the default version is used, even if a version was set in an earlier call such as
     ``/link/token/create`` or ``/cra/check_report/create``."""
 
 
 class CraCheckReportIncomeInsightsGetOptionsDict(TypedDict):
-    income_insights_filter: NotRequired[IncomeInsightsFilter | IncomeInsightsFilterDict | None]
-    income_insights_version: NotRequired[Literal["II2"]]
+    income_insights_filter: NotRequired[IncomeInsightsFilterDict | None]
+    income_insights_version: IncomeInsightsVersionOrStr | None

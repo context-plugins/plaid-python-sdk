@@ -15,4 +15,4 @@ class Loans(SdkBaseModel):
 
 
 class LoansDict(TypedDict):
-    loan: Loan | LoanDict
+    loan: LoanDict

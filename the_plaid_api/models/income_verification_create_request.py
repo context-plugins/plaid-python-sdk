@@ -37,4 +37,4 @@ class IncomeVerificationCreateRequestDict(TypedDict):
     secret: NotRequired[str]
     webhook: str
     precheck_id: NotRequired[str]
-    options: NotRequired[IncomeVerificationCreateRequestOptions | IncomeVerificationCreateRequestOptionsDict]
+    options: NotRequired[IncomeVerificationCreateRequestOptionsDict]

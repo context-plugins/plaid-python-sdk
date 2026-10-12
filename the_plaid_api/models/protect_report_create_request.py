@@ -118,10 +118,10 @@ class ProtectReportCreateRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     user_id: NotRequired[str]
-    incident_event: NotRequired[ProtectIncidentEvent | ProtectIncidentEventDict | None]
+    incident_event: NotRequired[ProtectIncidentEventDict | None]
     report_confidence: ProtectReportConfidenceOrStr
     report_type: ProtectReportTypeOrStr
     report_source: ProtectReportSourceOrStr
-    bank_account: NotRequired[ProtectBankAccount | ProtectBankAccountDict | None]
+    bank_account: NotRequired[ProtectBankAccountDict | None]
     ach_return_code: NotRequired[str | None]
     notes: NotRequired[str | None]

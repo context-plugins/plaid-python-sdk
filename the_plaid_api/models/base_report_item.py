@@ -31,4 +31,4 @@ class BaseReportItemDict(TypedDict):
     institution_id: str
     date_last_updated: RFC3339DateTime
     item_id: str
-    accounts: list[BaseReportAccount | BaseReportAccountDict]
+    accounts: list[BaseReportAccountDict]

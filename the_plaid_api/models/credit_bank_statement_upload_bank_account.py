@@ -43,6 +43,6 @@ class CreditBankStatementUploadBankAccountDict(TypedDict):
     bank_name: str | None
     account_type: str | None
     account_number: str | None
-    owner: CreditBankStatementUploadAccountOwner | CreditBankStatementUploadAccountOwnerDict
-    periods: list[CreditBankStatementUploadBankAccountPeriod | CreditBankStatementUploadBankAccountPeriodDict]
+    owner: CreditBankStatementUploadAccountOwnerDict
+    periods: list[CreditBankStatementUploadBankAccountPeriodDict]
     account_id: str | None

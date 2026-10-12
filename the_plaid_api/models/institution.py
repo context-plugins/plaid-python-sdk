@@ -88,6 +88,6 @@ class InstitutionDict(TypedDict):
     routing_numbers: list[str]
     dtc_numbers: NotRequired[list[str]]
     oauth: bool
-    status: NotRequired[InstitutionStatus | InstitutionStatusDict | None]
-    payment_initiation_metadata: NotRequired[PaymentInitiationMetadata | PaymentInitiationMetadataDict | None]
-    auth_metadata: NotRequired[AuthMetadata | AuthMetadataDict | None]
+    status: NotRequired[InstitutionStatusDict | None]
+    payment_initiation_metadata: NotRequired[PaymentInitiationMetadataDict | None]
+    auth_metadata: NotRequired[AuthMetadataDict | None]

@@ -31,8 +31,6 @@ class CreditFreddieMacVerificationOfAsset(SdkBaseModel):
 
 
 class CreditFreddieMacVerificationOfAssetDict(TypedDict):
-    reporting_information: CreditFreddieMacReportingInformation | CreditFreddieMacReportingInformationDict
-    service_product_fulfillment: ServiceProductFulfillment | ServiceProductFulfillmentDict
-    verification_of_asset_response: (
-        CreditFreddieMacVerificationOfAssetResponse | CreditFreddieMacVerificationOfAssetResponseDict
-    )
+    reporting_information: CreditFreddieMacReportingInformationDict
+    service_product_fulfillment: ServiceProductFulfillmentDict
+    verification_of_asset_response: CreditFreddieMacVerificationOfAssetResponseDict

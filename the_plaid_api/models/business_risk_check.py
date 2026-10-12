@@ -26,4 +26,4 @@ class BusinessRiskCheck(SdkBaseModel):
 class BusinessRiskCheckDict(TypedDict):
     status: BusinessVerificationStatusRiskCheckOrStr
     score: int
-    industry_prediction: BusinessIndustryPredictionNullable | BusinessIndustryPredictionNullableDict | None
+    industry_prediction: BusinessIndustryPredictionNullableDict | None

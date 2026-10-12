@@ -51,7 +51,7 @@ class ProcessorSignalEvaluateResponse(SdkBaseModel):
 
 class ProcessorSignalEvaluateResponseDict(TypedDict):
     request_id: str
-    scores: SignalEvaluateScores | SignalEvaluateScoresDict | None
-    core_attributes: NotRequired[SignalEvaluateCoreAttributes | SignalEvaluateCoreAttributesDict]
-    ruleset: NotRequired[SignalEvaluateRuleset | SignalEvaluateRulesetDict | None]
-    warnings: NotRequired[list[SignalWarning | SignalWarningDict]]
+    scores: SignalEvaluateScoresDict | None
+    core_attributes: NotRequired[SignalEvaluateCoreAttributesDict]
+    ruleset: NotRequired[SignalEvaluateRulesetDict | None]
+    warnings: NotRequired[list[SignalWarningDict]]

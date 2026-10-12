@@ -2,13 +2,13 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, OptionalNullable, SdkBaseModel
+from ..core import SdkBaseModel
 
 
 class ProtectIncidentAmount(SdkBaseModel):
     """The monetary amount associated with the incident."""
 
-    iso_currency_code: OptionalNullable[str] = UNSET
+    iso_currency_code: str | None = "USD"
     """The ISO-4217 currency code of the incident amount. Defaults to ``USD`` if not specified."""
 
     value: float

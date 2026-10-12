@@ -23,4 +23,4 @@ class BaseReportAverageMonthlyBalances(SdkBaseModel):
 class BaseReportAverageMonthlyBalancesDict(TypedDict):
     start_date: str
     end_date: str
-    average_balance: CreditAmountWithCurrency | CreditAmountWithCurrencyDict
+    average_balance: CreditAmountWithCurrencyDict

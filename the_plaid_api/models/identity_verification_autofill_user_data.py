@@ -35,6 +35,6 @@ class IdentityVerificationAutofillUserData(SdkBaseModel):
 
 
 class IdentityVerificationAutofillUserDataDict(TypedDict):
-    name: IdentityVerificationResponseUserName | IdentityVerificationResponseUserNameDict | None
-    address: IdentityVerificationAutofillAddress | IdentityVerificationAutofillAddressDict | None
-    id_number: UserIdnumber | UserIdnumberDict | None
+    name: IdentityVerificationResponseUserNameDict | None
+    address: IdentityVerificationAutofillAddressDict | None
+    id_number: UserIdnumberDict | None

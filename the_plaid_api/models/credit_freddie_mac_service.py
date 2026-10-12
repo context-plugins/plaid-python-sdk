@@ -20,5 +20,5 @@ class CreditFreddieMacService(SdkBaseModel):
 
 
 class CreditFreddieMacServiceDict(TypedDict):
-    verification_of_asset: list[CreditFreddieMacVerificationOfAsset | CreditFreddieMacVerificationOfAssetDict]
-    statuses: Statuses | StatusesDict
+    verification_of_asset: list[CreditFreddieMacVerificationOfAssetDict]
+    statuses: StatusesDict

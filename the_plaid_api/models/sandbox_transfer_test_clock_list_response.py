@@ -16,5 +16,5 @@ class SandboxTransferTestClockListResponse(SdkBaseModel):
 
 
 class SandboxTransferTestClockListResponseDict(TypedDict):
-    test_clocks: list[TransferTestClock | TransferTestClockDict]
+    test_clocks: list[TransferTestClockDict]
     request_id: str

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, OptionalNullable, SdkBaseModel
+from ..core import SdkBaseModel
 
 
 class LinkTokenCreateRequestIncomeVerificationBankIncome(SdkBaseModel):
@@ -13,7 +13,7 @@ class LinkTokenCreateRequestIncomeVerificationBankIncome(SdkBaseModel):
     days_requested: int
     """The number of days of data to request for the Bank Income product"""
 
-    enable_multiple_items: OptionalNullable[bool] = UNSET
+    enable_multiple_items: bool | None = False
     """Whether to enable multiple Items to be added in the Link session. This setting is deprecated and has been
     replaced by the more general ``enable_multi_item_link`` setting, which supports all products."""
 

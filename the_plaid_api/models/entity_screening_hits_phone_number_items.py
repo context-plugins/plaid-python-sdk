@@ -18,5 +18,5 @@ class EntityScreeningHitsPhoneNumberItems(SdkBaseModel):
 
 
 class EntityScreeningHitsPhoneNumberItemsDict(TypedDict):
-    analysis: NotRequired[MatchSummary | MatchSummaryDict]
-    data: NotRequired[EntityScreeningHitPhoneNumbers | EntityScreeningHitPhoneNumbersDict]
+    analysis: NotRequired[MatchSummaryDict]
+    data: NotRequired[EntityScreeningHitPhoneNumbersDict]

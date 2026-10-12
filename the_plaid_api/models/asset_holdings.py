@@ -14,4 +14,4 @@ class AssetHoldings(SdkBaseModel):
 
 
 class AssetHoldingsDict(TypedDict):
-    asset_holding: list[AssetHolding | AssetHoldingDict]
+    asset_holding: list[AssetHoldingDict]

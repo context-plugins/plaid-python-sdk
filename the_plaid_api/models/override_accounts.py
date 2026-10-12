@@ -94,12 +94,12 @@ class OverrideAccountsDict(TypedDict):
     force_available_balance: float
     has_null_available_balance: bool
     currency: str
-    meta: Meta | MetaDict
-    numbers: Numbers | NumbersDict
-    transactions: list[TransactionOverride | TransactionOverrideDict]
-    holdings: NotRequired[HoldingsOverride | HoldingsOverrideDict]
-    investment_transactions: NotRequired[InvestmentsTransactionsOverride | InvestmentsTransactionsOverrideDict]
-    identity: OwnerOverride | OwnerOverrideDict
-    liability: LiabilityOverride | LiabilityOverrideDict
-    inflow_model: InflowModel | InflowModelDict
-    income: NotRequired[IncomeOverride | IncomeOverrideDict]
+    meta: MetaDict
+    numbers: NumbersDict
+    transactions: list[TransactionOverrideDict]
+    holdings: NotRequired[HoldingsOverrideDict]
+    investment_transactions: NotRequired[InvestmentsTransactionsOverrideDict]
+    identity: OwnerOverrideDict
+    liability: LiabilityOverrideDict
+    inflow_model: InflowModelDict
+    income: NotRequired[IncomeOverrideDict]

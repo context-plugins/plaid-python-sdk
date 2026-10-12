@@ -31,7 +31,7 @@ class TransactionsSyncRequest(SdkBaseModel):
 
     The upper-bound length of this cursor is 256 characters of base64."""
 
-    count: Optional[int] = UNSET
+    count: int = 100
     """The number of transaction updates to fetch."""
 
     options: Optional[TransactionsSyncRequestOptions] = UNSET
@@ -44,4 +44,4 @@ class TransactionsSyncRequestDict(TypedDict):
     secret: NotRequired[str]
     cursor: NotRequired[str]
     count: NotRequired[int]
-    options: NotRequired[TransactionsSyncRequestOptions | TransactionsSyncRequestOptionsDict]
+    options: NotRequired[TransactionsSyncRequestOptionsDict]

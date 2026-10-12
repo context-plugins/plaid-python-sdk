@@ -5,7 +5,7 @@ from typing_extensions import NotRequired, TypedDict
 from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
 from .enums.achclass import AchclassOrStr
 from .enums.transfer_intent_create_mode import TransferIntentCreateModeOrStr
-from .enums.transfer_intent_create_network import TransferIntentCreateNetworkOrStr
+from .enums.transfer_intent_create_network import TransferIntentCreateNetwork, TransferIntentCreateNetworkOrStr
 from .transfer_user_in_request import TransferUserInRequest, TransferUserInRequestDict
 
 
@@ -37,7 +37,7 @@ class TransferIntentCreateRequest(SdkBaseModel):
 
     ``DISBURSEMENT``: Transfers funds from your business account to an end user's account."""
 
-    network: Optional[TransferIntentCreateNetworkOrStr] = UNSET
+    network: TransferIntentCreateNetworkOrStr = TransferIntentCreateNetwork.SAME_DAY_ACH
     """The network or rails used for the transfer. Defaults to ``same-day-ach``.
 
     For transfers submitted using ``ach``, the Standard ACH cutoff is 8:30 PM Eastern Time.
@@ -85,7 +85,7 @@ class TransferIntentCreateRequest(SdkBaseModel):
     user: TransferUserInRequest
     """The legal name and other information for the account holder."""
 
-    metadata: Optional[dict[str, str | None]] = UNSET
+    metadata: OptionalNullable[dict[str, str]] = UNSET
     """The Metadata object is a mapping of client-provided string fields to any string value. The following limitations
     apply: The JSON values must be Strings (no nested JSON objects allowed) Only ASCII characters may be used Maximum of
     50 key/value pairs Maximum key length of 40 characters Maximum value length of 500 characters"""
@@ -94,7 +94,7 @@ class TransferIntentCreateRequest(SdkBaseModel):
     """The currency of the transfer amount, e.g. "USD"
     """
 
-    require_guarantee: OptionalNullable[bool] = UNSET
+    require_guarantee: bool | None = False
     """When ``true``, the transfer requires a ``GUARANTEED`` decision by Plaid to proceed (Guarantee customers only)."""
 
 
@@ -109,7 +109,7 @@ class TransferIntentCreateRequestDict(TypedDict):
     description: str
     ach_class: NotRequired[AchclassOrStr]
     origination_account_id: NotRequired[str | None]
-    user: TransferUserInRequest | TransferUserInRequestDict
-    metadata: NotRequired[dict[str, str | None]]
+    user: TransferUserInRequestDict
+    metadata: NotRequired[dict[str, str] | None]
     iso_currency_code: NotRequired[str]
     require_guarantee: NotRequired[bool | None]

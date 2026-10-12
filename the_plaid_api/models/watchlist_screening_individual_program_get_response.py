@@ -65,6 +65,6 @@ class WatchlistScreeningIndividualProgramGetResponseDict(TypedDict):
     lists_enabled: list[IndividualWatchlistCodeOrStr]
     name: str
     name_sensitivity: ProgramNameSensitivityOrStr
-    audit_trail: WatchlistScreeningAuditTrail | WatchlistScreeningAuditTrailDict
+    audit_trail: WatchlistScreeningAuditTrailDict
     is_archived: bool
     request_id: str

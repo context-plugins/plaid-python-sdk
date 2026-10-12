@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, OptionalNullable, SdkBaseModel
+from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
 from .category_expenses import CategoryExpenses, CategoryExpensesDict
 from .monthly_average import MonthlyAverage, MonthlyAverageDict
 
@@ -38,7 +38,7 @@ class ExpenditureSummary(SdkBaseModel):
     transactions that fall into this expenditure group. If there's no available income for the given time period, this
     field value will be ``-1``."""
 
-    top_categories: OptionalNullable[list[CategoryExpenses]] = UNSET
+    top_categories: Optional[list[CategoryExpenses | None]] = UNSET
     """The primary credit categories of the expenses within the given time window, across all the accounts in the
     report.
 
@@ -50,7 +50,7 @@ class ExpenditureSummaryDict(TypedDict):
     amount: NotRequired[float | None]
     iso_currency_code: NotRequired[str | None]
     unofficial_currency_code: NotRequired[str | None]
-    monthly_average: NotRequired[MonthlyAverage | MonthlyAverageDict | None]
+    monthly_average: NotRequired[MonthlyAverageDict | None]
     transactions_count: NotRequired[int | None]
     percentage_of_income: NotRequired[float | None]
-    top_categories: NotRequired[list[CategoryExpenses | CategoryExpensesDict] | None]
+    top_categories: NotRequired[list[CategoryExpensesDict | None]]

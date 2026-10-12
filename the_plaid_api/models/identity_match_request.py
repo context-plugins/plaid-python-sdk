@@ -34,5 +34,5 @@ class IdentityMatchRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     access_token: str
-    user: NotRequired[IdentityMatchUser | IdentityMatchUserDict]
-    options: NotRequired[IdentityMatchRequestOptions | IdentityMatchRequestOptionsDict]
+    user: NotRequired[IdentityMatchUserDict]
+    options: NotRequired[IdentityMatchRequestOptionsDict]

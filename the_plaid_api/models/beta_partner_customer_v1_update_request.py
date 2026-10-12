@@ -37,7 +37,5 @@ class BetaPartnerCustomerV1UpdateRequestDict(TypedDict):
     end_customer_client_id: str
     legal_entity_name: NotRequired[str]
     redirect_uris: NotRequired[list[str]]
-    bank_addendum_acceptance: NotRequired[
-        PartnerEndCustomerBankAddendumAcceptance | PartnerEndCustomerBankAddendumAcceptanceDict
-    ]
-    questionnaires: NotRequired[PartnerEndCustomerQuestionnaires | PartnerEndCustomerQuestionnairesDict]
+    bank_addendum_acceptance: NotRequired[PartnerEndCustomerBankAddendumAcceptanceDict]
+    questionnaires: NotRequired[PartnerEndCustomerQuestionnairesDict]

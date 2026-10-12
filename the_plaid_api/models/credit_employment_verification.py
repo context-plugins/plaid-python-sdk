@@ -45,8 +45,8 @@ class CreditEmploymentVerificationDict(TypedDict):
     status: str | None
     start_date: Date | None
     end_date: Date | None
-    employer: CreditEmployerVerification | CreditEmployerVerificationDict
+    employer: CreditEmployerVerificationDict
     title: str | None
-    platform_ids: CreditPlatformIds | CreditPlatformIdsDict
+    platform_ids: CreditPlatformIdsDict
     employee_type: str | None
     last_paystub_date: Date | None

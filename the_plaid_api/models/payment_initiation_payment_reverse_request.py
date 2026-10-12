@@ -50,6 +50,6 @@ class PaymentInitiationPaymentReverseRequestDict(TypedDict):
     payment_id: str
     idempotency_key: str
     reference: str
-    amount: NotRequired[PaymentAmountToRefund | PaymentAmountToRefundDict | None]
+    amount: NotRequired[PaymentAmountToRefundDict | None]
     counterparty_date_of_birth: NotRequired[Date | None]
-    counterparty_address: NotRequired[PaymentInitiationAddress | PaymentInitiationAddressDict | None]
+    counterparty_address: NotRequired[PaymentInitiationAddressDict | None]

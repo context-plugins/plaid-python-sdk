@@ -51,7 +51,7 @@ class WalletTransactionExecuteRequestDict(TypedDict):
     secret: NotRequired[str]
     idempotency_key: str
     wallet_id: str
-    counterparty: WalletTransactionCounterparty | WalletTransactionCounterpartyDict
-    amount: WalletTransactionAmount | WalletTransactionAmountDict
+    counterparty: WalletTransactionCounterpartyDict
+    amount: WalletTransactionAmountDict
     reference: str
-    originating_fund_source: NotRequired[OriginatingFundSource | OriginatingFundSourceDict | None]
+    originating_fund_source: NotRequired[OriginatingFundSourceDict | None]

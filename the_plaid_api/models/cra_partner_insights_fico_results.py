@@ -28,7 +28,5 @@ class CraPartnerInsightsFicoResults(SdkBaseModel):
 
 class CraPartnerInsightsFicoResultsDict(TypedDict):
     lender_application_id: str
-    ultrafico_score_results: list[CraPartnerInsightsUltraFicoScoreResult | CraPartnerInsightsUltraFicoScoreResultDict]
-    report_characteristics: NotRequired[
-        CraPartnerInsightsFicoReportCharacteristics | CraPartnerInsightsFicoReportCharacteristicsDict | None
-    ]
+    ultrafico_score_results: list[CraPartnerInsightsUltraFicoScoreResultDict]
+    report_characteristics: NotRequired[CraPartnerInsightsFicoReportCharacteristicsDict | None]

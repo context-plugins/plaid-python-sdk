@@ -42,5 +42,5 @@ class ProtectIncidentEventResponseDict(TypedDict):
     signal_client_transaction_id: NotRequired[str | None]
     internal_reference: NotRequired[str | None]
     time: NotRequired[RFC3339DateTime | None]
-    amount: NotRequired[ProtectIncidentAmount | ProtectIncidentAmountDict | None]
+    amount: NotRequired[ProtectIncidentAmountDict | None]
     item_id: NotRequired[str | None]

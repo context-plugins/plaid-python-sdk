@@ -18,5 +18,5 @@ class CraCurrentModeledIncome(SdkBaseModel):
 
 
 class CraCurrentModeledIncomeDict(TypedDict):
-    monthly: CraMonthlyIncomeValues | CraMonthlyIncomeValuesDict
-    annual: CraAnnualIncomeValues | CraAnnualIncomeValuesDict
+    monthly: CraMonthlyIncomeValuesDict
+    annual: CraAnnualIncomeValuesDict

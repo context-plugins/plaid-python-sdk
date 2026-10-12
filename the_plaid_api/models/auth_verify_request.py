@@ -28,4 +28,4 @@ class AuthVerifyRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     legal_name: NotRequired[str | None]
-    numbers: AuthVerifyRequestNumbers | AuthVerifyRequestNumbersDict
+    numbers: AuthVerifyRequestNumbersDict

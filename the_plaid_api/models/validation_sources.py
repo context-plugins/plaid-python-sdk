@@ -15,4 +15,4 @@ class ValidationSources(SdkBaseModel):
 
 
 class ValidationSourcesDict(TypedDict):
-    validation_source: list[ValidationSource | ValidationSourceDict]
+    validation_source: list[ValidationSourceDict]

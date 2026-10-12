@@ -17,5 +17,5 @@ class TrustIndexSubscores(SdkBaseModel):
 
 
 class TrustIndexSubscoresDict(TypedDict):
-    device_and_connection: NotRequired[TrustIndexSubscore | TrustIndexSubscoreDict | None]
-    bank_account_insights: NotRequired[TrustIndexSubscore | TrustIndexSubscoreDict | None]
+    device_and_connection: NotRequired[TrustIndexSubscoreDict | None]
+    bank_account_insights: NotRequired[TrustIndexSubscoreDict | None]

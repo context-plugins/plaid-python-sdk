@@ -18,5 +18,5 @@ class GenericScreeningHitLocationItems(SdkBaseModel):
 
 
 class GenericScreeningHitLocationItemsDict(TypedDict):
-    analysis: NotRequired[MatchSummary | MatchSummaryDict]
-    data: NotRequired[WatchlistScreeningHitLocations | WatchlistScreeningHitLocationsDict]
+    analysis: NotRequired[MatchSummaryDict]
+    data: NotRequired[WatchlistScreeningHitLocationsDict]

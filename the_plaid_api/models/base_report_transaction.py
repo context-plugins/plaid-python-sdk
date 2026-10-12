@@ -89,7 +89,7 @@ class BaseReportTransaction(SdkBaseModel):
 
     ``unresolved:`` transactions that do not fit into the other types."""
 
-    category: Optional[list[str | None]] = UNSET
+    category: OptionalNullable[list[str]] = UNSET
     """A hierarchical array of the categories to which this transaction belongs. For a full list of categories, see
     https://plaid.com/docs/api/products/transactions/#categoriesget."""
 
@@ -107,16 +107,16 @@ class BaseReportTransactionDict(TypedDict):
     unofficial_currency_code: str | None
     name: NotRequired[str | None]
     original_description: str | None
-    credit_category: NotRequired[CreditCategory | CreditCategoryDict | None]
+    credit_category: NotRequired[CreditCategoryDict | None]
     check_number: NotRequired[str | None]
     date: Date
     date_transacted: NotRequired[str | None]
-    location: NotRequired[TransactionLocation | TransactionLocationDict]
+    location: NotRequired[TransactionLocationDict]
     merchant_name: NotRequired[str | None]
     pending: bool
     account_owner: NotRequired[str | None]
     transaction_id: str
     transaction_type: NotRequired[BaseReportTransactionTypeOrStr | None]
-    category: NotRequired[list[str | None]]
+    category: NotRequired[list[str] | None]
     category_id: NotRequired[str | None]
-    personal_finance_category: NotRequired[PersonalFinanceCategory | PersonalFinanceCategoryDict | None]
+    personal_finance_category: NotRequired[PersonalFinanceCategoryDict | None]

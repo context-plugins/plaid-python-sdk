@@ -22,6 +22,6 @@ class ItemStatus(SdkBaseModel):
 
 
 class ItemStatusDict(TypedDict):
-    investments: NotRequired[ItemStatusInvestments | ItemStatusInvestmentsDict | None]
-    transactions: NotRequired[ItemStatusTransactions | ItemStatusTransactionsDict | None]
-    last_webhook: NotRequired[ItemStatusLastWebhook | ItemStatusLastWebhookDict | None]
+    investments: NotRequired[ItemStatusInvestmentsDict | None]
+    transactions: NotRequired[ItemStatusTransactionsDict | None]
+    last_webhook: NotRequired[ItemStatusLastWebhookDict | None]

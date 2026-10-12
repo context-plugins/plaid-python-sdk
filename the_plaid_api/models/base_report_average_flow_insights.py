@@ -24,4 +24,4 @@ class BaseReportAverageFlowInsights(SdkBaseModel):
 class BaseReportAverageFlowInsightsDict(TypedDict):
     start_date: Date
     end_date: Date
-    total_amount: CreditAmountWithCurrency | CreditAmountWithCurrencyDict
+    total_amount: CreditAmountWithCurrencyDict

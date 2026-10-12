@@ -18,5 +18,5 @@ class CreditSessionsGetResponse(SdkBaseModel):
 
 
 class CreditSessionsGetResponseDict(TypedDict):
-    sessions: NotRequired[list[CreditSession | CreditSessionDict]]
+    sessions: NotRequired[list[CreditSessionDict]]
     request_id: str

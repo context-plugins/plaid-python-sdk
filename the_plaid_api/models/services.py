@@ -15,4 +15,4 @@ class Services(SdkBaseModel):
 
 
 class ServicesDict(TypedDict):
-    service: Service | ServiceDict
+    service: ServiceDict

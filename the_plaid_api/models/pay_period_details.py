@@ -37,7 +37,7 @@ class PayPeriodDetails(SdkBaseModel):
 
 class PayPeriodDetailsDict(TypedDict):
     check_amount: NotRequired[float | None]
-    distribution_breakdown: NotRequired[list[DistributionBreakdown | DistributionBreakdownDict]]
+    distribution_breakdown: NotRequired[list[DistributionBreakdownDict]]
     end_date: NotRequired[Date | None]
     gross_earnings: NotRequired[float | None]
     pay_date: NotRequired[Date | None]

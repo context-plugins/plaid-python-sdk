@@ -33,5 +33,5 @@ class SelfieCheckSelfie(SdkBaseModel):
 class SelfieCheckSelfieDict(TypedDict):
     status: SelfieStatusOrStr
     attempt: int
-    capture: SelfieCapture | SelfieCaptureDict
-    analysis: SelfieAnalysis | SelfieAnalysisDict
+    capture: SelfieCaptureDict
+    analysis: SelfieAnalysisDict

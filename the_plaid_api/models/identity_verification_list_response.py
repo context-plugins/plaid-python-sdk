@@ -21,6 +21,6 @@ class IdentityVerificationListResponse(SdkBaseModel):
 
 
 class IdentityVerificationListResponseDict(TypedDict):
-    identity_verifications: list[IdentityVerification | IdentityVerificationDict]
+    identity_verifications: list[IdentityVerificationDict]
     next_cursor: str | None
     request_id: str

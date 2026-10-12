@@ -7,7 +7,7 @@ from .cause import Cause, CauseDict
 from .enums.warning_code import WarningCodeOrStr
 
 
-class Warning(SdkBaseModel):
+class WarningModel(SdkBaseModel):
     """It is possible for an Asset Report to be returned with missing account owner information. In such cases, the
     Asset Report will contain warning data in the response, indicating why obtaining the owner information failed."""
 
@@ -31,7 +31,7 @@ class Warning(SdkBaseModel):
     operating on multiple Items has encountered an error in one of the Items."""
 
 
-class WarningDict(TypedDict):
+class WarningModelDict(TypedDict):
     warning_type: str
     warning_code: WarningCodeOrStr
-    cause: Cause | CauseDict | None
+    cause: CauseDict | None

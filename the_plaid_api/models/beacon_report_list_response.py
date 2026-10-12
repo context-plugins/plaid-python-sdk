@@ -19,6 +19,6 @@ class BeaconReportListResponse(SdkBaseModel):
 
 
 class BeaconReportListResponseDict(TypedDict):
-    beacon_reports: list[BeaconReport | BeaconReportDict]
+    beacon_reports: list[BeaconReportDict]
     next_cursor: str | None
     request_id: str

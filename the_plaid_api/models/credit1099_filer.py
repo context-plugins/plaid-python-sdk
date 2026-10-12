@@ -25,7 +25,7 @@ class Credit1099Filer(SdkBaseModel):
 
 
 class Credit1099FilerDict(TypedDict):
-    address: NotRequired[CreditPayStubAddress | CreditPayStubAddressDict]
+    address: NotRequired[CreditPayStubAddressDict]
     name: NotRequired[str | None]
     tin: NotRequired[str | None]
     type_: NotRequired[str | None]

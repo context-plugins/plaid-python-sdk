@@ -31,4 +31,4 @@ class SandboxProcessorTokenCreateRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     institution_id: str
-    options: NotRequired[SandboxProcessorTokenCreateRequestOptions | SandboxProcessorTokenCreateRequestOptionsDict]
+    options: NotRequired[SandboxProcessorTokenCreateRequestOptionsDict]

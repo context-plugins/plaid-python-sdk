@@ -4,7 +4,7 @@ from typing_extensions import TypedDict
 
 from ..core import SdkBaseModel
 from .asset_report import AssetReport, AssetReportDict
-from .warning import Warning, WarningDict
+from .warning_model import WarningModel, WarningModelDict
 
 
 class AssetReportGetResponse(SdkBaseModel):
@@ -13,7 +13,7 @@ class AssetReportGetResponse(SdkBaseModel):
     report: AssetReport
     """An object representing an Asset Report"""
 
-    warnings: list[Warning]
+    warnings: list[WarningModel]
     """If the Asset Report generation was successful but identity information cannot be returned, this array will
     contain information about the errors causing identity information to be missing"""
 
@@ -23,6 +23,6 @@ class AssetReportGetResponse(SdkBaseModel):
 
 
 class AssetReportGetResponseDict(TypedDict):
-    report: AssetReport | AssetReportDict
-    warnings: list[Warning | WarningDict]
+    report: AssetReportDict
+    warnings: list[WarningModelDict]
     request_id: str

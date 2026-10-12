@@ -30,7 +30,7 @@ class CraBankIncomeHistoricalSummary(SdkBaseModel):
 
 
 class CraBankIncomeHistoricalSummaryDict(TypedDict):
-    total_amounts: NotRequired[list[CreditAmountWithCurrency | CreditAmountWithCurrencyDict]]
+    total_amounts: NotRequired[list[CreditAmountWithCurrencyDict]]
     start_date: NotRequired[Date]
     end_date: NotRequired[Date]
-    transactions: NotRequired[list[CraBankIncomeTransaction | CraBankIncomeTransactionDict]]
+    transactions: NotRequired[list[CraBankIncomeTransactionDict]]

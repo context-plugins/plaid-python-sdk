@@ -23,13 +23,13 @@ class SandboxPublicTokenCreateRequestOptions(SdkBaseModel):
     webhook: Optional[str] = UNSET
     """Specify a webhook to associate with the new Item."""
 
-    override_username: OptionalNullable[str] = UNSET
+    override_username: str | None = "user_good"
     """Test username to use for the creation of the Sandbox Item. Default value is ``user_good``. You can also use a
     custom test user — either set this to the username of a custom user configured in the Dashboard, or set it to
     ``user_custom`` and pass the JSON-stringified custom user configuration object as ``override_password`` to define
     one entirely via API. See `Sandbox Custom Users <https://plaid.com/docs/sandbox/user-custom>`__ for more details."""
 
-    override_password: OptionalNullable[str] = UNSET
+    override_password: str | None = "pass_good"
     """Test password to use for the creation of the Sandbox Item. Default value is ``pass_good``. You can also use a
     custom test user — reference one configured in the Dashboard via ``override_username``, or set ``override_username``
     to ``user_custom`` and pass the JSON-stringified custom user configuration object as this field to define one
@@ -50,19 +50,6 @@ class SandboxPublicTokenCreateRequestOptionsDict(TypedDict):
     webhook: NotRequired[str]
     override_username: NotRequired[str | None]
     override_password: NotRequired[str | None]
-    transactions: NotRequired[
-        (
-            SandboxPublicTokenCreateRequestOptionsTransactions
-            | SandboxPublicTokenCreateRequestOptionsTransactionsDict
-            | None
-        )
-    ]
-    statements: NotRequired[
-        SandboxPublicTokenCreateRequestOptionsStatements | SandboxPublicTokenCreateRequestOptionsStatementsDict | None
-    ]
-    income_verification: NotRequired[
-        (
-            SandboxPublicTokenCreateRequestOptionsIncomeVerification
-            | SandboxPublicTokenCreateRequestOptionsIncomeVerificationDict
-        )
-    ]
+    transactions: NotRequired[SandboxPublicTokenCreateRequestOptionsTransactionsDict | None]
+    statements: NotRequired[SandboxPublicTokenCreateRequestOptionsStatementsDict | None]
+    income_verification: NotRequired[SandboxPublicTokenCreateRequestOptionsIncomeVerificationDict]

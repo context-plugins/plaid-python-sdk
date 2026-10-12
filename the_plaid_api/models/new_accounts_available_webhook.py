@@ -44,5 +44,5 @@ class NewAccountsAvailableWebhookDict(TypedDict):
     webhook_code: NotRequired[str]
     item_id: NotRequired[str]
     user_id: NotRequired[str]
-    error: NotRequired[Error | ErrorDict | None]
+    error: NotRequired[ErrorDict | None]
     environment: NotRequired[WebhookEnvironmentValuesOrStr]

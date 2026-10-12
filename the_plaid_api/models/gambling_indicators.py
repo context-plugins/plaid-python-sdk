@@ -38,7 +38,7 @@ class GamblingIndicators(SdkBaseModel):
     """The total number of transactions that fall into the ``GAMBLING`` credit category, across all the accounts in the
     report."""
 
-    monthly_summaries: OptionalNullable[list[MonthlySummary]] = UNSET
+    monthly_summaries: Optional[list[MonthlySummary | None]] = UNSET
     """The monthly summaries of the transactions that fall into the ``GAMBLING`` category within the given time window,
     across all the accounts in the report."""
 
@@ -57,9 +57,9 @@ class GamblingIndicatorsDict(TypedDict):
     amount: NotRequired[float | None]
     iso_currency_code: NotRequired[str | None]
     unofficial_currency_code: NotRequired[str | None]
-    monthly_average: NotRequired[MonthlyAverage | MonthlyAverageDict | None]
+    monthly_average: NotRequired[MonthlyAverageDict | None]
     top_merchants: NotRequired[list[str]]
     transactions_count: NotRequired[int | None]
-    monthly_summaries: NotRequired[list[MonthlySummary | MonthlySummaryDict] | None]
+    monthly_summaries: NotRequired[list[MonthlySummaryDict | None]]
     days_since_last_occurrence: NotRequired[int | None]
     percentage_of_income: NotRequired[float | None]

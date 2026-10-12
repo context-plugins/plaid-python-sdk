@@ -26,16 +26,14 @@ class PartnerEndCustomerOauthInstitution(SdkBaseModel):
     """The date on which non-OAuth Item adds will no longer be supported for this institution, or an empty string if no
     such date has been set by the institution."""
 
-    errors: OptionalNullable[list[Error]] = UNSET
+    errors: Optional[list[Error | None]] = UNSET
     """The errors encountered while registering the end customer's application with the institutions."""
 
 
 class PartnerEndCustomerOauthInstitutionDict(TypedDict):
     name: NotRequired[str]
     institution_id: NotRequired[str]
-    environments: NotRequired[
-        PartnerEndCustomerOauthInstitutionEnvironments | PartnerEndCustomerOauthInstitutionEnvironmentsDict
-    ]
+    environments: NotRequired[PartnerEndCustomerOauthInstitutionEnvironmentsDict]
     production_enablement_date: NotRequired[str | None]
     classic_disablement_date: NotRequired[str | None]
-    errors: NotRequired[list[Error | ErrorDict] | None]
+    errors: NotRequired[list[ErrorDict | None]]

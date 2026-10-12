@@ -39,5 +39,5 @@ class LinkDeliveryCallbackWebhookDict(TypedDict):
     webhook_code: str
     link_delivery_session_id: str
     timestamp: str
-    error: NotRequired[Error | ErrorDict | None]
-    link_callback_metadata: LinkCallbackMetadata | LinkCallbackMetadataDict
+    error: NotRequired[ErrorDict | None]
+    link_callback_metadata: LinkCallbackMetadataDict

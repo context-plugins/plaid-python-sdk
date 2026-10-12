@@ -24,7 +24,7 @@ class CreditPayStubEmployee(SdkBaseModel):
 
 
 class CreditPayStubEmployeeDict(TypedDict):
-    address: CreditPayStubAddress | CreditPayStubAddressDict
+    address: CreditPayStubAddressDict
     name: str | None
     marital_status: str | None
-    taxpayer_id: PayStubTaxpayerId | PayStubTaxpayerIdDict
+    taxpayer_id: PayStubTaxpayerIdDict

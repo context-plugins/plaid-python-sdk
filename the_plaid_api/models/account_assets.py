@@ -130,7 +130,7 @@ class AccountAssets(SdkBaseModel):
 
 class AccountAssetsDict(TypedDict):
     account_id: str
-    balances: AssetReportAccountBalance | AssetReportAccountBalanceDict
+    balances: AssetReportAccountBalanceDict
     mask: str | None
     name: str
     official_name: str | None
@@ -139,9 +139,9 @@ class AccountAssetsDict(TypedDict):
     verification_status: NotRequired[VerificationStatus4OrStr]
     persistent_account_id: NotRequired[str]
     days_available: float
-    transactions: list[AssetReportTransaction | AssetReportTransactionDict]
-    investments: NotRequired[AssetReportInvestments | AssetReportInvestmentsDict]
-    owners: list[Owner | OwnerDict]
+    transactions: list[AssetReportTransactionDict]
+    investments: NotRequired[AssetReportInvestmentsDict]
+    owners: list[OwnerDict]
     ownership_type: NotRequired[OwnershipTypeOrStr | None]
-    historical_balances: list[HistoricalBalance | HistoricalBalanceDict]
-    account_insights: NotRequired[AccountInsights | AccountInsightsDict | None]
+    historical_balances: list[HistoricalBalanceDict]
+    account_insights: NotRequired[AccountInsightsDict | None]

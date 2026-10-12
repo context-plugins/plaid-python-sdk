@@ -45,8 +45,8 @@ class LinkTokenAccountFilters(SdkBaseModel):
 
 
 class LinkTokenAccountFiltersDict(TypedDict):
-    depository: NotRequired[DepositoryFilter | DepositoryFilterDict]
-    credit: NotRequired[CreditFilter | CreditFilterDict]
-    loan: NotRequired[LoanFilter | LoanFilterDict]
-    investment: NotRequired[InvestmentFilter | InvestmentFilterDict]
-    other: NotRequired[OtherFilter | OtherFilterDict]
+    depository: NotRequired[DepositoryFilterDict]
+    credit: NotRequired[CreditFilterDict]
+    loan: NotRequired[LoanFilterDict]
+    investment: NotRequired[InvestmentFilterDict]
+    other: NotRequired[OtherFilterDict]

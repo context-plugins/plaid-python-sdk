@@ -24,6 +24,6 @@ class CraCheckReportPartnerInsightsGetResponse(SdkBaseModel):
 
 
 class CraCheckReportPartnerInsightsGetResponseDict(TypedDict):
-    report: NotRequired[CraPartnerInsights | CraPartnerInsightsDict]
+    report: NotRequired[CraPartnerInsightsDict]
     request_id: str
-    warnings: NotRequired[list[CraReportWarning | CraReportWarningDict]]
+    warnings: NotRequired[list[CraReportWarningDict]]

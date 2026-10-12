@@ -18,5 +18,5 @@ class EmploymentVerificationGetResponse(SdkBaseModel):
 
 
 class EmploymentVerificationGetResponseDict(TypedDict):
-    employments: list[EmploymentVerification | EmploymentVerificationDict]
+    employments: list[EmploymentVerificationDict]
     request_id: str

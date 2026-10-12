@@ -25,4 +25,4 @@ class MonthlySummary(SdkBaseModel):
 class MonthlySummaryDict(TypedDict):
     start_date: NotRequired[Date | None]
     end_date: NotRequired[Date | None]
-    total_amount: NotRequired[AmountWithCurrency | AmountWithCurrencyDict | None]
+    total_amount: NotRequired[AmountWithCurrencyDict | None]

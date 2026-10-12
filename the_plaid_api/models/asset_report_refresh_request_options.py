@@ -25,4 +25,4 @@ class AssetReportRefreshRequestOptions(SdkBaseModel):
 class AssetReportRefreshRequestOptionsDict(TypedDict):
     client_report_id: NotRequired[str | None]
     webhook: NotRequired[str | None]
-    user: NotRequired[AssetReportUser | AssetReportUserDict]
+    user: NotRequired[AssetReportUserDict]

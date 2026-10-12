@@ -30,7 +30,7 @@ class CraEmploymentRefreshReportItem(SdkBaseModel):
 
 
 class CraEmploymentRefreshReportItemDict(TypedDict):
-    accounts: list[CraEmploymentRefreshReportAccount | CraEmploymentRefreshReportAccountDict]
+    accounts: list[CraEmploymentRefreshReportAccountDict]
     institution_name: str
     institution_id: str
     item_id: str

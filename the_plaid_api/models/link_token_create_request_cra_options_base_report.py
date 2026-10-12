@@ -34,14 +34,6 @@ class LinkTokenCreateRequestCraOptionsBaseReport(SdkBaseModel):
 
 class LinkTokenCreateRequestCraOptionsBaseReportDict(TypedDict):
     client_report_id: NotRequired[str | None]
-    gse_options: NotRequired[
-        (
-            LinkTokenCreateRequestCraOptionsBaseReportGseoptions
-            | LinkTokenCreateRequestCraOptionsBaseReportGseoptionsDict
-            | None
-        )
-    ]
+    gse_options: NotRequired[LinkTokenCreateRequestCraOptionsBaseReportGseoptionsDict | None]
     require_identity: NotRequired[bool | None]
-    home_lending_report_options: NotRequired[
-        CraCheckReportHomeLendingReportOptions | CraCheckReportHomeLendingReportOptionsDict | None
-    ]
+    home_lending_report_options: NotRequired[CraCheckReportHomeLendingReportOptionsDict | None]

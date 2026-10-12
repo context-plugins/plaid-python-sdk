@@ -24,7 +24,5 @@ class WalletTransactionCounterpartyNumbers(SdkBaseModel):
 
 
 class WalletTransactionCounterpartyNumbersDict(TypedDict):
-    bacs: NotRequired[WalletTransactionCounterpartyBacs | WalletTransactionCounterpartyBacsDict | None]
-    international: NotRequired[
-        WalletTransactionCounterpartyInternational | WalletTransactionCounterpartyInternationalDict | None
-    ]
+    bacs: NotRequired[WalletTransactionCounterpartyBacsDict | None]
+    international: NotRequired[WalletTransactionCounterpartyInternationalDict | None]

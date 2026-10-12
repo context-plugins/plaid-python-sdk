@@ -18,4 +18,4 @@ class PayrollRiskSignalsItem(SdkBaseModel):
 
 class PayrollRiskSignalsItemDict(TypedDict):
     item_id: str
-    verification_risk_signals: list[DocumentRiskSignalsObject | DocumentRiskSignalsObjectDict]
+    verification_risk_signals: list[DocumentRiskSignalsObjectDict]

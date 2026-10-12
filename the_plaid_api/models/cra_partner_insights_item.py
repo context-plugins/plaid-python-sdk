@@ -26,4 +26,4 @@ class CraPartnerInsightsItemDict(TypedDict):
     institution_id: NotRequired[str]
     institution_name: NotRequired[str]
     item_id: NotRequired[str]
-    accounts: NotRequired[list[CraPartnerInsightsItemAccount | CraPartnerInsightsItemAccountDict]]
+    accounts: NotRequired[list[CraPartnerInsightsItemAccountDict]]

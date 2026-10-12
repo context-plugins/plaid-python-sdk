@@ -15,4 +15,4 @@ class AssetOwners(SdkBaseModel):
 
 
 class AssetOwnersDict(TypedDict):
-    asset_owner: list[AssetOwner | AssetOwnerDict]
+    asset_owner: list[AssetOwnerDict]

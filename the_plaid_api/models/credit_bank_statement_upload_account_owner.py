@@ -21,4 +21,4 @@ class CreditBankStatementUploadAccountOwner(SdkBaseModel):
 
 class CreditBankStatementUploadAccountOwnerDict(TypedDict):
     name: str | None
-    address: CreditBankStatementUploadAccountOwnerAddress | CreditBankStatementUploadAccountOwnerAddressDict
+    address: CreditBankStatementUploadAccountOwnerAddressDict

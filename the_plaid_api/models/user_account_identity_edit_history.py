@@ -30,8 +30,8 @@ class UserAccountIdentityEditHistory(SdkBaseModel):
 
 
 class UserAccountIdentityEditHistoryDict(TypedDict):
-    name: NotRequired[UserAccountIdentityEditCounts | UserAccountIdentityEditCountsDict]
-    address: NotRequired[UserAccountIdentityEditCounts | UserAccountIdentityEditCountsDict]
-    email: NotRequired[UserAccountIdentityEditCounts | UserAccountIdentityEditCountsDict]
-    date_of_birth: NotRequired[UserAccountIdentityEditCounts | UserAccountIdentityEditCountsDict]
-    official_document: NotRequired[UserAccountIdentityOfficialDocument | UserAccountIdentityOfficialDocumentDict | None]
+    name: NotRequired[UserAccountIdentityEditCountsDict]
+    address: NotRequired[UserAccountIdentityEditCountsDict]
+    email: NotRequired[UserAccountIdentityEditCountsDict]
+    date_of_birth: NotRequired[UserAccountIdentityEditCountsDict]
+    official_document: NotRequired[UserAccountIdentityOfficialDocumentDict | None]

@@ -39,4 +39,4 @@ class NetPayDict(TypedDict):
     iso_currency_code: NotRequired[str | None]
     unofficial_currency_code: NotRequired[str | None]
     ytd_amount: NotRequired[float | None]
-    total: NotRequired[Total | TotalDict]
+    total: NotRequired[TotalDict]

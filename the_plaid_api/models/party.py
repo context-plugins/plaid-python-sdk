@@ -24,6 +24,6 @@ class Party(SdkBaseModel):
 
 
 class PartyDict(TypedDict):
-    individual: Individual | IndividualDict
-    roles: Roles | RolesDict
-    taxpayer_identifiers: TaxpayerIdentifiers | TaxpayerIdentifiersDict
+    individual: IndividualDict
+    roles: RolesDict
+    taxpayer_identifiers: TaxpayerIdentifiersDict

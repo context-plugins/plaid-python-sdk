@@ -19,5 +19,5 @@ class TransactionsRecurringUpdateResponse(SdkBaseModel):
 
 
 class TransactionsRecurringUpdateResponseDict(TypedDict):
-    modified_streams: list[TransactionStream | TransactionStreamDict]
+    modified_streams: list[TransactionStreamDict]
     removed_stream_ids: NotRequired[list[str]]

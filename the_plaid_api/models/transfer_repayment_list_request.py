@@ -22,10 +22,10 @@ class TransferRepaymentListRequest(SdkBaseModel):
     end_date: OptionalNullable[RFC3339DateTime] = UNSET
     """The end ``created`` datetime of repayments to return (RFC 3339 format)."""
 
-    count: OptionalNullable[int] = UNSET
+    count: int | None = 25
     """The maximum number of repayments to return."""
 
-    offset: Optional[int] = UNSET
+    offset: int = 0
     """The number of repayments to skip before returning results."""
 
 

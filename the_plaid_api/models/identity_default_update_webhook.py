@@ -45,5 +45,5 @@ class IdentityDefaultUpdateWebhookDict(TypedDict):
     webhook_code: str
     item_id: str
     account_ids_with_updated_identity: dict[str, Any]
-    error: Error | ErrorDict | None
+    error: ErrorDict | None
     environment: WebhookEnvironmentValuesOrStr

@@ -28,7 +28,7 @@ class TransferLedgerGetResponse(SdkBaseModel):
 
 class TransferLedgerGetResponseDict(TypedDict):
     ledger_id: str
-    balance: TransferLedgerBalance | TransferLedgerBalanceDict
+    balance: TransferLedgerBalanceDict
     name: str
     is_default: bool
     request_id: str

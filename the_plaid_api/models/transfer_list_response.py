@@ -16,5 +16,5 @@ class TransferListResponse(SdkBaseModel):
 
 
 class TransferListResponseDict(TypedDict):
-    transfers: list[Transfer | TransferDict]
+    transfers: list[TransferDict]
     request_id: str

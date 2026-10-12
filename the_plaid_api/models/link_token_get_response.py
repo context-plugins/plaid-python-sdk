@@ -41,7 +41,7 @@ class LinkTokenGetResponseDict(TypedDict):
     link_token: str
     created_at: RFC3339DateTime | None
     expiration: RFC3339DateTime | None
-    link_sessions: NotRequired[list[LinkTokenGetSessionsResponse | LinkTokenGetSessionsResponseDict]]
-    metadata: LinkTokenGetMetadataResponse | LinkTokenGetMetadataResponseDict
+    link_sessions: NotRequired[list[LinkTokenGetSessionsResponseDict]]
+    metadata: LinkTokenGetMetadataResponseDict
     user_id: NotRequired[str]
     request_id: str

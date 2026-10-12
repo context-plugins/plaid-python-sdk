@@ -29,7 +29,7 @@ class Credit1099Recipient(SdkBaseModel):
 
 
 class Credit1099RecipientDict(TypedDict):
-    address: NotRequired[CreditPayStubAddress | CreditPayStubAddressDict]
+    address: NotRequired[CreditPayStubAddressDict]
     name: NotRequired[str | None]
     tin: NotRequired[str | None]
     account_number: NotRequired[str | None]

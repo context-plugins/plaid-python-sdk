@@ -15,4 +15,4 @@ class Assets(SdkBaseModel):
 
 
 class AssetsDict(TypedDict):
-    asset: list[Asset | AssetDict]
+    asset: list[AssetDict]

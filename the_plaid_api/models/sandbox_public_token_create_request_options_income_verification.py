@@ -25,9 +25,4 @@ class SandboxPublicTokenCreateRequestOptionsIncomeVerification(SdkBaseModel):
 
 class SandboxPublicTokenCreateRequestOptionsIncomeVerificationDict(TypedDict):
     income_source_types: NotRequired[list[IncomeVerificationSourceTypeOrStr]]
-    bank_income: NotRequired[
-        (
-            SandboxPublicTokenCreateRequestIncomeVerificationBankIncome
-            | SandboxPublicTokenCreateRequestIncomeVerificationBankIncomeDict
-        )
-    ]
+    bank_income: NotRequired[SandboxPublicTokenCreateRequestIncomeVerificationBankIncomeDict]

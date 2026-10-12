@@ -28,6 +28,6 @@ class CreditPayrollIncomeRiskSignalsGetResponse(SdkBaseModel):
 
 
 class CreditPayrollIncomeRiskSignalsGetResponseDict(TypedDict):
-    items: list[PayrollRiskSignalsItem | PayrollRiskSignalsItemDict]
-    error: NotRequired[Error | ErrorDict | None]
+    items: list[PayrollRiskSignalsItemDict]
+    error: NotRequired[ErrorDict | None]
     request_id: str

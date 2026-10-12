@@ -44,7 +44,7 @@ class HistoricalUpdateWebhook(SdkBaseModel):
 class HistoricalUpdateWebhookDict(TypedDict):
     webhook_type: str
     webhook_code: str
-    error: NotRequired[Error | ErrorDict | None]
+    error: NotRequired[ErrorDict | None]
     new_transactions: float
     item_id: str
     environment: WebhookEnvironmentValuesOrStr

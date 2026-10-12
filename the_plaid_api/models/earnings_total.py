@@ -38,8 +38,8 @@ class EarningsTotal(SdkBaseModel):
 
 class EarningsTotalDict(TypedDict):
     current_amount: NotRequired[float | None]
-    current_pay: NotRequired[Pay | PayDict]
-    ytd_pay: NotRequired[Pay | PayDict]
+    current_pay: NotRequired[PayDict]
+    ytd_pay: NotRequired[PayDict]
     hours: NotRequired[float | None]
     iso_currency_code: NotRequired[str | None]
     unofficial_currency_code: NotRequired[str | None]

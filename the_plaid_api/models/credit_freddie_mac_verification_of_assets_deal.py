@@ -24,6 +24,6 @@ class CreditFreddieMacVerificationOfAssetsDeal(SdkBaseModel):
 
 
 class CreditFreddieMacVerificationOfAssetsDealDict(TypedDict):
-    loans: CreditFreddieMacLoans | CreditFreddieMacLoansDict
-    parties: CreditFreddieMacParties | CreditFreddieMacPartiesDict
-    services: CreditFreddieMacServices | CreditFreddieMacServicesDict
+    loans: CreditFreddieMacLoansDict
+    parties: CreditFreddieMacPartiesDict
+    services: CreditFreddieMacServicesDict

@@ -19,6 +19,6 @@ class TransferEventListResponse(SdkBaseModel):
 
 
 class TransferEventListResponseDict(TypedDict):
-    transfer_events: list[TransferEvent | TransferEventDict]
+    transfer_events: list[TransferEventDict]
     has_more: bool
     request_id: str

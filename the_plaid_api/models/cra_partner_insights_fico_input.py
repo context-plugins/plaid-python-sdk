@@ -27,6 +27,4 @@ class CraPartnerInsightsFicoInput(SdkBaseModel):
 class CraPartnerInsightsFicoInputDict(TypedDict):
     fico_lender_id: str
     lender_application_id: str
-    ultrafico_score_requests: list[
-        CraPartnerInsightsUltraFicoScoreRequest | CraPartnerInsightsUltraFicoScoreRequestDict
-    ]
+    ultrafico_score_requests: list[CraPartnerInsightsUltraFicoScoreRequestDict]

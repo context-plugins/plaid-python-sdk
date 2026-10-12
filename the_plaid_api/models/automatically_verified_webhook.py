@@ -41,4 +41,4 @@ class AutomaticallyVerifiedWebhookDict(TypedDict):
     account_id: str
     item_id: str
     environment: WebhookEnvironmentValuesOrStr
-    error: NotRequired[Error | ErrorDict | None]
+    error: NotRequired[ErrorDict | None]

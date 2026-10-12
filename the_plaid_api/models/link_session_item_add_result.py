@@ -30,5 +30,5 @@ class LinkSessionItemAddResult(SdkBaseModel):
 
 class LinkSessionItemAddResultDict(TypedDict):
     public_token: str
-    accounts: list[LinkSessionSuccessMetadataAccount | LinkSessionSuccessMetadataAccountDict]
-    institution: LinkSessionSuccessMetadataInstitution | LinkSessionSuccessMetadataInstitutionDict | None
+    accounts: list[LinkSessionSuccessMetadataAccountDict]
+    institution: LinkSessionSuccessMetadataInstitutionDict | None

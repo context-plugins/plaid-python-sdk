@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, Optional, SdkBaseModel
+from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
 from .enums.cash_flow_updates_event_webhook_codes import CashFlowUpdatesEventWebhookCodesOrStr
 
 
@@ -22,7 +22,7 @@ class SandboxCraCashflowUpdatesUpdateRequest(SdkBaseModel):
     with pre-existing integrations that already use the ``user_token`` field. All other customers should use the
     ``user_id`` instead. For more details, see `New User APIs <https://plaid.com/docs/api/users/user-apis>`__."""
 
-    webhook_codes: Optional[list[CashFlowUpdatesEventWebhookCodesOrStr | None]] = UNSET
+    webhook_codes: OptionalNullable[list[CashFlowUpdatesEventWebhookCodesOrStr]] = UNSET
     """Webhook codes corresponding to the Cash Flow Updates events to be simulated."""
 
     user_id: Optional[str] = UNSET
@@ -35,5 +35,5 @@ class SandboxCraCashflowUpdatesUpdateRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     user_token: NotRequired[str]
-    webhook_codes: NotRequired[list[CashFlowUpdatesEventWebhookCodesOrStr | None]]
+    webhook_codes: NotRequired[list[CashFlowUpdatesEventWebhookCodesOrStr] | None]
     user_id: NotRequired[str]

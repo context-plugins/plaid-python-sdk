@@ -60,7 +60,7 @@ class PaymentInitiationConsentPaymentExecuteRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     consent_id: str
-    amount: PaymentAmount | PaymentAmountDict
+    amount: PaymentAmountDict
     idempotency_key: str
     reference: NotRequired[str | None]
     scope: NotRequired[PaymentInitiationConsentScopeOrStr | None]

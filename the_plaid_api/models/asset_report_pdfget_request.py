@@ -29,4 +29,4 @@ class AssetReportPdfgetRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     asset_report_token: str
-    options: NotRequired[AssetReportPdfgetRequestOptions | AssetReportPdfgetRequestOptionsDict]
+    options: NotRequired[AssetReportPdfgetRequestOptionsDict]

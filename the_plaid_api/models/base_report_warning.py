@@ -29,4 +29,4 @@ class BaseReportWarning(SdkBaseModel):
 class BaseReportWarningDict(TypedDict):
     warning_type: str
     warning_code: BaseReportWarningCodeOrStr
-    cause: Cause | CauseDict | None
+    cause: CauseDict | None

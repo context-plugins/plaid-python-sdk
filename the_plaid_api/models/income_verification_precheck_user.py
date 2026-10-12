@@ -26,4 +26,4 @@ class IncomeVerificationPrecheckUserDict(TypedDict):
     first_name: NotRequired[str | None]
     last_name: NotRequired[str | None]
     email_address: NotRequired[str | None]
-    home_address: NotRequired[SignalAddressData | SignalAddressDataDict | None]
+    home_address: NotRequired[SignalAddressDataDict | None]

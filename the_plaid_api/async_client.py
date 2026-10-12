@@ -18,7 +18,7 @@ from .core import (
     AsyncAnySchemes,
     AsyncClientCredentialsTokenSource,
     AsyncHttpClient,
-    AsyncHttpxClient,
+    AsyncHttpx2Client,
     AsyncOAuth2Scheme,
     AsyncRawClient,
     AsyncTokenSource,
@@ -26,14 +26,16 @@ from .core import (
     ClientCredentialsOrDict,
     RawError,
     RequestOptionsOrDict,
+    RetryOptionsOrDict,
     SecuredRawResponse,
+    async_empty_response,
+    async_json_decoder,
     client_secret_basic,
-    empty_response,
     json_body,
-    json_decoder,
     no_auth,
     param,
     raw_error_response,
+    unwrap,
 )
 from .errors.sandbox_transactions_create_error import (
     SandboxTransactionsCreateErrorBody,
@@ -1154,6 +1156,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         environment: Environment = "production",
         timeout: float = DEFAULT_TIMEOUT,
         server_config: ServerConfigOrDict | None = None,
+        retry_options: int | RetryOptionsOrDict | None = None,
         custom_async_http_client: AsyncHttpClient | None = None,
         client_id: str | None = None,
         secret: str | None = None,
@@ -1161,11 +1164,14 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         oauth2: ClientCredentialsOrDict[Oauth2Scope] | None = None,
         oauth2_token_source: AsyncTokenSource[ClientCredentials[Oauth2Scope]] | None = None,
     ) -> None:
-        super().__init__(environment=environment, timeout=timeout, server_config=server_config)
+        super().__init__(
+            environment=environment, timeout=timeout, server_config=server_config, retry_options=retry_options
+        )
         self._raw_client = AsyncRawClient(
             http_client=(
-                custom_async_http_client if custom_async_http_client is not None else AsyncHttpxClient(timeout=timeout)
+                custom_async_http_client if custom_async_http_client is not None else AsyncHttpx2Client(timeout=timeout)
             ),
+            retry_options=self._retry_options,
             global_headers=[
                 param[str]("User-Agent", "ThePlaidApiClient/0.1.0 Python"),
                 param[str]("X-APIMatic-Lang", "Python"),
@@ -1226,14 +1232,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.accounts_balance_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.accounts_balance_get(body, request_options=request_options))
 
     async def accounts_get(
         self, body: AccountsGetRequest | AccountsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -1255,14 +1262,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.accounts_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.accounts_get(body, request_options=request_options))
 
     async def application_get(
         self,
@@ -1275,14 +1283,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.application_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.application_get(body, request_options=request_options))
 
     async def asset_report_audit_copy_create(
         self,
@@ -1302,16 +1311,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.asset_report_audit_copy_create(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def asset_report_audit_copy_get(
         self,
@@ -1326,16 +1336,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.asset_report_audit_copy_get(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.asset_report_audit_copy_get(body, request_options=request_options))
 
     async def asset_report_audit_copy_pdf_get(
         self,
@@ -1354,16 +1363,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             A PDF of the Asset Report Audit Copy
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.asset_report_audit_copy_pdf_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def asset_report_audit_copy_remove(
         self,
@@ -1379,16 +1389,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.asset_report_audit_copy_remove(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def asset_report_create(
         self,
@@ -1412,14 +1423,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.asset_report_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.asset_report_create(body, request_options=request_options))
 
     async def asset_report_filter(
         self,
@@ -1447,14 +1459,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.asset_report_filter(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.asset_report_filter(body, request_options=request_options))
 
     async def asset_report_get(
         self,
@@ -1482,14 +1495,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.asset_report_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.asset_report_get(body, request_options=request_options))
 
     async def asset_report_pdf_get(
         self,
@@ -1510,14 +1524,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             A PDF of the Asset Report
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.asset_report_pdf_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.asset_report_pdf_get(body, request_options=request_options))
 
     async def asset_report_refresh(
         self,
@@ -1538,14 +1553,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.asset_report_refresh(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.asset_report_refresh(body, request_options=request_options))
 
     async def asset_report_remove(
         self,
@@ -1564,14 +1580,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.asset_report_remove(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.asset_report_remove(body, request_options=request_options))
 
     async def auth_get(
         self, body: AuthGetRequest | AuthGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -1586,14 +1603,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.auth_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.auth_get(body, request_options=request_options))
 
     async def auth_verify(
         self, body: AuthVerifyRequest | AuthVerifyRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -1606,14 +1624,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.auth_verify(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.auth_verify(body, request_options=request_options))
 
     async def bank_transfer_balance_get(
         self,
@@ -1634,14 +1653,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.bank_transfer_balance_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.bank_transfer_balance_get(body, request_options=request_options))
 
     async def bank_transfer_cancel(
         self,
@@ -1654,14 +1674,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.bank_transfer_cancel(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.bank_transfer_cancel(body, request_options=request_options))
 
     async def bank_transfer_create(
         self,
@@ -1673,14 +1694,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.bank_transfer_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.bank_transfer_create(body, request_options=request_options))
 
     async def bank_transfer_event_list(
         self,
@@ -1695,14 +1717,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.bank_transfer_event_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.bank_transfer_event_list(body, request_options=request_options))
 
     async def bank_transfer_event_sync(
         self,
@@ -1717,14 +1740,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.bank_transfer_event_sync(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.bank_transfer_event_sync(body, request_options=request_options))
 
     async def bank_transfer_get(
         self,
@@ -1737,14 +1761,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.bank_transfer_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.bank_transfer_get(body, request_options=request_options))
 
     async def bank_transfer_list(
         self,
@@ -1757,14 +1782,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.bank_transfer_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.bank_transfer_list(body, request_options=request_options))
 
     async def bank_transfer_migrate_account(
         self,
@@ -1781,16 +1807,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.bank_transfer_migrate_account(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.bank_transfer_migrate_account(body, request_options=request_options))
 
     async def bank_transfer_sweep_get(
         self,
@@ -1803,14 +1828,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.bank_transfer_sweep_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.bank_transfer_sweep_get(body, request_options=request_options))
 
     async def bank_transfer_sweep_list(
         self,
@@ -1822,14 +1848,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.bank_transfer_sweep_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.bank_transfer_sweep_list(body, request_options=request_options))
 
     async def beacon_account_risk_evaluate(
         self,
@@ -1841,16 +1868,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.beacon_account_risk_evaluate(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.beacon_account_risk_evaluate(body, request_options=request_options))
 
     async def beacon_duplicate_get(
         self,
@@ -1870,14 +1896,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.beacon_duplicate_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.beacon_duplicate_get(body, request_options=request_options))
 
     async def beacon_report_create(
         self,
@@ -1889,14 +1916,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.beacon_report_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.beacon_report_create(body, request_options=request_options))
 
     async def beacon_report_get(
         self,
@@ -1908,14 +1936,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.beacon_report_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.beacon_report_get(body, request_options=request_options))
 
     async def beacon_report_list(
         self,
@@ -1932,14 +1961,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.beacon_report_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.beacon_report_list(body, request_options=request_options))
 
     async def beacon_report_syndication_get(
         self,
@@ -1951,16 +1981,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.beacon_report_syndication_get(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.beacon_report_syndication_get(body, request_options=request_options))
 
     async def beacon_report_syndication_list(
         self,
@@ -1977,16 +2006,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.beacon_report_syndication_list(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def beacon_user_account_insights_get(
         self,
@@ -1999,16 +2029,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.beacon_user_account_insights_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def beacon_user_create(
         self,
@@ -2034,14 +2065,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.beacon_user_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.beacon_user_create(body, request_options=request_options))
 
     async def beacon_user_get(
         self,
@@ -2056,14 +2088,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.beacon_user_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.beacon_user_get(body, request_options=request_options))
 
     async def beacon_user_history_list(
         self,
@@ -2075,14 +2108,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.beacon_user_history_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.beacon_user_history_list(body, request_options=request_options))
 
     async def beacon_user_review(
         self,
@@ -2109,14 +2143,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.beacon_user_review(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.beacon_user_review(body, request_options=request_options))
 
     async def beacon_user_update(
         self,
@@ -2146,14 +2181,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.beacon_user_update(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.beacon_user_update(body, request_options=request_options))
 
     async def beta_ewa_report_v1_get(
         self,
@@ -2177,14 +2213,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.beta_ewa_report_v1_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.beta_ewa_report_v1_get(body, request_options=request_options))
 
     async def beta_partner_customer_v1_create(
         self,
@@ -2198,16 +2235,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.beta_partner_customer_v1_create(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def beta_partner_customer_v1_enable(
         self,
@@ -2220,16 +2258,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.beta_partner_customer_v1_enable(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def beta_partner_customer_v1_get(
         self,
@@ -2242,16 +2281,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.beta_partner_customer_v1_get(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.beta_partner_customer_v1_get(body, request_options=request_options))
 
     async def beta_partner_customer_v1_update(
         self,
@@ -2263,16 +2301,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.beta_partner_customer_v1_update(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def business_verification_create(
         self,
@@ -2284,16 +2323,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.business_verification_create(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.business_verification_create(body, request_options=request_options))
 
     async def business_verification_get(
         self,
@@ -2305,14 +2343,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.business_verification_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.business_verification_get(body, request_options=request_options))
 
     async def cashflow_report_get(
         self,
@@ -2335,14 +2374,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.cashflow_report_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.cashflow_report_get(body, request_options=request_options))
 
     async def cashflow_report_insights_get(
         self,
@@ -2355,16 +2395,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.cashflow_report_insights_get(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.cashflow_report_insights_get(body, request_options=request_options))
 
     async def cashflow_report_refresh(
         self,
@@ -2390,14 +2429,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.cashflow_report_refresh(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.cashflow_report_refresh(body, request_options=request_options))
 
     async def cashflow_report_transactions_get(
         self,
@@ -2420,16 +2460,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.cashflow_report_transactions_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def categories_get(
         self, body: Any, *, request_options: RequestOptionsOrDict | None = None
@@ -2442,14 +2483,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.categories_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.categories_get(body, request_options=request_options))
 
     async def consent_events_get(
         self,
@@ -2463,14 +2505,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.consent_events_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.consent_events_get(body, request_options=request_options))
 
     async def consumer_report_pdf_get(
         self,
@@ -2484,14 +2527,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.consumer_report_pdf_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.consumer_report_pdf_get(body, request_options=request_options))
 
     async def cra_check_report_base_report_get(
         self,
@@ -2508,16 +2552,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.cra_check_report_base_report_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def cra_check_report_cashflow_insights_get(
         self,
@@ -2534,16 +2579,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.cra_check_report_cashflow_insights_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def cra_check_report_create(
         self,
@@ -2557,14 +2603,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.cra_check_report_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.cra_check_report_create(body, request_options=request_options))
 
     async def cra_check_report_income_insights_get(
         self,
@@ -2588,16 +2635,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.cra_check_report_income_insights_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def cra_check_report_lend_score_get(
         self,
@@ -2613,16 +2661,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.cra_check_report_lend_score_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def cra_check_report_network_insights_get(
         self,
@@ -2638,16 +2687,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.cra_check_report_network_insights_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def cra_check_report_partner_insights_get(
         self,
@@ -2663,16 +2713,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.cra_check_report_partner_insights_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def cra_check_report_pdf_get(
         self,
@@ -2686,14 +2737,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.cra_check_report_pdf_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.cra_check_report_pdf_get(body, request_options=request_options))
 
     async def cra_check_report_verification_get(
         self,
@@ -2714,16 +2766,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.cra_check_report_verification_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def cra_check_report_verification_pdf_get(
         self,
@@ -2741,16 +2794,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.cra_check_report_verification_pdf_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def cra_credit_profile_report_get(
         self,
@@ -2762,16 +2816,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.cra_credit_profile_report_get(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.cra_credit_profile_report_get(body, request_options=request_options))
 
     async def cra_loans_applications_register(
         self,
@@ -2783,16 +2836,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.cra_loans_applications_register(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def cra_loans_register(
         self,
@@ -2804,14 +2858,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.cra_loans_register(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.cra_loans_register(body, request_options=request_options))
 
     async def cra_loans_unregister(
         self,
@@ -2824,14 +2879,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.cra_loans_unregister(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.cra_loans_unregister(body, request_options=request_options))
 
     async def cra_loans_update(
         self,
@@ -2843,14 +2899,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.cra_loans_update(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.cra_loans_update(body, request_options=request_options))
 
     async def cra_monitoring_insights_get(
         self,
@@ -2863,16 +2920,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.cra_monitoring_insights_get(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.cra_monitoring_insights_get(body, request_options=request_options))
 
     async def cra_monitoring_insights_subscribe(
         self,
@@ -2886,16 +2942,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.cra_monitoring_insights_subscribe(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def cra_monitoring_insights_unsubscribe(
         self,
@@ -2907,16 +2964,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.cra_monitoring_insights_unsubscribe(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def cra_partner_insights_get(
         self,
@@ -2928,14 +2986,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.cra_partner_insights_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.cra_partner_insights_get(body, request_options=request_options))
 
     async def cra_report_get(
         self,
@@ -2947,14 +3006,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.cra_report_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.cra_report_get(body, request_options=request_options))
 
     async def create_payment_token(
         self,
@@ -2974,14 +3034,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.create_payment_token(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.create_payment_token(body, request_options=request_options))
 
     async def credit_asset_report_freddie_mac_get(
         self,
@@ -2994,16 +3055,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.credit_asset_report_freddie_mac_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def credit_audit_copy_token_create(
         self,
@@ -3021,16 +3083,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.credit_audit_copy_token_create(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def credit_audit_copy_token_update(
         self,
@@ -3044,16 +3107,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.credit_audit_copy_token_update(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def credit_bank_employment_get(
         self,
@@ -3066,14 +3130,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.credit_bank_employment_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.credit_bank_employment_get(body, request_options=request_options))
 
     async def credit_bank_income_get(
         self,
@@ -3088,14 +3153,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.credit_bank_income_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.credit_bank_income_get(body, request_options=request_options))
 
     async def credit_bank_income_pdf_get(
         self,
@@ -3109,14 +3175,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             A PDF of the Bank Income Report
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.credit_bank_income_pdf_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.credit_bank_income_pdf_get(body, request_options=request_options))
 
     async def credit_bank_income_refresh(
         self,
@@ -3132,14 +3199,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.credit_bank_income_refresh(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.credit_bank_income_refresh(body, request_options=request_options))
 
     async def credit_bank_income_webhook_update(
         self,
@@ -3155,16 +3223,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.credit_bank_income_webhook_update(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def credit_bank_statements_uploads_get(
         self,
@@ -3178,16 +3247,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.credit_bank_statements_uploads_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def credit_employment_get(
         self,
@@ -3200,14 +3270,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.credit_employment_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.credit_employment_get(body, request_options=request_options))
 
     async def credit_freddie_mac_reports_get(
         self,
@@ -3220,16 +3291,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.credit_freddie_mac_reports_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def credit_payroll_income_get(
         self,
@@ -3242,14 +3314,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.credit_payroll_income_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.credit_payroll_income_get(body, request_options=request_options))
 
     async def credit_payroll_income_parsing_config_update(
         self,
@@ -3262,18 +3335,19 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.credit_payroll_income_parsing_config_update(
                 body, request_options=request_options
-            )
-        ).unwrap()
+            ),
+        )
 
     async def credit_payroll_income_precheck(
         self,
@@ -3300,16 +3374,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.credit_payroll_income_precheck(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def credit_payroll_income_refresh(
         self,
@@ -3321,16 +3396,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.credit_payroll_income_refresh(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.credit_payroll_income_refresh(body, request_options=request_options))
 
     async def credit_payroll_income_risk_signals_get(
         self,
@@ -3353,16 +3427,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.credit_payroll_income_risk_signals_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def credit_relay_create(
         self,
@@ -3380,14 +3455,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.credit_relay_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.credit_relay_create(body, request_options=request_options))
 
     async def credit_relay_get(
         self,
@@ -3400,14 +3476,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.credit_relay_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.credit_relay_get(body, request_options=request_options))
 
     async def credit_relay_pdf_get(
         self,
@@ -3430,14 +3507,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             A PDF of the Asset Report
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.credit_relay_pdf_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.credit_relay_pdf_get(body, request_options=request_options))
 
     async def credit_relay_refresh(
         self,
@@ -3452,14 +3530,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.credit_relay_refresh(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.credit_relay_refresh(body, request_options=request_options))
 
     async def credit_relay_remove(
         self,
@@ -3474,14 +3553,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.credit_relay_remove(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.credit_relay_remove(body, request_options=request_options))
 
     async def credit_report_audit_copy_remove(
         self,
@@ -3496,16 +3576,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.credit_report_audit_copy_remove(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def credit_sessions_get(
         self,
@@ -3521,14 +3602,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.credit_sessions_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.credit_sessions_get(body, request_options=request_options))
 
     async def dashboard_user_get(
         self,
@@ -3542,14 +3624,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.dashboard_user_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.dashboard_user_get(body, request_options=request_options))
 
     async def dashboard_user_list(
         self,
@@ -3563,14 +3646,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.dashboard_user_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.dashboard_user_list(body, request_options=request_options))
 
     async def employers_search(
         self,
@@ -3588,14 +3672,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.employers_search(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.employers_search(body, request_options=request_options))
 
     async def employment_verification_get(
         self,
@@ -3610,16 +3695,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.employment_verification_get(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.employment_verification_get(body, request_options=request_options))
 
     async def fdx_consents_get(
         self, consent_id: str, *, request_options: RequestOptionsOrDict | None = None
@@ -3628,14 +3712,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             consent_id: Consent Grant Identifier. Uniquely identifies the consent grant
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.fdx_consents_get(consent_id, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.fdx_consents_get(consent_id, request_options=request_options))
 
     async def fdx_consents_list(
         self,
@@ -3651,16 +3736,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
             customer_id: Data provider customer identifier whose consent grants to return.
             status: Optional filter restricting results to a single consent grant status. One of ``ACTIVE``,
                 ``REVOKED``, ``EXPIRED``.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.fdx_consents_list(customer_id, status=status, request_options=request_options)
-        ).unwrap()
+        )
 
     async def fdx_consents_revocation_get(
         self, consent_id: str, *, request_options: RequestOptionsOrDict | None = None
@@ -3669,16 +3755,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             consent_id: Consent Grant Identifier. Uniquely identifies the consent grant
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.fdx_consents_revocation_get(consent_id, request_options=request_options)
-        ).unwrap()
+        )
 
     async def fdx_consents_revoke(
         self,
@@ -3692,16 +3779,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         Args:
             consent_id: Consent Grant Identifier. Uniquely identifies the consent grant
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             No Content
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.fdx_consents_revoke(consent_id, body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def fdx_notifications(
         self,
@@ -3713,14 +3801,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.fdx_notifications(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.fdx_notifications(body, request_options=request_options))
 
     async def get_recipient(
         self,
@@ -3734,31 +3823,33 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         Args:
             recipient_id: Recipient Identifier. Uniquely identifies the recipient
             oauth_state_id: The value that is passed into the OAuth URI 'state' query parameter.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.get_recipient(
                 recipient_id, oauth_state_id=oauth_state_id, request_options=request_options
-            )
-        ).unwrap()
+            ),
+        )
 
     async def get_recipients(self, *, request_options: RequestOptionsOrDict | None = None) -> GetRecipientsResponse:
         """Returns a list of Recipients
 
         Args:
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.get_recipients(request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.get_recipients(request_options=request_options))
 
     async def identity_documents_uploads_get(
         self,
@@ -3771,16 +3862,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.identity_documents_uploads_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def identity_get(
         self, body: IdentityGetRequest | IdentityGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -3795,14 +3887,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.identity_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.identity_get(body, request_options=request_options))
 
     async def identity_match(
         self,
@@ -3819,14 +3912,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.identity_match(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.identity_match(body, request_options=request_options))
 
     async def identity_refresh(
         self,
@@ -3850,14 +3944,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.identity_refresh(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.identity_refresh(body, request_options=request_options))
 
     async def identity_verification_autofill_create(
         self,
@@ -3870,16 +3965,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.identity_verification_autofill_create(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def identity_verification_create(
         self,
@@ -3906,16 +4002,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.identity_verification_create(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.identity_verification_create(body, request_options=request_options))
 
     async def identity_verification_get(
         self,
@@ -3927,14 +4022,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.identity_verification_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.identity_verification_get(body, request_options=request_options))
 
     async def identity_verification_list(
         self,
@@ -3946,14 +4042,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.identity_verification_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.identity_verification_list(body, request_options=request_options))
 
     async def identity_verification_retry(
         self,
@@ -3965,16 +4062,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.identity_verification_retry(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.identity_verification_retry(body, request_options=request_options))
 
     async def income_verification_create(
         self,
@@ -3990,14 +4086,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.income_verification_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.income_verification_create(body, request_options=request_options))
 
     async def income_verification_documents_download(
         self,
@@ -4019,16 +4116,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             A ZIP file containing source documents(s) used as the basis for income verification.
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.income_verification_documents_download(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def income_verification_paystubs_get(
         self,
@@ -4045,16 +4143,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.income_verification_paystubs_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def income_verification_precheck(
         self,
@@ -4077,16 +4176,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.income_verification_precheck(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.income_verification_precheck(body, request_options=request_options))
 
     async def income_verification_taxforms_get(
         self,
@@ -4103,16 +4201,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.income_verification_taxforms_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def institutions_get(
         self,
@@ -4129,14 +4228,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.institutions_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.institutions_get(body, request_options=request_options))
 
     async def institutions_get_by_id(
         self,
@@ -4152,14 +4252,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.institutions_get_by_id(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.institutions_get_by_id(body, request_options=request_options))
 
     async def institutions_search(
         self,
@@ -4176,14 +4277,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.institutions_search(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.institutions_search(body, request_options=request_options))
 
     async def investments_auth_get(
         self,
@@ -4196,14 +4298,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.investments_auth_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.investments_auth_get(body, request_options=request_options))
 
     async def investments_holdings_get(
         self,
@@ -4216,14 +4319,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.investments_holdings_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.investments_holdings_get(body, request_options=request_options))
 
     async def investments_refresh(
         self,
@@ -4255,14 +4359,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.investments_refresh(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.investments_refresh(body, request_options=request_options))
 
     async def investments_transactions_get(
         self,
@@ -4292,16 +4397,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.investments_transactions_get(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.investments_transactions_get(body, request_options=request_options))
 
     async def issues_get(
         self, body: IssuesGetRequest | IssuesGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -4310,14 +4414,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.issues_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.issues_get(body, request_options=request_options))
 
     async def issues_search(
         self,
@@ -4332,14 +4437,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.issues_search(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.issues_search(body, request_options=request_options))
 
     async def issues_subscribe(
         self,
@@ -4352,14 +4458,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             Subscription was successful
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.issues_subscribe(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.issues_subscribe(body, request_options=request_options))
 
     async def item_access_token_invalidate(
         self,
@@ -4375,16 +4482,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.item_access_token_invalidate(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.item_access_token_invalidate(body, request_options=request_options))
 
     async def item_activity_list(
         self,
@@ -4396,14 +4502,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.item_activity_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.item_activity_list(body, request_options=request_options))
 
     async def item_application_list(
         self,
@@ -4415,14 +4522,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.item_application_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.item_application_list(body, request_options=request_options))
 
     async def item_application_scopes_update(
         self,
@@ -4434,16 +4542,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.item_application_scopes_update(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def item_application_unlink(
         self,
@@ -4464,14 +4573,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.item_application_unlink(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.item_application_unlink(body, request_options=request_options))
 
     async def item_create_public_token(
         self,
@@ -4496,14 +4606,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.item_create_public_token(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.item_create_public_token(body, request_options=request_options))
 
     async def item_get(
         self, body: ItemGetRequest | ItemGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -4512,14 +4623,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.item_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.item_get(body, request_options=request_options))
 
     async def item_import(
         self, body: ItemImportRequest | ItemImportRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -4534,14 +4646,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.item_import(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.item_import(body, request_options=request_options))
 
     async def item_products_terminate(
         self,
@@ -4557,14 +4670,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.item_products_terminate(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.item_products_terminate(body, request_options=request_options))
 
     async def item_public_token_exchange(
         self,
@@ -4582,14 +4696,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.item_public_token_exchange(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.item_public_token_exchange(body, request_options=request_options))
 
     async def item_remove(
         self, body: ItemRemoveRequest | ItemRemoveRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -4617,14 +4732,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.item_remove(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.item_remove(body, request_options=request_options))
 
     async def item_webhook_update(
         self,
@@ -4638,14 +4754,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.item_webhook_update(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.item_webhook_update(body, request_options=request_options))
 
     async def liabilities_get(
         self,
@@ -4666,14 +4783,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.liabilities_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.liabilities_get(body, request_options=request_options))
 
     async def link_delivery_create(
         self,
@@ -4685,14 +4803,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.link_delivery_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.link_delivery_create(body, request_options=request_options))
 
     async def link_delivery_get(
         self,
@@ -4704,14 +4823,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.link_delivery_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.link_delivery_get(body, request_options=request_options))
 
     async def link_oauth_correlation_id_exchange(
         self,
@@ -4726,16 +4846,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.link_oauth_correlation_id_exchange(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def link_token_create(
         self,
@@ -4755,14 +4876,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.link_token_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.link_token_create(body, request_options=request_options))
 
     async def link_token_get(
         self,
@@ -4784,14 +4906,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.link_token_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.link_token_get(body, request_options=request_options))
 
     async def network_status_get(
         self,
@@ -4810,14 +4933,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.network_status_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.network_status_get(body, request_options=request_options))
 
     async def oauth_introspect(
         self,
@@ -4832,14 +4956,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.oauth_introspect(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.oauth_introspect(body, request_options=request_options))
 
     async def oauth_revoke(
         self, body: OauthRevokeRequest | OauthRevokeRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -4852,14 +4977,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.oauth_revoke(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.oauth_revoke(body, request_options=request_options))
 
     async def oauth_token(
         self, body: OauthTokenRequest | OauthTokenRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -4870,14 +4996,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.oauth_token(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.oauth_token(body, request_options=request_options))
 
     async def partner_customer_create(
         self,
@@ -4892,14 +5019,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.partner_customer_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.partner_customer_create(body, request_options=request_options))
 
     async def partner_customer_enable(
         self,
@@ -4912,14 +5040,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.partner_customer_enable(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.partner_customer_enable(body, request_options=request_options))
 
     async def partner_customer_get(
         self,
@@ -4932,14 +5061,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.partner_customer_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.partner_customer_get(body, request_options=request_options))
 
     async def partner_customer_oauth_institutions_get(
         self,
@@ -4954,16 +5084,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.partner_customer_oauth_institutions_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def partner_customer_remove(
         self,
@@ -4977,14 +5108,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.partner_customer_remove(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.partner_customer_remove(body, request_options=request_options))
 
     async def payment_initiation_consent_create(
         self,
@@ -5000,16 +5132,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.payment_initiation_consent_create(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def payment_initiation_consent_get(
         self,
@@ -5022,16 +5155,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.payment_initiation_consent_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def payment_initiation_consent_payment_execute(
         self,
@@ -5044,18 +5178,19 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.payment_initiation_consent_payment_execute(
                 body, request_options=request_options
-            )
-        ).unwrap()
+            ),
+        )
 
     async def payment_initiation_consent_revoke(
         self,
@@ -5068,16 +5203,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.payment_initiation_consent_revoke(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def payment_initiation_payment_create(
         self,
@@ -5106,16 +5242,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.payment_initiation_payment_create(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def payment_initiation_payment_get(
         self,
@@ -5134,16 +5271,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.payment_initiation_payment_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def payment_initiation_payment_list(
         self,
@@ -5157,16 +5295,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.payment_initiation_payment_list(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def payment_initiation_payment_reverse(
         self,
@@ -5188,16 +5327,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.payment_initiation_payment_reverse(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def payment_initiation_recipient_create(
         self,
@@ -5217,16 +5357,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.payment_initiation_recipient_create(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def payment_initiation_recipient_get(
         self,
@@ -5238,16 +5379,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.payment_initiation_recipient_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def payment_initiation_recipient_list(
         self,
@@ -5260,16 +5402,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.payment_initiation_recipient_list(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def payment_profile_create(
         self,
@@ -5284,14 +5427,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.payment_profile_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.payment_profile_create(body, request_options=request_options))
 
     async def payment_profile_get(
         self,
@@ -5303,14 +5447,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.payment_profile_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.payment_profile_get(body, request_options=request_options))
 
     async def payment_profile_remove(
         self,
@@ -5323,14 +5468,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.payment_profile_remove(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.payment_profile_remove(body, request_options=request_options))
 
     async def processor_account_get(
         self,
@@ -5346,14 +5492,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.processor_account_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.processor_account_get(body, request_options=request_options))
 
     async def processor_apex_processor_token_create(
         self,
@@ -5365,16 +5512,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.processor_apex_processor_token_create(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def processor_auth_get(
         self,
@@ -5392,14 +5540,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.processor_auth_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.processor_auth_get(body, request_options=request_options))
 
     async def processor_balance_get(
         self,
@@ -5418,14 +5567,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
                 to the account. Note that not all institutions calculate the available balance. In the event that
                 available balance is unavailable from the institution, Plaid will return an available balance value of
                 ``null``.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.processor_balance_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.processor_balance_get(body, request_options=request_options))
 
     async def processor_bank_transfer_create(
         self,
@@ -5437,16 +5587,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.processor_bank_transfer_create(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def processor_identity_get(
         self,
@@ -5459,14 +5610,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.processor_identity_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.processor_identity_get(body, request_options=request_options))
 
     async def processor_identity_match(
         self,
@@ -5482,14 +5634,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.processor_identity_match(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.processor_identity_match(body, request_options=request_options))
 
     async def processor_investments_auth_get(
         self,
@@ -5506,16 +5659,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.processor_investments_auth_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def processor_investments_holdings_get(
         self,
@@ -5527,16 +5681,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.processor_investments_holdings_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def processor_investments_transactions_get(
         self,
@@ -5570,16 +5725,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.processor_investments_transactions_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def processor_liabilities_get(
         self,
@@ -5602,14 +5758,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.processor_liabilities_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.processor_liabilities_get(body, request_options=request_options))
 
     async def processor_signal_decision_report(
         self,
@@ -5634,16 +5791,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.processor_signal_decision_report(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def processor_signal_evaluate(
         self,
@@ -5666,14 +5824,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.processor_signal_evaluate(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.processor_signal_evaluate(body, request_options=request_options))
 
     async def processor_signal_prepare(
         self,
@@ -5689,14 +5848,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.processor_signal_prepare(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.processor_signal_prepare(body, request_options=request_options))
 
     async def processor_signal_return_report(
         self,
@@ -5713,16 +5873,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.processor_signal_return_report(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def processor_stripe_bank_account_token_create(
         self,
@@ -5745,18 +5906,19 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.processor_stripe_bank_account_token_create(
                 body, request_options=request_options
-            )
-        ).unwrap()
+            ),
+        )
 
     async def processor_token_create(
         self,
@@ -5773,14 +5935,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.processor_token_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.processor_token_create(body, request_options=request_options))
 
     async def processor_token_permissions_get(
         self,
@@ -5793,16 +5956,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.processor_token_permissions_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def processor_token_permissions_set(
         self,
@@ -5818,16 +5982,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.processor_token_permissions_set(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def processor_token_webhook_update(
         self,
@@ -5840,16 +6005,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.processor_token_webhook_update(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def processor_transactions_get(
         self,
@@ -5887,14 +6053,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.processor_transactions_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.processor_transactions_get(body, request_options=request_options))
 
     async def processor_transactions_recurring_get(
         self,
@@ -5932,16 +6099,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.processor_transactions_recurring_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def processor_transactions_refresh(
         self,
@@ -5974,16 +6142,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.processor_transactions_refresh(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def processor_transactions_sync(
         self,
@@ -6028,16 +6197,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.processor_transactions_sync(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.processor_transactions_sync(body, request_options=request_options))
 
     async def profile_network_status_get(
         self,
@@ -6050,14 +6218,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.profile_network_status_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.profile_network_status_get(body, request_options=request_options))
 
     async def protect_compute(
         self,
@@ -6077,14 +6246,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.protect_compute(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.protect_compute(body, request_options=request_options))
 
     async def protect_event_get(
         self,
@@ -6096,14 +6266,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.protect_event_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.protect_event_get(body, request_options=request_options))
 
     async def protect_event_send(
         self,
@@ -6115,14 +6286,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.protect_event_send(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.protect_event_send(body, request_options=request_options))
 
     async def protect_report_create(
         self,
@@ -6143,14 +6315,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.protect_report_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.protect_report_create(body, request_options=request_options))
 
     async def protect_user_insights_get(
         self,
@@ -6162,14 +6335,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.protect_user_insights_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.protect_user_insights_get(body, request_options=request_options))
 
     async def sandbox_bank_income_fire_webhook(
         self,
@@ -6182,16 +6356,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.sandbox_bank_income_fire_webhook(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def sandbox_bank_transfer_fire_webhook(
         self,
@@ -6204,16 +6379,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.sandbox_bank_transfer_fire_webhook(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def sandbox_bank_transfer_simulate(
         self,
@@ -6228,16 +6404,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.sandbox_bank_transfer_simulate(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def sandbox_cra_cashflow_updates_update(
         self,
@@ -6250,16 +6427,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.sandbox_cra_cashflow_updates_update(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def sandbox_fdx_consent_seed(
         self,
@@ -6279,14 +6457,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.sandbox_fdx_consent_seed(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.sandbox_fdx_consent_seed(body, request_options=request_options))
 
     async def sandbox_income_fire_webhook(
         self,
@@ -6299,16 +6478,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.sandbox_income_fire_webhook(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.sandbox_income_fire_webhook(body, request_options=request_options))
 
     async def sandbox_item_application_seed(
         self,
@@ -6325,16 +6503,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.sandbox_item_application_seed(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.sandbox_item_application_seed(body, request_options=request_options))
 
     async def sandbox_item_fire_webhook(
         self,
@@ -6390,14 +6567,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.sandbox_item_fire_webhook(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.sandbox_item_fire_webhook(body, request_options=request_options))
 
     async def sandbox_item_reset_login(
         self,
@@ -6415,14 +6593,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.sandbox_item_reset_login(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.sandbox_item_reset_login(body, request_options=request_options))
 
     async def sandbox_item_set_verification_status(
         self,
@@ -6438,16 +6617,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.sandbox_item_set_verification_status(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def sandbox_oauth_select_accounts(
         self,
@@ -6459,16 +6639,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.sandbox_oauth_select_accounts(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.sandbox_oauth_select_accounts(body, request_options=request_options))
 
     async def sandbox_payment_profile_reset_login(
         self,
@@ -6489,16 +6668,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.sandbox_payment_profile_reset_login(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def sandbox_payment_simulate(
         self,
@@ -6511,14 +6691,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.sandbox_payment_simulate(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.sandbox_payment_simulate(body, request_options=request_options))
 
     async def sandbox_processor_token_create(
         self,
@@ -6534,16 +6715,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.sandbox_processor_token_create(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def sandbox_public_token_create(
         self,
@@ -6560,16 +6742,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.sandbox_public_token_create(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.sandbox_public_token_create(body, request_options=request_options))
 
     async def sandbox_transactions_create(
         self,
@@ -6589,16 +6770,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: Invalid request ``error`` is ``Error | None | RawError``."""
-        return (
-            await self.with_raw_response.sandbox_transactions_create(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.sandbox_transactions_create(body, request_options=request_options))
 
     async def sandbox_transfer_fire_webhook(
         self,
@@ -6611,16 +6791,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.sandbox_transfer_fire_webhook(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.sandbox_transfer_fire_webhook(body, request_options=request_options))
 
     async def sandbox_transfer_ledger_deposit_simulate(
         self,
@@ -6633,16 +6812,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.sandbox_transfer_ledger_deposit_simulate(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def sandbox_transfer_ledger_simulate_available(
         self,
@@ -6655,18 +6835,19 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.sandbox_transfer_ledger_simulate_available(
                 body, request_options=request_options
-            )
-        ).unwrap()
+            ),
+        )
 
     async def sandbox_transfer_ledger_withdraw_simulate(
         self,
@@ -6679,18 +6860,19 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.sandbox_transfer_ledger_withdraw_simulate(
                 body, request_options=request_options
-            )
-        ).unwrap()
+            ),
+        )
 
     async def sandbox_transfer_refund_simulate(
         self,
@@ -6705,16 +6887,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.sandbox_transfer_refund_simulate(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def sandbox_transfer_repayment_simulate(
         self,
@@ -6728,16 +6911,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.sandbox_transfer_repayment_simulate(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def sandbox_transfer_simulate(
         self,
@@ -6752,14 +6936,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.sandbox_transfer_simulate(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.sandbox_transfer_simulate(body, request_options=request_options))
 
     async def sandbox_transfer_sweep_simulate(
         self,
@@ -6774,16 +6959,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.sandbox_transfer_sweep_simulate(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def sandbox_transfer_test_clock_advance(
         self,
@@ -6813,16 +6999,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.sandbox_transfer_test_clock_advance(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def sandbox_transfer_test_clock_create(
         self,
@@ -6840,16 +7027,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.sandbox_transfer_test_clock_create(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def sandbox_transfer_test_clock_get(
         self,
@@ -6861,16 +7049,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.sandbox_transfer_test_clock_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def sandbox_transfer_test_clock_list(
         self,
@@ -6884,16 +7073,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.sandbox_transfer_test_clock_list(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def sandbox_user_reset_login(
         self,
@@ -6912,14 +7102,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.sandbox_user_reset_login(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.sandbox_user_reset_login(body, request_options=request_options))
 
     async def session_token_create(
         self,
@@ -6933,14 +7124,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.session_token_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.session_token_create(body, request_options=request_options))
 
     async def signal_decision_report(
         self,
@@ -6965,14 +7157,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.signal_decision_report(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.signal_decision_report(body, request_options=request_options))
 
     async def signal_evaluate(
         self,
@@ -6998,14 +7191,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.signal_evaluate(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.signal_evaluate(body, request_options=request_options))
 
     async def signal_prepare(
         self,
@@ -7028,14 +7222,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.signal_prepare(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.signal_prepare(body, request_options=request_options))
 
     async def signal_return_report(
         self,
@@ -7051,14 +7246,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.signal_return_report(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.signal_return_report(body, request_options=request_options))
 
     async def signal_schedule(
         self,
@@ -7070,14 +7266,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.signal_schedule(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.signal_schedule(body, request_options=request_options))
 
     async def statements_download(
         self,
@@ -7091,14 +7288,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.statements_download(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.statements_download(body, request_options=request_options))
 
     async def statements_list(
         self,
@@ -7110,14 +7308,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.statements_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.statements_list(body, request_options=request_options))
 
     async def statements_refresh(
         self,
@@ -7129,14 +7328,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.statements_refresh(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.statements_refresh(body, request_options=request_options))
 
     async def transactions_enhance(
         self,
@@ -7150,14 +7350,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transactions_enhance(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transactions_enhance(body, request_options=request_options))
 
     async def transactions_enrich(
         self,
@@ -7170,14 +7371,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transactions_enrich(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transactions_enrich(body, request_options=request_options))
 
     async def transactions_get(
         self,
@@ -7217,14 +7419,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transactions_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transactions_get(body, request_options=request_options))
 
     async def transactions_recurring_get(
         self,
@@ -7263,14 +7466,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transactions_recurring_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transactions_recurring_get(body, request_options=request_options))
 
     async def transactions_refresh(
         self,
@@ -7305,14 +7509,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transactions_refresh(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transactions_refresh(body, request_options=request_options))
 
     async def transactions_rules_create(
         self,
@@ -7328,14 +7533,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transactions_rules_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transactions_rules_create(body, request_options=request_options))
 
     async def transactions_rules_list(
         self,
@@ -7348,14 +7554,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transactions_rules_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transactions_rules_list(body, request_options=request_options))
 
     async def transactions_rules_remove(
         self,
@@ -7367,14 +7574,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transactions_rules_remove(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transactions_rules_remove(body, request_options=request_options))
 
     async def transactions_sync(
         self,
@@ -7416,14 +7624,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transactions_sync(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transactions_sync(body, request_options=request_options))
 
     async def transactions_user_insights_get(
         self,
@@ -7438,16 +7647,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.transactions_user_insights_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def transfer_authorization_cancel(
         self,
@@ -7460,16 +7670,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.transfer_authorization_cancel(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.transfer_authorization_cancel(body, request_options=request_options))
 
     async def transfer_authorization_create(
         self,
@@ -7522,16 +7731,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.transfer_authorization_create(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.transfer_authorization_create(body, request_options=request_options))
 
     async def transfer_balance_get(
         self,
@@ -7543,14 +7751,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_balance_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_balance_get(body, request_options=request_options))
 
     async def transfer_cancel(
         self,
@@ -7563,14 +7772,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_cancel(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_cancel(body, request_options=request_options))
 
     async def transfer_capabilities_get(
         self,
@@ -7584,14 +7794,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_capabilities_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_capabilities_get(body, request_options=request_options))
 
     async def transfer_configuration_get(
         self,
@@ -7603,14 +7814,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_configuration_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_configuration_get(body, request_options=request_options))
 
     async def transfer_create(
         self,
@@ -7625,14 +7837,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_create(body, request_options=request_options))
 
     async def transfer_diligence_document_upload(
         self,
@@ -7647,16 +7860,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.transfer_diligence_document_upload(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def transfer_diligence_submit(
         self,
@@ -7669,14 +7883,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_diligence_submit(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_diligence_submit(body, request_options=request_options))
 
     async def transfer_event_list(
         self,
@@ -7689,14 +7904,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_event_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_event_list(body, request_options=request_options))
 
     async def transfer_event_sync(
         self,
@@ -7709,14 +7925,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_event_sync(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_event_sync(body, request_options=request_options))
 
     async def transfer_get(
         self, body: TransferGetRequest | TransferGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -7727,14 +7944,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_get(body, request_options=request_options))
 
     async def transfer_intent_create(
         self,
@@ -7746,14 +7964,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_intent_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_intent_create(body, request_options=request_options))
 
     async def transfer_intent_get(
         self,
@@ -7765,14 +7984,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_intent_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_intent_get(body, request_options=request_options))
 
     async def transfer_ledger_deposit(
         self,
@@ -7784,14 +8004,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_ledger_deposit(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_ledger_deposit(body, request_options=request_options))
 
     async def transfer_ledger_distribute(
         self,
@@ -7805,14 +8026,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_ledger_distribute(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_ledger_distribute(body, request_options=request_options))
 
     async def transfer_ledger_event_list(
         self,
@@ -7825,14 +8047,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_ledger_event_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_ledger_event_list(body, request_options=request_options))
 
     async def transfer_ledger_get(
         self,
@@ -7844,14 +8067,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_ledger_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_ledger_get(body, request_options=request_options))
 
     async def transfer_ledger_withdraw(
         self,
@@ -7863,14 +8087,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_ledger_withdraw(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_ledger_withdraw(body, request_options=request_options))
 
     async def transfer_list(
         self,
@@ -7883,14 +8108,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_list(body, request_options=request_options))
 
     async def transfer_metrics_get(
         self,
@@ -7905,14 +8131,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_metrics_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_metrics_get(body, request_options=request_options))
 
     async def transfer_migrate_account(
         self,
@@ -7931,14 +8158,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_migrate_account(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_migrate_account(body, request_options=request_options))
 
     async def transfer_originator_create(
         self,
@@ -7951,14 +8179,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_originator_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_originator_create(body, request_options=request_options))
 
     async def transfer_originator_funding_account_create(
         self,
@@ -7971,18 +8200,19 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.transfer_originator_funding_account_create(
                 body, request_options=request_options
-            )
-        ).unwrap()
+            ),
+        )
 
     async def transfer_originator_funding_account_update(
         self,
@@ -7995,18 +8225,19 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.transfer_originator_funding_account_update(
                 body, request_options=request_options
-            )
-        ).unwrap()
+            ),
+        )
 
     async def transfer_originator_get(
         self,
@@ -8019,14 +8250,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_originator_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_originator_get(body, request_options=request_options))
 
     async def transfer_originator_list(
         self,
@@ -8039,14 +8271,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_originator_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_originator_list(body, request_options=request_options))
 
     async def transfer_platform_originator_create(
         self,
@@ -8059,16 +8292,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.transfer_platform_originator_create(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def transfer_platform_person_create(
         self,
@@ -8081,16 +8315,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.transfer_platform_person_create(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def transfer_platform_requirement_submit(
         self,
@@ -8105,16 +8340,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.transfer_platform_requirement_submit(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def transfer_questionnaire_create(
         self,
@@ -8128,16 +8364,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.transfer_questionnaire_create(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.transfer_questionnaire_create(body, request_options=request_options))
 
     async def transfer_recurring_cancel(
         self,
@@ -8150,14 +8385,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_recurring_cancel(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_recurring_cancel(body, request_options=request_options))
 
     async def transfer_recurring_create(
         self,
@@ -8170,14 +8406,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_recurring_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_recurring_create(body, request_options=request_options))
 
     async def transfer_recurring_get(
         self,
@@ -8190,14 +8427,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_recurring_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_recurring_get(body, request_options=request_options))
 
     async def transfer_recurring_list(
         self,
@@ -8211,14 +8449,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_recurring_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_recurring_list(body, request_options=request_options))
 
     async def transfer_refund_cancel(
         self,
@@ -8231,14 +8470,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_refund_cancel(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_refund_cancel(body, request_options=request_options))
 
     async def transfer_refund_create(
         self,
@@ -8260,14 +8500,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_refund_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_refund_create(body, request_options=request_options))
 
     async def transfer_refund_get(
         self,
@@ -8280,14 +8521,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_refund_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_refund_get(body, request_options=request_options))
 
     async def transfer_repayment_list(
         self,
@@ -8300,14 +8542,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_repayment_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_repayment_list(body, request_options=request_options))
 
     async def transfer_repayment_return_list(
         self,
@@ -8321,16 +8564,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.transfer_repayment_return_list(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def transfer_return_recover(
         self,
@@ -8346,14 +8590,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_return_recover(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_return_recover(body, request_options=request_options))
 
     async def transfer_sweep_get(
         self,
@@ -8365,14 +8610,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_sweep_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_sweep_get(body, request_options=request_options))
 
     async def transfer_sweep_list(
         self,
@@ -8384,14 +8630,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.transfer_sweep_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.transfer_sweep_list(body, request_options=request_options))
 
     async def user_account_session_event_send(
         self,
@@ -8404,16 +8651,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.user_account_session_event_send(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def user_account_session_get(
         self,
@@ -8431,14 +8679,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.user_account_session_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.user_account_session_get(body, request_options=request_options))
 
     async def user_create(
         self,
@@ -8480,18 +8729,19 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.user_create(
                 body, plaid_new_user_api_enabled=plaid_new_user_api_enabled, request_options=request_options
-            )
-        ).unwrap()
+            ),
+        )
 
     async def user_financial_data_refresh(
         self,
@@ -8510,16 +8760,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.user_financial_data_refresh(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.user_financial_data_refresh(body, request_options=request_options))
 
     async def user_get(
         self,
@@ -8536,18 +8785,19 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.user_get(
                 body, plaid_new_user_api_enabled=plaid_new_user_api_enabled, request_options=request_options
-            )
-        ).unwrap()
+            ),
+        )
 
     async def user_identity_remove(
         self,
@@ -8564,18 +8814,19 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.user_identity_remove(
                 body, plaid_new_user_api_enabled=plaid_new_user_api_enabled, request_options=request_options
-            )
-        ).unwrap()
+            ),
+        )
 
     async def user_items_associate(
         self,
@@ -8589,14 +8840,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.user_items_associate(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.user_items_associate(body, request_options=request_options))
 
     async def user_items_get(
         self,
@@ -8610,14 +8862,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.user_items_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.user_items_get(body, request_options=request_options))
 
     async def user_items_remove(
         self,
@@ -8638,14 +8891,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.user_items_remove(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.user_items_remove(body, request_options=request_options))
 
     async def user_products_terminate(
         self,
@@ -8660,14 +8914,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.user_products_terminate(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.user_products_terminate(body, request_options=request_options))
 
     async def user_remove(
         self,
@@ -8683,18 +8938,19 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.user_remove(
                 body, plaid_new_user_api_enabled=plaid_new_user_api_enabled, request_options=request_options
-            )
-        ).unwrap()
+            ),
+        )
 
     async def user_third_party_token_create(
         self,
@@ -8710,16 +8966,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.user_third_party_token_create(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.user_third_party_token_create(body, request_options=request_options))
 
     async def user_third_party_token_remove(
         self,
@@ -8735,16 +8990,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.user_third_party_token_remove(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.user_third_party_token_remove(body, request_options=request_options))
 
     async def user_transactions_refresh(
         self,
@@ -8763,14 +9017,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.user_transactions_refresh(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.user_transactions_refresh(body, request_options=request_options))
 
     async def user_update(
         self,
@@ -8789,18 +9044,19 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.user_update(
                 body, plaid_new_user_api_enabled=plaid_new_user_api_enabled, request_options=request_options
-            )
-        ).unwrap()
+            ),
+        )
 
     async def wallet_create(
         self,
@@ -8812,14 +9068,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.wallet_create(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.wallet_create(body, request_options=request_options))
 
     async def wallet_get(
         self, body: WalletGetRequest | WalletGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -8828,14 +9085,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.wallet_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.wallet_get(body, request_options=request_options))
 
     async def wallet_list(
         self, body: WalletListRequest | WalletListRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -8844,14 +9102,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.wallet_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.wallet_list(body, request_options=request_options))
 
     async def wallet_transaction_execute(
         self,
@@ -8865,14 +9124,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.wallet_transaction_execute(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.wallet_transaction_execute(body, request_options=request_options))
 
     async def wallet_transaction_get(
         self,
@@ -8884,14 +9144,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.wallet_transaction_get(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.wallet_transaction_get(body, request_options=request_options))
 
     async def wallet_transaction_list(
         self,
@@ -8904,14 +9165,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (await self.with_raw_response.wallet_transaction_list(body, request_options=request_options)).unwrap()
+        return unwrap(await self.with_raw_response.wallet_transaction_list(body, request_options=request_options))
 
     async def watchlist_screening_entity_create(
         self,
@@ -8925,16 +9187,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_entity_create(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def watchlist_screening_entity_get(
         self,
@@ -8946,16 +9209,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_entity_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def watchlist_screening_entity_history_list(
         self,
@@ -8968,16 +9232,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_entity_history_list(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def watchlist_screening_entity_hit_list(
         self,
@@ -8989,16 +9254,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_entity_hit_list(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def watchlist_screening_entity_list(
         self,
@@ -9010,16 +9276,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_entity_list(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def watchlist_screening_entity_program_get(
         self,
@@ -9031,16 +9298,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_entity_program_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def watchlist_screening_entity_program_list(
         self,
@@ -9052,16 +9320,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_entity_program_list(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def watchlist_screening_entity_review_create(
         self,
@@ -9074,16 +9343,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_entity_review_create(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def watchlist_screening_entity_review_list(
         self,
@@ -9096,16 +9366,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_entity_review_list(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def watchlist_screening_entity_update(
         self,
@@ -9117,16 +9388,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The entity screening was successfully updated.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_entity_update(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def watchlist_screening_individual_create(
         self,
@@ -9140,16 +9412,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_individual_create(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def watchlist_screening_individual_get(
         self,
@@ -9161,16 +9434,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_individual_get(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def watchlist_screening_individual_history_list(
         self,
@@ -9183,18 +9457,19 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_individual_history_list(
                 body, request_options=request_options
-            )
-        ).unwrap()
+            ),
+        )
 
     async def watchlist_screening_individual_hit_list(
         self,
@@ -9206,16 +9481,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_individual_hit_list(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def watchlist_screening_individual_list(
         self,
@@ -9227,16 +9503,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_individual_list(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def watchlist_screening_individual_program_get(
         self,
@@ -9248,18 +9525,19 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_individual_program_get(
                 body, request_options=request_options
-            )
-        ).unwrap()
+            ),
+        )
 
     async def watchlist_screening_individual_program_list(
         self,
@@ -9271,18 +9549,19 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_individual_program_list(
                 body, request_options=request_options
-            )
-        ).unwrap()
+            ),
+        )
 
     async def watchlist_screening_individual_review_create(
         self,
@@ -9295,18 +9574,19 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_individual_review_create(
                 body, request_options=request_options
-            )
-        ).unwrap()
+            ),
+        )
 
     async def watchlist_screening_individual_review_list(
         self,
@@ -9318,18 +9598,19 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_individual_review_list(
                 body, request_options=request_options
-            )
-        ).unwrap()
+            ),
+        )
 
     async def watchlist_screening_individual_update(
         self,
@@ -9344,16 +9625,17 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
+        return unwrap(
             await self.with_raw_response.watchlist_screening_individual_update(body, request_options=request_options)
-        ).unwrap()
+        )
 
     async def webhook_verification_key_get(
         self,
@@ -9369,16 +9651,15 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return (
-            await self.with_raw_response.webhook_verification_key_get(body, request_options=request_options)
-        ).unwrap()
+        return unwrap(await self.with_raw_response.webhook_verification_key_get(body, request_options=request_options))
 
     async def aclose(self) -> None:
         await self._raw_client.http_client.aclose()
@@ -9418,7 +9699,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9428,7 +9710,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[AccountsBalanceGetRequest | AccountsBalanceGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[AccountsGetResponse],
+            decoder=async_json_decoder[AccountsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -9453,7 +9735,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9463,7 +9746,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[AccountsGetRequest | AccountsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[AccountsGetResponse],
+            decoder=async_json_decoder[AccountsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -9479,7 +9762,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9489,7 +9773,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ApplicationGetRequest | ApplicationGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ApplicationGetResponse],
+            decoder=async_json_decoder[ApplicationGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -9512,7 +9796,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9522,7 +9807,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[AssetReportAuditCopyCreateRequest | AssetReportAuditCopyCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[AssetReportAuditCopyCreateResponse],
+            decoder=async_json_decoder[AssetReportAuditCopyCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -9540,7 +9825,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9550,7 +9836,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[AssetReportAuditCopyGetRequest | AssetReportAuditCopyGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[AssetReportGetResponse],
+            decoder=async_json_decoder[AssetReportGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -9572,7 +9858,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9582,7 +9869,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[AssetReportAuditCopyPdfGetRequest | AssetReportAuditCopyPdfGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=empty_response,
+            decoder=async_empty_response,
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -9601,7 +9888,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9611,7 +9899,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[AssetReportAuditCopyRemoveRequest | AssetReportAuditCopyRemoveRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[AssetReportAuditCopyRemoveResponse],
+            decoder=async_json_decoder[AssetReportAuditCopyRemoveResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -9638,7 +9926,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9648,7 +9937,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[AssetReportCreateRequest | AssetReportCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[AssetReportCreateResponse],
+            decoder=async_json_decoder[AssetReportCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -9679,7 +9968,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9689,7 +9979,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[AssetReportFilterRequest | AssetReportFilterRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[AssetReportFilterResponse],
+            decoder=async_json_decoder[AssetReportFilterResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -9720,7 +10010,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9730,7 +10021,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[AssetReportGetRequest | AssetReportGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[AssetReportGetResponse],
+            decoder=async_json_decoder[AssetReportGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -9754,7 +10045,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9764,7 +10056,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[AssetReportPdfgetRequest | AssetReportPdfgetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=empty_response,
+            decoder=async_empty_response,
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -9788,7 +10080,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9798,7 +10091,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[AssetReportRefreshRequest | AssetReportRefreshRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[AssetReportRefreshResponse],
+            decoder=async_json_decoder[AssetReportRefreshResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -9820,7 +10113,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9830,7 +10124,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[AssetReportRemoveRequest | AssetReportRemoveRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[AssetReportRemoveResponse],
+            decoder=async_json_decoder[AssetReportRemoveResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -9848,7 +10142,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9858,7 +10153,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[AuthGetRequest | AuthGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[AuthGetResponse],
+            decoder=async_json_decoder[AuthGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -9874,7 +10169,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9884,7 +10180,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[AuthVerifyRequest | AuthVerifyRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[AuthVerifyResponse],
+            decoder=async_json_decoder[AuthVerifyResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -9908,7 +10204,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9918,7 +10215,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BankTransferBalanceGetRequest | BankTransferBalanceGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BankTransferBalanceGetResponse],
+            decoder=async_json_decoder[BankTransferBalanceGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -9934,7 +10231,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9944,7 +10242,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BankTransferCancelRequest | BankTransferCancelRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BankTransferCancelResponse],
+            decoder=async_json_decoder[BankTransferCancelResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -9959,7 +10257,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9969,7 +10268,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BankTransferCreateRequest | BankTransferCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BankTransferCreateResponse],
+            decoder=async_json_decoder[BankTransferCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -9987,7 +10286,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9997,7 +10297,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BankTransferEventListRequest | BankTransferEventListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BankTransferEventListResponse],
+            decoder=async_json_decoder[BankTransferEventListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10015,7 +10315,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10025,7 +10326,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BankTransferEventSyncRequest | BankTransferEventSyncRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BankTransferEventSyncResponse],
+            decoder=async_json_decoder[BankTransferEventSyncResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10041,7 +10342,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10051,7 +10353,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BankTransferGetRequest | BankTransferGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BankTransferGetResponse],
+            decoder=async_json_decoder[BankTransferGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10067,7 +10369,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10077,7 +10380,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BankTransferListRequest | BankTransferListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BankTransferListResponse],
+            decoder=async_json_decoder[BankTransferListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10097,7 +10400,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10107,7 +10411,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BankTransferMigrateAccountRequest | BankTransferMigrateAccountRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BankTransferMigrateAccountResponse],
+            decoder=async_json_decoder[BankTransferMigrateAccountResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10123,7 +10427,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10133,7 +10438,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BankTransferSweepGetRequest | BankTransferSweepGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BankTransferSweepGetResponse],
+            decoder=async_json_decoder[BankTransferSweepGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10148,7 +10453,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10158,7 +10464,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BankTransferSweepListRequest | BankTransferSweepListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BankTransferSweepListResponse],
+            decoder=async_json_decoder[BankTransferSweepListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10173,7 +10479,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10183,7 +10490,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BeaconAccountRiskEvaluateRequest | BeaconAccountRiskEvaluateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BeaconAccountRiskEvaluateResponse],
+            decoder=async_json_decoder[BeaconAccountRiskEvaluateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10206,7 +10513,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10216,7 +10524,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BeaconDuplicateGetRequest | BeaconDuplicateGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BeaconDuplicateGetResponse],
+            decoder=async_json_decoder[BeaconDuplicateGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10231,7 +10539,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10241,7 +10550,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BeaconReportCreateRequest | BeaconReportCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BeaconReportCreateResponse],
+            decoder=async_json_decoder[BeaconReportCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10256,7 +10565,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10266,7 +10576,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BeaconReportGetRequest | BeaconReportGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BeaconReportGetResponse],
+            decoder=async_json_decoder[BeaconReportGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10286,7 +10596,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10296,7 +10607,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BeaconReportListRequest | BeaconReportListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BeaconReportListResponse],
+            decoder=async_json_decoder[BeaconReportListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10311,7 +10622,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10321,7 +10633,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BeaconReportSyndicationGetRequest | BeaconReportSyndicationGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BeaconReportSyndicationGetResponse],
+            decoder=async_json_decoder[BeaconReportSyndicationGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10341,7 +10653,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10351,7 +10664,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BeaconReportSyndicationListRequest | BeaconReportSyndicationListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BeaconReportSyndicationListResponse],
+            decoder=async_json_decoder[BeaconReportSyndicationListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10367,7 +10680,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10377,7 +10691,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BeaconUserAccountInsightsGetRequest | BeaconUserAccountInsightsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BeaconUserAccountInsightsGetResponse],
+            decoder=async_json_decoder[BeaconUserAccountInsightsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10406,7 +10720,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10416,7 +10731,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BeaconUserCreateRequest | BeaconUserCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BeaconUserCreateResponse],
+            decoder=async_json_decoder[BeaconUserCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10434,7 +10749,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10444,7 +10760,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BeaconUserGetRequest | BeaconUserGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BeaconUserGetResponse],
+            decoder=async_json_decoder[BeaconUserGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10459,7 +10775,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10469,7 +10786,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BeaconUserHistoryListRequest | BeaconUserHistoryListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BeaconUserHistoryListResponse],
+            decoder=async_json_decoder[BeaconUserHistoryListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10499,7 +10816,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10509,7 +10827,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BeaconUserReviewRequest | BeaconUserReviewRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BeaconUserGetResponse],
+            decoder=async_json_decoder[BeaconUserGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10542,7 +10860,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10552,7 +10871,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BeaconUserUpdateRequest | BeaconUserUpdateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BeaconUserUpdateResponse],
+            decoder=async_json_decoder[BeaconUserUpdateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10579,7 +10898,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10589,7 +10909,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BetaEwaReportV1GetRequest | BetaEwaReportV1GetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BetaEwaReportV1GetResponse],
+            decoder=async_json_decoder[BetaEwaReportV1GetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10606,7 +10926,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10616,7 +10937,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BetaPartnerCustomerV1CreateRequest | BetaPartnerCustomerV1CreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BetaPartnerCustomerV1CreateResponse],
+            decoder=async_json_decoder[BetaPartnerCustomerV1CreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10632,7 +10953,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10642,7 +10964,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BetaPartnerCustomerV1EnableRequest | BetaPartnerCustomerV1EnableRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BetaPartnerCustomerV1EnableResponse],
+            decoder=async_json_decoder[BetaPartnerCustomerV1EnableResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10658,7 +10980,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10668,7 +10991,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BetaPartnerCustomerV1GetRequest | BetaPartnerCustomerV1GetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BetaPartnerCustomerV1GetResponse],
+            decoder=async_json_decoder[BetaPartnerCustomerV1GetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10683,7 +11006,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10693,7 +11017,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BetaPartnerCustomerV1UpdateRequest | BetaPartnerCustomerV1UpdateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BetaPartnerCustomerV1UpdateResponse],
+            decoder=async_json_decoder[BetaPartnerCustomerV1UpdateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10708,7 +11032,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10718,7 +11043,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BusinessVerificationCreateRequest | BusinessVerificationCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BusinessVerificationCreateResponse],
+            decoder=async_json_decoder[BusinessVerificationCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10733,7 +11058,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10743,7 +11069,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[BusinessVerificationGetRequest | BusinessVerificationGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[BusinessVerificationGetResponse],
+            decoder=async_json_decoder[BusinessVerificationGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10769,7 +11095,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10779,7 +11106,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CashflowReportGetRequest | CashflowReportGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CashflowReportGetResponse],
+            decoder=async_json_decoder[CashflowReportGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10795,7 +11122,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10805,7 +11133,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CashflowReportInsightsGetRequest | CashflowReportInsightsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CashflowReportInsightsGetResponse],
+            decoder=async_json_decoder[CashflowReportInsightsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10834,7 +11162,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10844,7 +11173,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CashflowReportRefreshRequest | CashflowReportRefreshRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CashflowReportRefreshResponse],
+            decoder=async_json_decoder[CashflowReportRefreshResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10870,7 +11199,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10880,7 +11210,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CashflowReportTransactionsGetRequest | CashflowReportTransactionsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CashflowReportTransactionsGetResponse],
+            decoder=async_json_decoder[CashflowReportTransactionsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10896,7 +11226,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10905,7 +11236,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             url_template=self._server.default("/categories/get"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[Any](body),
-            decoder=json_decoder[CategoriesGetResponse],
+            decoder=async_json_decoder[CategoriesGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10922,7 +11253,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10932,7 +11264,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ConsentEventsGetRequest | ConsentEventsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ConsentEventsGetResponse],
+            decoder=async_json_decoder[ConsentEventsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10949,7 +11281,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10959,7 +11292,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ConsumerReportPdfgetRequest | ConsumerReportPdfgetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=empty_response,
+            decoder=async_empty_response,
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -10979,7 +11312,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10991,7 +11325,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             auth_scheme=AsyncAnySchemes(
                 AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version), self._auth.oauth2
             ),
-            decoder=json_decoder[CraCheckReportBaseReportGetResponse],
+            decoder=async_json_decoder[CraCheckReportBaseReportGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11011,7 +11345,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11025,7 +11360,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             auth_scheme=AsyncAnySchemes(
                 AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version), self._auth.oauth2
             ),
-            decoder=json_decoder[CraCheckReportCashflowInsightsGetResponse],
+            decoder=async_json_decoder[CraCheckReportCashflowInsightsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11042,7 +11377,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11052,7 +11388,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CraCheckReportCreateRequest | CraCheckReportCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CraCheckReportCreateResponse],
+            decoder=async_json_decoder[CraCheckReportCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11079,7 +11415,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11091,7 +11428,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             auth_scheme=AsyncAnySchemes(
                 AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version), self._auth.oauth2
             ),
-            decoder=json_decoder[CraCheckReportIncomeInsightsGetResponse],
+            decoder=async_json_decoder[CraCheckReportIncomeInsightsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11110,7 +11447,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11122,7 +11460,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             auth_scheme=AsyncAnySchemes(
                 AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version), self._auth.oauth2
             ),
-            decoder=json_decoder[CraCheckReportLendScoreGetResponse],
+            decoder=async_json_decoder[CraCheckReportLendScoreGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11141,7 +11479,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11153,7 +11492,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             auth_scheme=AsyncAnySchemes(
                 AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version), self._auth.oauth2
             ),
-            decoder=json_decoder[CraCheckReportNetworkInsightsGetResponse],
+            decoder=async_json_decoder[CraCheckReportNetworkInsightsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11172,7 +11511,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11182,7 +11522,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CraCheckReportPartnerInsightsGetRequest | CraCheckReportPartnerInsightsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CraCheckReportPartnerInsightsGetResponse],
+            decoder=async_json_decoder[CraCheckReportPartnerInsightsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11199,7 +11539,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11209,7 +11550,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CraCheckReportPdfgetRequest | CraCheckReportPdfgetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=empty_response,
+            decoder=async_empty_response,
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11233,7 +11574,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11243,7 +11585,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CraCheckReportVerificationGetRequest | CraCheckReportVerificationGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CraCheckReportVerificationGetResponse],
+            decoder=async_json_decoder[CraCheckReportVerificationGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11264,7 +11606,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11274,7 +11617,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CraCheckReportVerificationPdfGetRequest | CraCheckReportVerificationPdfGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=empty_response,
+            decoder=async_empty_response,
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11289,7 +11632,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11299,7 +11643,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CraCreditProfileReportGetRequest | CraCreditProfileReportGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CraCreditProfileReportGetResponse],
+            decoder=async_json_decoder[CraCreditProfileReportGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11314,7 +11658,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11324,7 +11669,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CraLoansApplicationsRegisterRequest | CraLoansApplicationsRegisterRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CraLoansApplicationsRegisterResponse],
+            decoder=async_json_decoder[CraLoansApplicationsRegisterResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11339,7 +11684,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11349,7 +11695,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CraloansRegisterRequest | CraloansRegisterRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CraLoansRegisterResponse],
+            decoder=async_json_decoder[CraLoansRegisterResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11365,7 +11711,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11375,7 +11722,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CraLoansUnregisterRequest | CraLoansUnregisterRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CraLoanUnregisterResponse],
+            decoder=async_json_decoder[CraLoanUnregisterResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11390,7 +11737,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11400,7 +11748,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CraLoansUpdateRequest | CraLoansUpdateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CraLoansUpdateResponse],
+            decoder=async_json_decoder[CraLoansUpdateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11416,7 +11764,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11426,7 +11775,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CraMonitoringInsightsGetRequest | CraMonitoringInsightsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CraMonitoringInsightsGetResponse],
+            decoder=async_json_decoder[CraMonitoringInsightsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11443,7 +11792,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11453,7 +11803,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CraMonitoringInsightsSubscribeRequest | CraMonitoringInsightsSubscribeRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CraMonitoringInsightsSubscribeResponse],
+            decoder=async_json_decoder[CraMonitoringInsightsSubscribeResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11468,7 +11818,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11478,7 +11829,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CraMonitoringInsightsUnsubscribeRequest | CraMonitoringInsightsUnsubscribeRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CraMonitoringInsightsUnsubscribeResponse],
+            decoder=async_json_decoder[CraMonitoringInsightsUnsubscribeResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11493,7 +11844,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11503,7 +11855,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CraPartnerInsightsGetRequest | CraPartnerInsightsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CraPartnerInsightsGetResponse],
+            decoder=async_json_decoder[CraPartnerInsightsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11518,7 +11870,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11528,7 +11881,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CraReportGetRequest | CraReportGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CraReportGetResponse],
+            decoder=async_json_decoder[CraReportGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11551,7 +11904,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11563,7 +11917,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 body
             ),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PaymentInitiationPaymentTokenCreateResponse],
+            decoder=async_json_decoder[PaymentInitiationPaymentTokenCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11579,7 +11933,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11589,7 +11944,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[AssetReportFreddieGetRequest | AssetReportFreddieGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[AssetReportFreddieGetResponse],
+            decoder=async_json_decoder[AssetReportFreddieGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11610,7 +11965,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11620,7 +11976,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditAuditCopyTokenCreateRequest | CreditAuditCopyTokenCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditAuditCopyTokenCreateResponse],
+            decoder=async_json_decoder[CreditAuditCopyTokenCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11637,7 +11993,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11647,7 +12004,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditAuditCopyTokenUpdateRequest | CreditAuditCopyTokenUpdateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditAuditCopyTokenUpdateResponse],
+            decoder=async_json_decoder[CreditAuditCopyTokenUpdateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11663,7 +12020,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11673,7 +12031,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditBankEmploymentGetRequest | CreditBankEmploymentGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditBankEmploymentGetResponse],
+            decoder=async_json_decoder[CreditBankEmploymentGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11691,7 +12049,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11701,7 +12060,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditBankIncomeGetRequest | CreditBankIncomeGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditBankIncomeGetResponse],
+            decoder=async_json_decoder[CreditBankIncomeGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11718,7 +12077,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11728,7 +12088,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditBankIncomePdfgetRequest | CreditBankIncomePdfgetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=empty_response,
+            decoder=async_empty_response,
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11747,7 +12107,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11757,7 +12118,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditBankIncomeRefreshRequest | CreditBankIncomeRefreshRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditBankIncomeRefreshResponse],
+            decoder=async_json_decoder[CreditBankIncomeRefreshResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11776,7 +12137,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11786,7 +12148,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditBankIncomeWebhookUpdateRequest | CreditBankIncomeWebhookUpdateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditBankIncomeWebhookUpdateResponse],
+            decoder=async_json_decoder[CreditBankIncomeWebhookUpdateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11803,7 +12165,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11813,7 +12176,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditBankStatementsUploadsGetRequest | CreditBankStatementsUploadsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditBankStatementsUploadsGetResponse],
+            decoder=async_json_decoder[CreditBankStatementsUploadsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11829,7 +12192,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11839,7 +12203,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditEmploymentGetRequest | CreditEmploymentGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditEmploymentGetResponse],
+            decoder=async_json_decoder[CreditEmploymentGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11855,7 +12219,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11865,7 +12230,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditFreddieMacReportsGetRequest | CreditFreddieMacReportsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditFreddieMacReportsGetResponse],
+            decoder=async_json_decoder[CreditFreddieMacReportsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11881,7 +12246,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11891,7 +12257,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditPayrollIncomeGetRequest | CreditPayrollIncomeGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditPayrollIncomeGetResponse],
+            decoder=async_json_decoder[CreditPayrollIncomeGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11907,7 +12273,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11919,7 +12286,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 CreditPayrollIncomeParsingConfigUpdateRequest | CreditPayrollIncomeParsingConfigUpdateRequestDict
             ](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditPayrollIncomeParsingConfigUpdateResponse],
+            decoder=async_json_decoder[CreditPayrollIncomeParsingConfigUpdateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11949,7 +12316,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11959,7 +12327,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditPayrollIncomePrecheckRequest | CreditPayrollIncomePrecheckRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditPayrollIncomePrecheckResponse],
+            decoder=async_json_decoder[CreditPayrollIncomePrecheckResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -11974,7 +12342,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11984,7 +12353,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditPayrollIncomeRefreshRequest | CreditPayrollIncomeRefreshRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditPayrollIncomeRefreshResponse],
+            decoder=async_json_decoder[CreditPayrollIncomeRefreshResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12010,7 +12379,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12022,7 +12392,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 body
             ),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditPayrollIncomeRiskSignalsGetResponse],
+            decoder=async_json_decoder[CreditPayrollIncomeRiskSignalsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12043,7 +12413,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12053,7 +12424,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditRelayCreateRequest | CreditRelayCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditRelayCreateResponse],
+            decoder=async_json_decoder[CreditRelayCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12069,7 +12440,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12079,7 +12451,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditRelayGetRequest | CreditRelayGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[AssetReportGetResponse],
+            decoder=async_json_decoder[AssetReportGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12105,7 +12477,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12115,7 +12488,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditRelayPdfgetRequest | CreditRelayPdfgetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=empty_response,
+            decoder=async_empty_response,
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12133,7 +12506,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12143,7 +12517,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditRelayRefreshRequest | CreditRelayRefreshRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditRelayRefreshResponse],
+            decoder=async_json_decoder[CreditRelayRefreshResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12161,7 +12535,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12171,7 +12546,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditRelayRemoveRequest | CreditRelayRemoveRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditRelayRemoveResponse],
+            decoder=async_json_decoder[CreditRelayRemoveResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12189,7 +12564,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12199,7 +12575,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditAuditCopyTokenRemoveRequest | CreditAuditCopyTokenRemoveRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditAuditCopyTokenRemoveResponse],
+            decoder=async_json_decoder[CreditAuditCopyTokenRemoveResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12218,7 +12594,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12228,7 +12605,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[CreditSessionsGetRequest | CreditSessionsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[CreditSessionsGetResponse],
+            decoder=async_json_decoder[CreditSessionsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12245,7 +12622,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12255,7 +12633,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[DashboardUserGetRequest | DashboardUserGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[DashboardUserGetResponse],
+            decoder=async_json_decoder[DashboardUserGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12272,7 +12650,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12282,7 +12661,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[DashboardUserListRequest | DashboardUserListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[DashboardUserListResponse],
+            decoder=async_json_decoder[DashboardUserListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12303,7 +12682,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12313,7 +12693,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[EmployersSearchRequest | EmployersSearchRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[EmployersSearchResponse],
+            decoder=async_json_decoder[EmployersSearchResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12331,7 +12711,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12341,7 +12722,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[EmploymentVerificationGetRequest | EmploymentVerificationGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[EmploymentVerificationGetResponse],
+            decoder=async_json_decoder[EmploymentVerificationGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12353,7 +12734,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             consent_id: Consent Grant Identifier. Uniquely identifies the consent grant
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12362,7 +12744,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             url_template=self._server.default("/fdx/consents/{consentId}"),
             path_params=[param[str]("consentId", consent_id)],
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[FdxconsentGrant],
+            decoder=async_json_decoder[FdxconsentGrant],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12381,7 +12763,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             customer_id: Data provider customer identifier whose consent grants to return.
             status: Optional filter restricting results to a single consent grant status. One of ``ACTIVE``,
                 ``REVOKED``, ``EXPIRED``.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12392,7 +12775,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 param[str]("customerId", customer_id), param[FdxConsentGrantStatusOrStr | None]("status", status)
             ],
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[GetConsentsResponse],
+            decoder=async_json_decoder[GetConsentsResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12404,7 +12787,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             consent_id: Consent Grant Identifier. Uniquely identifies the consent grant
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12413,7 +12797,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             url_template=self._server.default("/fdx/consents/{consentId}/revocation"),
             path_params=[param[str]("consentId", consent_id)],
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[FdxconsentRevocations],
+            decoder=async_json_decoder[FdxconsentRevocations],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12430,7 +12814,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         Args:
             consent_id: Consent Grant Identifier. Uniquely identifies the consent grant
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12441,7 +12826,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[FdxconsentRevocation | FdxconsentRevocationDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=empty_response,
+            decoder=async_empty_response,
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12456,7 +12841,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12466,7 +12852,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[FdxNotificationEntity | FdxNotificationEntityDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=empty_response,
+            decoder=async_empty_response,
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12483,7 +12869,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         Args:
             recipient_id: Recipient Identifier. Uniquely identifies the recipient
             oauth_state_id: The value that is passed into the OAuth URI 'state' query parameter.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12493,7 +12880,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             path_params=[param[str]("recipientId", recipient_id)],
             headers=[param[str | None]("OAUTH-STATE-ID", oauth_state_id)],
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[FdxrecipientMetadata],
+            decoder=async_json_decoder[FdxrecipientMetadata],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12504,7 +12891,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         """Returns a list of Recipients
 
         Args:
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12512,7 +12900,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             http_method="GET",
             url_template=self._server.default("/fdx/recipients"),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[GetRecipientsResponse],
+            decoder=async_json_decoder[GetRecipientsResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12528,7 +12916,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12538,7 +12927,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[IdentityDocumentsUploadsGetRequest | IdentityDocumentsUploadsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[IdentityDocumentsUploadsGetResponse],
+            decoder=async_json_decoder[IdentityDocumentsUploadsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12556,7 +12945,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12566,7 +12956,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[IdentityGetRequest | IdentityGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[IdentityGetResponse],
+            decoder=async_json_decoder[IdentityGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12586,7 +12976,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12596,7 +12987,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[IdentityMatchRequest | IdentityMatchRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[IdentityMatchResponse],
+            decoder=async_json_decoder[IdentityMatchResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12623,7 +13014,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12633,7 +13025,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[IdentityRefreshRequest | IdentityRefreshRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[IdentityRefreshResponse],
+            decoder=async_json_decoder[IdentityRefreshResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12649,7 +13041,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12661,7 +13054,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 body
             ),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[IdentityVerificationAutofillCreateResponse],
+            decoder=async_json_decoder[IdentityVerificationAutofillCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12691,7 +13084,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12701,7 +13095,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[IdentityVerificationCreateRequest | IdentityVerificationCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[IdentityVerificationCreateResponse],
+            decoder=async_json_decoder[IdentityVerificationCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12716,7 +13110,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12726,7 +13121,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[IdentityVerificationGetRequest | IdentityVerificationGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[IdentityVerificationGetResponse],
+            decoder=async_json_decoder[IdentityVerificationGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12741,7 +13136,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12751,7 +13147,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[IdentityVerificationListRequest | IdentityVerificationListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[IdentityVerificationListResponse],
+            decoder=async_json_decoder[IdentityVerificationListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12766,7 +13162,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12776,7 +13173,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[IdentityVerificationRetryRequest | IdentityVerificationRetryRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[IdentityVerificationRetryResponse],
+            decoder=async_json_decoder[IdentityVerificationRetryResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12795,7 +13192,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12805,7 +13203,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[IncomeVerificationCreateRequest | IncomeVerificationCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[IncomeVerificationCreateResponse],
+            decoder=async_json_decoder[IncomeVerificationCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12830,7 +13228,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12842,7 +13241,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 body
             ),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=empty_response,
+            decoder=async_empty_response,
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12862,7 +13261,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12872,7 +13272,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[IncomeVerificationPaystubsGetRequest | IncomeVerificationPaystubsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[IncomeVerificationPaystubsGetResponse],
+            decoder=async_json_decoder[IncomeVerificationPaystubsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12898,7 +13298,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12908,7 +13309,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[IncomeVerificationPrecheckRequest | IncomeVerificationPrecheckRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[IncomeVerificationPrecheckResponse],
+            decoder=async_json_decoder[IncomeVerificationPrecheckResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12928,7 +13329,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12938,7 +13340,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[IncomeVerificationTaxformsGetRequest | IncomeVerificationTaxformsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[IncomeVerificationTaxformsGetResponse],
+            decoder=async_json_decoder[IncomeVerificationTaxformsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12958,7 +13360,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12968,7 +13371,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[InstitutionsGetRequest | InstitutionsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[InstitutionsGetResponse],
+            decoder=async_json_decoder[InstitutionsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12987,7 +13390,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12997,7 +13401,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[InstitutionsGetByIdRequest | InstitutionsGetByIdRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[InstitutionsGetByIdResponse],
+            decoder=async_json_decoder[InstitutionsGetByIdResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13017,7 +13421,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13027,7 +13432,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[InstitutionsSearchRequest | InstitutionsSearchRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[InstitutionsSearchResponse],
+            decoder=async_json_decoder[InstitutionsSearchResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13043,7 +13448,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13053,7 +13459,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[InvestmentsAuthGetRequest | InvestmentsAuthGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[InvestmentsAuthGetResponse],
+            decoder=async_json_decoder[InvestmentsAuthGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13069,7 +13475,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13079,7 +13486,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[InvestmentsHoldingsGetRequest | InvestmentsHoldingsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[InvestmentsHoldingsGetResponse],
+            decoder=async_json_decoder[InvestmentsHoldingsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13114,7 +13521,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13124,7 +13532,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[InvestmentsRefreshRequest | InvestmentsRefreshRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[InvestmentsRefreshResponse],
+            decoder=async_json_decoder[InvestmentsRefreshResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13157,7 +13565,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13167,7 +13576,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[InvestmentsTransactionsGetRequest | InvestmentsTransactionsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[InvestmentsTransactionsGetResponse],
+            decoder=async_json_decoder[InvestmentsTransactionsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13179,7 +13588,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13189,7 +13599,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[IssuesGetRequest | IssuesGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[IssuesGetResponse],
+            decoder=async_json_decoder[IssuesGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13207,7 +13617,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13217,7 +13628,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[IssuesSearchRequest | IssuesSearchRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[IssuesSearchResponse],
+            decoder=async_json_decoder[IssuesSearchResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13233,7 +13644,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13243,7 +13655,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[IssuesSubscribeRequest | IssuesSubscribeRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[IssuesSubscribeResponse],
+            decoder=async_json_decoder[IssuesSubscribeResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13262,7 +13674,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13272,7 +13685,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ItemAccessTokenInvalidateRequest | ItemAccessTokenInvalidateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ItemAccessTokenInvalidateResponse],
+            decoder=async_json_decoder[ItemAccessTokenInvalidateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13287,7 +13700,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13297,7 +13711,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ItemActivityListRequest | ItemActivityListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ItemActivityListResponse],
+            decoder=async_json_decoder[ItemActivityListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13312,7 +13726,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13322,7 +13737,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ItemApplicationListRequest | ItemApplicationListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ItemApplicationListResponse],
+            decoder=async_json_decoder[ItemApplicationListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13337,7 +13752,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13347,7 +13763,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ItemApplicationScopesUpdateRequest | ItemApplicationScopesUpdateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ItemApplicationScopesUpdateResponse],
+            decoder=async_json_decoder[ItemApplicationScopesUpdateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13371,7 +13787,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13381,7 +13798,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ItemApplicationUnlinkRequest | ItemApplicationUnlinkRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ItemApplicationUnlinkResponse],
+            decoder=async_json_decoder[ItemApplicationUnlinkResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13409,7 +13826,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13419,7 +13837,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ItemPublicTokenCreateRequest | ItemPublicTokenCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ItemPublicTokenCreateResponse],
+            decoder=async_json_decoder[ItemPublicTokenCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13431,7 +13849,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13441,7 +13860,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ItemGetRequest | ItemGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ItemGetResponse],
+            decoder=async_json_decoder[ItemGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13459,7 +13878,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13469,7 +13889,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ItemImportRequest | ItemImportRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ItemImportResponse],
+            decoder=async_json_decoder[ItemImportResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13488,7 +13908,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13498,7 +13919,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ItemProductsTerminateRequest | ItemProductsTerminateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ItemProductsTerminateResponse],
+            decoder=async_json_decoder[ItemProductsTerminateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13519,7 +13940,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13529,7 +13951,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ItemPublicTokenExchangeRequest | ItemPublicTokenExchangeRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ItemPublicTokenExchangeResponse],
+            decoder=async_json_decoder[ItemPublicTokenExchangeResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13560,7 +13982,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13570,7 +13993,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ItemRemoveRequest | ItemRemoveRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ItemRemoveResponse],
+            decoder=async_json_decoder[ItemRemoveResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13587,7 +14010,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13597,7 +14021,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ItemWebhookUpdateRequest | ItemWebhookUpdateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ItemWebhookUpdateResponse],
+            decoder=async_json_decoder[ItemWebhookUpdateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13621,7 +14045,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13631,7 +14056,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[LiabilitiesGetRequest | LiabilitiesGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[LiabilitiesGetResponse],
+            decoder=async_json_decoder[LiabilitiesGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13646,7 +14071,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13656,7 +14082,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[LinkDeliveryCreateRequest | LinkDeliveryCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[LinkDeliveryCreateResponse],
+            decoder=async_json_decoder[LinkDeliveryCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13671,7 +14097,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13681,7 +14108,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[LinkDeliveryGetRequest | LinkDeliveryGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[LinkDeliveryGetResponse],
+            decoder=async_json_decoder[LinkDeliveryGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13699,7 +14126,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13709,7 +14137,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[LinkOauthCorrelationIdExchangeRequest | LinkOauthCorrelationIdExchangeRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[LinkOauthCorrelationIdExchangeResponse],
+            decoder=async_json_decoder[LinkOauthCorrelationIdExchangeResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13732,7 +14160,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13742,7 +14171,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[LinkTokenCreateRequest | LinkTokenCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[LinkTokenCreateResponse],
+            decoder=async_json_decoder[LinkTokenCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13767,7 +14196,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13777,7 +14207,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[LinkTokenGetRequest | LinkTokenGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[LinkTokenGetResponse],
+            decoder=async_json_decoder[LinkTokenGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13799,7 +14229,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13809,7 +14240,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[NetworkStatusGetRequest | NetworkStatusGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[NetworkStatusGetResponse],
+            decoder=async_json_decoder[NetworkStatusGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13827,7 +14258,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13837,7 +14269,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[OauthIntrospectRequest | OauthIntrospectRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[OauthIntrospectResponse],
+            decoder=async_json_decoder[OauthIntrospectResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13853,7 +14285,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13863,7 +14296,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[OauthRevokeRequest | OauthRevokeRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[OauthRevokeResponse],
+            decoder=async_json_decoder[OauthRevokeResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13877,7 +14310,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13887,7 +14321,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[OauthTokenRequest | OauthTokenRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[OauthTokenResponse],
+            decoder=async_json_decoder[OauthTokenResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13905,7 +14339,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13915,7 +14350,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[PartnerCustomerCreateRequest | PartnerCustomerCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PartnerCustomerCreateResponse],
+            decoder=async_json_decoder[PartnerCustomerCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13931,7 +14366,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13941,7 +14377,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[PartnerCustomerEnableRequest | PartnerCustomerEnableRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PartnerCustomerEnableResponse],
+            decoder=async_json_decoder[PartnerCustomerEnableResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13957,7 +14393,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13967,7 +14404,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[PartnerCustomerGetRequest | PartnerCustomerGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PartnerCustomerGetResponse],
+            decoder=async_json_decoder[PartnerCustomerGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13985,7 +14422,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13997,7 +14435,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 body
             ),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PartnerCustomerOauthInstitutionsGetResponse],
+            decoder=async_json_decoder[PartnerCustomerOauthInstitutionsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14014,7 +14452,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14024,7 +14463,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[PartnerCustomerRemoveRequest | PartnerCustomerRemoveRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PartnerCustomerRemoveResponse],
+            decoder=async_json_decoder[PartnerCustomerRemoveResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14043,7 +14482,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14053,7 +14493,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[PaymentInitiationConsentCreateRequest | PaymentInitiationConsentCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PaymentInitiationConsentCreateResponse],
+            decoder=async_json_decoder[PaymentInitiationConsentCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14069,7 +14509,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14079,7 +14520,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[PaymentInitiationConsentGetRequest | PaymentInitiationConsentGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PaymentInitiationConsentGetResponse],
+            decoder=async_json_decoder[PaymentInitiationConsentGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14095,7 +14536,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14107,7 +14549,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 PaymentInitiationConsentPaymentExecuteRequest | PaymentInitiationConsentPaymentExecuteRequestDict
             ](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PaymentInitiationConsentPaymentExecuteResponse],
+            decoder=async_json_decoder[PaymentInitiationConsentPaymentExecuteResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14123,7 +14565,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14133,7 +14576,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[PaymentInitiationConsentRevokeRequest | PaymentInitiationConsentRevokeRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PaymentInitiationConsentRevokeResponse],
+            decoder=async_json_decoder[PaymentInitiationConsentRevokeResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14165,7 +14608,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14175,7 +14619,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[PaymentInitiationPaymentCreateRequest | PaymentInitiationPaymentCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PaymentInitiationPaymentCreateResponse],
+            decoder=async_json_decoder[PaymentInitiationPaymentCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14197,7 +14641,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14207,7 +14652,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[PaymentInitiationPaymentGetRequest | PaymentInitiationPaymentGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PaymentInitiationPaymentGetResponse],
+            decoder=async_json_decoder[PaymentInitiationPaymentGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14224,7 +14669,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14234,7 +14680,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[PaymentInitiationPaymentListRequest | PaymentInitiationPaymentListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PaymentInitiationPaymentListResponse],
+            decoder=async_json_decoder[PaymentInitiationPaymentListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14259,7 +14705,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14269,7 +14716,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[PaymentInitiationPaymentReverseRequest | PaymentInitiationPaymentReverseRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PaymentInitiationPaymentReverseResponse],
+            decoder=async_json_decoder[PaymentInitiationPaymentReverseResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14292,7 +14739,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14302,7 +14750,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[PaymentInitiationRecipientCreateRequest | PaymentInitiationRecipientCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PaymentInitiationRecipientCreateResponse],
+            decoder=async_json_decoder[PaymentInitiationRecipientCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14317,7 +14765,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14327,7 +14776,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[PaymentInitiationRecipientGetRequest | PaymentInitiationRecipientGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PaymentInitiationRecipientGetResponse],
+            decoder=async_json_decoder[PaymentInitiationRecipientGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14343,7 +14792,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14353,7 +14803,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[PaymentInitiationRecipientListRequest | PaymentInitiationRecipientListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PaymentInitiationRecipientListResponse],
+            decoder=async_json_decoder[PaymentInitiationRecipientListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14371,7 +14821,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14381,7 +14832,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[PaymentProfileCreateRequest | PaymentProfileCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PaymentProfileCreateResponse],
+            decoder=async_json_decoder[PaymentProfileCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14396,7 +14847,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14406,7 +14858,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[PaymentProfileGetRequest | PaymentProfileGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PaymentProfileGetResponse],
+            decoder=async_json_decoder[PaymentProfileGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14422,7 +14874,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14432,7 +14885,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[PaymentProfileRemoveRequest | PaymentProfileRemoveRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PaymentProfileRemoveResponse],
+            decoder=async_json_decoder[PaymentProfileRemoveResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14451,7 +14904,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14461,7 +14915,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorAccountGetRequest | ProcessorAccountGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorAccountGetResponse],
+            decoder=async_json_decoder[ProcessorAccountGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14476,7 +14930,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14488,7 +14943,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 body
             ),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorTokenCreateResponse],
+            decoder=async_json_decoder[ProcessorTokenCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14509,7 +14964,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14519,7 +14975,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorAuthGetRequest | ProcessorAuthGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorAuthGetResponse],
+            decoder=async_json_decoder[ProcessorAuthGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14541,7 +14997,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 to the account. Note that not all institutions calculate the available balance. In the event that
                 available balance is unavailable from the institution, Plaid will return an available balance value of
                 ``null``.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14551,7 +15008,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorBalanceGetRequest | ProcessorBalanceGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorBalanceGetResponse],
+            decoder=async_json_decoder[ProcessorBalanceGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14566,7 +15023,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14576,7 +15034,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorBankTransferCreateRequest | ProcessorBankTransferCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorBankTransferCreateResponse],
+            decoder=async_json_decoder[ProcessorBankTransferCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14592,7 +15050,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14602,7 +15061,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorIdentityGetRequest | ProcessorIdentityGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorIdentityGetResponse],
+            decoder=async_json_decoder[ProcessorIdentityGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14621,7 +15080,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14631,7 +15091,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorIdentityMatchRequest | ProcessorIdentityMatchRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorIdentityMatchResponse],
+            decoder=async_json_decoder[ProcessorIdentityMatchResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14651,7 +15111,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14661,7 +15122,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorInvestmentsAuthGetRequest | ProcessorInvestmentsAuthGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorInvestmentsAuthGetResponse],
+            decoder=async_json_decoder[ProcessorInvestmentsAuthGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14676,7 +15137,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14686,7 +15148,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorInvestmentsHoldingsGetRequest | ProcessorInvestmentsHoldingsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorInvestmentsHoldingsGetResponse],
+            decoder=async_json_decoder[ProcessorInvestmentsHoldingsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14723,7 +15185,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14735,7 +15198,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 body
             ),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorInvestmentsTransactionsGetResponse],
+            decoder=async_json_decoder[ProcessorInvestmentsTransactionsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14761,7 +15224,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14771,7 +15235,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorLiabilitiesGetRequest | ProcessorLiabilitiesGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorLiabilitiesGetResponse],
+            decoder=async_json_decoder[ProcessorLiabilitiesGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14799,7 +15263,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14809,7 +15274,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorSignalDecisionReportRequest | ProcessorSignalDecisionReportRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorSignalDecisionReportResponse],
+            decoder=async_json_decoder[ProcessorSignalDecisionReportResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14835,7 +15300,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14845,7 +15311,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorSignalEvaluateRequest | ProcessorSignalEvaluateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorSignalEvaluateResponse],
+            decoder=async_json_decoder[ProcessorSignalEvaluateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14864,7 +15330,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14874,7 +15341,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorSignalPrepareRequest | ProcessorSignalPrepareRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorSignalPrepareResponse],
+            decoder=async_json_decoder[ProcessorSignalPrepareResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14894,7 +15361,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14904,7 +15372,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorSignalReturnReportRequest | ProcessorSignalReturnReportRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorSignalReturnReportResponse],
+            decoder=async_json_decoder[ProcessorSignalReturnReportResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14930,7 +15398,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14942,7 +15411,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 ProcessorStripeBankAccountTokenCreateRequest | ProcessorStripeBankAccountTokenCreateRequestDict
             ](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorStripeBankAccountTokenCreateResponse],
+            decoder=async_json_decoder[ProcessorStripeBankAccountTokenCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14962,7 +15431,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14972,7 +15442,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorTokenCreateRequest | ProcessorTokenCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorTokenCreateResponse],
+            decoder=async_json_decoder[ProcessorTokenCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14988,7 +15458,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14998,7 +15469,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorTokenPermissionsGetRequest | ProcessorTokenPermissionsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorTokenPermissionsGetResponse],
+            decoder=async_json_decoder[ProcessorTokenPermissionsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15017,7 +15488,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15027,7 +15499,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorTokenPermissionsSetRequest | ProcessorTokenPermissionsSetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorTokenPermissionsSetResponse],
+            decoder=async_json_decoder[ProcessorTokenPermissionsSetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15043,7 +15515,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15053,7 +15526,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorTokenWebhookUpdateRequest | ProcessorTokenWebhookUpdateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorTokenWebhookUpdateResponse],
+            decoder=async_json_decoder[ProcessorTokenWebhookUpdateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15094,7 +15567,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15104,7 +15578,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorTransactionsGetRequest | ProcessorTransactionsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorTransactionsGetResponse],
+            decoder=async_json_decoder[ProcessorTransactionsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15145,7 +15619,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15157,7 +15632,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 body
             ),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorTransactionsRecurringGetResponse],
+            decoder=async_json_decoder[ProcessorTransactionsRecurringGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15193,7 +15668,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15203,7 +15679,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorTransactionsRefreshRequest | ProcessorTransactionsRefreshRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorTransactionsRefreshResponse],
+            decoder=async_json_decoder[ProcessorTransactionsRefreshResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15251,7 +15727,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15261,7 +15738,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProcessorTransactionsSyncRequest | ProcessorTransactionsSyncRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProcessorTransactionsSyncResponse],
+            decoder=async_json_decoder[ProcessorTransactionsSyncResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15277,7 +15754,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15287,7 +15765,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProfileNetworkStatusGetRequest | ProfileNetworkStatusGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProfileNetworkStatusGetResponse],
+            decoder=async_json_decoder[ProfileNetworkStatusGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15310,7 +15788,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15320,7 +15799,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProtectComputeRequest | ProtectComputeRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProtectComputeResponse],
+            decoder=async_json_decoder[ProtectComputeResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15335,7 +15814,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15345,7 +15825,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProtectEventGetRequest | ProtectEventGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProtectEventGetResponse],
+            decoder=async_json_decoder[ProtectEventGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15360,7 +15840,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15370,7 +15851,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProtectEventSendRequest | ProtectEventSendRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProtectEventSendResponse],
+            decoder=async_json_decoder[ProtectEventSendResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15394,7 +15875,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15404,7 +15886,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProtectReportCreateRequest | ProtectReportCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProtectReportCreateResponse],
+            decoder=async_json_decoder[ProtectReportCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15419,7 +15901,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15429,7 +15912,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[ProtectUserInsightsGetRequest | ProtectUserInsightsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[ProtectUserInsightsGetResponse],
+            decoder=async_json_decoder[ProtectUserInsightsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15445,7 +15928,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15455,7 +15939,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxBankIncomeFireWebhookRequest | SandboxBankIncomeFireWebhookRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxBankIncomeFireWebhookResponse],
+            decoder=async_json_decoder[SandboxBankIncomeFireWebhookResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15471,7 +15955,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15481,7 +15966,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxBankTransferFireWebhookRequest | SandboxBankTransferFireWebhookRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxBankTransferFireWebhookResponse],
+            decoder=async_json_decoder[SandboxBankTransferFireWebhookResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15499,7 +15984,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15509,7 +15995,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxBankTransferSimulateRequest | SandboxBankTransferSimulateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxBankTransferSimulateResponse],
+            decoder=async_json_decoder[SandboxBankTransferSimulateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15525,7 +16011,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15535,7 +16022,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxCraCashflowUpdatesUpdateRequest | SandboxCraCashflowUpdatesUpdateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxCraCashflowUpdatesUpdateResponse],
+            decoder=async_json_decoder[SandboxCraCashflowUpdatesUpdateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15558,7 +16045,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15568,7 +16056,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxFdxConsentSeedRequest | SandboxFdxConsentSeedRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxFdxConsentSeedResponse],
+            decoder=async_json_decoder[SandboxFdxConsentSeedResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15584,7 +16072,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15594,7 +16083,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxIncomeFireWebhookRequest | SandboxIncomeFireWebhookRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxIncomeFireWebhookResponse],
+            decoder=async_json_decoder[SandboxIncomeFireWebhookResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15614,7 +16103,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15624,7 +16114,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxItemApplicationSeedRequest | SandboxItemApplicationSeedRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxItemApplicationSeedResponse],
+            decoder=async_json_decoder[SandboxItemApplicationSeedResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15683,7 +16173,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15693,7 +16184,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxItemFireWebhookRequest | SandboxItemFireWebhookRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxItemFireWebhookResponse],
+            decoder=async_json_decoder[SandboxItemFireWebhookResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15714,7 +16205,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15724,7 +16216,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxItemResetLoginRequest | SandboxItemResetLoginRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxItemResetLoginResponse],
+            decoder=async_json_decoder[SandboxItemResetLoginResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15743,7 +16235,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15753,7 +16246,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxItemSetVerificationStatusRequest | SandboxItemSetVerificationStatusRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxItemSetVerificationStatusResponse],
+            decoder=async_json_decoder[SandboxItemSetVerificationStatusResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15768,7 +16261,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15778,7 +16272,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxOauthSelectAccountsRequest | SandboxOauthSelectAccountsRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[Any],
+            decoder=async_json_decoder[Any],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15802,7 +16296,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15812,7 +16307,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxPaymentProfileResetLoginRequest | SandboxPaymentProfileResetLoginRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxPaymentProfileResetLoginResponse],
+            decoder=async_json_decoder[SandboxPaymentProfileResetLoginResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15828,7 +16323,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15838,7 +16334,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxPaymentSimulateRequest | SandboxPaymentSimulateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxPaymentSimulateResponse],
+            decoder=async_json_decoder[SandboxPaymentSimulateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15857,7 +16353,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15867,7 +16364,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxProcessorTokenCreateRequest | SandboxProcessorTokenCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxProcessorTokenCreateResponse],
+            decoder=async_json_decoder[SandboxProcessorTokenCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15887,7 +16384,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15897,7 +16395,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxPublicTokenCreateRequest | SandboxPublicTokenCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxPublicTokenCreateResponse],
+            decoder=async_json_decoder[SandboxPublicTokenCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15920,7 +16418,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15930,7 +16429,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxTransactionsCreateRequest | SandboxTransactionsCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxTransactionsCreateResponse],
+            decoder=async_json_decoder[SandboxTransactionsCreateResponse],
             error_mapper=sandbox_transactions_create_error_mapper,
             request_options=request_options,
         )
@@ -15946,7 +16445,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15956,7 +16456,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxTransferFireWebhookRequest | SandboxTransferFireWebhookRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxTransferFireWebhookResponse],
+            decoder=async_json_decoder[SandboxTransferFireWebhookResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -15972,7 +16472,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15984,7 +16485,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 SandboxTransferLedgerDepositSimulateRequest | SandboxTransferLedgerDepositSimulateRequestDict
             ](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxTransferLedgerDepositSimulateResponse],
+            decoder=async_json_decoder[SandboxTransferLedgerDepositSimulateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16000,7 +16501,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16012,7 +16514,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 SandboxTransferLedgerSimulateAvailableRequest | SandboxTransferLedgerSimulateAvailableRequestDict
             ](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxTransferLedgerSimulateAvailableResponse],
+            decoder=async_json_decoder[SandboxTransferLedgerSimulateAvailableResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16028,7 +16530,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16040,7 +16543,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 SandboxTransferLedgerWithdrawSimulateRequest | SandboxTransferLedgerWithdrawSimulateRequestDict
             ](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxTransferLedgerWithdrawSimulateResponse],
+            decoder=async_json_decoder[SandboxTransferLedgerWithdrawSimulateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16058,7 +16561,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16068,7 +16572,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxTransferRefundSimulateRequest | SandboxTransferRefundSimulateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxTransferRefundSimulateResponse],
+            decoder=async_json_decoder[SandboxTransferRefundSimulateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16085,7 +16589,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16095,7 +16600,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxTransferRepaymentSimulateRequest | SandboxTransferRepaymentSimulateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxTransferRepaymentSimulateResponse],
+            decoder=async_json_decoder[SandboxTransferRepaymentSimulateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16113,7 +16618,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16123,7 +16629,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxTransferSimulateRequest | SandboxTransferSimulateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxTransferSimulateResponse],
+            decoder=async_json_decoder[SandboxTransferSimulateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16141,7 +16647,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16151,7 +16658,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxTransferSweepSimulateRequest | SandboxTransferSweepSimulateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxTransferSweepSimulateResponse],
+            decoder=async_json_decoder[SandboxTransferSweepSimulateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16184,7 +16691,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16194,7 +16702,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxTransferTestClockAdvanceRequest | SandboxTransferTestClockAdvanceRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxTransferTestClockAdvanceResponse],
+            decoder=async_json_decoder[SandboxTransferTestClockAdvanceResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16215,7 +16723,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16225,7 +16734,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxTransferTestClockCreateRequest | SandboxTransferTestClockCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxTransferTestClockCreateResponse],
+            decoder=async_json_decoder[SandboxTransferTestClockCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16240,7 +16749,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16250,7 +16760,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxTransferTestClockGetRequest | SandboxTransferTestClockGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxTransferTestClockGetResponse],
+            decoder=async_json_decoder[SandboxTransferTestClockGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16267,7 +16777,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16277,7 +16788,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxTransferTestClockListRequest | SandboxTransferTestClockListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxTransferTestClockListResponse],
+            decoder=async_json_decoder[SandboxTransferTestClockListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16299,7 +16810,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16309,7 +16821,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SandboxUserResetLoginRequest | SandboxUserResetLoginRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SandboxUserResetLoginResponse],
+            decoder=async_json_decoder[SandboxUserResetLoginResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16326,7 +16838,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16336,7 +16849,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SessionTokenCreateRequest | SessionTokenCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SessionTokenCreateResponse],
+            decoder=async_json_decoder[SessionTokenCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16364,7 +16877,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16374,7 +16888,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SignalDecisionReportRequest | SignalDecisionReportRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SignalDecisionReportResponse],
+            decoder=async_json_decoder[SignalDecisionReportResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16403,7 +16917,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16413,7 +16928,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SignalEvaluateRequest | SignalEvaluateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SignalEvaluateResponse],
+            decoder=async_json_decoder[SignalEvaluateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16439,7 +16954,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16449,7 +16965,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SignalPrepareRequest | SignalPrepareRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SignalPrepareResponse],
+            decoder=async_json_decoder[SignalPrepareResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16468,7 +16984,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16478,7 +16995,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SignalReturnReportRequest | SignalReturnReportRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SignalReturnReportResponse],
+            decoder=async_json_decoder[SignalReturnReportResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16493,7 +17010,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16503,7 +17021,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[SignalScheduleRequest | SignalScheduleRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[SignalScheduleResponse],
+            decoder=async_json_decoder[SignalScheduleResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16520,7 +17038,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16530,7 +17049,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[StatementsDownloadRequest | StatementsDownloadRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=empty_response,
+            decoder=async_empty_response,
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16545,7 +17064,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16555,7 +17075,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[StatementsListRequest | StatementsListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[StatementsListResponse],
+            decoder=async_json_decoder[StatementsListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16570,7 +17090,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16580,7 +17101,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[StatementsRefreshRequest | StatementsRefreshRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[StatementsRefreshResponse],
+            decoder=async_json_decoder[StatementsRefreshResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16597,7 +17118,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16607,7 +17129,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransactionsEnhanceGetRequest | TransactionsEnhanceGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransactionsEnhanceGetResponse],
+            decoder=async_json_decoder[TransactionsEnhanceGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16623,7 +17145,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16633,7 +17156,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransactionsEnrichRequest | TransactionsEnrichRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransactionsEnrichResponse],
+            decoder=async_json_decoder[TransactionsEnrichResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16676,7 +17199,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16686,7 +17210,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransactionsGetRequest | TransactionsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransactionsGetResponse],
+            decoder=async_json_decoder[TransactionsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16728,7 +17252,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16738,7 +17263,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransactionsRecurringGetRequest | TransactionsRecurringGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransactionsRecurringGetResponse],
+            decoder=async_json_decoder[TransactionsRecurringGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16776,7 +17301,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16786,7 +17312,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransactionsRefreshRequest | TransactionsRefreshRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransactionsRefreshResponse],
+            decoder=async_json_decoder[TransactionsRefreshResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16805,7 +17331,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16815,7 +17342,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransactionsRulesCreateRequest | TransactionsRulesCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransactionsRulesCreateResponse],
+            decoder=async_json_decoder[TransactionsRulesCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16831,7 +17358,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16841,7 +17369,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransactionsRulesListRequest | TransactionsRulesListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransactionsRulesListResponse],
+            decoder=async_json_decoder[TransactionsRulesListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16856,7 +17384,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16866,7 +17395,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransactionsRulesRemoveRequest | TransactionsRulesRemoveRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransactionsRulesRemoveResponse],
+            decoder=async_json_decoder[TransactionsRulesRemoveResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16911,7 +17440,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16921,7 +17451,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransactionsSyncRequest | TransactionsSyncRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransactionsSyncResponse],
+            decoder=async_json_decoder[TransactionsSyncResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16939,7 +17469,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16949,7 +17480,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransactionsUserInsightsGetRequest | TransactionsUserInsightsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransactionsUserInsightsGetResponse],
+            decoder=async_json_decoder[TransactionsUserInsightsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -16965,7 +17496,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16975,7 +17507,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferAuthorizationCancelRequest | TransferAuthorizationCancelRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferAuthorizationCancelResponse],
+            decoder=async_json_decoder[TransferAuthorizationCancelResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17031,7 +17563,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17041,7 +17574,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferAuthorizationCreateRequest | TransferAuthorizationCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferAuthorizationCreateResponse],
+            decoder=async_json_decoder[TransferAuthorizationCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17056,7 +17589,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17066,7 +17600,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferBalanceGetRequest | TransferBalanceGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferBalanceGetResponse],
+            decoder=async_json_decoder[TransferBalanceGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17082,7 +17616,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17092,7 +17627,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferCancelRequest | TransferCancelRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferCancelResponse],
+            decoder=async_json_decoder[TransferCancelResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17109,7 +17644,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17119,7 +17655,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferCapabilitiesGetRequest | TransferCapabilitiesGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferCapabilitiesGetResponse],
+            decoder=async_json_decoder[TransferCapabilitiesGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17134,7 +17670,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17144,7 +17681,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferConfigurationGetRequest | TransferConfigurationGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferConfigurationGetResponse],
+            decoder=async_json_decoder[TransferConfigurationGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17162,7 +17699,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17172,7 +17710,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferCreateRequest | TransferCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferCreateResponse],
+            decoder=async_json_decoder[TransferCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17190,7 +17728,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17200,7 +17739,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferDiligenceDocumentUploadRequest | TransferDiligenceDocumentUploadRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferDiligenceDocumentUploadResponse],
+            decoder=async_json_decoder[TransferDiligenceDocumentUploadResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17216,7 +17755,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17226,7 +17766,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferDiligenceSubmitRequest | TransferDiligenceSubmitRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferDiligenceSubmitResponse],
+            decoder=async_json_decoder[TransferDiligenceSubmitResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17242,7 +17782,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17252,7 +17793,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferEventListRequest | TransferEventListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferEventListResponse],
+            decoder=async_json_decoder[TransferEventListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17268,7 +17809,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17278,7 +17820,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferEventSyncRequest | TransferEventSyncRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferEventSyncResponse],
+            decoder=async_json_decoder[TransferEventSyncResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17292,7 +17834,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17302,7 +17845,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferGetRequest | TransferGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferGetResponse],
+            decoder=async_json_decoder[TransferGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17317,7 +17860,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17327,7 +17871,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferIntentCreateRequest | TransferIntentCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferIntentCreateResponse],
+            decoder=async_json_decoder[TransferIntentCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17342,7 +17886,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17352,7 +17897,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferIntentGetRequest | TransferIntentGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferIntentGetResponse],
+            decoder=async_json_decoder[TransferIntentGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17367,7 +17912,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17377,7 +17923,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferLedgerDepositRequest | TransferLedgerDepositRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferLedgerDepositResponse],
+            decoder=async_json_decoder[TransferLedgerDepositResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17394,7 +17940,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17404,7 +17951,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferLedgerDistributeRequest | TransferLedgerDistributeRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferLedgerDistributeResponse],
+            decoder=async_json_decoder[TransferLedgerDistributeResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17420,7 +17967,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17430,7 +17978,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferLedgerEventListRequest | TransferLedgerEventListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferLedgerEventListResponse],
+            decoder=async_json_decoder[TransferLedgerEventListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17445,7 +17993,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17455,7 +18004,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferLedgerGetRequest | TransferLedgerGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferLedgerGetResponse],
+            decoder=async_json_decoder[TransferLedgerGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17470,7 +18019,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17480,7 +18030,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferLedgerWithdrawRequest | TransferLedgerWithdrawRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferLedgerWithdrawResponse],
+            decoder=async_json_decoder[TransferLedgerWithdrawResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17496,7 +18046,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17506,7 +18057,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferListRequest | TransferListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferListResponse],
+            decoder=async_json_decoder[TransferListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17524,7 +18075,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17534,7 +18086,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferMetricsGetRequest | TransferMetricsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferMetricsGetResponse],
+            decoder=async_json_decoder[TransferMetricsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17556,7 +18108,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17566,7 +18119,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferMigrateAccountRequest | TransferMigrateAccountRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferMigrateAccountResponse],
+            decoder=async_json_decoder[TransferMigrateAccountResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17582,7 +18135,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17592,7 +18146,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferOriginatorCreateRequest | TransferOriginatorCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferOriginatorCreateResponse],
+            decoder=async_json_decoder[TransferOriginatorCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17608,7 +18162,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17620,7 +18175,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 TransferOriginatorFundingAccountCreateRequest | TransferOriginatorFundingAccountCreateRequestDict
             ](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferOriginatorFundingAccountCreateResponse],
+            decoder=async_json_decoder[TransferOriginatorFundingAccountCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17636,7 +18191,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17648,7 +18204,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 TransferOriginatorFundingAccountUpdateRequest | TransferOriginatorFundingAccountUpdateRequestDict
             ](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferOriginatorFundingAccountUpdateResponse],
+            decoder=async_json_decoder[TransferOriginatorFundingAccountUpdateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17664,7 +18220,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17674,7 +18231,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferOriginatorGetRequest | TransferOriginatorGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferOriginatorGetResponse],
+            decoder=async_json_decoder[TransferOriginatorGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17690,7 +18247,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17700,7 +18258,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferOriginatorListRequest | TransferOriginatorListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferOriginatorListResponse],
+            decoder=async_json_decoder[TransferOriginatorListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17716,7 +18274,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17726,7 +18285,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferPlatformOriginatorCreateRequest | TransferPlatformOriginatorCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferPlatformOriginatorCreateResponse],
+            decoder=async_json_decoder[TransferPlatformOriginatorCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17742,7 +18301,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17752,7 +18312,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferPlatformPersonCreateRequest | TransferPlatformPersonCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferPlatformPersonCreateResponse],
+            decoder=async_json_decoder[TransferPlatformPersonCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17770,7 +18330,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17782,7 +18343,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 body
             ),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferPlatformRequirementSubmitResponse],
+            decoder=async_json_decoder[TransferPlatformRequirementSubmitResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17799,7 +18360,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17809,7 +18371,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferQuestionnaireCreateRequest | TransferQuestionnaireCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferQuestionnaireCreateResponse],
+            decoder=async_json_decoder[TransferQuestionnaireCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17825,7 +18387,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17835,7 +18398,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferRecurringCancelRequest | TransferRecurringCancelRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferRecurringCancelResponse],
+            decoder=async_json_decoder[TransferRecurringCancelResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17851,7 +18414,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17861,7 +18425,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferRecurringCreateRequest | TransferRecurringCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferRecurringCreateResponse],
+            decoder=async_json_decoder[TransferRecurringCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17877,7 +18441,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17887,7 +18452,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferRecurringGetRequest | TransferRecurringGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferRecurringGetResponse],
+            decoder=async_json_decoder[TransferRecurringGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17904,7 +18469,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17914,7 +18480,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferRecurringListRequest | TransferRecurringListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferRecurringListResponse],
+            decoder=async_json_decoder[TransferRecurringListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17930,7 +18496,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17940,7 +18507,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferRefundCancelRequest | TransferRefundCancelRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferRefundCancelResponse],
+            decoder=async_json_decoder[TransferRefundCancelResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17965,7 +18532,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17975,7 +18543,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferRefundCreateRequest | TransferRefundCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferRefundCreateResponse],
+            decoder=async_json_decoder[TransferRefundCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -17991,7 +18559,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18001,7 +18570,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferRefundGetRequest | TransferRefundGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferRefundGetResponse],
+            decoder=async_json_decoder[TransferRefundGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18017,7 +18586,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18027,7 +18597,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferRepaymentListRequest | TransferRepaymentListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferRepaymentListResponse],
+            decoder=async_json_decoder[TransferRepaymentListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18044,7 +18614,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18054,7 +18625,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferRepaymentReturnListRequest | TransferRepaymentReturnListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferRepaymentReturnListResponse],
+            decoder=async_json_decoder[TransferRepaymentReturnListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18073,7 +18644,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18083,7 +18655,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferReturnRecoverRequest | TransferReturnRecoverRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferReturnRecoverResponse],
+            decoder=async_json_decoder[TransferReturnRecoverResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18098,7 +18670,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18108,7 +18681,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferSweepGetRequest | TransferSweepGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferSweepGetResponse],
+            decoder=async_json_decoder[TransferSweepGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18123,7 +18696,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18133,7 +18707,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[TransferSweepListRequest | TransferSweepListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[TransferSweepListResponse],
+            decoder=async_json_decoder[TransferSweepListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18149,7 +18723,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18159,7 +18734,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[UserAccountSessionEventSendRequest | UserAccountSessionEventSendRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[UserAccountSessionEventSendResponse],
+            decoder=async_json_decoder[UserAccountSessionEventSendResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18180,7 +18755,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18190,7 +18766,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[UserAccountSessionGetRequest | UserAccountSessionGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[UserAccountSessionGetResponse],
+            decoder=async_json_decoder[UserAccountSessionGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18235,7 +18811,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18250,7 +18827,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             auth_scheme=AsyncAnySchemes(
                 AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version), self._auth.oauth2
             ),
-            decoder=json_decoder[UserCreateResponse],
+            decoder=async_json_decoder[UserCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18272,7 +18849,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18282,7 +18860,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[UserFinancialDataRefreshRequest | UserFinancialDataRefreshRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[UserFinancialDataRefreshResponse],
+            decoder=async_json_decoder[UserFinancialDataRefreshResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18302,7 +18880,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18315,7 +18894,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             ],
             body=json_body[UserGetRequest | UserGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[UserGetResponse],
+            decoder=async_json_decoder[UserGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18335,7 +18914,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18348,7 +18928,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             ],
             body=json_body[UserIdentityRemoveRequest | UserIdentityRemoveRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[UserIdentityRemoveResponse],
+            decoder=async_json_decoder[UserIdentityRemoveResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18365,7 +18945,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18375,7 +18956,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[UserItemsAssociateRequest | UserItemsAssociateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[UserItemsAssociateResponse],
+            decoder=async_json_decoder[UserItemsAssociateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18392,7 +18973,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18402,7 +18984,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[UserItemsGetRequest | UserItemsGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[UserItemsGetResponse],
+            decoder=async_json_decoder[UserItemsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18426,7 +19008,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18436,7 +19019,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[UserItemsRemoveRequest | UserItemsRemoveRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[UserItemsRemoveResponse],
+            decoder=async_json_decoder[UserItemsRemoveResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18454,7 +19037,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18464,7 +19048,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[UserProductsTerminateRequest | UserProductsTerminateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[UserProductsTerminateResponse],
+            decoder=async_json_decoder[UserProductsTerminateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18483,7 +19067,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18496,7 +19081,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             ],
             body=json_body[UserRemoveRequest | UserRemoveRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[UserRemoveResponse],
+            decoder=async_json_decoder[UserRemoveResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18515,7 +19100,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18525,7 +19111,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[UserThirdPartyTokenCreateRequest | UserThirdPartyTokenCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[UserThirdPartyTokenCreateResponse],
+            decoder=async_json_decoder[UserThirdPartyTokenCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18544,7 +19130,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18554,7 +19141,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[UserThirdPartyTokenRemoveRequest | UserThirdPartyTokenRemoveRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[UserThirdPartyTokenRemoveResponse],
+            decoder=async_json_decoder[UserThirdPartyTokenRemoveResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18576,7 +19163,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18586,7 +19174,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[UserTransactionsRefreshRequest | UserTransactionsRefreshRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[UserTransactionsRefreshResponse],
+            decoder=async_json_decoder[UserTransactionsRefreshResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18608,7 +19196,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18621,7 +19210,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             ],
             body=json_body[UserUpdateRequest | UserUpdateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[UserUpdateResponse],
+            decoder=async_json_decoder[UserUpdateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18636,7 +19225,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18646,7 +19236,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[WalletCreateRequest | WalletCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WalletCreateResponse],
+            decoder=async_json_decoder[WalletCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18658,7 +19248,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18668,7 +19259,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[WalletGetRequest | WalletGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WalletGetResponse],
+            decoder=async_json_decoder[WalletGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18680,7 +19271,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18690,7 +19282,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[WalletListRequest | WalletListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WalletListResponse],
+            decoder=async_json_decoder[WalletListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18707,7 +19299,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18717,7 +19310,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[WalletTransactionExecuteRequest | WalletTransactionExecuteRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WalletTransactionExecuteResponse],
+            decoder=async_json_decoder[WalletTransactionExecuteResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18732,7 +19325,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18742,7 +19336,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[WalletTransactionGetRequest | WalletTransactionGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WalletTransactionGetResponse],
+            decoder=async_json_decoder[WalletTransactionGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18758,7 +19352,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18768,7 +19363,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[WalletTransactionListRequest | WalletTransactionListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WalletTransactionListResponse],
+            decoder=async_json_decoder[WalletTransactionListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18785,7 +19380,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18795,7 +19391,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[WatchlistScreeningEntityCreateRequest | WatchlistScreeningEntityCreateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningEntityCreateResponse],
+            decoder=async_json_decoder[WatchlistScreeningEntityCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18810,7 +19406,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18820,7 +19417,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[WatchlistScreeningEntityGetRequest | WatchlistScreeningEntityGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningEntityGetResponse],
+            decoder=async_json_decoder[WatchlistScreeningEntityGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18836,7 +19433,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18848,7 +19446,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 body
             ),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningEntityHistoryListResponse],
+            decoder=async_json_decoder[WatchlistScreeningEntityHistoryListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18863,7 +19461,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18873,7 +19472,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[WatchlistScreeningEntityHitListRequest | WatchlistScreeningEntityHitListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningEntityHitListResponse],
+            decoder=async_json_decoder[WatchlistScreeningEntityHitListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18888,7 +19487,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18898,7 +19498,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[WatchlistScreeningEntityListRequest | WatchlistScreeningEntityListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningEntityListResponse],
+            decoder=async_json_decoder[WatchlistScreeningEntityListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18913,7 +19513,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18925,7 +19526,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 body
             ),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningEntityProgramGetResponse],
+            decoder=async_json_decoder[WatchlistScreeningEntityProgramGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18940,7 +19541,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18952,7 +19554,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 body
             ),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningEntityProgramListResponse],
+            decoder=async_json_decoder[WatchlistScreeningEntityProgramListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18968,7 +19570,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18980,7 +19583,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 WatchlistScreeningEntityReviewCreateRequest | WatchlistScreeningEntityReviewCreateRequestDict
             ](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningEntityReviewCreateResponse],
+            decoder=async_json_decoder[WatchlistScreeningEntityReviewCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -18996,7 +19599,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -19008,7 +19612,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 body
             ),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningEntityReviewListResponse],
+            decoder=async_json_decoder[WatchlistScreeningEntityReviewListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -19023,7 +19627,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The entity screening was successfully updated.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -19033,7 +19638,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[WatchlistScreeningEntityUpdateRequest | WatchlistScreeningEntityUpdateRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningEntityUpdateResponse],
+            decoder=async_json_decoder[WatchlistScreeningEntityUpdateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -19050,7 +19655,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -19062,7 +19668,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 body
             ),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningIndividualCreateResponse],
+            decoder=async_json_decoder[WatchlistScreeningIndividualCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -19077,7 +19683,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -19087,7 +19694,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[WatchlistScreeningIndividualGetRequest | WatchlistScreeningIndividualGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningIndividualGetResponse],
+            decoder=async_json_decoder[WatchlistScreeningIndividualGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -19103,7 +19710,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -19115,7 +19723,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 WatchlistScreeningIndividualHistoryListRequest | WatchlistScreeningIndividualHistoryListRequestDict
             ](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningIndividualHistoryListResponse],
+            decoder=async_json_decoder[WatchlistScreeningIndividualHistoryListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -19130,7 +19738,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -19142,7 +19751,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 body
             ),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningIndividualHitListResponse],
+            decoder=async_json_decoder[WatchlistScreeningIndividualHitListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -19157,7 +19766,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -19167,7 +19777,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[WatchlistScreeningIndividualListRequest | WatchlistScreeningIndividualListRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningIndividualListResponse],
+            decoder=async_json_decoder[WatchlistScreeningIndividualListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -19182,7 +19792,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -19194,7 +19805,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 WatchlistScreeningIndividualProgramGetRequest | WatchlistScreeningIndividualProgramGetRequestDict
             ](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningIndividualProgramGetResponse],
+            decoder=async_json_decoder[WatchlistScreeningIndividualProgramGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -19209,7 +19820,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -19221,7 +19833,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 WatchlistScreeningIndividualProgramListRequest | WatchlistScreeningIndividualProgramListRequestDict
             ](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningIndividualProgramListResponse],
+            decoder=async_json_decoder[WatchlistScreeningIndividualProgramListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -19237,7 +19849,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -19249,7 +19862,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 WatchlistScreeningIndividualReviewCreateRequest | WatchlistScreeningIndividualReviewCreateRequestDict
             ](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningIndividualReviewCreateResponse],
+            decoder=async_json_decoder[WatchlistScreeningIndividualReviewCreateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -19264,7 +19877,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -19276,7 +19890,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 WatchlistScreeningIndividualReviewListRequest | WatchlistScreeningIndividualReviewListRequestDict
             ](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningIndividualReviewListResponse],
+            decoder=async_json_decoder[WatchlistScreeningIndividualReviewListResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -19294,7 +19908,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -19306,7 +19921,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
                 body
             ),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WatchlistScreeningIndividualUpdateResponse],
+            decoder=async_json_decoder[WatchlistScreeningIndividualUpdateResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -19325,7 +19940,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -19335,7 +19951,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             headers=[param[UUID]("Idempotency-Key", uuid4())],
             body=json_body[WebhookVerificationKeyGetRequest | WebhookVerificationKeyGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[WebhookVerificationKeyGetResponse],
+            decoder=async_json_decoder[WebhookVerificationKeyGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )

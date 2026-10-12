@@ -38,7 +38,7 @@ class CraUserCheckReportFailedWebhook(SdkBaseModel):
     all requested products failed. Additional detail on what caused the failure can be found by calling the product /get
     endpoint."""
 
-    item_ids: Optional[list[str | None]] = UNSET
+    item_ids: OptionalNullable[list[str]] = UNSET
     """A list of ``item_ids`` included in the Check Report. Access to this field is in closed beta."""
 
     environment: WebhookEnvironmentValuesOrStr
@@ -49,8 +49,8 @@ class CraUserCheckReportFailedWebhookDict(TypedDict):
     webhook_type: str
     webhook_code: str
     user_id: str
-    error: NotRequired[Error | ErrorDict | None]
-    repairable_items: NotRequired[list[CheckReportRepairableItem | CheckReportRepairableItemDict]]
+    error: NotRequired[ErrorDict | None]
+    repairable_items: NotRequired[list[CheckReportRepairableItemDict]]
     failed_products: NotRequired[list[ProductsOrStr]]
-    item_ids: NotRequired[list[str | None]]
+    item_ids: NotRequired[list[str] | None]
     environment: WebhookEnvironmentValuesOrStr

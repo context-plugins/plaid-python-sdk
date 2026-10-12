@@ -24,10 +24,10 @@ class SandboxTransferTestClockListRequest(SdkBaseModel):
     """The end virtual timestamp of test clocks to return. This should be in RFC 3339 format (i.e.
     ``2019-12-06T22:35:49Z``)"""
 
-    count: OptionalNullable[int] = UNSET
+    count: int | None = 25
     """The maximum number of test clocks to return."""
 
-    offset: Optional[int] = UNSET
+    offset: int = 0
     """The number of test clocks to skip before returning results."""
 
 

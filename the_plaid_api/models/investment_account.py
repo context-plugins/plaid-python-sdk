@@ -135,7 +135,7 @@ class InvestmentAccount(SdkBaseModel):
 
 class InvestmentAccountDict(TypedDict):
     account_id: str
-    balances: AccountBalance1 | AccountBalance1Dict
+    balances: AccountBalance1Dict
     mask: str | None
     name: str
     official_name: str | None
@@ -143,6 +143,6 @@ class InvestmentAccountDict(TypedDict):
     subtype: AccountSubtypeOrStr | None
     verification_status: NotRequired[VerificationStatus5OrStr]
     verification_name: NotRequired[str]
-    verification_insights: NotRequired[VerificationInsights | VerificationInsightsDict]
+    verification_insights: NotRequired[VerificationInsightsDict]
     persistent_account_id: NotRequired[str]
     holder_category: NotRequired[HolderCategoryOrStr | None]

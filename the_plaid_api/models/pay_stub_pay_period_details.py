@@ -49,7 +49,7 @@ class PayStubPayPeriodDetails(SdkBaseModel):
 
 class PayStubPayPeriodDetailsDict(TypedDict):
     pay_amount: float | None
-    distribution_breakdown: list[PayStubDistributionBreakdown | PayStubDistributionBreakdownDict]
+    distribution_breakdown: list[PayStubDistributionBreakdownDict]
     end_date: Date | None
     gross_earnings: float | None
     iso_currency_code: str | None

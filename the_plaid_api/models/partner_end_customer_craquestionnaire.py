@@ -20,6 +20,6 @@ class PartnerEndCustomerCraquestionnaire(SdkBaseModel):
 
 
 class PartnerEndCustomerCraquestionnaireDict(TypedDict):
-    purposes: NotRequired[PartnerEndCustomerCrapurposes | PartnerEndCustomerCrapurposesDict]
+    purposes: NotRequired[PartnerEndCustomerCrapurposesDict]
     is_third_party_involved: NotRequired[bool]
     is_technical_service_provider_involved: NotRequired[bool]

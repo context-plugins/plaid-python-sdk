@@ -26,7 +26,7 @@ class CraCheckReportBaseReportGetRequest(SdkBaseModel):
     third_party_user_token: Optional[str] = UNSET
     """The third-party user token associated with the requested User data."""
 
-    item_ids: Optional[list[str | None]] = UNSET
+    item_ids: OptionalNullable[list[str]] = UNSET
     """The Item IDs to include in the Base Report. If not provided, all Items associated with the user will be
     included."""
 
@@ -51,7 +51,7 @@ class CraCheckReportBaseReportGetRequestDict(TypedDict):
     secret: NotRequired[str]
     user_id: NotRequired[str]
     third_party_user_token: NotRequired[str]
-    item_ids: NotRequired[list[str | None]]
+    item_ids: NotRequired[list[str] | None]
     user_token: NotRequired[str]
     user_tier: NotRequired[CraUserTierOrStr | None]
     report_id: NotRequired[str]

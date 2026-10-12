@@ -22,5 +22,5 @@ class IdentityDocumentUploadRiskInsights(SdkBaseModel):
 
 
 class IdentityDocumentUploadRiskInsightsDict(TypedDict):
-    risk_summary: NotRequired[IdentityDocumentUploadRiskSummary | IdentityDocumentUploadRiskSummaryDict]
-    risk_signals: NotRequired[list[IdentityDocumentUploadRiskSignal | IdentityDocumentUploadRiskSignalDict]]
+    risk_summary: NotRequired[IdentityDocumentUploadRiskSummaryDict]
+    risk_signals: NotRequired[list[IdentityDocumentUploadRiskSignalDict]]

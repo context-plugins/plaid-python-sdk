@@ -157,18 +157,18 @@ class IdentityVerificationGetResponseDict(TypedDict):
     completed_at: RFC3339DateTime | None
     previous_attempt_id: str | None
     shareable_url: str | None
-    template: IdentityVerificationTemplateReference | IdentityVerificationTemplateReferenceDict
-    user: IdentityVerificationUserData | IdentityVerificationUserDataDict
+    template: IdentityVerificationTemplateReferenceDict
+    user: IdentityVerificationUserDataDict
     status: IdentityVerificationStatusOrStr
-    steps: IdentityVerificationStepSummary | IdentityVerificationStepSummaryDict
-    documentary_verification: DocumentaryVerification | DocumentaryVerificationDict | None
-    selfie_check: SelfieCheck | SelfieCheckDict | None
-    kyc_check: KyccheckDetails | KyccheckDetailsDict | None
-    risk_check: RiskCheckDetails | RiskCheckDetailsDict | None
-    verify_sms: VerifySmsdetails | VerifySmsdetailsDict | None
+    steps: IdentityVerificationStepSummaryDict
+    documentary_verification: DocumentaryVerificationDict | None
+    selfie_check: SelfieCheckDict | None
+    kyc_check: KyccheckDetailsDict | None
+    risk_check: RiskCheckDetailsDict | None
+    verify_sms: VerifySmsdetailsDict | None
     watchlist_screening_id: str | None
     beacon_user_id: str | None
     user_id: str | None
     redacted_at: RFC3339DateTime | None
-    latest_scored_protect_event: NotRequired[IdvprotectEvent | IdvprotectEventDict | None]
+    latest_scored_protect_event: NotRequired[IdvprotectEventDict | None]
     request_id: str

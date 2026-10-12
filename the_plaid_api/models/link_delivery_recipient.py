@@ -20,5 +20,5 @@ class LinkDeliveryRecipient(SdkBaseModel):
 
 
 class LinkDeliveryRecipientDict(TypedDict):
-    communication_methods: NotRequired[list[LinkDeliveryCommunicationMethod | LinkDeliveryCommunicationMethodDict]]
+    communication_methods: NotRequired[list[LinkDeliveryCommunicationMethodDict]]
     first_name: NotRequired[str]

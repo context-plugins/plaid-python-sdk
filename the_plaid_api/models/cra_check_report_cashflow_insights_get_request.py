@@ -46,4 +46,4 @@ class CraCheckReportCashflowInsightsGetRequestDict(TypedDict):
     user_id: NotRequired[str]
     third_party_user_token: NotRequired[str]
     user_token: NotRequired[str]
-    options: NotRequired[CraCheckReportCashflowInsightsGetOptions | CraCheckReportCashflowInsightsGetOptionsDict | None]
+    options: NotRequired[CraCheckReportCashflowInsightsGetOptionsDict | None]

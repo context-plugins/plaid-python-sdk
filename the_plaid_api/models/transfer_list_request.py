@@ -24,10 +24,10 @@ class TransferListRequest(SdkBaseModel):
     """The end ``created`` datetime of transfers to list. This should be in RFC 3339 format (i.e.
     ``2019-12-06T22:35:49Z``)"""
 
-    count: Optional[int] = UNSET
+    count: int = 25
     """The maximum number of transfers to return."""
 
-    offset: Optional[int] = UNSET
+    offset: int = 0
     """The number of transfers to skip before returning results."""
 
     origination_account_id: OptionalNullable[str] = UNSET

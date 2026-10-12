@@ -18,5 +18,5 @@ class TransferCreateResponse(SdkBaseModel):
 
 
 class TransferCreateResponseDict(TypedDict):
-    transfer: Transfer | TransferDict
+    transfer: TransferDict
     request_id: str

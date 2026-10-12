@@ -45,5 +45,5 @@ class PaymentOptions(SdkBaseModel):
 class PaymentOptionsDict(TypedDict):
     request_refund_details: NotRequired[bool | None]
     iban: NotRequired[str | None]
-    bacs: NotRequired[PaymentInitiationOptionalRestrictionBacs | PaymentInitiationOptionalRestrictionBacsDict | None]
+    bacs: NotRequired[PaymentInitiationOptionalRestrictionBacsDict | None]
     scheme: NotRequired[PaymentSchemeOrStr | None]

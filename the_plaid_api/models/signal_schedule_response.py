@@ -38,6 +38,6 @@ class SignalScheduleResponse(SdkBaseModel):
 
 class SignalScheduleResponseDict(TypedDict):
     optimal_date: Date | None
-    recommendations: list[SignalScheduleRecommendation | SignalScheduleRecommendationDict]
-    warnings: list[SignalWarning | SignalWarningDict]
+    recommendations: list[SignalScheduleRecommendationDict]
+    warnings: list[SignalWarningDict]
     request_id: str

@@ -18,5 +18,5 @@ class CreditFreddieMacLoan(SdkBaseModel):
 
 
 class CreditFreddieMacLoanDict(TypedDict):
-    loan_identifiers: CreditFreddieMacLoanIdentifiers | CreditFreddieMacLoanIdentifiersDict
+    loan_identifiers: CreditFreddieMacLoanIdentifiersDict
     loan_role_type: str

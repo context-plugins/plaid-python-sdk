@@ -34,4 +34,4 @@ class AssetReportRefreshRequestDict(TypedDict):
     secret: NotRequired[str]
     asset_report_token: str
     days_requested: NotRequired[int | None]
-    options: NotRequired[AssetReportRefreshRequestOptions | AssetReportRefreshRequestOptionsDict]
+    options: NotRequired[AssetReportRefreshRequestOptionsDict]

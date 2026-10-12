@@ -70,6 +70,6 @@ class BeaconReportGetResponseDict(TypedDict):
     type_: BeaconReportTypeOrStr
     fraud_date: Date | None
     event_date: Date
-    fraud_amount: FraudAmount | FraudAmountDict | None
-    audit_trail: BeaconAuditTrail | BeaconAuditTrailDict
+    fraud_amount: FraudAmountDict | None
+    audit_trail: BeaconAuditTrailDict
     request_id: str

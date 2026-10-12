@@ -20,11 +20,12 @@ from .core import (
     ClientCredentialsOrDict,
     ClientCredentialsTokenSource,
     HttpClient,
-    HttpxClient,
+    Httpx2Client,
     OAuth2Scheme,
     RawClient,
     RawError,
     RequestOptionsOrDict,
+    RetryOptionsOrDict,
     SecuredRawResponse,
     TokenSource,
     client_secret_basic,
@@ -34,6 +35,7 @@ from .core import (
     no_auth,
     param,
     raw_error_response,
+    unwrap,
 )
 from .errors.sandbox_transactions_create_error import (
     SandboxTransactionsCreateErrorBody,
@@ -1154,6 +1156,7 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
         environment: Environment = "production",
         timeout: float = DEFAULT_TIMEOUT,
         server_config: ServerConfigOrDict | None = None,
+        retry_options: int | RetryOptionsOrDict | None = None,
         custom_http_client: HttpClient | None = None,
         client_id: str | None = None,
         secret: str | None = None,
@@ -1161,9 +1164,12 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
         oauth2: ClientCredentialsOrDict[Oauth2Scope] | None = None,
         oauth2_token_source: TokenSource[ClientCredentials[Oauth2Scope]] | None = None,
     ) -> None:
-        super().__init__(environment=environment, timeout=timeout, server_config=server_config)
+        super().__init__(
+            environment=environment, timeout=timeout, server_config=server_config, retry_options=retry_options
+        )
         self._raw_client = RawClient(
-            http_client=custom_http_client if custom_http_client is not None else HttpxClient(timeout=timeout),
+            http_client=custom_http_client if custom_http_client is not None else Httpx2Client(timeout=timeout),
+            retry_options=self._retry_options,
             global_headers=[
                 param[str]("User-Agent", "ThePlaidApiClient/0.1.0 Python"),
                 param[str]("X-APIMatic-Lang", "Python"),
@@ -1224,14 +1230,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.accounts_balance_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.accounts_balance_get(body, request_options=request_options))
 
     def accounts_get(
         self, body: AccountsGetRequest | AccountsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -1253,14 +1260,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.accounts_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.accounts_get(body, request_options=request_options))
 
     def application_get(
         self,
@@ -1273,14 +1281,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.application_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.application_get(body, request_options=request_options))
 
     def asset_report_audit_copy_create(
         self,
@@ -1300,14 +1309,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.asset_report_audit_copy_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.asset_report_audit_copy_create(body, request_options=request_options))
 
     def asset_report_audit_copy_get(
         self,
@@ -1322,14 +1332,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.asset_report_audit_copy_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.asset_report_audit_copy_get(body, request_options=request_options))
 
     def asset_report_audit_copy_pdf_get(
         self,
@@ -1348,14 +1359,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             A PDF of the Asset Report Audit Copy
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.asset_report_audit_copy_pdf_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.asset_report_audit_copy_pdf_get(body, request_options=request_options))
 
     def asset_report_audit_copy_remove(
         self,
@@ -1371,14 +1383,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.asset_report_audit_copy_remove(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.asset_report_audit_copy_remove(body, request_options=request_options))
 
     def asset_report_create(
         self,
@@ -1402,14 +1415,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.asset_report_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.asset_report_create(body, request_options=request_options))
 
     def asset_report_filter(
         self,
@@ -1437,14 +1451,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.asset_report_filter(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.asset_report_filter(body, request_options=request_options))
 
     def asset_report_get(
         self,
@@ -1472,14 +1487,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.asset_report_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.asset_report_get(body, request_options=request_options))
 
     def asset_report_pdf_get(
         self,
@@ -1500,14 +1516,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             A PDF of the Asset Report
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.asset_report_pdf_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.asset_report_pdf_get(body, request_options=request_options))
 
     def asset_report_refresh(
         self,
@@ -1528,14 +1545,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.asset_report_refresh(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.asset_report_refresh(body, request_options=request_options))
 
     def asset_report_remove(
         self,
@@ -1554,14 +1572,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.asset_report_remove(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.asset_report_remove(body, request_options=request_options))
 
     def auth_get(
         self, body: AuthGetRequest | AuthGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -1576,14 +1595,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.auth_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.auth_get(body, request_options=request_options))
 
     def auth_verify(
         self, body: AuthVerifyRequest | AuthVerifyRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -1596,14 +1616,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.auth_verify(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.auth_verify(body, request_options=request_options))
 
     def bank_transfer_balance_get(
         self,
@@ -1624,14 +1645,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.bank_transfer_balance_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.bank_transfer_balance_get(body, request_options=request_options))
 
     def bank_transfer_cancel(
         self,
@@ -1644,14 +1666,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.bank_transfer_cancel(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.bank_transfer_cancel(body, request_options=request_options))
 
     def bank_transfer_create(
         self,
@@ -1663,14 +1686,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.bank_transfer_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.bank_transfer_create(body, request_options=request_options))
 
     def bank_transfer_event_list(
         self,
@@ -1685,14 +1709,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.bank_transfer_event_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.bank_transfer_event_list(body, request_options=request_options))
 
     def bank_transfer_event_sync(
         self,
@@ -1707,14 +1732,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.bank_transfer_event_sync(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.bank_transfer_event_sync(body, request_options=request_options))
 
     def bank_transfer_get(
         self,
@@ -1727,14 +1753,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.bank_transfer_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.bank_transfer_get(body, request_options=request_options))
 
     def bank_transfer_list(
         self,
@@ -1747,14 +1774,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.bank_transfer_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.bank_transfer_list(body, request_options=request_options))
 
     def bank_transfer_migrate_account(
         self,
@@ -1771,14 +1799,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.bank_transfer_migrate_account(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.bank_transfer_migrate_account(body, request_options=request_options))
 
     def bank_transfer_sweep_get(
         self,
@@ -1791,14 +1820,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.bank_transfer_sweep_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.bank_transfer_sweep_get(body, request_options=request_options))
 
     def bank_transfer_sweep_list(
         self,
@@ -1810,14 +1840,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.bank_transfer_sweep_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.bank_transfer_sweep_list(body, request_options=request_options))
 
     def beacon_account_risk_evaluate(
         self,
@@ -1829,14 +1860,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.beacon_account_risk_evaluate(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.beacon_account_risk_evaluate(body, request_options=request_options))
 
     def beacon_duplicate_get(
         self,
@@ -1856,14 +1888,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.beacon_duplicate_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.beacon_duplicate_get(body, request_options=request_options))
 
     def beacon_report_create(
         self,
@@ -1875,14 +1908,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.beacon_report_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.beacon_report_create(body, request_options=request_options))
 
     def beacon_report_get(
         self,
@@ -1894,14 +1928,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.beacon_report_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.beacon_report_get(body, request_options=request_options))
 
     def beacon_report_list(
         self,
@@ -1918,14 +1953,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.beacon_report_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.beacon_report_list(body, request_options=request_options))
 
     def beacon_report_syndication_get(
         self,
@@ -1937,14 +1973,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.beacon_report_syndication_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.beacon_report_syndication_get(body, request_options=request_options))
 
     def beacon_report_syndication_list(
         self,
@@ -1961,14 +1998,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.beacon_report_syndication_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.beacon_report_syndication_list(body, request_options=request_options))
 
     def beacon_user_account_insights_get(
         self,
@@ -1981,14 +2019,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.beacon_user_account_insights_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.beacon_user_account_insights_get(body, request_options=request_options))
 
     def beacon_user_create(
         self,
@@ -2014,14 +2053,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.beacon_user_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.beacon_user_create(body, request_options=request_options))
 
     def beacon_user_get(
         self,
@@ -2036,14 +2076,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.beacon_user_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.beacon_user_get(body, request_options=request_options))
 
     def beacon_user_history_list(
         self,
@@ -2055,14 +2096,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.beacon_user_history_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.beacon_user_history_list(body, request_options=request_options))
 
     def beacon_user_review(
         self,
@@ -2089,14 +2131,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.beacon_user_review(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.beacon_user_review(body, request_options=request_options))
 
     def beacon_user_update(
         self,
@@ -2126,14 +2169,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.beacon_user_update(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.beacon_user_update(body, request_options=request_options))
 
     def beta_ewa_report_v1_get(
         self,
@@ -2157,14 +2201,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.beta_ewa_report_v1_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.beta_ewa_report_v1_get(body, request_options=request_options))
 
     def beta_partner_customer_v1_create(
         self,
@@ -2178,14 +2223,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.beta_partner_customer_v1_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.beta_partner_customer_v1_create(body, request_options=request_options))
 
     def beta_partner_customer_v1_enable(
         self,
@@ -2198,14 +2244,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.beta_partner_customer_v1_enable(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.beta_partner_customer_v1_enable(body, request_options=request_options))
 
     def beta_partner_customer_v1_get(
         self,
@@ -2218,14 +2265,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.beta_partner_customer_v1_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.beta_partner_customer_v1_get(body, request_options=request_options))
 
     def beta_partner_customer_v1_update(
         self,
@@ -2237,14 +2285,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.beta_partner_customer_v1_update(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.beta_partner_customer_v1_update(body, request_options=request_options))
 
     def business_verification_create(
         self,
@@ -2256,14 +2305,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.business_verification_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.business_verification_create(body, request_options=request_options))
 
     def business_verification_get(
         self,
@@ -2275,14 +2325,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.business_verification_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.business_verification_get(body, request_options=request_options))
 
     def cashflow_report_get(
         self,
@@ -2305,14 +2356,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cashflow_report_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.cashflow_report_get(body, request_options=request_options))
 
     def cashflow_report_insights_get(
         self,
@@ -2325,14 +2377,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cashflow_report_insights_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.cashflow_report_insights_get(body, request_options=request_options))
 
     def cashflow_report_refresh(
         self,
@@ -2358,14 +2411,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cashflow_report_refresh(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.cashflow_report_refresh(body, request_options=request_options))
 
     def cashflow_report_transactions_get(
         self,
@@ -2388,14 +2442,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cashflow_report_transactions_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.cashflow_report_transactions_get(body, request_options=request_options))
 
     def categories_get(
         self, body: Any, *, request_options: RequestOptionsOrDict | None = None
@@ -2408,14 +2463,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.categories_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.categories_get(body, request_options=request_options))
 
     def consent_events_get(
         self,
@@ -2429,14 +2485,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.consent_events_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.consent_events_get(body, request_options=request_options))
 
     def consumer_report_pdf_get(
         self,
@@ -2450,14 +2507,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.consumer_report_pdf_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.consumer_report_pdf_get(body, request_options=request_options))
 
     def cra_check_report_base_report_get(
         self,
@@ -2474,14 +2532,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_check_report_base_report_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.cra_check_report_base_report_get(body, request_options=request_options))
 
     def cra_check_report_cashflow_insights_get(
         self,
@@ -2498,16 +2557,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_check_report_cashflow_insights_get(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.cra_check_report_cashflow_insights_get(body, request_options=request_options)
+        )
 
     def cra_check_report_create(
         self,
@@ -2521,14 +2581,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_check_report_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.cra_check_report_create(body, request_options=request_options))
 
     def cra_check_report_income_insights_get(
         self,
@@ -2552,16 +2613,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_check_report_income_insights_get(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.cra_check_report_income_insights_get(body, request_options=request_options)
+        )
 
     def cra_check_report_lend_score_get(
         self,
@@ -2577,14 +2639,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_check_report_lend_score_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.cra_check_report_lend_score_get(body, request_options=request_options))
 
     def cra_check_report_network_insights_get(
         self,
@@ -2600,16 +2663,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_check_report_network_insights_get(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.cra_check_report_network_insights_get(body, request_options=request_options)
+        )
 
     def cra_check_report_partner_insights_get(
         self,
@@ -2625,16 +2689,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_check_report_partner_insights_get(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.cra_check_report_partner_insights_get(body, request_options=request_options)
+        )
 
     def cra_check_report_pdf_get(
         self,
@@ -2648,14 +2713,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_check_report_pdf_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.cra_check_report_pdf_get(body, request_options=request_options))
 
     def cra_check_report_verification_get(
         self,
@@ -2676,14 +2742,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_check_report_verification_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.cra_check_report_verification_get(body, request_options=request_options))
 
     def cra_check_report_verification_pdf_get(
         self,
@@ -2701,16 +2768,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_check_report_verification_pdf_get(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.cra_check_report_verification_pdf_get(body, request_options=request_options)
+        )
 
     def cra_credit_profile_report_get(
         self,
@@ -2722,14 +2790,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_credit_profile_report_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.cra_credit_profile_report_get(body, request_options=request_options))
 
     def cra_loans_applications_register(
         self,
@@ -2741,14 +2810,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_loans_applications_register(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.cra_loans_applications_register(body, request_options=request_options))
 
     def cra_loans_register(
         self,
@@ -2760,14 +2830,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_loans_register(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.cra_loans_register(body, request_options=request_options))
 
     def cra_loans_unregister(
         self,
@@ -2780,14 +2851,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_loans_unregister(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.cra_loans_unregister(body, request_options=request_options))
 
     def cra_loans_update(
         self,
@@ -2799,14 +2871,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_loans_update(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.cra_loans_update(body, request_options=request_options))
 
     def cra_monitoring_insights_get(
         self,
@@ -2819,14 +2892,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_monitoring_insights_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.cra_monitoring_insights_get(body, request_options=request_options))
 
     def cra_monitoring_insights_subscribe(
         self,
@@ -2840,14 +2914,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_monitoring_insights_subscribe(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.cra_monitoring_insights_subscribe(body, request_options=request_options))
 
     def cra_monitoring_insights_unsubscribe(
         self,
@@ -2859,16 +2934,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_monitoring_insights_unsubscribe(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(self.with_raw_response.cra_monitoring_insights_unsubscribe(body, request_options=request_options))
 
     def cra_partner_insights_get(
         self,
@@ -2880,14 +2954,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_partner_insights_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.cra_partner_insights_get(body, request_options=request_options))
 
     def cra_report_get(
         self,
@@ -2899,14 +2974,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.cra_report_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.cra_report_get(body, request_options=request_options))
 
     def create_payment_token(
         self,
@@ -2926,14 +3002,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.create_payment_token(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.create_payment_token(body, request_options=request_options))
 
     def credit_asset_report_freddie_mac_get(
         self,
@@ -2946,16 +3023,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_asset_report_freddie_mac_get(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(self.with_raw_response.credit_asset_report_freddie_mac_get(body, request_options=request_options))
 
     def credit_audit_copy_token_create(
         self,
@@ -2973,14 +3049,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_audit_copy_token_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_audit_copy_token_create(body, request_options=request_options))
 
     def credit_audit_copy_token_update(
         self,
@@ -2994,14 +3071,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_audit_copy_token_update(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_audit_copy_token_update(body, request_options=request_options))
 
     def credit_bank_employment_get(
         self,
@@ -3014,14 +3092,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_bank_employment_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_bank_employment_get(body, request_options=request_options))
 
     def credit_bank_income_get(
         self,
@@ -3036,14 +3115,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_bank_income_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_bank_income_get(body, request_options=request_options))
 
     def credit_bank_income_pdf_get(
         self,
@@ -3057,14 +3137,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             A PDF of the Bank Income Report
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_bank_income_pdf_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_bank_income_pdf_get(body, request_options=request_options))
 
     def credit_bank_income_refresh(
         self,
@@ -3080,14 +3161,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_bank_income_refresh(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_bank_income_refresh(body, request_options=request_options))
 
     def credit_bank_income_webhook_update(
         self,
@@ -3103,14 +3185,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_bank_income_webhook_update(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_bank_income_webhook_update(body, request_options=request_options))
 
     def credit_bank_statements_uploads_get(
         self,
@@ -3124,14 +3207,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_bank_statements_uploads_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_bank_statements_uploads_get(body, request_options=request_options))
 
     def credit_employment_get(
         self,
@@ -3144,14 +3228,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_employment_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_employment_get(body, request_options=request_options))
 
     def credit_freddie_mac_reports_get(
         self,
@@ -3164,14 +3249,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_freddie_mac_reports_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_freddie_mac_reports_get(body, request_options=request_options))
 
     def credit_payroll_income_get(
         self,
@@ -3184,14 +3270,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_payroll_income_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_payroll_income_get(body, request_options=request_options))
 
     def credit_payroll_income_parsing_config_update(
         self,
@@ -3204,16 +3291,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_payroll_income_parsing_config_update(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.credit_payroll_income_parsing_config_update(body, request_options=request_options)
+        )
 
     def credit_payroll_income_precheck(
         self,
@@ -3240,14 +3328,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_payroll_income_precheck(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_payroll_income_precheck(body, request_options=request_options))
 
     def credit_payroll_income_refresh(
         self,
@@ -3259,14 +3348,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_payroll_income_refresh(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_payroll_income_refresh(body, request_options=request_options))
 
     def credit_payroll_income_risk_signals_get(
         self,
@@ -3289,16 +3379,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_payroll_income_risk_signals_get(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.credit_payroll_income_risk_signals_get(body, request_options=request_options)
+        )
 
     def credit_relay_create(
         self,
@@ -3316,14 +3407,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_relay_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_relay_create(body, request_options=request_options))
 
     def credit_relay_get(
         self,
@@ -3336,14 +3428,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_relay_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_relay_get(body, request_options=request_options))
 
     def credit_relay_pdf_get(
         self,
@@ -3366,14 +3459,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             A PDF of the Asset Report
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_relay_pdf_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_relay_pdf_get(body, request_options=request_options))
 
     def credit_relay_refresh(
         self,
@@ -3388,14 +3482,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_relay_refresh(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_relay_refresh(body, request_options=request_options))
 
     def credit_relay_remove(
         self,
@@ -3410,14 +3505,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_relay_remove(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_relay_remove(body, request_options=request_options))
 
     def credit_report_audit_copy_remove(
         self,
@@ -3432,14 +3528,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_report_audit_copy_remove(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_report_audit_copy_remove(body, request_options=request_options))
 
     def credit_sessions_get(
         self,
@@ -3455,14 +3552,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.credit_sessions_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.credit_sessions_get(body, request_options=request_options))
 
     def dashboard_user_get(
         self,
@@ -3476,14 +3574,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.dashboard_user_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.dashboard_user_get(body, request_options=request_options))
 
     def dashboard_user_list(
         self,
@@ -3497,14 +3596,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.dashboard_user_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.dashboard_user_list(body, request_options=request_options))
 
     def employers_search(
         self,
@@ -3522,14 +3622,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.employers_search(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.employers_search(body, request_options=request_options))
 
     def employment_verification_get(
         self,
@@ -3544,14 +3645,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.employment_verification_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.employment_verification_get(body, request_options=request_options))
 
     def fdx_consents_get(
         self, consent_id: str, *, request_options: RequestOptionsOrDict | None = None
@@ -3560,14 +3662,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             consent_id: Consent Grant Identifier. Uniquely identifies the consent grant
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.fdx_consents_get(consent_id, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.fdx_consents_get(consent_id, request_options=request_options))
 
     def fdx_consents_list(
         self,
@@ -3583,16 +3686,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
             customer_id: Data provider customer identifier whose consent grants to return.
             status: Optional filter restricting results to a single consent grant status. One of ``ACTIVE``,
                 ``REVOKED``, ``EXPIRED``.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.fdx_consents_list(
-            customer_id, status=status, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.fdx_consents_list(customer_id, status=status, request_options=request_options)
+        )
 
     def fdx_consents_revocation_get(
         self, consent_id: str, *, request_options: RequestOptionsOrDict | None = None
@@ -3601,14 +3705,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             consent_id: Consent Grant Identifier. Uniquely identifies the consent grant
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.fdx_consents_revocation_get(consent_id, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.fdx_consents_revocation_get(consent_id, request_options=request_options))
 
     def fdx_consents_revoke(
         self,
@@ -3622,14 +3727,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
         Args:
             consent_id: Consent Grant Identifier. Uniquely identifies the consent grant
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             No Content
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.fdx_consents_revoke(consent_id, body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.fdx_consents_revoke(consent_id, body, request_options=request_options))
 
     def fdx_notifications(
         self,
@@ -3641,14 +3747,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.fdx_notifications(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.fdx_notifications(body, request_options=request_options))
 
     def get_recipient(
         self,
@@ -3662,29 +3769,33 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
         Args:
             recipient_id: Recipient Identifier. Uniquely identifies the recipient
             oauth_state_id: The value that is passed into the OAuth URI 'state' query parameter.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.get_recipient(
-            recipient_id, oauth_state_id=oauth_state_id, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.get_recipient(
+                recipient_id, oauth_state_id=oauth_state_id, request_options=request_options
+            ),
+        )
 
     def get_recipients(self, *, request_options: RequestOptionsOrDict | None = None) -> GetRecipientsResponse:
         """Returns a list of Recipients
 
         Args:
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.get_recipients(request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.get_recipients(request_options=request_options))
 
     def identity_documents_uploads_get(
         self,
@@ -3697,14 +3808,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.identity_documents_uploads_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.identity_documents_uploads_get(body, request_options=request_options))
 
     def identity_get(
         self, body: IdentityGetRequest | IdentityGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -3719,14 +3831,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.identity_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.identity_get(body, request_options=request_options))
 
     def identity_match(
         self,
@@ -3743,14 +3856,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.identity_match(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.identity_match(body, request_options=request_options))
 
     def identity_refresh(
         self,
@@ -3774,14 +3888,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.identity_refresh(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.identity_refresh(body, request_options=request_options))
 
     def identity_verification_autofill_create(
         self,
@@ -3794,16 +3909,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.identity_verification_autofill_create(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.identity_verification_autofill_create(body, request_options=request_options)
+        )
 
     def identity_verification_create(
         self,
@@ -3830,14 +3946,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.identity_verification_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.identity_verification_create(body, request_options=request_options))
 
     def identity_verification_get(
         self,
@@ -3849,14 +3966,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.identity_verification_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.identity_verification_get(body, request_options=request_options))
 
     def identity_verification_list(
         self,
@@ -3868,14 +3986,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.identity_verification_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.identity_verification_list(body, request_options=request_options))
 
     def identity_verification_retry(
         self,
@@ -3887,14 +4006,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.identity_verification_retry(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.identity_verification_retry(body, request_options=request_options))
 
     def income_verification_create(
         self,
@@ -3910,14 +4030,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.income_verification_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.income_verification_create(body, request_options=request_options))
 
     def income_verification_documents_download(
         self,
@@ -3939,16 +4060,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             A ZIP file containing source documents(s) used as the basis for income verification.
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.income_verification_documents_download(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.income_verification_documents_download(body, request_options=request_options)
+        )
 
     def income_verification_paystubs_get(
         self,
@@ -3965,14 +4087,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.income_verification_paystubs_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.income_verification_paystubs_get(body, request_options=request_options))
 
     def income_verification_precheck(
         self,
@@ -3995,14 +4118,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.income_verification_precheck(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.income_verification_precheck(body, request_options=request_options))
 
     def income_verification_taxforms_get(
         self,
@@ -4019,14 +4143,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.income_verification_taxforms_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.income_verification_taxforms_get(body, request_options=request_options))
 
     def institutions_get(
         self,
@@ -4043,14 +4168,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.institutions_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.institutions_get(body, request_options=request_options))
 
     def institutions_get_by_id(
         self,
@@ -4066,14 +4192,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.institutions_get_by_id(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.institutions_get_by_id(body, request_options=request_options))
 
     def institutions_search(
         self,
@@ -4090,14 +4217,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.institutions_search(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.institutions_search(body, request_options=request_options))
 
     def investments_auth_get(
         self,
@@ -4110,14 +4238,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.investments_auth_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.investments_auth_get(body, request_options=request_options))
 
     def investments_holdings_get(
         self,
@@ -4130,14 +4259,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.investments_holdings_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.investments_holdings_get(body, request_options=request_options))
 
     def investments_refresh(
         self,
@@ -4169,14 +4299,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.investments_refresh(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.investments_refresh(body, request_options=request_options))
 
     def investments_transactions_get(
         self,
@@ -4206,14 +4337,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.investments_transactions_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.investments_transactions_get(body, request_options=request_options))
 
     def issues_get(
         self, body: IssuesGetRequest | IssuesGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -4222,14 +4354,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.issues_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.issues_get(body, request_options=request_options))
 
     def issues_search(
         self,
@@ -4244,14 +4377,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.issues_search(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.issues_search(body, request_options=request_options))
 
     def issues_subscribe(
         self,
@@ -4264,14 +4398,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             Subscription was successful
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.issues_subscribe(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.issues_subscribe(body, request_options=request_options))
 
     def item_access_token_invalidate(
         self,
@@ -4287,14 +4422,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.item_access_token_invalidate(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.item_access_token_invalidate(body, request_options=request_options))
 
     def item_activity_list(
         self,
@@ -4306,14 +4442,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.item_activity_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.item_activity_list(body, request_options=request_options))
 
     def item_application_list(
         self,
@@ -4325,14 +4462,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.item_application_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.item_application_list(body, request_options=request_options))
 
     def item_application_scopes_update(
         self,
@@ -4344,14 +4482,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.item_application_scopes_update(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.item_application_scopes_update(body, request_options=request_options))
 
     def item_application_unlink(
         self,
@@ -4372,14 +4511,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.item_application_unlink(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.item_application_unlink(body, request_options=request_options))
 
     def item_create_public_token(
         self,
@@ -4404,14 +4544,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.item_create_public_token(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.item_create_public_token(body, request_options=request_options))
 
     def item_get(
         self, body: ItemGetRequest | ItemGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -4420,14 +4561,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.item_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.item_get(body, request_options=request_options))
 
     def item_import(
         self, body: ItemImportRequest | ItemImportRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -4442,14 +4584,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.item_import(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.item_import(body, request_options=request_options))
 
     def item_products_terminate(
         self,
@@ -4465,14 +4608,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.item_products_terminate(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.item_products_terminate(body, request_options=request_options))
 
     def item_public_token_exchange(
         self,
@@ -4490,14 +4634,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.item_public_token_exchange(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.item_public_token_exchange(body, request_options=request_options))
 
     def item_remove(
         self, body: ItemRemoveRequest | ItemRemoveRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -4525,14 +4670,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.item_remove(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.item_remove(body, request_options=request_options))
 
     def item_webhook_update(
         self,
@@ -4546,14 +4692,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.item_webhook_update(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.item_webhook_update(body, request_options=request_options))
 
     def liabilities_get(
         self,
@@ -4574,14 +4721,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.liabilities_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.liabilities_get(body, request_options=request_options))
 
     def link_delivery_create(
         self,
@@ -4593,14 +4741,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.link_delivery_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.link_delivery_create(body, request_options=request_options))
 
     def link_delivery_get(
         self,
@@ -4612,14 +4761,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.link_delivery_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.link_delivery_get(body, request_options=request_options))
 
     def link_oauth_correlation_id_exchange(
         self,
@@ -4634,14 +4784,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.link_oauth_correlation_id_exchange(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.link_oauth_correlation_id_exchange(body, request_options=request_options))
 
     def link_token_create(
         self,
@@ -4661,14 +4812,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.link_token_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.link_token_create(body, request_options=request_options))
 
     def link_token_get(
         self,
@@ -4690,14 +4842,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.link_token_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.link_token_get(body, request_options=request_options))
 
     def network_status_get(
         self,
@@ -4716,14 +4869,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.network_status_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.network_status_get(body, request_options=request_options))
 
     def oauth_introspect(
         self,
@@ -4738,14 +4892,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.oauth_introspect(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.oauth_introspect(body, request_options=request_options))
 
     def oauth_revoke(
         self, body: OauthRevokeRequest | OauthRevokeRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -4758,14 +4913,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.oauth_revoke(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.oauth_revoke(body, request_options=request_options))
 
     def oauth_token(
         self, body: OauthTokenRequest | OauthTokenRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -4776,14 +4932,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.oauth_token(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.oauth_token(body, request_options=request_options))
 
     def partner_customer_create(
         self,
@@ -4798,14 +4955,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.partner_customer_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.partner_customer_create(body, request_options=request_options))
 
     def partner_customer_enable(
         self,
@@ -4818,14 +4976,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.partner_customer_enable(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.partner_customer_enable(body, request_options=request_options))
 
     def partner_customer_get(
         self,
@@ -4838,14 +4997,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.partner_customer_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.partner_customer_get(body, request_options=request_options))
 
     def partner_customer_oauth_institutions_get(
         self,
@@ -4860,16 +5020,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.partner_customer_oauth_institutions_get(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.partner_customer_oauth_institutions_get(body, request_options=request_options)
+        )
 
     def partner_customer_remove(
         self,
@@ -4883,14 +5044,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.partner_customer_remove(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.partner_customer_remove(body, request_options=request_options))
 
     def payment_initiation_consent_create(
         self,
@@ -4906,14 +5068,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.payment_initiation_consent_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.payment_initiation_consent_create(body, request_options=request_options))
 
     def payment_initiation_consent_get(
         self,
@@ -4926,14 +5089,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.payment_initiation_consent_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.payment_initiation_consent_get(body, request_options=request_options))
 
     def payment_initiation_consent_payment_execute(
         self,
@@ -4946,16 +5110,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.payment_initiation_consent_payment_execute(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.payment_initiation_consent_payment_execute(body, request_options=request_options)
+        )
 
     def payment_initiation_consent_revoke(
         self,
@@ -4968,14 +5133,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.payment_initiation_consent_revoke(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.payment_initiation_consent_revoke(body, request_options=request_options))
 
     def payment_initiation_payment_create(
         self,
@@ -5004,14 +5170,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.payment_initiation_payment_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.payment_initiation_payment_create(body, request_options=request_options))
 
     def payment_initiation_payment_get(
         self,
@@ -5030,14 +5197,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.payment_initiation_payment_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.payment_initiation_payment_get(body, request_options=request_options))
 
     def payment_initiation_payment_list(
         self,
@@ -5051,14 +5219,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.payment_initiation_payment_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.payment_initiation_payment_list(body, request_options=request_options))
 
     def payment_initiation_payment_reverse(
         self,
@@ -5080,14 +5249,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.payment_initiation_payment_reverse(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.payment_initiation_payment_reverse(body, request_options=request_options))
 
     def payment_initiation_recipient_create(
         self,
@@ -5107,16 +5277,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.payment_initiation_recipient_create(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(self.with_raw_response.payment_initiation_recipient_create(body, request_options=request_options))
 
     def payment_initiation_recipient_get(
         self,
@@ -5128,14 +5297,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.payment_initiation_recipient_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.payment_initiation_recipient_get(body, request_options=request_options))
 
     def payment_initiation_recipient_list(
         self,
@@ -5148,14 +5318,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.payment_initiation_recipient_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.payment_initiation_recipient_list(body, request_options=request_options))
 
     def payment_profile_create(
         self,
@@ -5170,14 +5341,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.payment_profile_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.payment_profile_create(body, request_options=request_options))
 
     def payment_profile_get(
         self,
@@ -5189,14 +5361,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.payment_profile_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.payment_profile_get(body, request_options=request_options))
 
     def payment_profile_remove(
         self,
@@ -5209,14 +5382,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.payment_profile_remove(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.payment_profile_remove(body, request_options=request_options))
 
     def processor_account_get(
         self,
@@ -5232,14 +5406,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_account_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_account_get(body, request_options=request_options))
 
     def processor_apex_processor_token_create(
         self,
@@ -5251,16 +5426,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_apex_processor_token_create(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.processor_apex_processor_token_create(body, request_options=request_options)
+        )
 
     def processor_auth_get(
         self,
@@ -5278,14 +5454,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_auth_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_auth_get(body, request_options=request_options))
 
     def processor_balance_get(
         self,
@@ -5304,14 +5481,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
                 to the account. Note that not all institutions calculate the available balance. In the event that
                 available balance is unavailable from the institution, Plaid will return an available balance value of
                 ``null``.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_balance_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_balance_get(body, request_options=request_options))
 
     def processor_bank_transfer_create(
         self,
@@ -5323,14 +5501,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_bank_transfer_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_bank_transfer_create(body, request_options=request_options))
 
     def processor_identity_get(
         self,
@@ -5343,14 +5522,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_identity_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_identity_get(body, request_options=request_options))
 
     def processor_identity_match(
         self,
@@ -5366,14 +5546,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_identity_match(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_identity_match(body, request_options=request_options))
 
     def processor_investments_auth_get(
         self,
@@ -5390,14 +5571,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_investments_auth_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_investments_auth_get(body, request_options=request_options))
 
     def processor_investments_holdings_get(
         self,
@@ -5409,14 +5591,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_investments_holdings_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_investments_holdings_get(body, request_options=request_options))
 
     def processor_investments_transactions_get(
         self,
@@ -5450,16 +5633,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_investments_transactions_get(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.processor_investments_transactions_get(body, request_options=request_options)
+        )
 
     def processor_liabilities_get(
         self,
@@ -5482,14 +5666,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_liabilities_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_liabilities_get(body, request_options=request_options))
 
     def processor_signal_decision_report(
         self,
@@ -5514,14 +5699,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_signal_decision_report(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_signal_decision_report(body, request_options=request_options))
 
     def processor_signal_evaluate(
         self,
@@ -5544,14 +5730,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_signal_evaluate(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_signal_evaluate(body, request_options=request_options))
 
     def processor_signal_prepare(
         self,
@@ -5567,14 +5754,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_signal_prepare(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_signal_prepare(body, request_options=request_options))
 
     def processor_signal_return_report(
         self,
@@ -5591,14 +5779,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_signal_return_report(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_signal_return_report(body, request_options=request_options))
 
     def processor_stripe_bank_account_token_create(
         self,
@@ -5621,16 +5810,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_stripe_bank_account_token_create(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.processor_stripe_bank_account_token_create(body, request_options=request_options)
+        )
 
     def processor_token_create(
         self,
@@ -5647,14 +5837,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_token_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_token_create(body, request_options=request_options))
 
     def processor_token_permissions_get(
         self,
@@ -5667,14 +5858,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_token_permissions_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_token_permissions_get(body, request_options=request_options))
 
     def processor_token_permissions_set(
         self,
@@ -5690,14 +5882,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_token_permissions_set(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_token_permissions_set(body, request_options=request_options))
 
     def processor_token_webhook_update(
         self,
@@ -5710,14 +5903,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_token_webhook_update(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_token_webhook_update(body, request_options=request_options))
 
     def processor_transactions_get(
         self,
@@ -5755,14 +5949,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_transactions_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_transactions_get(body, request_options=request_options))
 
     def processor_transactions_recurring_get(
         self,
@@ -5800,16 +5995,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_transactions_recurring_get(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.processor_transactions_recurring_get(body, request_options=request_options)
+        )
 
     def processor_transactions_refresh(
         self,
@@ -5842,14 +6038,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_transactions_refresh(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_transactions_refresh(body, request_options=request_options))
 
     def processor_transactions_sync(
         self,
@@ -5894,14 +6091,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.processor_transactions_sync(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.processor_transactions_sync(body, request_options=request_options))
 
     def profile_network_status_get(
         self,
@@ -5914,14 +6112,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.profile_network_status_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.profile_network_status_get(body, request_options=request_options))
 
     def protect_compute(
         self,
@@ -5941,14 +6140,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.protect_compute(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.protect_compute(body, request_options=request_options))
 
     def protect_event_get(
         self,
@@ -5960,14 +6160,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.protect_event_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.protect_event_get(body, request_options=request_options))
 
     def protect_event_send(
         self,
@@ -5979,14 +6180,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.protect_event_send(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.protect_event_send(body, request_options=request_options))
 
     def protect_report_create(
         self,
@@ -6007,14 +6209,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.protect_report_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.protect_report_create(body, request_options=request_options))
 
     def protect_user_insights_get(
         self,
@@ -6026,14 +6229,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.protect_user_insights_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.protect_user_insights_get(body, request_options=request_options))
 
     def sandbox_bank_income_fire_webhook(
         self,
@@ -6046,14 +6250,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_bank_income_fire_webhook(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_bank_income_fire_webhook(body, request_options=request_options))
 
     def sandbox_bank_transfer_fire_webhook(
         self,
@@ -6066,14 +6271,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_bank_transfer_fire_webhook(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_bank_transfer_fire_webhook(body, request_options=request_options))
 
     def sandbox_bank_transfer_simulate(
         self,
@@ -6088,14 +6294,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_bank_transfer_simulate(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_bank_transfer_simulate(body, request_options=request_options))
 
     def sandbox_cra_cashflow_updates_update(
         self,
@@ -6108,16 +6315,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_cra_cashflow_updates_update(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(self.with_raw_response.sandbox_cra_cashflow_updates_update(body, request_options=request_options))
 
     def sandbox_fdx_consent_seed(
         self,
@@ -6137,14 +6343,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_fdx_consent_seed(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_fdx_consent_seed(body, request_options=request_options))
 
     def sandbox_income_fire_webhook(
         self,
@@ -6157,14 +6364,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_income_fire_webhook(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_income_fire_webhook(body, request_options=request_options))
 
     def sandbox_item_application_seed(
         self,
@@ -6181,14 +6389,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_item_application_seed(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_item_application_seed(body, request_options=request_options))
 
     def sandbox_item_fire_webhook(
         self,
@@ -6244,14 +6453,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_item_fire_webhook(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_item_fire_webhook(body, request_options=request_options))
 
     def sandbox_item_reset_login(
         self,
@@ -6269,14 +6479,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_item_reset_login(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_item_reset_login(body, request_options=request_options))
 
     def sandbox_item_set_verification_status(
         self,
@@ -6292,16 +6503,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_item_set_verification_status(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.sandbox_item_set_verification_status(body, request_options=request_options)
+        )
 
     def sandbox_oauth_select_accounts(
         self,
@@ -6313,14 +6525,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_oauth_select_accounts(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_oauth_select_accounts(body, request_options=request_options))
 
     def sandbox_payment_profile_reset_login(
         self,
@@ -6341,16 +6554,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_payment_profile_reset_login(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(self.with_raw_response.sandbox_payment_profile_reset_login(body, request_options=request_options))
 
     def sandbox_payment_simulate(
         self,
@@ -6363,14 +6575,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_payment_simulate(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_payment_simulate(body, request_options=request_options))
 
     def sandbox_processor_token_create(
         self,
@@ -6386,14 +6599,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_processor_token_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_processor_token_create(body, request_options=request_options))
 
     def sandbox_public_token_create(
         self,
@@ -6410,14 +6624,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_public_token_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_public_token_create(body, request_options=request_options))
 
     def sandbox_transactions_create(
         self,
@@ -6437,14 +6652,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: Invalid request ``error`` is ``Error | None | RawError``."""
-        return self.with_raw_response.sandbox_transactions_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_transactions_create(body, request_options=request_options))
 
     def sandbox_transfer_fire_webhook(
         self,
@@ -6457,14 +6673,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_transfer_fire_webhook(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_transfer_fire_webhook(body, request_options=request_options))
 
     def sandbox_transfer_ledger_deposit_simulate(
         self,
@@ -6477,16 +6694,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_transfer_ledger_deposit_simulate(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.sandbox_transfer_ledger_deposit_simulate(body, request_options=request_options)
+        )
 
     def sandbox_transfer_ledger_simulate_available(
         self,
@@ -6499,16 +6717,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_transfer_ledger_simulate_available(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.sandbox_transfer_ledger_simulate_available(body, request_options=request_options)
+        )
 
     def sandbox_transfer_ledger_withdraw_simulate(
         self,
@@ -6521,16 +6740,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_transfer_ledger_withdraw_simulate(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.sandbox_transfer_ledger_withdraw_simulate(body, request_options=request_options)
+        )
 
     def sandbox_transfer_refund_simulate(
         self,
@@ -6545,14 +6765,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_transfer_refund_simulate(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_transfer_refund_simulate(body, request_options=request_options))
 
     def sandbox_transfer_repayment_simulate(
         self,
@@ -6566,16 +6787,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_transfer_repayment_simulate(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(self.with_raw_response.sandbox_transfer_repayment_simulate(body, request_options=request_options))
 
     def sandbox_transfer_simulate(
         self,
@@ -6590,14 +6810,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_transfer_simulate(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_transfer_simulate(body, request_options=request_options))
 
     def sandbox_transfer_sweep_simulate(
         self,
@@ -6612,14 +6833,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_transfer_sweep_simulate(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_transfer_sweep_simulate(body, request_options=request_options))
 
     def sandbox_transfer_test_clock_advance(
         self,
@@ -6649,16 +6871,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_transfer_test_clock_advance(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(self.with_raw_response.sandbox_transfer_test_clock_advance(body, request_options=request_options))
 
     def sandbox_transfer_test_clock_create(
         self,
@@ -6676,14 +6897,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_transfer_test_clock_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_transfer_test_clock_create(body, request_options=request_options))
 
     def sandbox_transfer_test_clock_get(
         self,
@@ -6695,14 +6917,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_transfer_test_clock_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_transfer_test_clock_get(body, request_options=request_options))
 
     def sandbox_transfer_test_clock_list(
         self,
@@ -6716,14 +6939,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_transfer_test_clock_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_transfer_test_clock_list(body, request_options=request_options))
 
     def sandbox_user_reset_login(
         self,
@@ -6742,14 +6966,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.sandbox_user_reset_login(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.sandbox_user_reset_login(body, request_options=request_options))
 
     def session_token_create(
         self,
@@ -6763,14 +6988,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.session_token_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.session_token_create(body, request_options=request_options))
 
     def signal_decision_report(
         self,
@@ -6795,14 +7021,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.signal_decision_report(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.signal_decision_report(body, request_options=request_options))
 
     def signal_evaluate(
         self,
@@ -6828,14 +7055,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.signal_evaluate(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.signal_evaluate(body, request_options=request_options))
 
     def signal_prepare(
         self,
@@ -6858,14 +7086,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.signal_prepare(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.signal_prepare(body, request_options=request_options))
 
     def signal_return_report(
         self,
@@ -6881,14 +7110,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.signal_return_report(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.signal_return_report(body, request_options=request_options))
 
     def signal_schedule(
         self,
@@ -6900,14 +7130,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.signal_schedule(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.signal_schedule(body, request_options=request_options))
 
     def statements_download(
         self,
@@ -6921,14 +7152,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.statements_download(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.statements_download(body, request_options=request_options))
 
     def statements_list(
         self,
@@ -6940,14 +7172,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.statements_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.statements_list(body, request_options=request_options))
 
     def statements_refresh(
         self,
@@ -6959,14 +7192,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.statements_refresh(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.statements_refresh(body, request_options=request_options))
 
     def transactions_enhance(
         self,
@@ -6980,14 +7214,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transactions_enhance(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transactions_enhance(body, request_options=request_options))
 
     def transactions_enrich(
         self,
@@ -7000,14 +7235,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transactions_enrich(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transactions_enrich(body, request_options=request_options))
 
     def transactions_get(
         self,
@@ -7047,14 +7283,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transactions_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transactions_get(body, request_options=request_options))
 
     def transactions_recurring_get(
         self,
@@ -7093,14 +7330,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transactions_recurring_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transactions_recurring_get(body, request_options=request_options))
 
     def transactions_refresh(
         self,
@@ -7135,14 +7373,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transactions_refresh(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transactions_refresh(body, request_options=request_options))
 
     def transactions_rules_create(
         self,
@@ -7158,14 +7397,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transactions_rules_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transactions_rules_create(body, request_options=request_options))
 
     def transactions_rules_list(
         self,
@@ -7178,14 +7418,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transactions_rules_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transactions_rules_list(body, request_options=request_options))
 
     def transactions_rules_remove(
         self,
@@ -7197,14 +7438,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transactions_rules_remove(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transactions_rules_remove(body, request_options=request_options))
 
     def transactions_sync(
         self,
@@ -7246,14 +7488,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transactions_sync(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transactions_sync(body, request_options=request_options))
 
     def transactions_user_insights_get(
         self,
@@ -7268,14 +7511,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transactions_user_insights_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transactions_user_insights_get(body, request_options=request_options))
 
     def transfer_authorization_cancel(
         self,
@@ -7288,14 +7532,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_authorization_cancel(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_authorization_cancel(body, request_options=request_options))
 
     def transfer_authorization_create(
         self,
@@ -7348,14 +7593,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_authorization_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_authorization_create(body, request_options=request_options))
 
     def transfer_balance_get(
         self,
@@ -7367,14 +7613,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_balance_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_balance_get(body, request_options=request_options))
 
     def transfer_cancel(
         self,
@@ -7387,14 +7634,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_cancel(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_cancel(body, request_options=request_options))
 
     def transfer_capabilities_get(
         self,
@@ -7408,14 +7656,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_capabilities_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_capabilities_get(body, request_options=request_options))
 
     def transfer_configuration_get(
         self,
@@ -7427,14 +7676,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_configuration_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_configuration_get(body, request_options=request_options))
 
     def transfer_create(
         self,
@@ -7449,14 +7699,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_create(body, request_options=request_options))
 
     def transfer_diligence_document_upload(
         self,
@@ -7471,14 +7722,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_diligence_document_upload(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_diligence_document_upload(body, request_options=request_options))
 
     def transfer_diligence_submit(
         self,
@@ -7491,14 +7743,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_diligence_submit(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_diligence_submit(body, request_options=request_options))
 
     def transfer_event_list(
         self,
@@ -7511,14 +7764,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_event_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_event_list(body, request_options=request_options))
 
     def transfer_event_sync(
         self,
@@ -7531,14 +7785,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_event_sync(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_event_sync(body, request_options=request_options))
 
     def transfer_get(
         self, body: TransferGetRequest | TransferGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -7549,14 +7804,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_get(body, request_options=request_options))
 
     def transfer_intent_create(
         self,
@@ -7568,14 +7824,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_intent_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_intent_create(body, request_options=request_options))
 
     def transfer_intent_get(
         self,
@@ -7587,14 +7844,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_intent_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_intent_get(body, request_options=request_options))
 
     def transfer_ledger_deposit(
         self,
@@ -7606,14 +7864,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_ledger_deposit(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_ledger_deposit(body, request_options=request_options))
 
     def transfer_ledger_distribute(
         self,
@@ -7627,14 +7886,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_ledger_distribute(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_ledger_distribute(body, request_options=request_options))
 
     def transfer_ledger_event_list(
         self,
@@ -7647,14 +7907,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_ledger_event_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_ledger_event_list(body, request_options=request_options))
 
     def transfer_ledger_get(
         self,
@@ -7666,14 +7927,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_ledger_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_ledger_get(body, request_options=request_options))
 
     def transfer_ledger_withdraw(
         self,
@@ -7685,14 +7947,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_ledger_withdraw(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_ledger_withdraw(body, request_options=request_options))
 
     def transfer_list(
         self,
@@ -7705,14 +7968,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_list(body, request_options=request_options))
 
     def transfer_metrics_get(
         self,
@@ -7727,14 +7991,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_metrics_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_metrics_get(body, request_options=request_options))
 
     def transfer_migrate_account(
         self,
@@ -7753,14 +8018,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_migrate_account(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_migrate_account(body, request_options=request_options))
 
     def transfer_originator_create(
         self,
@@ -7773,14 +8039,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_originator_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_originator_create(body, request_options=request_options))
 
     def transfer_originator_funding_account_create(
         self,
@@ -7793,16 +8060,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_originator_funding_account_create(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.transfer_originator_funding_account_create(body, request_options=request_options)
+        )
 
     def transfer_originator_funding_account_update(
         self,
@@ -7815,16 +8083,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_originator_funding_account_update(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.transfer_originator_funding_account_update(body, request_options=request_options)
+        )
 
     def transfer_originator_get(
         self,
@@ -7837,14 +8106,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_originator_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_originator_get(body, request_options=request_options))
 
     def transfer_originator_list(
         self,
@@ -7857,14 +8127,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_originator_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_originator_list(body, request_options=request_options))
 
     def transfer_platform_originator_create(
         self,
@@ -7877,16 +8148,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_platform_originator_create(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(self.with_raw_response.transfer_platform_originator_create(body, request_options=request_options))
 
     def transfer_platform_person_create(
         self,
@@ -7899,14 +8169,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_platform_person_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_platform_person_create(body, request_options=request_options))
 
     def transfer_platform_requirement_submit(
         self,
@@ -7921,16 +8192,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_platform_requirement_submit(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.transfer_platform_requirement_submit(body, request_options=request_options)
+        )
 
     def transfer_questionnaire_create(
         self,
@@ -7944,14 +8216,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_questionnaire_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_questionnaire_create(body, request_options=request_options))
 
     def transfer_recurring_cancel(
         self,
@@ -7964,14 +8237,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_recurring_cancel(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_recurring_cancel(body, request_options=request_options))
 
     def transfer_recurring_create(
         self,
@@ -7984,14 +8258,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_recurring_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_recurring_create(body, request_options=request_options))
 
     def transfer_recurring_get(
         self,
@@ -8004,14 +8279,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_recurring_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_recurring_get(body, request_options=request_options))
 
     def transfer_recurring_list(
         self,
@@ -8025,14 +8301,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_recurring_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_recurring_list(body, request_options=request_options))
 
     def transfer_refund_cancel(
         self,
@@ -8045,14 +8322,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_refund_cancel(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_refund_cancel(body, request_options=request_options))
 
     def transfer_refund_create(
         self,
@@ -8074,14 +8352,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_refund_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_refund_create(body, request_options=request_options))
 
     def transfer_refund_get(
         self,
@@ -8094,14 +8373,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_refund_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_refund_get(body, request_options=request_options))
 
     def transfer_repayment_list(
         self,
@@ -8114,14 +8394,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_repayment_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_repayment_list(body, request_options=request_options))
 
     def transfer_repayment_return_list(
         self,
@@ -8135,14 +8416,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_repayment_return_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_repayment_return_list(body, request_options=request_options))
 
     def transfer_return_recover(
         self,
@@ -8158,14 +8440,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_return_recover(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_return_recover(body, request_options=request_options))
 
     def transfer_sweep_get(
         self,
@@ -8177,14 +8460,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_sweep_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_sweep_get(body, request_options=request_options))
 
     def transfer_sweep_list(
         self,
@@ -8196,14 +8480,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.transfer_sweep_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.transfer_sweep_list(body, request_options=request_options))
 
     def user_account_session_event_send(
         self,
@@ -8216,14 +8501,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.user_account_session_event_send(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.user_account_session_event_send(body, request_options=request_options))
 
     def user_account_session_get(
         self,
@@ -8241,14 +8527,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             success
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.user_account_session_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.user_account_session_get(body, request_options=request_options))
 
     def user_create(
         self,
@@ -8290,16 +8577,19 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.user_create(
-            body, plaid_new_user_api_enabled=plaid_new_user_api_enabled, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.user_create(
+                body, plaid_new_user_api_enabled=plaid_new_user_api_enabled, request_options=request_options
+            ),
+        )
 
     def user_financial_data_refresh(
         self,
@@ -8318,14 +8608,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.user_financial_data_refresh(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.user_financial_data_refresh(body, request_options=request_options))
 
     def user_get(
         self,
@@ -8342,16 +8633,19 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.user_get(
-            body, plaid_new_user_api_enabled=plaid_new_user_api_enabled, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.user_get(
+                body, plaid_new_user_api_enabled=plaid_new_user_api_enabled, request_options=request_options
+            ),
+        )
 
     def user_identity_remove(
         self,
@@ -8368,16 +8662,19 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.user_identity_remove(
-            body, plaid_new_user_api_enabled=plaid_new_user_api_enabled, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.user_identity_remove(
+                body, plaid_new_user_api_enabled=plaid_new_user_api_enabled, request_options=request_options
+            ),
+        )
 
     def user_items_associate(
         self,
@@ -8391,14 +8688,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.user_items_associate(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.user_items_associate(body, request_options=request_options))
 
     def user_items_get(
         self,
@@ -8412,14 +8710,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.user_items_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.user_items_get(body, request_options=request_options))
 
     def user_items_remove(
         self,
@@ -8440,14 +8739,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.user_items_remove(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.user_items_remove(body, request_options=request_options))
 
     def user_products_terminate(
         self,
@@ -8462,14 +8762,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.user_products_terminate(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.user_products_terminate(body, request_options=request_options))
 
     def user_remove(
         self,
@@ -8485,16 +8786,19 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.user_remove(
-            body, plaid_new_user_api_enabled=plaid_new_user_api_enabled, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.user_remove(
+                body, plaid_new_user_api_enabled=plaid_new_user_api_enabled, request_options=request_options
+            ),
+        )
 
     def user_third_party_token_create(
         self,
@@ -8510,14 +8814,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.user_third_party_token_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.user_third_party_token_create(body, request_options=request_options))
 
     def user_third_party_token_remove(
         self,
@@ -8533,14 +8838,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.user_third_party_token_remove(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.user_third_party_token_remove(body, request_options=request_options))
 
     def user_transactions_refresh(
         self,
@@ -8559,14 +8865,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.user_transactions_refresh(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.user_transactions_refresh(body, request_options=request_options))
 
     def user_update(
         self,
@@ -8585,16 +8892,19 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.user_update(
-            body, plaid_new_user_api_enabled=plaid_new_user_api_enabled, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.user_update(
+                body, plaid_new_user_api_enabled=plaid_new_user_api_enabled, request_options=request_options
+            ),
+        )
 
     def wallet_create(
         self,
@@ -8606,14 +8916,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.wallet_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.wallet_create(body, request_options=request_options))
 
     def wallet_get(
         self, body: WalletGetRequest | WalletGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -8622,14 +8933,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.wallet_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.wallet_get(body, request_options=request_options))
 
     def wallet_list(
         self, body: WalletListRequest | WalletListRequestDict, *, request_options: RequestOptionsOrDict | None = None
@@ -8638,14 +8950,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.wallet_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.wallet_list(body, request_options=request_options))
 
     def wallet_transaction_execute(
         self,
@@ -8659,14 +8972,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.wallet_transaction_execute(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.wallet_transaction_execute(body, request_options=request_options))
 
     def wallet_transaction_get(
         self,
@@ -8678,14 +8992,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.wallet_transaction_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.wallet_transaction_get(body, request_options=request_options))
 
     def wallet_transaction_list(
         self,
@@ -8698,14 +9013,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.wallet_transaction_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.wallet_transaction_list(body, request_options=request_options))
 
     def watchlist_screening_entity_create(
         self,
@@ -8719,14 +9035,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_entity_create(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.watchlist_screening_entity_create(body, request_options=request_options))
 
     def watchlist_screening_entity_get(
         self,
@@ -8738,14 +9055,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_entity_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.watchlist_screening_entity_get(body, request_options=request_options))
 
     def watchlist_screening_entity_history_list(
         self,
@@ -8758,16 +9076,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_entity_history_list(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.watchlist_screening_entity_history_list(body, request_options=request_options)
+        )
 
     def watchlist_screening_entity_hit_list(
         self,
@@ -8779,16 +9098,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_entity_hit_list(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(self.with_raw_response.watchlist_screening_entity_hit_list(body, request_options=request_options))
 
     def watchlist_screening_entity_list(
         self,
@@ -8800,14 +9118,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_entity_list(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.watchlist_screening_entity_list(body, request_options=request_options))
 
     def watchlist_screening_entity_program_get(
         self,
@@ -8819,16 +9138,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_entity_program_get(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.watchlist_screening_entity_program_get(body, request_options=request_options)
+        )
 
     def watchlist_screening_entity_program_list(
         self,
@@ -8840,16 +9160,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_entity_program_list(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.watchlist_screening_entity_program_list(body, request_options=request_options)
+        )
 
     def watchlist_screening_entity_review_create(
         self,
@@ -8862,16 +9183,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_entity_review_create(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.watchlist_screening_entity_review_create(body, request_options=request_options)
+        )
 
     def watchlist_screening_entity_review_list(
         self,
@@ -8884,16 +9206,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_entity_review_list(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.watchlist_screening_entity_review_list(body, request_options=request_options)
+        )
 
     def watchlist_screening_entity_update(
         self,
@@ -8905,14 +9228,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The entity screening was successfully updated.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_entity_update(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.watchlist_screening_entity_update(body, request_options=request_options))
 
     def watchlist_screening_individual_create(
         self,
@@ -8926,16 +9250,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_individual_create(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.watchlist_screening_individual_create(body, request_options=request_options)
+        )
 
     def watchlist_screening_individual_get(
         self,
@@ -8947,14 +9272,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_individual_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.watchlist_screening_individual_get(body, request_options=request_options))
 
     def watchlist_screening_individual_history_list(
         self,
@@ -8967,16 +9293,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_individual_history_list(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.watchlist_screening_individual_history_list(body, request_options=request_options)
+        )
 
     def watchlist_screening_individual_hit_list(
         self,
@@ -8988,16 +9315,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_individual_hit_list(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.watchlist_screening_individual_hit_list(body, request_options=request_options)
+        )
 
     def watchlist_screening_individual_list(
         self,
@@ -9009,16 +9337,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_individual_list(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(self.with_raw_response.watchlist_screening_individual_list(body, request_options=request_options))
 
     def watchlist_screening_individual_program_get(
         self,
@@ -9030,16 +9357,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_individual_program_get(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.watchlist_screening_individual_program_get(body, request_options=request_options)
+        )
 
     def watchlist_screening_individual_program_list(
         self,
@@ -9051,16 +9379,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_individual_program_list(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.watchlist_screening_individual_program_list(body, request_options=request_options)
+        )
 
     def watchlist_screening_individual_review_create(
         self,
@@ -9073,16 +9402,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_individual_review_create(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.watchlist_screening_individual_review_create(body, request_options=request_options)
+        )
 
     def watchlist_screening_individual_review_list(
         self,
@@ -9094,16 +9424,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_individual_review_list(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.watchlist_screening_individual_review_list(body, request_options=request_options)
+        )
 
     def watchlist_screening_individual_update(
         self,
@@ -9118,16 +9449,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.watchlist_screening_individual_update(
-            body, request_options=request_options
-        ).unwrap()
+        return unwrap(
+            self.with_raw_response.watchlist_screening_individual_update(body, request_options=request_options)
+        )
 
     def webhook_verification_key_get(
         self,
@@ -9143,14 +9475,15 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             OK
 
         Raises:
             ApiError: If the API responds with an error status code. ``error`` is ``RawError``."""
-        return self.with_raw_response.webhook_verification_key_get(body, request_options=request_options).unwrap()
+        return unwrap(self.with_raw_response.webhook_verification_key_get(body, request_options=request_options))
 
     def close(self) -> None:
         self._raw_client.http_client.close()
@@ -9190,7 +9523,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9225,7 +9559,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9251,7 +9586,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9284,7 +9620,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9312,7 +9649,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9344,7 +9682,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9373,7 +9712,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9410,7 +9750,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9451,7 +9792,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9492,7 +9834,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9526,7 +9869,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9560,7 +9904,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9592,7 +9937,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9620,7 +9966,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9646,7 +9993,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9680,7 +10028,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9706,7 +10055,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9731,7 +10081,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9759,7 +10110,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9787,7 +10139,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9813,7 +10166,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9839,7 +10193,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9869,7 +10224,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9895,7 +10251,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9920,7 +10277,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9945,7 +10303,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -9978,7 +10337,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10003,7 +10363,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10028,7 +10389,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10058,7 +10420,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10083,7 +10446,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10113,7 +10477,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10139,7 +10504,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10178,7 +10544,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10206,7 +10573,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10231,7 +10599,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10271,7 +10640,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10314,7 +10684,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10351,7 +10722,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10378,7 +10750,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10404,7 +10777,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10430,7 +10804,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10455,7 +10830,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10480,7 +10856,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10505,7 +10882,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10541,7 +10919,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10567,7 +10946,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10606,7 +10986,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10642,7 +11023,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10668,7 +11050,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10694,7 +11077,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10721,7 +11105,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10751,7 +11136,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10783,7 +11169,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10814,7 +11201,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10851,7 +11239,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10882,7 +11271,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10913,7 +11303,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10944,7 +11335,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -10971,7 +11363,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11005,7 +11398,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11036,7 +11430,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11061,7 +11456,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11086,7 +11482,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11111,7 +11508,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11137,7 +11535,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11162,7 +11561,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11188,7 +11588,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11215,7 +11616,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11240,7 +11642,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11265,7 +11668,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11290,7 +11694,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11323,7 +11728,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11351,7 +11757,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11382,7 +11789,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11409,7 +11817,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11435,7 +11844,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11463,7 +11873,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11490,7 +11901,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11519,7 +11931,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11548,7 +11961,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11575,7 +11989,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11601,7 +12016,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11627,7 +12043,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11653,7 +12070,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11679,7 +12097,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11721,7 +12140,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11746,7 +12166,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11782,7 +12203,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11815,7 +12237,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11841,7 +12264,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11877,7 +12301,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11905,7 +12330,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11933,7 +12359,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11961,7 +12388,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -11990,7 +12418,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12017,7 +12446,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12044,7 +12474,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12075,7 +12506,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12103,7 +12535,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12125,7 +12558,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             consent_id: Consent Grant Identifier. Uniquely identifies the consent grant
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12153,7 +12587,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             customer_id: Data provider customer identifier whose consent grants to return.
             status: Optional filter restricting results to a single consent grant status. One of ``ACTIVE``,
                 ``REVOKED``, ``EXPIRED``.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12176,7 +12611,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             consent_id: Consent Grant Identifier. Uniquely identifies the consent grant
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12202,7 +12638,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
         Args:
             consent_id: Consent Grant Identifier. Uniquely identifies the consent grant
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12228,7 +12665,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12255,7 +12693,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
         Args:
             recipient_id: Recipient Identifier. Uniquely identifies the recipient
             oauth_state_id: The value that is passed into the OAuth URI 'state' query parameter.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12276,7 +12715,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
         """Returns a list of Recipients
 
         Args:
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12300,7 +12740,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12328,7 +12769,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12358,7 +12800,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12395,7 +12838,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12421,7 +12865,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12463,7 +12908,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12488,7 +12934,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12513,7 +12960,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12538,7 +12986,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12567,7 +13016,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12602,7 +13052,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12634,7 +13085,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12670,7 +13122,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12700,7 +13153,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12730,7 +13184,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12759,7 +13214,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12789,7 +13245,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12815,7 +13272,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12841,7 +13299,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12886,7 +13345,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12929,7 +13389,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12951,7 +13412,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -12979,7 +13441,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13005,7 +13468,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13034,7 +13498,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13059,7 +13524,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13084,7 +13550,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13109,7 +13576,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13143,7 +13611,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13181,7 +13650,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13203,7 +13673,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13231,7 +13702,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13260,7 +13732,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13291,7 +13764,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13332,7 +13806,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13359,7 +13834,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13393,7 +13869,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13418,7 +13895,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13443,7 +13921,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13471,7 +13950,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13504,7 +13984,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13539,7 +14020,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13571,7 +14053,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13599,7 +14082,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13625,7 +14109,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13649,7 +14134,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13677,7 +14163,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13703,7 +14190,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13729,7 +14217,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13757,7 +14246,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13786,7 +14276,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13815,7 +14306,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13841,7 +14333,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13867,7 +14360,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13895,7 +14389,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13937,7 +14432,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13969,7 +14465,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -13996,7 +14493,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14031,7 +14529,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14064,7 +14563,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14089,7 +14589,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14115,7 +14616,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14143,7 +14645,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14168,7 +14671,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14194,7 +14698,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14223,7 +14728,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14248,7 +14754,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14281,7 +14788,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14313,7 +14821,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
                 to the account. Note that not all institutions calculate the available balance. In the event that
                 available balance is unavailable from the institution, Plaid will return an available balance value of
                 ``null``.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14338,7 +14847,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14364,7 +14874,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14393,7 +14904,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14423,7 +14935,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14448,7 +14961,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14495,7 +15009,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14533,7 +15048,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14571,7 +15087,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14607,7 +15124,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14636,7 +15154,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14666,7 +15185,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14702,7 +15222,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14734,7 +15255,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14760,7 +15282,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14789,7 +15312,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14815,7 +15339,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14866,7 +15391,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14917,7 +15443,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -14965,7 +15492,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15023,7 +15551,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15049,7 +15578,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15082,7 +15612,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15107,7 +15638,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15132,7 +15664,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15166,7 +15699,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15191,7 +15725,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15217,7 +15752,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15243,7 +15779,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15271,7 +15808,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15297,7 +15835,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15330,7 +15869,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15356,7 +15896,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15386,7 +15927,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15455,7 +15997,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15486,7 +16029,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15515,7 +16059,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15540,7 +16085,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15574,7 +16120,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15600,7 +16147,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15629,7 +16177,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15659,7 +16208,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15692,7 +16242,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15718,7 +16269,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15744,7 +16296,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15772,7 +16325,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15800,7 +16354,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15830,7 +16385,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15857,7 +16413,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15885,7 +16442,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15913,7 +16471,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15956,7 +16515,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -15987,7 +16547,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16012,7 +16573,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16039,7 +16601,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16071,7 +16634,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16098,7 +16662,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16136,7 +16701,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16175,7 +16741,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16211,7 +16778,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16240,7 +16808,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16265,7 +16834,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16292,7 +16862,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16317,7 +16888,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16342,7 +16914,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16369,7 +16942,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16395,7 +16969,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16448,7 +17023,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16500,7 +17076,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16548,7 +17125,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16577,7 +17155,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16603,7 +17182,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16628,7 +17208,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16683,7 +17264,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16711,7 +17293,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16737,7 +17320,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16803,7 +17387,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16828,7 +17413,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16854,7 +17440,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16881,7 +17468,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16906,7 +17494,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16934,7 +17523,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16962,7 +17552,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -16988,7 +17579,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17014,7 +17606,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17040,7 +17633,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17064,7 +17658,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17089,7 +17684,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17114,7 +17710,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17139,7 +17736,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17166,7 +17764,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17192,7 +17791,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17217,7 +17817,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17242,7 +17843,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17268,7 +17870,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17296,7 +17899,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17328,7 +17932,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17354,7 +17959,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17380,7 +17986,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17408,7 +18015,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17436,7 +18044,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17462,7 +18071,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17488,7 +18098,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17514,7 +18125,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17542,7 +18154,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17571,7 +18184,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17597,7 +18211,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17623,7 +18238,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17649,7 +18265,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17676,7 +18293,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17702,7 +18320,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17737,7 +18356,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17763,7 +18383,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17789,7 +18410,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17816,7 +18438,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17845,7 +18468,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17870,7 +18494,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17895,7 +18520,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17921,7 +18547,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -17952,7 +18579,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18007,7 +18635,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18044,7 +18673,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18074,7 +18704,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18107,7 +18738,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18137,7 +18769,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18164,7 +18797,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18198,7 +18832,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18226,7 +18861,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18255,7 +18891,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18287,7 +18924,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18316,7 +18954,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18348,7 +18987,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18380,7 +19020,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             body: The request body.
             plaid_new_user_api_enabled: The HTTP header used in API requests to determine which set of User APIs to
                 invoke: the legacy CRA version or the new User API version.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18408,7 +19049,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18430,7 +19072,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18452,7 +19095,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18479,7 +19123,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18504,7 +19149,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18530,7 +19176,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18557,7 +19204,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18582,7 +19230,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18608,7 +19257,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18635,7 +19285,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18660,7 +19311,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18685,7 +19337,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18712,7 +19365,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18740,7 +19394,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18768,7 +19423,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18795,7 +19451,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The entity screening was successfully updated.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18822,7 +19479,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18849,7 +19507,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18875,7 +19534,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18902,7 +19562,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18929,7 +19590,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18954,7 +19616,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -18981,7 +19644,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -19009,7 +19673,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -19036,7 +19701,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -19066,7 +19732,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""
@@ -19097,7 +19764,8 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
         Args:
             body: The request body.
-            request_options: Per-call overrides for this one request, such as a timeout or extra headers.
+            request_options: Per-call overrides for this one request, such as a timeout, extra headers, or its retry
+                count and statuses.
 
         Returns:
             An ``ApiResult`` holding the deserialized response or the error body."""

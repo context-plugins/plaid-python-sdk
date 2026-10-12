@@ -45,12 +45,10 @@ class LinkSessionResults(SdkBaseModel):
 
 
 class LinkSessionResultsDict(TypedDict):
-    item_add_results: list[LinkSessionItemAddResult | LinkSessionItemAddResultDict]
-    cra_item_add_results: list[LinkSessionCraItemAddResult | LinkSessionCraItemAddResultDict]
-    cra_update_results: list[LinkSessionCraUpdateResult | LinkSessionCraUpdateResultDict]
-    bank_income_results: list[LinkSessionBankIncomeResult | LinkSessionBankIncomeResultDict]
-    payroll_income_results: list[LinkSessionPayrollIncomeResult | LinkSessionPayrollIncomeResultDict]
-    document_income_results: CreditSessionDocumentIncomeResult | CreditSessionDocumentIncomeResultDict | None
-    cra_document_upload_results: NotRequired[
-        LinkSessionCraDocumentUploadResult | LinkSessionCraDocumentUploadResultDict | None
-    ]
+    item_add_results: list[LinkSessionItemAddResultDict]
+    cra_item_add_results: list[LinkSessionCraItemAddResultDict]
+    cra_update_results: list[LinkSessionCraUpdateResultDict]
+    bank_income_results: list[LinkSessionBankIncomeResultDict]
+    payroll_income_results: list[LinkSessionPayrollIncomeResultDict]
+    document_income_results: CreditSessionDocumentIncomeResultDict | None
+    cra_document_upload_results: NotRequired[LinkSessionCraDocumentUploadResultDict | None]

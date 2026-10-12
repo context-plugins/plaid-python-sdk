@@ -43,7 +43,7 @@ class AssetReportCreateRequestOptions(SdkBaseModel):
     All fields are optional. The ``first_name``, ``last_name``, and ``ssn`` fields are required if you would like the
     Report to be eligible for Fannie Mae's Day 1 Certainty™ program."""
 
-    require_all_items: OptionalNullable[bool] = UNSET
+    require_all_items: bool | None = True
     """By default (``true``), the asynchronous report generation fails unless all Items extract successfully. If set to
     ``false``, the report will still be generated as long as at least one Item extracts successfully; extraction
     failures on the remaining Items are tolerated. This setting applies only to failures that occur during asynchronous
@@ -57,5 +57,5 @@ class AssetReportCreateRequestOptionsDict(TypedDict):
     include_fast_report: NotRequired[bool | None]
     products: NotRequired[list[str]]
     add_ons: NotRequired[list[AssetReportAddOnsOrStr]]
-    user: NotRequired[AssetReportUser | AssetReportUserDict]
+    user: NotRequired[AssetReportUserDict]
     require_all_items: NotRequired[bool | None]

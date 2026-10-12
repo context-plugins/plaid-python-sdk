@@ -114,6 +114,6 @@ class TransferRecurringCreateRequestDict(TypedDict):
     iso_currency_code: NotRequired[str]
     description: str
     test_clock_id: NotRequired[str | None]
-    schedule: TransferRecurringSchedule | TransferRecurringScheduleDict
-    user: TransferUserInRequest | TransferUserInRequestDict
-    device: NotRequired[TransferDevice | TransferDeviceDict]
+    schedule: TransferRecurringScheduleDict
+    user: TransferUserInRequestDict
+    device: NotRequired[TransferDeviceDict]

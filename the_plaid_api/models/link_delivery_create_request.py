@@ -28,4 +28,4 @@ class LinkDeliveryCreateRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     link_token: str
-    options: NotRequired[LinkDeliveryOptions | LinkDeliveryOptionsDict]
+    options: NotRequired[LinkDeliveryOptionsDict]

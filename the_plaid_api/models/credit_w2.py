@@ -81,10 +81,10 @@ class CreditW2(SdkBaseModel):
 
 
 class CreditW2Dict(TypedDict):
-    document_metadata: CreditDocumentMetadata | CreditDocumentMetadataDict
+    document_metadata: CreditDocumentMetadataDict
     document_id: str
-    employer: CreditPayStubEmployer | CreditPayStubEmployerDict
-    employee: CreditPayStubEmployee | CreditPayStubEmployeeDict
+    employer: CreditPayStubEmployerDict
+    employee: CreditPayStubEmployeeDict
     tax_year: str | None
     employer_id_number: str | None
     wages_tips_other_comp: str | None
@@ -98,9 +98,9 @@ class CreditW2Dict(TypedDict):
     box_9: str | None
     dependent_care_benefits: str | None
     nonqualified_plans: str | None
-    box_12: list[W2Box12 | W2Box12Dict]
+    box_12: list[W2Box12Dict]
     statutory_employee: str | None
     retirement_plan: str | None
     third_party_sick_pay: str | None
     other: str | None
-    state_and_local_wages: list[W2StateAndLocalWages | W2StateAndLocalWagesDict]
+    state_and_local_wages: list[W2StateAndLocalWagesDict]

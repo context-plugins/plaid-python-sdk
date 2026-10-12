@@ -17,5 +17,5 @@ class PaystubEmployer(SdkBaseModel):
 
 
 class PaystubEmployerDict(TypedDict):
-    address: NotRequired[PaystubAddress | PaystubAddressDict]
+    address: NotRequired[PaystubAddressDict]
     name: str | None

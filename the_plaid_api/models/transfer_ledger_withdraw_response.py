@@ -28,5 +28,5 @@ class TransferLedgerWithdrawResponse(SdkBaseModel):
 
 
 class TransferLedgerWithdrawResponseDict(TypedDict):
-    sweep: TransferSweep | TransferSweepDict
+    sweep: TransferSweepDict
     request_id: str

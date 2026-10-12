@@ -1,10 +1,9 @@
 from __future__ import annotations
 
-from typing import Literal
-
 from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Optional, SdkBaseModel
+from .enums.report_type import ReportTypeOrStr
 
 
 class CreditRelayGetRequest(SdkBaseModel):
@@ -21,10 +20,10 @@ class CreditRelayGetRequest(SdkBaseModel):
     relay_token: str
     """The ``relay_token`` granting access to the report you would like to get."""
 
-    report_type: Literal["asset"] = "asset"
+    report_type: ReportTypeOrStr
     """The report type. It can be ``asset``. Income report types are not yet supported."""
 
-    include_insights: Optional[bool] = UNSET
+    include_insights: bool = False
     """``true`` if you would like to retrieve the Asset Report with Insights, ``false`` otherwise. This field defaults
     to ``false`` if omitted."""
 
@@ -33,5 +32,5 @@ class CreditRelayGetRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     relay_token: str
-    report_type: NotRequired[Literal["asset"]]
+    report_type: ReportTypeOrStr
     include_insights: NotRequired[bool]

@@ -158,7 +158,7 @@ class AccountIdentityMatchScore(SdkBaseModel):
 
 class AccountIdentityMatchScoreDict(TypedDict):
     account_id: str
-    balances: AccountBalance | AccountBalanceDict
+    balances: AccountBalanceDict
     mask: str | None
     name: str
     official_name: str | None
@@ -166,10 +166,10 @@ class AccountIdentityMatchScoreDict(TypedDict):
     subtype: AccountSubtypeOrStr | None
     verification_status: NotRequired[VerificationStatus5OrStr]
     verification_name: NotRequired[str]
-    verification_insights: NotRequired[VerificationInsights | VerificationInsightsDict]
+    verification_insights: NotRequired[VerificationInsightsDict]
     persistent_account_id: NotRequired[str]
     holder_category: NotRequired[HolderCategoryOrStr | None]
-    legal_name: NotRequired[NameMatchScore | NameMatchScoreDict | None]
-    phone_number: NotRequired[PhoneNumberMatchScore | PhoneNumberMatchScoreDict | None]
-    email_address: NotRequired[EmailAddressMatchScore | EmailAddressMatchScoreDict | None]
-    address: NotRequired[AddressMatchScore | AddressMatchScoreDict | None]
+    legal_name: NotRequired[NameMatchScoreDict | None]
+    phone_number: NotRequired[PhoneNumberMatchScoreDict | None]
+    email_address: NotRequired[EmailAddressMatchScoreDict | None]
+    address: NotRequired[AddressMatchScoreDict | None]

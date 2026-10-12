@@ -19,6 +19,6 @@ class TransferLedgerEventListResponse(SdkBaseModel):
 
 
 class TransferLedgerEventListResponseDict(TypedDict):
-    ledger_events: list[TransferLedgerEvent | TransferLedgerEventDict]
+    ledger_events: list[TransferLedgerEventDict]
     has_more: bool
     request_id: str

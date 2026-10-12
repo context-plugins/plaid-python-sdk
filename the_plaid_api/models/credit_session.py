@@ -27,5 +27,5 @@ class CreditSession(SdkBaseModel):
 class CreditSessionDict(TypedDict):
     link_session_id: NotRequired[str]
     session_start_time: NotRequired[RFC3339DateTime]
-    results: NotRequired[CreditSessionResults | CreditSessionResultsDict]
-    errors: NotRequired[list[CreditSessionError | CreditSessionErrorDict]]
+    results: NotRequired[CreditSessionResultsDict]
+    errors: NotRequired[list[CreditSessionErrorDict]]

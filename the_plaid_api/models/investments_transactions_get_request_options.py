@@ -11,13 +11,13 @@ class InvestmentsTransactionsGetRequestOptions(SdkBaseModel):
     account_ids: Optional[list[str]] = UNSET
     """An array of ``account_ids`` to retrieve for the Item."""
 
-    count: Optional[int] = UNSET
+    count: int = 100
     """The number of transactions to fetch."""
 
-    offset: Optional[int] = UNSET
+    offset: int = 0
     """The number of transactions to skip when fetching transaction history"""
 
-    async_update: Optional[bool] = UNSET
+    async_update: bool = False
     """If the Item was not initialized with the investments product via the ``products``,
     ``required_if_supported_products``, or ``optional_products`` array when calling ``/link/token/create``, and
     ``async_update`` is set to true, the initial Investments extraction will happen asynchronously. Plaid will

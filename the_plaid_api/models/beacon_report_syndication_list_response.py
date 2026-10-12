@@ -19,6 +19,6 @@ class BeaconReportSyndicationListResponse(SdkBaseModel):
 
 
 class BeaconReportSyndicationListResponseDict(TypedDict):
-    beacon_report_syndications: list[BeaconReportSyndication | BeaconReportSyndicationDict]
+    beacon_report_syndications: list[BeaconReportSyndicationDict]
     next_cursor: str | None
     request_id: str

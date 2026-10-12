@@ -28,4 +28,4 @@ class SandboxTransactionsCreateRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     access_token: str
-    transactions: list[CustomSandboxTransaction | CustomSandboxTransactionDict]
+    transactions: list[CustomSandboxTransactionDict]

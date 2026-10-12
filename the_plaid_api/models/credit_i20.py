@@ -49,8 +49,8 @@ class CreditI20(SdkBaseModel):
 
 class CreditI20Dict(TypedDict):
     document_id: NotRequired[str | None]
-    document_metadata: NotRequired[CreditDocumentMetadata | CreditDocumentMetadataDict]
-    student: NotRequired[CreditI20Student | CreditI20StudentDict]
+    document_metadata: NotRequired[CreditDocumentMetadataDict]
+    student: NotRequired[CreditI20StudentDict]
     personal_funds: NotRequired[float | None]
     on_campus_employment: NotRequired[float | None]
     funds_from_this_school: NotRequired[float | None]

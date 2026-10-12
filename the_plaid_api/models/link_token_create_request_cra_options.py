@@ -69,20 +69,10 @@ class LinkTokenCreateRequestCraOptionsDict(TypedDict):
     days_requested: int
     days_required: NotRequired[int]
     client_report_id: NotRequired[str | None]
-    partner_insights: NotRequired[
-        LinkTokenCreateRequestCraOptionsPartnerInsights | LinkTokenCreateRequestCraOptionsPartnerInsightsDict
-    ]
-    base_report: NotRequired[
-        LinkTokenCreateRequestCraOptionsBaseReport | LinkTokenCreateRequestCraOptionsBaseReportDict
-    ]
-    cashflow_insights: NotRequired[
-        LinkTokenCreateRequestCraOptionsCashflowInsights | LinkTokenCreateRequestCraOptionsCashflowInsightsDict
-    ]
-    lend_score: NotRequired[LinkTokenCreateRequestCraOptionsLendScore | LinkTokenCreateRequestCraOptionsLendScoreDict]
-    network_insights: NotRequired[
-        LinkTokenCreateRequestCraOptionsNetworkInsights | LinkTokenCreateRequestCraOptionsNetworkInsightsDict
-    ]
+    partner_insights: NotRequired[LinkTokenCreateRequestCraOptionsPartnerInsightsDict]
+    base_report: NotRequired[LinkTokenCreateRequestCraOptionsBaseReportDict]
+    cashflow_insights: NotRequired[LinkTokenCreateRequestCraOptionsCashflowInsightsDict]
+    lend_score: NotRequired[LinkTokenCreateRequestCraOptionsLendScoreDict]
+    network_insights: NotRequired[LinkTokenCreateRequestCraOptionsNetworkInsightsDict]
     include_investments: NotRequired[bool | None]
-    income_insights: NotRequired[
-        LinkTokenCreateRequestCraOptionsIncomeInsights | LinkTokenCreateRequestCraOptionsIncomeInsightsDict
-    ]
+    income_insights: NotRequired[LinkTokenCreateRequestCraOptionsIncomeInsightsDict]

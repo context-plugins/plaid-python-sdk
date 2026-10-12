@@ -27,7 +27,7 @@ class CraVerificationIncomeItem(SdkBaseModel):
 
 class CraVerificationIncomeItemDict(TypedDict):
     item_id: str
-    accounts: list[CraVerificationIncomeAccount | CraVerificationIncomeAccountDict]
+    accounts: list[CraVerificationIncomeAccountDict]
     last_updated_time: RFC3339DateTime
     institution_id: str
     institution_name: str

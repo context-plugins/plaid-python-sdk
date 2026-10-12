@@ -28,4 +28,4 @@ class AuthGetRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     access_token: str
-    options: NotRequired[AuthGetRequestOptions | AuthGetRequestOptionsDict]
+    options: NotRequired[AuthGetRequestOptionsDict]

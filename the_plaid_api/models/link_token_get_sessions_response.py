@@ -54,8 +54,8 @@ class LinkTokenGetSessionsResponseDict(TypedDict):
     link_session_id: str
     started_at: NotRequired[RFC3339DateTime]
     finished_at: NotRequired[RFC3339DateTime | None]
-    on_success: NotRequired[LinkSessionSuccess | LinkSessionSuccessDict | None]
-    on_exit: NotRequired[LinkSessionExitDeprecated | LinkSessionExitDeprecatedDict | None]
-    exit: NotRequired[LinkSessionExit | LinkSessionExitDict | None]
-    events: NotRequired[list[LinkEvent | LinkEventDict]]
-    results: NotRequired[LinkSessionResults | LinkSessionResultsDict | None]
+    on_success: NotRequired[LinkSessionSuccessDict | None]
+    on_exit: NotRequired[LinkSessionExitDeprecatedDict | None]
+    exit: NotRequired[LinkSessionExitDict | None]
+    events: NotRequired[list[LinkEventDict]]
+    results: NotRequired[LinkSessionResultsDict | None]

@@ -19,7 +19,7 @@ class Deductions(SdkBaseModel):
 
 
 class DeductionsDict(TypedDict):
-    subtotals: NotRequired[list[Total | TotalDict]]
-    breakdown: list[DeductionsBreakdown | DeductionsBreakdownDict]
-    totals: NotRequired[list[Total | TotalDict]]
-    total: DeductionsTotal | DeductionsTotalDict
+    subtotals: NotRequired[list[TotalDict]]
+    breakdown: list[DeductionsBreakdownDict]
+    totals: NotRequired[list[TotalDict]]
+    total: DeductionsTotalDict

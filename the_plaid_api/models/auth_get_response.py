@@ -29,7 +29,7 @@ class AuthGetResponse(SdkBaseModel):
 
 
 class AuthGetResponseDict(TypedDict):
-    accounts: list[Account | AccountDict]
-    numbers: AuthGetNumbers | AuthGetNumbersDict
-    item: Item | ItemDict
+    accounts: list[AccountDict]
+    numbers: AuthGetNumbersDict
+    item: ItemDict
     request_id: str

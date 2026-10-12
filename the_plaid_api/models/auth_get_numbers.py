@@ -29,7 +29,7 @@ class AuthGetNumbers(SdkBaseModel):
 
 
 class AuthGetNumbersDict(TypedDict):
-    ach: list[NumbersAch | NumbersAchDict]
-    eft: list[NumbersEft | NumbersEftDict]
-    international: list[NumbersInternational | NumbersInternationalDict]
-    bacs: list[NumbersBacs | NumbersBacsDict]
+    ach: list[NumbersAchDict]
+    eft: list[NumbersEftDict]
+    international: list[NumbersInternationalDict]
+    bacs: list[NumbersBacsDict]

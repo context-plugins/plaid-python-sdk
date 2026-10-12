@@ -37,5 +37,5 @@ class ProtectComputeRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     model: str
-    user: ProtectUser | ProtectUserDict
-    model_inputs: NotRequired[ProtectModelInputs | ProtectModelInputsDict | None]
+    user: ProtectUserDict
+    model_inputs: NotRequired[ProtectModelInputsDict | None]

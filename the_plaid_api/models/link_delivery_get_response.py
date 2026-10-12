@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, Optional, OptionalNullable, RFC3339DateTime, SdkBaseModel
+from ..core import UNSET, OptionalNullable, RFC3339DateTime, SdkBaseModel
 from .enums.link_delivery_session_status import LinkDeliverySessionStatusOrStr
 
 
@@ -34,10 +34,10 @@ class LinkDeliveryGetResponse(SdkBaseModel):
     """A unique identifier for the request, which can be used for troubleshooting. This identifier, like all Plaid
     identifiers, is case sensitive."""
 
-    access_tokens: Optional[list[str | None]] = UNSET
+    access_tokens: OptionalNullable[list[str]] = UNSET
     """An array of access tokens associated with the Hosted Link session."""
 
-    item_ids: Optional[list[str | None]] = UNSET
+    item_ids: OptionalNullable[list[str]] = UNSET
     """An array of ``item_id``s associated with the Hosted Link session."""
 
 
@@ -46,5 +46,5 @@ class LinkDeliveryGetResponseDict(TypedDict):
     created_at: RFC3339DateTime
     completed_at: NotRequired[RFC3339DateTime | None]
     request_id: str
-    access_tokens: NotRequired[list[str | None]]
-    item_ids: NotRequired[list[str | None]]
+    access_tokens: NotRequired[list[str] | None]
+    item_ids: NotRequired[list[str] | None]

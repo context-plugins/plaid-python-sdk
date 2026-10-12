@@ -91,8 +91,8 @@ class RecurringInsightsStreamDict(TypedDict):
     frequency: NotRequired[RecurringTransactionFrequencyOrStr]
     transaction_count: NotRequired[int]
     transaction_ids: NotRequired[list[str]]
-    average_amount: NotRequired[TransactionStreamAmount | TransactionStreamAmountDict]
-    newest_transaction_amount: NotRequired[TransactionStreamAmount | TransactionStreamAmountDict]
+    average_amount: NotRequired[TransactionStreamAmountDict]
+    newest_transaction_amount: NotRequired[TransactionStreamAmountDict]
     is_active: bool
     status: NotRequired[TransactionStreamStatusOrStr]
     personal_finance_category_primary: NotRequired[str]

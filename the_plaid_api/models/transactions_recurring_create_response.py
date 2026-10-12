@@ -21,6 +21,6 @@ class TransactionsRecurringCreateResponse(SdkBaseModel):
 
 
 class TransactionsRecurringCreateResponseDict(TypedDict):
-    added_streams: list[TransactionStream | TransactionStreamDict]
-    modified_streams: NotRequired[list[TransactionStream | TransactionStreamDict]]
+    added_streams: list[TransactionStreamDict]
+    modified_streams: NotRequired[list[TransactionStreamDict]]
     removed_stream_ids: NotRequired[list[str]]

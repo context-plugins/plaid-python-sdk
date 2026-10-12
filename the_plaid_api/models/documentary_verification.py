@@ -28,4 +28,4 @@ class DocumentaryVerification(SdkBaseModel):
 
 class DocumentaryVerificationDict(TypedDict):
     status: str
-    documents: list[DocumentaryVerificationDocument | DocumentaryVerificationDocumentDict]
+    documents: list[DocumentaryVerificationDocumentDict]

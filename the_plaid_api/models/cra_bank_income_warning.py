@@ -27,4 +27,4 @@ class CraBankIncomeWarning(SdkBaseModel):
 class CraBankIncomeWarningDict(TypedDict):
     warning_type: NotRequired[CreditBankIncomeWarningTypeOrStr]
     warning_code: NotRequired[CraBankIncomeWarningCodeOrStr]
-    cause: NotRequired[CraBankIncomeCause | CraBankIncomeCauseDict]
+    cause: NotRequired[CraBankIncomeCauseDict]

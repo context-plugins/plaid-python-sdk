@@ -28,6 +28,6 @@ class WalletTransactionCounterparty(SdkBaseModel):
 
 class WalletTransactionCounterpartyDict(TypedDict):
     name: str
-    numbers: WalletTransactionCounterpartyNumbers | WalletTransactionCounterpartyNumbersDict
-    address: NotRequired[PaymentInitiationAddress | PaymentInitiationAddressDict | None]
+    numbers: WalletTransactionCounterpartyNumbersDict
+    address: NotRequired[PaymentInitiationAddressDict | None]
     date_of_birth: NotRequired[Date | None]

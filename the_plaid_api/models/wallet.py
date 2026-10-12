@@ -35,7 +35,7 @@ class Wallet(SdkBaseModel):
 
 class WalletDict(TypedDict):
     wallet_id: str
-    balance: WalletBalance | WalletBalanceDict
-    numbers: WalletNumbers | WalletNumbersDict
+    balance: WalletBalanceDict
+    numbers: WalletNumbersDict
     recipient_id: NotRequired[str]
     status: WalletStatusOrStr

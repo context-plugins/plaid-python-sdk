@@ -17,5 +17,5 @@ class EmploymentDetails(SdkBaseModel):
 
 
 class EmploymentDetailsDict(TypedDict):
-    annual_salary: NotRequired[Pay | PayDict]
+    annual_salary: NotRequired[PayDict]
     hire_date: NotRequired[Date | None]

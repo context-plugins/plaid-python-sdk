@@ -23,5 +23,5 @@ class AccountInsights(SdkBaseModel):
 
 
 class AccountInsightsDict(TypedDict):
-    risk: NotRequired[RiskIndicators | RiskIndicatorsDict | None]
-    affordability: NotRequired[AffordabilityInsights | AffordabilityInsightsDict | None]
+    risk: NotRequired[RiskIndicatorsDict | None]
+    affordability: NotRequired[AffordabilityInsightsDict | None]

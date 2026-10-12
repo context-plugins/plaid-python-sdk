@@ -24,7 +24,7 @@ class UserAccountSessionGetResponse(SdkBaseModel):
 
 
 class UserAccountSessionGetResponseDict(TypedDict):
-    identity: UserAccountIdentity | UserAccountIdentityDict | None
-    items: list[UserAccountItem | UserAccountItemDict]
-    identity_edit_history: NotRequired[UserAccountIdentityEditHistory | UserAccountIdentityEditHistoryDict | None]
+    identity: UserAccountIdentityDict | None
+    items: list[UserAccountItemDict]
+    identity_edit_history: NotRequired[UserAccountIdentityEditHistoryDict | None]
     request_id: str

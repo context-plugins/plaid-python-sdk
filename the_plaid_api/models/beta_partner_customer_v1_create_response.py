@@ -21,5 +21,5 @@ class BetaPartnerCustomerV1CreateResponse(SdkBaseModel):
 
 
 class BetaPartnerCustomerV1CreateResponseDict(TypedDict):
-    end_customer: NotRequired[BetaPartnerEndCustomerWithSecrets | BetaPartnerEndCustomerWithSecretsDict]
+    end_customer: NotRequired[BetaPartnerEndCustomerWithSecretsDict]
     request_id: NotRequired[str]

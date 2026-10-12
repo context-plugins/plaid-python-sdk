@@ -26,4 +26,4 @@ class LinkEventDict(TypedDict):
     event_name: str
     timestamp: str
     event_id: str
-    event_metadata: LinkEventMetadata | LinkEventMetadataDict
+    event_metadata: LinkEventMetadataDict

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, Optional, OptionalNullable, RFC3339DateTime, SdkBaseModel
+from ..core import UNSET, OptionalNullable, RFC3339DateTime, SdkBaseModel
 from .enums.payment_initiation_payment_status import PaymentInitiationPaymentStatusOrStr
 from .enums.payment_scheme import PaymentSchemeOrStr
 from .error import Error, ErrorDict
@@ -105,7 +105,7 @@ class PaymentInitiationPayment(SdkBaseModel):
     """The International Bank Account Number (IBAN) for the sender, if specified in the
     ``/payment_initiation/payment/create`` call."""
 
-    refund_ids: Optional[list[str | None]] = UNSET
+    refund_ids: OptionalNullable[list[str]] = UNSET
     """Refund IDs associated with the payment."""
 
     amount_refunded: OptionalNullable[PaymentAmountRefunded] = UNSET
@@ -171,22 +171,22 @@ class PaymentInitiationPayment(SdkBaseModel):
 
 class PaymentInitiationPaymentDict(TypedDict):
     payment_id: str
-    amount: PaymentAmount | PaymentAmountDict
+    amount: PaymentAmountDict
     status: PaymentInitiationPaymentStatusOrStr
     recipient_id: str
     reference: str
     adjusted_reference: NotRequired[str | None]
     last_status_update: RFC3339DateTime
-    schedule: NotRequired[ExternalPaymentScheduleGet | ExternalPaymentScheduleGetDict | None]
-    refund_details: NotRequired[ExternalPaymentRefundDetails | ExternalPaymentRefundDetailsDict | None]
-    bacs: SenderBacsnullable | SenderBacsnullableDict | None
+    schedule: NotRequired[ExternalPaymentScheduleGetDict | None]
+    refund_details: NotRequired[ExternalPaymentRefundDetailsDict | None]
+    bacs: SenderBacsnullableDict | None
     iban: str | None
-    refund_ids: NotRequired[list[str | None]]
-    amount_refunded: NotRequired[PaymentAmountRefunded | PaymentAmountRefundedDict | None]
+    refund_ids: NotRequired[list[str] | None]
+    amount_refunded: NotRequired[PaymentAmountRefundedDict | None]
     wallet_id: NotRequired[str | None]
     scheme: NotRequired[PaymentSchemeOrStr | None]
     adjusted_scheme: NotRequired[PaymentSchemeOrStr | None]
     consent_id: NotRequired[str | None]
     transaction_id: NotRequired[str | None]
     end_to_end_id: NotRequired[str | None]
-    error: NotRequired[Error | ErrorDict | None]
+    error: NotRequired[ErrorDict | None]

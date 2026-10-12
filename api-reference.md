@@ -31,7 +31,14 @@ Note: If you are getting real-time balance for the purpose of assessing the retu
 
 ```python
 try:
-    response = client.accounts_balance_get(body)
+    response = client.accounts_balance_get(
+        AccountsBalanceGetRequest(
+            access_token="string",
+            secret="string",
+            client_id="string",
+            options=AccountsBalanceGetRequestOptions(account_ids=["string"]),
+        ),
+    )
     # TODO: Handle 'response' of type AccountsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -41,7 +48,14 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.accounts_balance_get(body)
+    response = await async_client.accounts_balance_get(
+        AccountsBalanceGetRequest(
+            access_token="string",
+            secret="string",
+            client_id="string",
+            options=AccountsBalanceGetRequestOptions(account_ids=["string"]),
+        ),
+    )
     # TODO: Handle 'response' of type AccountsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -58,7 +72,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AccountsBalanceGetRequest](the_plaid_api/models/accounts_balance_get_request.py) \| [AccountsBalanceGetRequestDict](the_plaid_api/models/accounts_balance_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -110,7 +124,14 @@ For real-time balance information, use the paid endpoints `/accounts/balance/get
 
 ```python
 try:
-    response = client.accounts_get(body)
+    response = client.accounts_get(
+        AccountsGetRequest(
+            client_id="string",
+            secret="string",
+            access_token="string",
+            options=AccountsGetRequestOptions(account_ids=["string"]),
+        ),
+    )
     # TODO: Handle 'response' of type AccountsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -120,7 +141,14 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.accounts_get(body)
+    response = await async_client.accounts_get(
+        AccountsGetRequest(
+            client_id="string",
+            secret="string",
+            access_token="string",
+            options=AccountsGetRequestOptions(account_ids=["string"]),
+        ),
+    )
     # TODO: Handle 'response' of type AccountsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -137,7 +165,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AccountsGetRequest](the_plaid_api/models/accounts_get_request.py) \| [AccountsGetRequestDict](the_plaid_api/models/accounts_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -184,7 +212,11 @@ Allows financial institutions to retrieve information about Plaid clients for th
 
 ```python
 try:
-    response = client.application_get(body)
+    response = client.application_get(
+        ApplicationGetRequest(
+            client_id="some example string", secret="some example string", application_id="some example string"
+        ),
+    )
     # TODO: Handle 'response' of type ApplicationGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -194,7 +226,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.application_get(body)
+    response = await async_client.application_get(
+        ApplicationGetRequest(
+            client_id="some example string", secret="some example string", application_id="some example string"
+        ),
+    )
     # TODO: Handle 'response' of type ApplicationGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -211,7 +247,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ApplicationGetRequest](the_plaid_api/models/application_get_request.py) \| [ApplicationGetRequestDict](the_plaid_api/models/application_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -260,7 +296,9 @@ To grant access to an Audit Copy, use the `/asset_report/audit_copy/create` endp
 
 ```python
 try:
-    response = client.asset_report_audit_copy_create(body)
+    response = client.asset_report_audit_copy_create(
+        AssetReportAuditCopyCreateRequest(asset_report_token="some example string")
+    )
     # TODO: Handle 'response' of type AssetReportAuditCopyCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -270,7 +308,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.asset_report_audit_copy_create(body)
+    response = await async_client.asset_report_audit_copy_create(
+        AssetReportAuditCopyCreateRequest(asset_report_token="some example string")
+    )
     # TODO: Handle 'response' of type AssetReportAuditCopyCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -287,7 +327,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportAuditCopyCreateRequest](the_plaid_api/models/asset_report_audit_copy_create_request.py) \| [AssetReportAuditCopyCreateRequestDict](the_plaid_api/models/asset_report_audit_copy_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -334,7 +374,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.asset_report_audit_copy_get(body)
+    response = client.asset_report_audit_copy_get(
+        AssetReportAuditCopyGetRequest(audit_copy_token="some example string")
+    )
     # TODO: Handle 'response' of type AssetReportGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -344,7 +386,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.asset_report_audit_copy_get(body)
+    response = await async_client.asset_report_audit_copy_get(
+        AssetReportAuditCopyGetRequest(audit_copy_token="some example string")
+    )
     # TODO: Handle 'response' of type AssetReportGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -361,7 +405,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportAuditCopyGetRequest](the_plaid_api/models/asset_report_audit_copy_get_request.py) \| [AssetReportAuditCopyGetRequestDict](the_plaid_api/models/asset_report_audit_copy_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -412,7 +456,7 @@ The response to `/asset_report/audit_copy/pdf/get` is the PDF binary data. The `
 
 ```python
 try:
-    client.asset_report_audit_copy_pdf_get(body)
+    client.asset_report_audit_copy_pdf_get(AssetReportAuditCopyPdfGetRequest(audit_copy_token="some example string"))
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -421,7 +465,9 @@ except ApiError as e:
 
 ```python
 try:
-    await async_client.asset_report_audit_copy_pdf_get(body)
+    await async_client.asset_report_audit_copy_pdf_get(
+        AssetReportAuditCopyPdfGetRequest(audit_copy_token="some example string")
+    )
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -437,7 +483,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportAuditCopyPdfGetRequest](the_plaid_api/models/asset_report_audit_copy_pdf_get_request.py) \| [AssetReportAuditCopyPdfGetRequestDict](the_plaid_api/models/asset_report_audit_copy_pdf_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -484,7 +530,9 @@ The `/asset_report/audit_copy/remove` endpoint allows you to remove an Audit Cop
 
 ```python
 try:
-    response = client.asset_report_audit_copy_remove(body)
+    response = client.asset_report_audit_copy_remove(
+        AssetReportAuditCopyRemoveRequest(audit_copy_token="some example string")
+    )
     # TODO: Handle 'response' of type AssetReportAuditCopyRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -494,7 +542,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.asset_report_audit_copy_remove(body)
+    response = await async_client.asset_report_audit_copy_remove(
+        AssetReportAuditCopyRemoveRequest(audit_copy_token="some example string")
+    )
     # TODO: Handle 'response' of type AssetReportAuditCopyRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -511,7 +561,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportAuditCopyRemoveRequest](the_plaid_api/models/asset_report_audit_copy_remove_request.py) \| [AssetReportAuditCopyRemoveRequestDict](the_plaid_api/models/asset_report_audit_copy_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -562,7 +612,7 @@ The `/asset_report/create` endpoint creates an Asset Report at a moment in time.
 
 ```python
 try:
-    response = client.asset_report_create(body)
+    response = client.asset_report_create(AssetReportCreateRequest(days_requested=1))
     # TODO: Handle 'response' of type AssetReportCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -572,7 +622,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.asset_report_create(body)
+    response = await async_client.asset_report_create(AssetReportCreateRequest(days_requested=1))
     # TODO: Handle 'response' of type AssetReportCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -589,7 +639,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportCreateRequest](the_plaid_api/models/asset_report_create_request.py) \| [AssetReportCreateRequestDict](the_plaid_api/models/asset_report_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -642,7 +692,11 @@ Plaid will fire a https://plaid.com/docs/api/products/assets/#product_ready webh
 
 ```python
 try:
-    response = client.asset_report_filter(body)
+    response = client.asset_report_filter(
+        AssetReportFilterRequest(
+            asset_report_token="some example string", account_ids_to_exclude=["some example string"]
+        ),
+    )
     # TODO: Handle 'response' of type AssetReportFilterResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -652,7 +706,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.asset_report_filter(body)
+    response = await async_client.asset_report_filter(
+        AssetReportFilterRequest(
+            asset_report_token="some example string", account_ids_to_exclude=["some example string"]
+        ),
+    )
     # TODO: Handle 'response' of type AssetReportFilterResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -669,7 +727,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportFilterRequest](the_plaid_api/models/asset_report_filter_request.py) \| [AssetReportFilterRequestDict](the_plaid_api/models/asset_report_filter_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -720,7 +778,7 @@ For latency-sensitive applications, you can optionally call `/asset_report/creat
 
 ```python
 try:
-    response = client.asset_report_get(body)
+    response = client.asset_report_get(AssetReportGetRequest())
     # TODO: Handle 'response' of type AssetReportGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -730,7 +788,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.asset_report_get(body)
+    response = await async_client.asset_report_get(AssetReportGetRequest())
     # TODO: Handle 'response' of type AssetReportGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -747,7 +805,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportGetRequest](the_plaid_api/models/asset_report_get_request.py) \| [AssetReportGetRequestDict](the_plaid_api/models/asset_report_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -798,7 +856,7 @@ The response to `/asset_report/pdf/get` is the PDF binary data. The `request_id`
 
 ```python
 try:
-    client.asset_report_pdf_get(body)
+    client.asset_report_pdf_get(AssetReportPdfgetRequest(asset_report_token="some example string"))
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -807,7 +865,7 @@ except ApiError as e:
 
 ```python
 try:
-    await async_client.asset_report_pdf_get(body)
+    await async_client.asset_report_pdf_get(AssetReportPdfgetRequest(asset_report_token="some example string"))
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -823,7 +881,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportPdfgetRequest](the_plaid_api/models/asset_report_pdfget_request.py) \| [AssetReportPdfgetRequestDict](the_plaid_api/models/asset_report_pdfget_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -872,7 +930,7 @@ The new Asset Report will contain the same Items as the original Report, as well
 
 ```python
 try:
-    response = client.asset_report_refresh(body)
+    response = client.asset_report_refresh(AssetReportRefreshRequest(asset_report_token="some example string"))
     # TODO: Handle 'response' of type AssetReportRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -882,7 +940,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.asset_report_refresh(body)
+    response = await async_client.asset_report_refresh(
+        AssetReportRefreshRequest(asset_report_token="some example string")
+    )
     # TODO: Handle 'response' of type AssetReportRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -899,7 +959,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportRefreshRequest](the_plaid_api/models/asset_report_refresh_request.py) \| [AssetReportRefreshRequestDict](the_plaid_api/models/asset_report_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -948,7 +1008,7 @@ The `/asset_report/remove` endpoint allows you to remove access to an Asset Repo
 
 ```python
 try:
-    response = client.asset_report_remove(body)
+    response = client.asset_report_remove(AssetReportRemoveRequest(asset_report_token="some example string"))
     # TODO: Handle 'response' of type AssetReportRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -958,7 +1018,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.asset_report_remove(body)
+    response = await async_client.asset_report_remove(
+        AssetReportRemoveRequest(asset_report_token="some example string")
+    )
     # TODO: Handle 'response' of type AssetReportRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -975,7 +1037,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportRemoveRequest](the_plaid_api/models/asset_report_remove_request.py) \| [AssetReportRemoveRequestDict](the_plaid_api/models/asset_report_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1024,7 +1086,7 @@ Versioning note: In API version 2017-03-08, the schema of the `numbers` object r
 
 ```python
 try:
-    response = client.auth_get(body)
+    response = client.auth_get(AuthGetRequest(access_token="some example string"))
     # TODO: Handle 'response' of type AuthGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1034,7 +1096,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.auth_get(body)
+    response = await async_client.auth_get(AuthGetRequest(access_token="some example string"))
     # TODO: Handle 'response' of type AuthGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1051,7 +1113,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AuthGetRequest](the_plaid_api/models/auth_get_request.py) \| [AuthGetRequestDict](the_plaid_api/models/auth_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1100,7 +1162,13 @@ This endpoint is currently in Early Availability; contact sales or your Plaid ac
 
 ```python
 try:
-    response = client.auth_verify(body)
+    response = client.auth_verify(
+        AuthVerifyRequest(
+            numbers=AuthVerifyRequestNumbers(
+                ach=AuthVerifyNumbersAch(account="some example string", routing="some example string")
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type AuthVerifyResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1110,7 +1178,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.auth_verify(body)
+    response = await async_client.auth_verify(
+        AuthVerifyRequest(
+            numbers=AuthVerifyRequestNumbers(
+                ach=AuthVerifyNumbersAch(account="some example string", routing="some example string")
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type AuthVerifyResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1127,7 +1201,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AuthVerifyRequest](the_plaid_api/models/auth_verify_request.py) \| [AuthVerifyRequestDict](the_plaid_api/models/auth_verify_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1178,7 +1252,7 @@ Note that this endpoint can only be used with FBO accounts, when using Bank Tran
 
 ```python
 try:
-    response = client.bank_transfer_balance_get(body)
+    response = client.bank_transfer_balance_get(BankTransferBalanceGetRequest())
     # TODO: Handle 'response' of type BankTransferBalanceGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1188,7 +1262,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.bank_transfer_balance_get(body)
+    response = await async_client.bank_transfer_balance_get(BankTransferBalanceGetRequest())
     # TODO: Handle 'response' of type BankTransferBalanceGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1205,7 +1279,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferBalanceGetRequest](the_plaid_api/models/bank_transfer_balance_get_request.py) \| [BankTransferBalanceGetRequestDict](the_plaid_api/models/bank_transfer_balance_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1252,7 +1326,7 @@ Use the `/bank_transfer/cancel` endpoint to cancel a bank transfer.  A transfer 
 
 ```python
 try:
-    response = client.bank_transfer_cancel(body)
+    response = client.bank_transfer_cancel(BankTransferCancelRequest(bank_transfer_id="some example string"))
     # TODO: Handle 'response' of type BankTransferCancelResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1262,7 +1336,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.bank_transfer_cancel(body)
+    response = await async_client.bank_transfer_cancel(
+        BankTransferCancelRequest(bank_transfer_id="some example string")
+    )
     # TODO: Handle 'response' of type BankTransferCancelResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1279,7 +1355,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferCancelRequest](the_plaid_api/models/bank_transfer_cancel_request.py) \| [BankTransferCancelRequestDict](the_plaid_api/models/bank_transfer_cancel_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1326,7 +1402,19 @@ Use the `/bank_transfer/create` endpoint to initiate a new bank transfer.
 
 ```python
 try:
-    response = client.bank_transfer_create(body)
+    response = client.bank_transfer_create(
+        BankTransferCreateRequest(
+            idempotency_key="some example string",
+            access_token="some example string",
+            account_id="some example string",
+            type_=BankTransferType.DEBIT,
+            network=BankTransferNetwork.ACH,
+            amount="some example string",
+            iso_currency_code="some example string",
+            description="some example string",
+            user=BankTransferUser(legal_name="some example string"),
+        ),
+    )
     # TODO: Handle 'response' of type BankTransferCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1336,7 +1424,19 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.bank_transfer_create(body)
+    response = await async_client.bank_transfer_create(
+        BankTransferCreateRequest(
+            idempotency_key="some example string",
+            access_token="some example string",
+            account_id="some example string",
+            type_=BankTransferType.DEBIT,
+            network=BankTransferNetwork.ACH,
+            amount="some example string",
+            iso_currency_code="some example string",
+            description="some example string",
+            user=BankTransferUser(legal_name="some example string"),
+        ),
+    )
     # TODO: Handle 'response' of type BankTransferCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1353,7 +1453,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferCreateRequest](the_plaid_api/models/bank_transfer_create_request.py) \| [BankTransferCreateRequestDict](the_plaid_api/models/bank_transfer_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1400,7 +1500,7 @@ Use the `/bank_transfer/event/list` endpoint to get a list of Plaid-initiated AC
 
 ```python
 try:
-    response = client.bank_transfer_event_list(body)
+    response = client.bank_transfer_event_list(BankTransferEventListRequest())
     # TODO: Handle 'response' of type BankTransferEventListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1410,7 +1510,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.bank_transfer_event_list(body)
+    response = await async_client.bank_transfer_event_list(BankTransferEventListRequest())
     # TODO: Handle 'response' of type BankTransferEventListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1427,7 +1527,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferEventListRequest](the_plaid_api/models/bank_transfer_event_list_request.py) \| [BankTransferEventListRequestDict](the_plaid_api/models/bank_transfer_event_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1474,7 +1574,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.bank_transfer_event_sync(body)
+    response = client.bank_transfer_event_sync(BankTransferEventSyncRequest(after_id=1))
     # TODO: Handle 'response' of type BankTransferEventSyncResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1484,7 +1584,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.bank_transfer_event_sync(body)
+    response = await async_client.bank_transfer_event_sync(BankTransferEventSyncRequest(after_id=1))
     # TODO: Handle 'response' of type BankTransferEventSyncResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1501,7 +1601,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferEventSyncRequest](the_plaid_api/models/bank_transfer_event_sync_request.py) \| [BankTransferEventSyncRequestDict](the_plaid_api/models/bank_transfer_event_sync_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1548,7 +1648,7 @@ The `/bank_transfer/get` fetches information about the bank transfer correspondi
 
 ```python
 try:
-    response = client.bank_transfer_get(body)
+    response = client.bank_transfer_get(BankTransferGetRequest(bank_transfer_id="some example string"))
     # TODO: Handle 'response' of type BankTransferGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1558,7 +1658,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.bank_transfer_get(body)
+    response = await async_client.bank_transfer_get(BankTransferGetRequest(bank_transfer_id="some example string"))
     # TODO: Handle 'response' of type BankTransferGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1575,7 +1675,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferGetRequest](the_plaid_api/models/bank_transfer_get_request.py) \| [BankTransferGetRequestDict](the_plaid_api/models/bank_transfer_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1622,7 +1722,7 @@ Use the `/bank_transfer/list` endpoint to see a list of all your bank transfers 
 
 ```python
 try:
-    response = client.bank_transfer_list(body)
+    response = client.bank_transfer_list(BankTransferListRequest())
     # TODO: Handle 'response' of type BankTransferListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1632,7 +1732,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.bank_transfer_list(body)
+    response = await async_client.bank_transfer_list(BankTransferListRequest())
     # TODO: Handle 'response' of type BankTransferListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1649,7 +1749,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferListRequest](the_plaid_api/models/bank_transfer_list_request.py) \| [BankTransferListRequestDict](the_plaid_api/models/bank_transfer_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1696,7 +1796,13 @@ As an alternative to adding Items via Link, you can also use the `/bank_transfer
 
 ```python
 try:
-    response = client.bank_transfer_migrate_account(body)
+    response = client.bank_transfer_migrate_account(
+        BankTransferMigrateAccountRequest(
+            account_number="some example string",
+            routing_number="some example string",
+            account_type="some example string",
+        ),
+    )
     # TODO: Handle 'response' of type BankTransferMigrateAccountResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1706,7 +1812,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.bank_transfer_migrate_account(body)
+    response = await async_client.bank_transfer_migrate_account(
+        BankTransferMigrateAccountRequest(
+            account_number="some example string",
+            routing_number="some example string",
+            account_type="some example string",
+        ),
+    )
     # TODO: Handle 'response' of type BankTransferMigrateAccountResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1723,7 +1835,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferMigrateAccountRequest](the_plaid_api/models/bank_transfer_migrate_account_request.py) \| [BankTransferMigrateAccountRequestDict](the_plaid_api/models/bank_transfer_migrate_account_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1770,7 +1882,7 @@ The `/bank_transfer/sweep/get` endpoint fetches information about the sweep corr
 
 ```python
 try:
-    response = client.bank_transfer_sweep_get(body)
+    response = client.bank_transfer_sweep_get(BankTransferSweepGetRequest(sweep_id="some example string"))
     # TODO: Handle 'response' of type BankTransferSweepGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1780,7 +1892,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.bank_transfer_sweep_get(body)
+    response = await async_client.bank_transfer_sweep_get(BankTransferSweepGetRequest(sweep_id="some example string"))
     # TODO: Handle 'response' of type BankTransferSweepGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1797,7 +1909,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferSweepGetRequest](the_plaid_api/models/bank_transfer_sweep_get_request.py) \| [BankTransferSweepGetRequestDict](the_plaid_api/models/bank_transfer_sweep_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1844,7 +1956,7 @@ The `/bank_transfer/sweep/list` endpoint fetches information about the sweeps ma
 
 ```python
 try:
-    response = client.bank_transfer_sweep_list(body)
+    response = client.bank_transfer_sweep_list(BankTransferSweepListRequest())
     # TODO: Handle 'response' of type BankTransferSweepListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1854,7 +1966,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.bank_transfer_sweep_list(body)
+    response = await async_client.bank_transfer_sweep_list(BankTransferSweepListRequest())
     # TODO: Handle 'response' of type BankTransferSweepListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1871,7 +1983,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferSweepListRequest](the_plaid_api/models/bank_transfer_sweep_list_request.py) \| [BankTransferSweepListRequestDict](the_plaid_api/models/bank_transfer_sweep_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1918,7 +2030,7 @@ Use `/beacon/account_risk/v1/evaluate` to get risk insights for a linked account
 
 ```python
 try:
-    response = client.beacon_account_risk_evaluate(body)
+    response = client.beacon_account_risk_evaluate(BeaconAccountRiskEvaluateRequest())
     # TODO: Handle 'response' of type BeaconAccountRiskEvaluateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1928,7 +2040,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.beacon_account_risk_evaluate(body)
+    response = await async_client.beacon_account_risk_evaluate(BeaconAccountRiskEvaluateRequest())
     # TODO: Handle 'response' of type BeaconAccountRiskEvaluateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -1945,7 +2057,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconAccountRiskEvaluateRequest](the_plaid_api/models/beacon_account_risk_evaluate_request.py) \| [BeaconAccountRiskEvaluateRequestDict](the_plaid_api/models/beacon_account_risk_evaluate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1998,7 +2110,7 @@ The `analysis` field in the response indicates which fields matched between `bea
 
 ```python
 try:
-    response = client.beacon_duplicate_get(body)
+    response = client.beacon_duplicate_get(BeaconDuplicateGetRequest(beacon_duplicate_id="some example string"))
     # TODO: Handle 'response' of type BeaconDuplicateGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2008,7 +2120,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.beacon_duplicate_get(body)
+    response = await async_client.beacon_duplicate_get(
+        BeaconDuplicateGetRequest(beacon_duplicate_id="some example string")
+    )
     # TODO: Handle 'response' of type BeaconDuplicateGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2025,7 +2139,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconDuplicateGetRequest](the_plaid_api/models/beacon_duplicate_get_request.py) \| [BeaconDuplicateGetRequestDict](the_plaid_api/models/beacon_duplicate_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2072,7 +2186,11 @@ Create a fraud report for a given Beacon User.
 
 ```python
 try:
-    response = client.beacon_report_create(body)
+    response = client.beacon_report_create(
+        BeaconReportCreateRequest(
+            beacon_user_id="some example string", type_=BeaconReportCreateType.FIRST_PARTY, fraud_date=date(2024, 1, 15)
+        ),
+    )
     # TODO: Handle 'response' of type BeaconReportCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2082,7 +2200,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.beacon_report_create(body)
+    response = await async_client.beacon_report_create(
+        BeaconReportCreateRequest(
+            beacon_user_id="some example string", type_=BeaconReportCreateType.FIRST_PARTY, fraud_date=date(2024, 1, 15)
+        ),
+    )
     # TODO: Handle 'response' of type BeaconReportCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2099,7 +2221,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconReportCreateRequest](the_plaid_api/models/beacon_report_create_request.py) \| [BeaconReportCreateRequestDict](the_plaid_api/models/beacon_report_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2146,7 +2268,7 @@ Returns a Beacon Report for a given Beacon Report ID.
 
 ```python
 try:
-    response = client.beacon_report_get(body)
+    response = client.beacon_report_get(BeaconReportGetRequest(beacon_report_id="some example string"))
     # TODO: Handle 'response' of type BeaconReportGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2156,7 +2278,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.beacon_report_get(body)
+    response = await async_client.beacon_report_get(BeaconReportGetRequest(beacon_report_id="some example string"))
     # TODO: Handle 'response' of type BeaconReportGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2173,7 +2295,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconReportGetRequest](the_plaid_api/models/beacon_report_get_request.py) \| [BeaconReportGetRequestDict](the_plaid_api/models/beacon_report_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2220,7 +2342,7 @@ Use the `/beacon/report/list` endpoint to view all Beacon Reports you created fo
 
 ```python
 try:
-    response = client.beacon_report_list(body)
+    response = client.beacon_report_list(BeaconReportListRequest(beacon_user_id="some example string"))
     # TODO: Handle 'response' of type BeaconReportListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2230,7 +2352,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.beacon_report_list(body)
+    response = await async_client.beacon_report_list(BeaconReportListRequest(beacon_user_id="some example string"))
     # TODO: Handle 'response' of type BeaconReportListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2247,7 +2369,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconReportListRequest](the_plaid_api/models/beacon_report_list_request.py) \| [BeaconReportListRequestDict](the_plaid_api/models/beacon_report_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2294,7 +2416,9 @@ Returns a Beacon Report Syndication for a given Beacon Report Syndication id.
 
 ```python
 try:
-    response = client.beacon_report_syndication_get(body)
+    response = client.beacon_report_syndication_get(
+        BeaconReportSyndicationGetRequest(beacon_report_syndication_id="some example string")
+    )
     # TODO: Handle 'response' of type BeaconReportSyndicationGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2304,7 +2428,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.beacon_report_syndication_get(body)
+    response = await async_client.beacon_report_syndication_get(
+        BeaconReportSyndicationGetRequest(beacon_report_syndication_id="some example string")
+    )
     # TODO: Handle 'response' of type BeaconReportSyndicationGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2321,7 +2447,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconReportSyndicationGetRequest](the_plaid_api/models/beacon_report_syndication_get_request.py) \| [BeaconReportSyndicationGetRequestDict](the_plaid_api/models/beacon_report_syndication_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2368,7 +2494,9 @@ Use the `/beacon/report_syndication/list` endpoint to view all Beacon Reports th
 
 ```python
 try:
-    response = client.beacon_report_syndication_list(body)
+    response = client.beacon_report_syndication_list(
+        BeaconReportSyndicationListRequest(beacon_user_id="some example string")
+    )
     # TODO: Handle 'response' of type BeaconReportSyndicationListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2378,7 +2506,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.beacon_report_syndication_list(body)
+    response = await async_client.beacon_report_syndication_list(
+        BeaconReportSyndicationListRequest(beacon_user_id="some example string")
+    )
     # TODO: Handle 'response' of type BeaconReportSyndicationListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2395,7 +2525,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconReportSyndicationListRequest](the_plaid_api/models/beacon_report_syndication_list_request.py) \| [BeaconReportSyndicationListRequestDict](the_plaid_api/models/beacon_report_syndication_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2442,7 +2572,9 @@ Get Account Insights for all Accounts linked to this Beacon User. The insights f
 
 ```python
 try:
-    response = client.beacon_user_account_insights_get(body)
+    response = client.beacon_user_account_insights_get(
+        BeaconUserAccountInsightsGetRequest(beacon_user_id="some example string", access_token="some example string")
+    )
     # TODO: Handle 'response' of type BeaconUserAccountInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2452,7 +2584,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.beacon_user_account_insights_get(body)
+    response = await async_client.beacon_user_account_insights_get(
+        BeaconUserAccountInsightsGetRequest(beacon_user_id="some example string", access_token="some example string")
+    )
     # TODO: Handle 'response' of type BeaconUserAccountInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2469,7 +2603,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconUserAccountInsightsGetRequest](the_plaid_api/models/beacon_user_account_insights_get_request.py) \| [BeaconUserAccountInsightsGetRequestDict](the_plaid_api/models/beacon_user_account_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2524,7 +2658,15 @@ When you submit a new user to `/beacon/user/create`, several checks are performe
 
 ```python
 try:
-    response = client.beacon_user_create(body)
+    response = client.beacon_user_create(
+        BeaconUserCreateRequest(
+            program_id="some example string",
+            client_user_id="some example string",
+            user=BeaconUserRequestData(
+                name=BeaconUserName(given_name="some example string", family_name="some example string")
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type BeaconUserCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2534,7 +2676,15 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.beacon_user_create(body)
+    response = await async_client.beacon_user_create(
+        BeaconUserCreateRequest(
+            program_id="some example string",
+            client_user_id="some example string",
+            user=BeaconUserRequestData(
+                name=BeaconUserName(given_name="some example string", family_name="some example string")
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type BeaconUserCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2551,7 +2701,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconUserCreateRequest](the_plaid_api/models/beacon_user_create_request.py) \| [BeaconUserCreateRequestDict](the_plaid_api/models/beacon_user_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2600,7 +2750,7 @@ The Beacon User is returned with all of their associated information and a `stat
 
 ```python
 try:
-    response = client.beacon_user_get(body)
+    response = client.beacon_user_get(BeaconUserGetRequest(beacon_user_id="some example string"))
     # TODO: Handle 'response' of type BeaconUserGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2610,7 +2760,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.beacon_user_get(body)
+    response = await async_client.beacon_user_get(BeaconUserGetRequest(beacon_user_id="some example string"))
     # TODO: Handle 'response' of type BeaconUserGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2627,7 +2777,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconUserGetRequest](the_plaid_api/models/beacon_user_get_request.py) \| [BeaconUserGetRequestDict](the_plaid_api/models/beacon_user_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2674,7 +2824,7 @@ List all changes to the Beacon User in reverse-chronological order.
 
 ```python
 try:
-    response = client.beacon_user_history_list(body)
+    response = client.beacon_user_history_list(BeaconUserHistoryListRequest(beacon_user_id="some example string"))
     # TODO: Handle 'response' of type BeaconUserHistoryListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2684,7 +2834,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.beacon_user_history_list(body)
+    response = await async_client.beacon_user_history_list(
+        BeaconUserHistoryListRequest(beacon_user_id="some example string")
+    )
     # TODO: Handle 'response' of type BeaconUserHistoryListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2701,7 +2853,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconUserHistoryListRequest](the_plaid_api/models/beacon_user_history_list_request.py) \| [BeaconUserHistoryListRequestDict](the_plaid_api/models/beacon_user_history_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2759,7 +2911,9 @@ If these conditions are not met, the request will be rejected with an error expl
 
 ```python
 try:
-    response = client.beacon_user_review(body)
+    response = client.beacon_user_review(
+        BeaconUserReviewRequest(beacon_user_id="some example string", status=BeaconUserStatus.REJECTED)
+    )
     # TODO: Handle 'response' of type BeaconUserGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2769,7 +2923,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.beacon_user_review(body)
+    response = await async_client.beacon_user_review(
+        BeaconUserReviewRequest(beacon_user_id="some example string", status=BeaconUserStatus.REJECTED)
+    )
     # TODO: Handle 'response' of type BeaconUserGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2786,7 +2942,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconUserReviewRequest](the_plaid_api/models/beacon_user_review_request.py) \| [BeaconUserReviewRequestDict](the_plaid_api/models/beacon_user_review_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2843,7 +2999,7 @@ Plaid maintains a version history for each Beacon User, so the Beacon User's ide
 
 ```python
 try:
-    response = client.beacon_user_update(body)
+    response = client.beacon_user_update(BeaconUserUpdateRequest(beacon_user_id="some example string"))
     # TODO: Handle 'response' of type BeaconUserUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2853,7 +3009,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.beacon_user_update(body)
+    response = await async_client.beacon_user_update(BeaconUserUpdateRequest(beacon_user_id="some example string"))
     # TODO: Handle 'response' of type BeaconUserUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2870,7 +3026,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconUserUpdateRequest](the_plaid_api/models/beacon_user_update_request.py) \| [BeaconUserUpdateRequestDict](the_plaid_api/models/beacon_user_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2925,7 +3081,9 @@ This endpoint enables clients to assess repayment risk and make data-driven deci
 
 ```python
 try:
-    response = client.beta_ewa_report_v1_get(body)
+    response = client.beta_ewa_report_v1_get(
+        BetaEwaReportV1GetRequest(access_token="access-sandbox-71e02f71-0960-4a27-abd2-5631e04f2175")
+    )
     # TODO: Handle 'response' of type BetaEwaReportV1GetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2935,7 +3093,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.beta_ewa_report_v1_get(body)
+    response = await async_client.beta_ewa_report_v1_get(
+        BetaEwaReportV1GetRequest(access_token="access-sandbox-71e02f71-0960-4a27-abd2-5631e04f2175")
+    )
     # TODO: Handle 'response' of type BetaEwaReportV1GetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -2952,7 +3112,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BetaEwaReportV1GetRequest](the_plaid_api/models/beta_ewa_report_v1_get_request.py) \| [BetaEwaReportV1GetRequestDict](the_plaid_api/models/beta_ewa_report_v1_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2999,7 +3159,34 @@ The `/beta/partner/customer/v1/create` endpoint creates a new end customer recor
 
 ```python
 try:
-    response = client.beta_partner_customer_v1_create(body)
+    response = client.beta_partner_customer_v1_create(
+        BetaPartnerCustomerV1CreateRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            company_name="Plaid",
+            products=[Products.AUTH, Products.IDENTITY],
+            create_link_customization=True,
+            legal_entity_name="Plaid",
+            website="plaid.com",
+            application_name="Plaid",
+            technical_contact=PartnerEndCustomerTechnicalContact(
+                given_name="Alice", family_name="Smith", email="alice.smith@example.com"
+            ),
+            billing_contact=PartnerEndCustomerBillingContact(
+                given_name="Bob", family_name="Jones", email="bob.jones@example.com"
+            ),
+            customer_support_info=PartnerEndCustomerCustomerSupportInfo(
+                email="support@example.com",
+                phone_number="1234567890",
+                contact_url="example.com/contact",
+                link_update_url="example.com/update",
+            ),
+            address=PartnerEndCustomerAddress(
+                city="New York", street="123 Main St", region="NY", postal_code="12345", country_code="US"
+            ),
+            redirect_uris=["http://localhost/oauth.html", "https://www.example.com/oauth.html"],
+        ),
+    )
     # TODO: Handle 'response' of type BetaPartnerCustomerV1CreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3009,7 +3196,34 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.beta_partner_customer_v1_create(body)
+    response = await async_client.beta_partner_customer_v1_create(
+        BetaPartnerCustomerV1CreateRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            company_name="Plaid",
+            products=[Products.AUTH, Products.IDENTITY],
+            create_link_customization=True,
+            legal_entity_name="Plaid",
+            website="plaid.com",
+            application_name="Plaid",
+            technical_contact=PartnerEndCustomerTechnicalContact(
+                given_name="Alice", family_name="Smith", email="alice.smith@example.com"
+            ),
+            billing_contact=PartnerEndCustomerBillingContact(
+                given_name="Bob", family_name="Jones", email="bob.jones@example.com"
+            ),
+            customer_support_info=PartnerEndCustomerCustomerSupportInfo(
+                email="support@example.com",
+                phone_number="1234567890",
+                contact_url="example.com/contact",
+                link_update_url="example.com/update",
+            ),
+            address=PartnerEndCustomerAddress(
+                city="New York", street="123 Main St", region="NY", postal_code="12345", country_code="US"
+            ),
+            redirect_uris=["http://localhost/oauth.html", "https://www.example.com/oauth.html"],
+        ),
+    )
     # TODO: Handle 'response' of type BetaPartnerCustomerV1CreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3026,7 +3240,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BetaPartnerCustomerV1CreateRequest](the_plaid_api/models/beta_partner_customer_v1_create_request.py) \| [BetaPartnerCustomerV1CreateRequestDict](the_plaid_api/models/beta_partner_customer_v1_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3073,7 +3287,14 @@ The `/beta/partner/customer/v1/enable` endpoint is used by reseller partners to 
 
 ```python
 try:
-    response = client.beta_partner_customer_v1_enable(body)
+    response = client.beta_partner_customer_v1_enable(
+        BetaPartnerCustomerV1EnableRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            end_customer_client_id="634758733ebb4f00134b85ea",
+            products=[Products.AUTH],
+        ),
+    )
     # TODO: Handle 'response' of type BetaPartnerCustomerV1EnableResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3083,7 +3304,14 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.beta_partner_customer_v1_enable(body)
+    response = await async_client.beta_partner_customer_v1_enable(
+        BetaPartnerCustomerV1EnableRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            end_customer_client_id="634758733ebb4f00134b85ea",
+            products=[Products.AUTH],
+        ),
+    )
     # TODO: Handle 'response' of type BetaPartnerCustomerV1EnableResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3100,7 +3328,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BetaPartnerCustomerV1EnableRequest](the_plaid_api/models/beta_partner_customer_v1_enable_request.py) \| [BetaPartnerCustomerV1EnableRequestDict](the_plaid_api/models/beta_partner_customer_v1_enable_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3147,7 +3375,13 @@ The `/beta/partner/customer/v1/get` endpoint is used by reseller partners to ret
 
 ```python
 try:
-    response = client.beta_partner_customer_v1_get(body)
+    response = client.beta_partner_customer_v1_get(
+        BetaPartnerCustomerV1GetRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            end_customer_client_id="634758733ebb4f00134b85ea",
+        ),
+    )
     # TODO: Handle 'response' of type BetaPartnerCustomerV1GetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3157,7 +3391,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.beta_partner_customer_v1_get(body)
+    response = await async_client.beta_partner_customer_v1_get(
+        BetaPartnerCustomerV1GetRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            end_customer_client_id="634758733ebb4f00134b85ea",
+        ),
+    )
     # TODO: Handle 'response' of type BetaPartnerCustomerV1GetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3174,7 +3414,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BetaPartnerCustomerV1GetRequest](the_plaid_api/models/beta_partner_customer_v1_get_request.py) \| [BetaPartnerCustomerV1GetRequestDict](the_plaid_api/models/beta_partner_customer_v1_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3221,7 +3461,25 @@ The `/beta/partner/customer/v1/update` endpoint updates an existing end customer
 
 ```python
 try:
-    response = client.beta_partner_customer_v1_update(body)
+    response = client.beta_partner_customer_v1_update(
+        BetaPartnerCustomerV1UpdateRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            end_customer_client_id="634758733ebb4f00134b85ea",
+            bank_addendum_acceptance=PartnerEndCustomerBankAddendumAcceptance(
+                customer_accepted=True,
+                customer_ip_address="127.0.0.1",
+                customer_agreement_timestamp=datetime(2025, 1, 1, 1, 0, 0, tzinfo=timezone.utc),
+            ),
+            questionnaires=PartnerEndCustomerQuestionnaires(
+                cra=PartnerEndCustomerCraquestionnaire(
+                    purposes=PartnerEndCustomerCrapurposes(),
+                    is_third_party_involved=True,
+                    is_technical_service_provider_involved=True,
+                ),
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type BetaPartnerCustomerV1UpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3231,7 +3489,25 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.beta_partner_customer_v1_update(body)
+    response = await async_client.beta_partner_customer_v1_update(
+        BetaPartnerCustomerV1UpdateRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            end_customer_client_id="634758733ebb4f00134b85ea",
+            bank_addendum_acceptance=PartnerEndCustomerBankAddendumAcceptance(
+                customer_accepted=True,
+                customer_ip_address="127.0.0.1",
+                customer_agreement_timestamp=datetime(2025, 1, 1, 1, 0, 0, tzinfo=timezone.utc),
+            ),
+            questionnaires=PartnerEndCustomerQuestionnaires(
+                cra=PartnerEndCustomerCraquestionnaire(
+                    purposes=PartnerEndCustomerCrapurposes(),
+                    is_third_party_involved=True,
+                    is_technical_service_provider_involved=True,
+                ),
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type BetaPartnerCustomerV1UpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3248,7 +3524,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BetaPartnerCustomerV1UpdateRequest](the_plaid_api/models/beta_partner_customer_v1_update_request.py) \| [BetaPartnerCustomerV1UpdateRequestDict](the_plaid_api/models/beta_partner_customer_v1_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3295,7 +3571,9 @@ Create a new business verification to check a business's identity and risk profi
 
 ```python
 try:
-    response = client.business_verification_create(body)
+    response = client.business_verification_create(
+        BusinessVerificationCreateRequest(client_user_id="some example string")
+    )
     # TODO: Handle 'response' of type BusinessVerificationCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3305,7 +3583,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.business_verification_create(body)
+    response = await async_client.business_verification_create(
+        BusinessVerificationCreateRequest(client_user_id="some example string")
+    )
     # TODO: Handle 'response' of type BusinessVerificationCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3322,7 +3602,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BusinessVerificationCreateRequest](the_plaid_api/models/business_verification_create_request.py) \| [BusinessVerificationCreateRequestDict](the_plaid_api/models/business_verification_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3369,7 +3649,9 @@ Retrieve the current state of a specific business verification.
 
 ```python
 try:
-    response = client.business_verification_get(body)
+    response = client.business_verification_get(
+        BusinessVerificationGetRequest(business_verification_id="some example string")
+    )
     # TODO: Handle 'response' of type BusinessVerificationGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3379,7 +3661,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.business_verification_get(body)
+    response = await async_client.business_verification_get(
+        BusinessVerificationGetRequest(business_verification_id="some example string")
+    )
     # TODO: Handle 'response' of type BusinessVerificationGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3396,7 +3680,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BusinessVerificationGetRequest](the_plaid_api/models/business_verification_get_request.py) \| [BusinessVerificationGetRequestDict](the_plaid_api/models/business_verification_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3446,7 +3730,9 @@ Note that data isn't likely to be immediately available to `/cashflow_report/get
 
 ```python
 try:
-    response = client.cashflow_report_get(body)
+    response = client.cashflow_report_get(
+        CashflowReportGetRequest(access_token="some example string", days_requested=1)
+    )
     # TODO: Handle 'response' of type CashflowReportGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3456,7 +3742,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cashflow_report_get(body)
+    response = await async_client.cashflow_report_get(
+        CashflowReportGetRequest(access_token="some example string", days_requested=1)
+    )
     # TODO: Handle 'response' of type CashflowReportGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3473,7 +3761,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CashflowReportGetRequest](the_plaid_api/models/cashflow_report_get_request.py) \| [CashflowReportGetRequestDict](the_plaid_api/models/cashflow_report_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3520,7 +3808,7 @@ The `/cashflow_report/insights/get` endpoint retrieves insights data associated 
 
 ```python
 try:
-    response = client.cashflow_report_insights_get(body)
+    response = client.cashflow_report_insights_get(CashflowReportInsightsGetRequest(access_token="some example string"))
     # TODO: Handle 'response' of type CashflowReportInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3530,7 +3818,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cashflow_report_insights_get(body)
+    response = await async_client.cashflow_report_insights_get(
+        CashflowReportInsightsGetRequest(access_token="some example string")
+    )
     # TODO: Handle 'response' of type CashflowReportInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3547,7 +3837,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CashflowReportInsightsGetRequest](the_plaid_api/models/cashflow_report_insights_get_request.py) \| [CashflowReportInsightsGetRequestDict](the_plaid_api/models/cashflow_report_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3600,7 +3890,9 @@ As this endpoint triggers a synchronous request for fresh data, latency may be h
 
 ```python
 try:
-    response = client.cashflow_report_refresh(body)
+    response = client.cashflow_report_refresh(
+        CashflowReportRefreshRequest(access_token="some example string", days_requested=1)
+    )
     # TODO: Handle 'response' of type CashflowReportRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3610,7 +3902,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cashflow_report_refresh(body)
+    response = await async_client.cashflow_report_refresh(
+        CashflowReportRefreshRequest(access_token="some example string", days_requested=1)
+    )
     # TODO: Handle 'response' of type CashflowReportRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3627,7 +3921,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CashflowReportRefreshRequest](the_plaid_api/models/cashflow_report_refresh_request.py) \| [CashflowReportRefreshRequestDict](the_plaid_api/models/cashflow_report_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3677,7 +3971,9 @@ Note that data isn't likely to be immediately available to `/cashflow_report/tra
 
 ```python
 try:
-    response = client.cashflow_report_transactions_get(body)
+    response = client.cashflow_report_transactions_get(
+        CashflowReportTransactionsGetRequest(access_token="some example string")
+    )
     # TODO: Handle 'response' of type CashflowReportTransactionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3687,7 +3983,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cashflow_report_transactions_get(body)
+    response = await async_client.cashflow_report_transactions_get(
+        CashflowReportTransactionsGetRequest(access_token="some example string")
+    )
     # TODO: Handle 'response' of type CashflowReportTransactionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3704,7 +4002,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CashflowReportTransactionsGetRequest](the_plaid_api/models/cashflow_report_transactions_get_request.py) \| [CashflowReportTransactionsGetRequestDict](the_plaid_api/models/cashflow_report_transactions_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3753,7 +4051,7 @@ All implementations are recommended to https://plaid.com/docs/transactions/pfc-m
 
 ```python
 try:
-    response = client.categories_get(body)
+    response = client.categories_get({})
     # TODO: Handle 'response' of type CategoriesGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3763,7 +4061,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.categories_get(body)
+    response = await async_client.categories_get({})
     # TODO: Handle 'response' of type CategoriesGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3780,7 +4078,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>Any</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3827,7 +4125,7 @@ List a historical log of Item consent events. Consent logs are only available fo
 
 ```python
 try:
-    response = client.consent_events_get(body)
+    response = client.consent_events_get(ConsentEventsGetRequest(access_token="some example string"))
     # TODO: Handle 'response' of type ConsentEventsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3837,7 +4135,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.consent_events_get(body)
+    response = await async_client.consent_events_get(ConsentEventsGetRequest(access_token="some example string"))
     # TODO: Handle 'response' of type ConsentEventsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3854,7 +4152,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ConsentEventsGetRequest](the_plaid_api/models/consent_events_get_request.py) \| [ConsentEventsGetRequestDict](the_plaid_api/models/consent_events_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3903,7 +4201,7 @@ Response is PDF binary data. The `request_id` is returned in the `Plaid-Request-
 
 ```python
 try:
-    client.consumer_report_pdf_get(body)
+    client.consumer_report_pdf_get(ConsumerReportPdfgetRequest(user_token="some example string"))
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -3912,7 +4210,7 @@ except ApiError as e:
 
 ```python
 try:
-    await async_client.consumer_report_pdf_get(body)
+    await async_client.consumer_report_pdf_get(ConsumerReportPdfgetRequest(user_token="some example string"))
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -3928,7 +4226,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ConsumerReportPdfgetRequest](the_plaid_api/models/consumer_report_pdfget_request.py) \| [ConsumerReportPdfgetRequestDict](the_plaid_api/models/consumer_report_pdfget_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3975,7 +4273,7 @@ This endpoint allows you to retrieve the Base Report for your user, allowing you
 
 ```python
 try:
-    response = client.cra_check_report_base_report_get(body)
+    response = client.cra_check_report_base_report_get(CraCheckReportBaseReportGetRequest())
     # TODO: Handle 'response' of type CraCheckReportBaseReportGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -3985,7 +4283,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cra_check_report_base_report_get(body)
+    response = await async_client.cra_check_report_base_report_get(CraCheckReportBaseReportGetRequest())
     # TODO: Handle 'response' of type CraCheckReportBaseReportGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4002,7 +4300,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportBaseReportGetRequest](the_plaid_api/models/cra_check_report_base_report_get_request.py) \| [CraCheckReportBaseReportGetRequestDict](the_plaid_api/models/cra_check_report_base_report_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4049,7 +4347,7 @@ This endpoint allows you to retrieve the Cashflow Insights report for your user.
 
 ```python
 try:
-    response = client.cra_check_report_cashflow_insights_get(body)
+    response = client.cra_check_report_cashflow_insights_get(CraCheckReportCashflowInsightsGetRequest())
     # TODO: Handle 'response' of type CraCheckReportCashflowInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4059,7 +4357,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cra_check_report_cashflow_insights_get(body)
+    response = await async_client.cra_check_report_cashflow_insights_get(CraCheckReportCashflowInsightsGetRequest())
     # TODO: Handle 'response' of type CraCheckReportCashflowInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4076,7 +4374,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportCashflowInsightsGetRequest](the_plaid_api/models/cra_check_report_cashflow_insights_get_request.py) \| [CraCheckReportCashflowInsightsGetRequestDict](the_plaid_api/models/cra_check_report_cashflow_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4123,7 +4421,13 @@ Use `/cra/check_report/create` to refresh data in an existing report. A Consumer
 
 ```python
 try:
-    response = client.cra_check_report_create(body)
+    response = client.cra_check_report_create(
+        CraCheckReportCreateRequest(
+            webhook="some example string",
+            days_requested=1,
+            consumer_report_permissible_purpose=ConsumerReportPermissiblePurpose.ACCOUNT_REVIEW_CREDIT,
+        ),
+    )
     # TODO: Handle 'response' of type CraCheckReportCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4133,7 +4437,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cra_check_report_create(body)
+    response = await async_client.cra_check_report_create(
+        CraCheckReportCreateRequest(
+            webhook="some example string",
+            days_requested=1,
+            consumer_report_permissible_purpose=ConsumerReportPermissiblePurpose.ACCOUNT_REVIEW_CREDIT,
+        ),
+    )
     # TODO: Handle 'response' of type CraCheckReportCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4150,7 +4460,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportCreateRequest](the_plaid_api/models/cra_check_report_create_request.py) \| [CraCheckReportCreateRequestDict](the_plaid_api/models/cra_check_report_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4199,7 +4509,7 @@ NOTE: The following schema was updated in April 2026 to reflect the response whe
 
 ```python
 try:
-    response = client.cra_check_report_income_insights_get(body)
+    response = client.cra_check_report_income_insights_get(CraCheckReportIncomeInsightsGetRequest())
     # TODO: Handle 'response' of type CraCheckReportIncomeInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4209,7 +4519,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cra_check_report_income_insights_get(body)
+    response = await async_client.cra_check_report_income_insights_get(CraCheckReportIncomeInsightsGetRequest())
     # TODO: Handle 'response' of type CraCheckReportIncomeInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4226,7 +4536,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportIncomeInsightsGetRequest](the_plaid_api/models/cra_check_report_income_insights_get_request.py) \| [CraCheckReportIncomeInsightsGetRequestDict](the_plaid_api/models/cra_check_report_income_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4273,7 +4583,7 @@ This endpoint allows you to retrieve the LendScore report for your user. You sho
 
 ```python
 try:
-    response = client.cra_check_report_lend_score_get(body)
+    response = client.cra_check_report_lend_score_get(CraCheckReportLendScoreGetRequest())
     # TODO: Handle 'response' of type CraCheckReportLendScoreGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4283,7 +4593,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cra_check_report_lend_score_get(body)
+    response = await async_client.cra_check_report_lend_score_get(CraCheckReportLendScoreGetRequest())
     # TODO: Handle 'response' of type CraCheckReportLendScoreGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4300,7 +4610,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportLendScoreGetRequest](the_plaid_api/models/cra_check_report_lend_score_get_request.py) \| [CraCheckReportLendScoreGetRequestDict](the_plaid_api/models/cra_check_report_lend_score_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4347,7 +4657,7 @@ This endpoint allows you to retrieve the Network Insights report for your user. 
 
 ```python
 try:
-    response = client.cra_check_report_network_insights_get(body)
+    response = client.cra_check_report_network_insights_get(CraCheckReportNetworkInsightsGetRequest())
     # TODO: Handle 'response' of type CraCheckReportNetworkInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4357,7 +4667,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cra_check_report_network_insights_get(body)
+    response = await async_client.cra_check_report_network_insights_get(CraCheckReportNetworkInsightsGetRequest())
     # TODO: Handle 'response' of type CraCheckReportNetworkInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4374,7 +4684,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportNetworkInsightsGetRequest](the_plaid_api/models/cra_check_report_network_insights_get_request.py) \| [CraCheckReportNetworkInsightsGetRequestDict](the_plaid_api/models/cra_check_report_network_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4421,7 +4731,7 @@ This endpoint allows you to retrieve the Partner Insights report for your user. 
 
 ```python
 try:
-    response = client.cra_check_report_partner_insights_get(body)
+    response = client.cra_check_report_partner_insights_get(CraCheckReportPartnerInsightsGetRequest())
     # TODO: Handle 'response' of type CraCheckReportPartnerInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4431,7 +4741,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cra_check_report_partner_insights_get(body)
+    response = await async_client.cra_check_report_partner_insights_get(CraCheckReportPartnerInsightsGetRequest())
     # TODO: Handle 'response' of type CraCheckReportPartnerInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4448,7 +4758,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportPartnerInsightsGetRequest](the_plaid_api/models/cra_check_report_partner_insights_get_request.py) \| [CraCheckReportPartnerInsightsGetRequestDict](the_plaid_api/models/cra_check_report_partner_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4495,7 +4805,7 @@ except ApiError as e:
 
 ```python
 try:
-    client.cra_check_report_pdf_get(body)
+    client.cra_check_report_pdf_get(CraCheckReportPdfgetRequest())
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -4504,7 +4814,7 @@ except ApiError as e:
 
 ```python
 try:
-    await async_client.cra_check_report_pdf_get(body)
+    await async_client.cra_check_report_pdf_get(CraCheckReportPdfgetRequest())
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -4520,7 +4830,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportPdfgetRequest](the_plaid_api/models/cra_check_report_pdfget_request.py) \| [CraCheckReportPdfgetRequestDict](the_plaid_api/models/cra_check_report_pdfget_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4571,7 +4881,9 @@ If the most recent consumer report for the user doesn't have sufficient data to 
 
 ```python
 try:
-    response = client.cra_check_report_verification_get(body)
+    response = client.cra_check_report_verification_get(
+        CraCheckReportVerificationGetRequest(reports_requested=[CraCheckReportVerificationGetReportType.VOA])
+    )
     # TODO: Handle 'response' of type CraCheckReportVerificationGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4581,7 +4893,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cra_check_report_verification_get(body)
+    response = await async_client.cra_check_report_verification_get(
+        CraCheckReportVerificationGetRequest(reports_requested=[CraCheckReportVerificationGetReportType.VOA])
+    )
     # TODO: Handle 'response' of type CraCheckReportVerificationGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4598,7 +4912,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportVerificationGetRequest](the_plaid_api/models/cra_check_report_verification_get_request.py) \| [CraCheckReportVerificationGetRequestDict](the_plaid_api/models/cra_check_report_verification_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4647,7 +4961,7 @@ The response to `/cra/check_report/verification/pdf/get` is the PDF binary data.
 
 ```python
 try:
-    client.cra_check_report_verification_pdf_get(body)
+    client.cra_check_report_verification_pdf_get(CraCheckReportVerificationPdfGetRequest())
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -4656,7 +4970,7 @@ except ApiError as e:
 
 ```python
 try:
-    await async_client.cra_check_report_verification_pdf_get(body)
+    await async_client.cra_check_report_verification_pdf_get(CraCheckReportVerificationPdfGetRequest())
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -4672,7 +4986,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportVerificationPdfGetRequest](the_plaid_api/models/cra_check_report_verification_pdf_get_request.py) \| [CraCheckReportVerificationPdfGetRequestDict](the_plaid_api/models/cra_check_report_verification_pdf_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4719,7 +5033,16 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.cra_credit_profile_report_get(body)
+    response = client.cra_credit_profile_report_get(
+        CraCreditProfileReportGetRequest(
+            user_id="some example string",
+            consumer_report_permissible_purpose=ConsumerReportPermissiblePurpose.ACCOUNT_REVIEW_CREDIT,
+            client_report_id="some example string",
+            report_type=CraCreditProfileReportType.QUALIFY,
+            inquiry_type=CraCreditProfileInquiryType.SOFT_INQUIRY,
+            version=CraCreditProfileReportVersion.V1,
+        ),
+    )
     # TODO: Handle 'response' of type CraCreditProfileReportGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4729,7 +5052,16 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cra_credit_profile_report_get(body)
+    response = await async_client.cra_credit_profile_report_get(
+        CraCreditProfileReportGetRequest(
+            user_id="some example string",
+            consumer_report_permissible_purpose=ConsumerReportPermissiblePurpose.ACCOUNT_REVIEW_CREDIT,
+            client_report_id="some example string",
+            report_type=CraCreditProfileReportType.QUALIFY,
+            inquiry_type=CraCreditProfileInquiryType.SOFT_INQUIRY,
+            version=CraCreditProfileReportVersion.V1,
+        ),
+    )
     # TODO: Handle 'response' of type CraCreditProfileReportGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4746,7 +5078,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCreditProfileReportGetRequest](the_plaid_api/models/cra_credit_profile_report_get_request.py) \| [CraCreditProfileReportGetRequestDict](the_plaid_api/models/cra_credit_profile_report_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4793,7 +5125,18 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.cra_loans_applications_register(body)
+    response = client.cra_loans_applications_register(
+        CraLoansApplicationsRegisterRequest(
+            applications=[
+                CraLoanApplication(
+                    user_token="some example string",
+                    application_id="some example string",
+                    type_=CraLoanType.PERSONAL,
+                    decision=CraLoanApplicationDecision.APPROVED,
+                ),
+            ],
+        ),
+    )
     # TODO: Handle 'response' of type CraLoansApplicationsRegisterResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4803,7 +5146,18 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cra_loans_applications_register(body)
+    response = await async_client.cra_loans_applications_register(
+        CraLoansApplicationsRegisterRequest(
+            applications=[
+                CraLoanApplication(
+                    user_token="some example string",
+                    application_id="some example string",
+                    type_=CraLoanType.PERSONAL,
+                    decision=CraLoanApplicationDecision.APPROVED,
+                ),
+            ],
+        ),
+    )
     # TODO: Handle 'response' of type CraLoansApplicationsRegisterResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4820,7 +5174,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraLoansApplicationsRegisterRequest](the_plaid_api/models/cra_loans_applications_register_request.py) \| [CraLoansApplicationsRegisterRequestDict](the_plaid_api/models/cra_loans_applications_register_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4867,7 +5221,20 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.cra_loans_register(body)
+    response = client.cra_loans_register(
+        CraloansRegisterRequest(
+            loans=[
+                CraLoanRegister(
+                    user_token="some example string",
+                    loan_id="some example string",
+                    type_=CraLoanType.PERSONAL,
+                    payment_schedule=CraLoanPaymentSchedule.DAILY,
+                    opened_date=date(2024, 1, 15),
+                    opened_with_status=CraLoanOpenedStatus(status=CraLoanStatus.APPROVED, date=date(2024, 1, 15)),
+                ),
+            ],
+        ),
+    )
     # TODO: Handle 'response' of type CraLoansRegisterResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4877,7 +5244,20 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cra_loans_register(body)
+    response = await async_client.cra_loans_register(
+        CraloansRegisterRequest(
+            loans=[
+                CraLoanRegister(
+                    user_token="some example string",
+                    loan_id="some example string",
+                    type_=CraLoanType.PERSONAL,
+                    payment_schedule=CraLoanPaymentSchedule.DAILY,
+                    opened_date=date(2024, 1, 15),
+                    opened_with_status=CraLoanOpenedStatus(status=CraLoanStatus.APPROVED, date=date(2024, 1, 15)),
+                ),
+            ],
+        ),
+    )
     # TODO: Handle 'response' of type CraLoansRegisterResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4894,7 +5274,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraloansRegisterRequest](the_plaid_api/models/craloans_register_request.py) \| [CraloansRegisterRequestDict](the_plaid_api/models/craloans_register_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4941,7 +5321,16 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.cra_loans_unregister(body)
+    response = client.cra_loans_unregister(
+        CraLoansUnregisterRequest(
+            loans=[
+                CraLoanUnregister(
+                    loan_id="some example string",
+                    closed_with_status=CraLoanClosedStatus(status=CraLoanStatus.APPROVED, date=date(2024, 1, 15)),
+                ),
+            ],
+        ),
+    )
     # TODO: Handle 'response' of type CraLoanUnregisterResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4951,7 +5340,16 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cra_loans_unregister(body)
+    response = await async_client.cra_loans_unregister(
+        CraLoansUnregisterRequest(
+            loans=[
+                CraLoanUnregister(
+                    loan_id="some example string",
+                    closed_with_status=CraLoanClosedStatus(status=CraLoanStatus.APPROVED, date=date(2024, 1, 15)),
+                ),
+            ],
+        ),
+    )
     # TODO: Handle 'response' of type CraLoanUnregisterResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -4968,7 +5366,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraLoansUnregisterRequest](the_plaid_api/models/cra_loans_unregister_request.py) \| [CraLoansUnregisterRequestDict](the_plaid_api/models/cra_loans_unregister_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5015,7 +5413,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.cra_loans_update(body)
+    response = client.cra_loans_update(CraLoansUpdateRequest(loans=[CraLoanUpdate()]))
     # TODO: Handle 'response' of type CraLoansUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5025,7 +5423,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cra_loans_update(body)
+    response = await async_client.cra_loans_update(CraLoansUpdateRequest(loans=[CraLoanUpdate()]))
     # TODO: Handle 'response' of type CraLoansUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5042,7 +5440,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraLoansUpdateRequest](the_plaid_api/models/cra_loans_update_request.py) \| [CraLoansUpdateRequestDict](the_plaid_api/models/cra_loans_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5089,7 +5487,11 @@ This endpoint allows you to retrieve a Cash Flow Updates report by passing in th
 
 ```python
 try:
-    response = client.cra_monitoring_insights_get(body)
+    response = client.cra_monitoring_insights_get(
+        CraMonitoringInsightsGetRequest(
+            consumer_report_permissible_purpose=MonitoringConsumerReportPermissiblePurpose.ACCOUNT_REVIEW_CREDIT
+        ),
+    )
     # TODO: Handle 'response' of type CraMonitoringInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5099,7 +5501,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cra_monitoring_insights_get(body)
+    response = await async_client.cra_monitoring_insights_get(
+        CraMonitoringInsightsGetRequest(
+            consumer_report_permissible_purpose=MonitoringConsumerReportPermissiblePurpose.ACCOUNT_REVIEW_CREDIT
+        ),
+    )
     # TODO: Handle 'response' of type CraMonitoringInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5116,7 +5522,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraMonitoringInsightsGetRequest](the_plaid_api/models/cra_monitoring_insights_get_request.py) \| [CraMonitoringInsightsGetRequestDict](the_plaid_api/models/cra_monitoring_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5163,7 +5569,9 @@ This endpoint allows you to subscribe to insights for a user's linked CRA Item, 
 
 ```python
 try:
-    response = client.cra_monitoring_insights_subscribe(body)
+    response = client.cra_monitoring_insights_subscribe(
+        CraMonitoringInsightsSubscribeRequest(webhook="some example string")
+    )
     # TODO: Handle 'response' of type CraMonitoringInsightsSubscribeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5173,7 +5581,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cra_monitoring_insights_subscribe(body)
+    response = await async_client.cra_monitoring_insights_subscribe(
+        CraMonitoringInsightsSubscribeRequest(webhook="some example string")
+    )
     # TODO: Handle 'response' of type CraMonitoringInsightsSubscribeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5190,7 +5600,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraMonitoringInsightsSubscribeRequest](the_plaid_api/models/cra_monitoring_insights_subscribe_request.py) \| [CraMonitoringInsightsSubscribeRequestDict](the_plaid_api/models/cra_monitoring_insights_subscribe_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5237,7 +5647,9 @@ This endpoint allows you to unsubscribe from previously subscribed Monitoring In
 
 ```python
 try:
-    response = client.cra_monitoring_insights_unsubscribe(body)
+    response = client.cra_monitoring_insights_unsubscribe(
+        CraMonitoringInsightsUnsubscribeRequest(subscription_id="some example string")
+    )
     # TODO: Handle 'response' of type CraMonitoringInsightsUnsubscribeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5247,7 +5659,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cra_monitoring_insights_unsubscribe(body)
+    response = await async_client.cra_monitoring_insights_unsubscribe(
+        CraMonitoringInsightsUnsubscribeRequest(subscription_id="some example string")
+    )
     # TODO: Handle 'response' of type CraMonitoringInsightsUnsubscribeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5264,7 +5678,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraMonitoringInsightsUnsubscribeRequest](the_plaid_api/models/cra_monitoring_insights_unsubscribe_request.py) \| [CraMonitoringInsightsUnsubscribeRequestDict](the_plaid_api/models/cra_monitoring_insights_unsubscribe_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5311,7 +5725,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.cra_partner_insights_get(body)
+    response = client.cra_partner_insights_get(CraPartnerInsightsGetRequest(user_token="some example string"))
     # TODO: Handle 'response' of type CraPartnerInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5321,7 +5735,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cra_partner_insights_get(body)
+    response = await async_client.cra_partner_insights_get(
+        CraPartnerInsightsGetRequest(user_token="some example string")
+    )
     # TODO: Handle 'response' of type CraPartnerInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5338,7 +5754,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraPartnerInsightsGetRequest](the_plaid_api/models/cra_partner_insights_get_request.py) \| [CraPartnerInsightsGetRequestDict](the_plaid_api/models/cra_partner_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5385,7 +5801,14 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.cra_report_get(body)
+    response = client.cra_report_get(
+        CraReportGetRequest(
+            user_id="some example string",
+            products=[CraReportGetRequestProduct(product=Products.ASSETS, version="some example string")],
+            decision_stage=CraReportDecisionStage.PREQUALIFICATION,
+            consumer_report_permissible_purpose=ConsumerReportPermissiblePurpose.ACCOUNT_REVIEW_CREDIT,
+        ),
+    )
     # TODO: Handle 'response' of type CraReportGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5395,7 +5818,14 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.cra_report_get(body)
+    response = await async_client.cra_report_get(
+        CraReportGetRequest(
+            user_id="some example string",
+            products=[CraReportGetRequestProduct(product=Products.ASSETS, version="some example string")],
+            decision_stage=CraReportDecisionStage.PREQUALIFICATION,
+            consumer_report_permissible_purpose=ConsumerReportPermissiblePurpose.ACCOUNT_REVIEW_CREDIT,
+        ),
+    )
     # TODO: Handle 'response' of type CraReportGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5412,7 +5842,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraReportGetRequest](the_plaid_api/models/cra_report_get_request.py) \| [CraReportGetRequestDict](the_plaid_api/models/cra_report_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5461,7 +5891,7 @@ The `/payment_initiation/payment/token/create` endpoint is used to create a `pay
 
 ```python
 try:
-    response = client.create_payment_token(body)
+    response = client.create_payment_token(PaymentInitiationPaymentTokenCreateRequest(payment_id="some example string"))
     # TODO: Handle 'response' of type PaymentInitiationPaymentTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5471,7 +5901,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.create_payment_token(body)
+    response = await async_client.create_payment_token(
+        PaymentInitiationPaymentTokenCreateRequest(payment_id="some example string")
+    )
     # TODO: Handle 'response' of type PaymentInitiationPaymentTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5488,7 +5920,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationPaymentTokenCreateRequest](the_plaid_api/models/payment_initiation_payment_token_create_request.py) \| [PaymentInitiationPaymentTokenCreateRequestDict](the_plaid_api/models/payment_initiation_payment_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5535,7 +5967,9 @@ The `/credit/asset_report/freddie_mac/get` endpoint retrieves the Asset Report i
 
 ```python
 try:
-    response = client.credit_asset_report_freddie_mac_get(body)
+    response = client.credit_asset_report_freddie_mac_get(
+        AssetReportFreddieGetRequest(audit_copy_token="some example string")
+    )
     # TODO: Handle 'response' of type AssetReportFreddieGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5545,7 +5979,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_asset_report_freddie_mac_get(body)
+    response = await async_client.credit_asset_report_freddie_mac_get(
+        AssetReportFreddieGetRequest(audit_copy_token="some example string")
+    )
     # TODO: Handle 'response' of type AssetReportFreddieGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5562,7 +5998,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportFreddieGetRequest](the_plaid_api/models/asset_report_freddie_get_request.py) \| [AssetReportFreddieGetRequestDict](the_plaid_api/models/asset_report_freddie_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5611,7 +6047,9 @@ Use the `/credit/audit_copy_token/create` endpoint to create an `audit_copy_toke
 
 ```python
 try:
-    response = client.credit_audit_copy_token_create(body)
+    response = client.credit_audit_copy_token_create(
+        CreditAuditCopyTokenCreateRequest(report_tokens=["some example string"])
+    )
     # TODO: Handle 'response' of type CreditAuditCopyTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5621,7 +6059,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_audit_copy_token_create(body)
+    response = await async_client.credit_audit_copy_token_create(
+        CreditAuditCopyTokenCreateRequest(report_tokens=["some example string"])
+    )
     # TODO: Handle 'response' of type CreditAuditCopyTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5638,7 +6078,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditAuditCopyTokenCreateRequest](the_plaid_api/models/credit_audit_copy_token_create_request.py) \| [CreditAuditCopyTokenCreateRequestDict](the_plaid_api/models/credit_audit_copy_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5685,7 +6125,9 @@ The `/credit/audit_copy_token/update` endpoint updates an existing Audit Copy To
 
 ```python
 try:
-    response = client.credit_audit_copy_token_update(body)
+    response = client.credit_audit_copy_token_update(
+        CreditAuditCopyTokenUpdateRequest(audit_copy_token="some example string", report_tokens=["some example string"])
+    )
     # TODO: Handle 'response' of type CreditAuditCopyTokenUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5695,7 +6137,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_audit_copy_token_update(body)
+    response = await async_client.credit_audit_copy_token_update(
+        CreditAuditCopyTokenUpdateRequest(audit_copy_token="some example string", report_tokens=["some example string"])
+    )
     # TODO: Handle 'response' of type CreditAuditCopyTokenUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5712,7 +6156,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditAuditCopyTokenUpdateRequest](the_plaid_api/models/credit_audit_copy_token_update_request.py) \| [CreditAuditCopyTokenUpdateRequestDict](the_plaid_api/models/credit_audit_copy_token_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5759,7 +6203,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.credit_bank_employment_get(body)
+    response = client.credit_bank_employment_get(CreditBankEmploymentGetRequest(user_token="some example string"))
     # TODO: Handle 'response' of type CreditBankEmploymentGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5769,7 +6213,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_bank_employment_get(body)
+    response = await async_client.credit_bank_employment_get(
+        CreditBankEmploymentGetRequest(user_token="some example string")
+    )
     # TODO: Handle 'response' of type CreditBankEmploymentGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5786,7 +6232,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditBankEmploymentGetRequest](the_plaid_api/models/credit_bank_employment_get_request.py) \| [CreditBankEmploymentGetRequestDict](the_plaid_api/models/credit_bank_employment_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5833,7 +6279,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.credit_bank_income_get(body)
+    response = client.credit_bank_income_get(CreditBankIncomeGetRequest())
     # TODO: Handle 'response' of type CreditBankIncomeGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5843,7 +6289,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_bank_income_get(body)
+    response = await async_client.credit_bank_income_get(CreditBankIncomeGetRequest())
     # TODO: Handle 'response' of type CreditBankIncomeGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5860,7 +6306,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditBankIncomeGetRequest](the_plaid_api/models/credit_bank_income_get_request.py) \| [CreditBankIncomeGetRequestDict](the_plaid_api/models/credit_bank_income_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5907,7 +6353,7 @@ except ApiError as e:
 
 ```python
 try:
-    client.credit_bank_income_pdf_get(body)
+    client.credit_bank_income_pdf_get(CreditBankIncomePdfgetRequest(user_token="some example string"))
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -5916,7 +6362,7 @@ except ApiError as e:
 
 ```python
 try:
-    await async_client.credit_bank_income_pdf_get(body)
+    await async_client.credit_bank_income_pdf_get(CreditBankIncomePdfgetRequest(user_token="some example string"))
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -5932,7 +6378,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditBankIncomePdfgetRequest](the_plaid_api/models/credit_bank_income_pdfget_request.py) \| [CreditBankIncomePdfgetRequestDict](the_plaid_api/models/credit_bank_income_pdfget_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5979,7 +6425,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.credit_bank_income_refresh(body)
+    response = client.credit_bank_income_refresh(CreditBankIncomeRefreshRequest(user_token="some example string"))
     # TODO: Handle 'response' of type CreditBankIncomeRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -5989,7 +6435,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_bank_income_refresh(body)
+    response = await async_client.credit_bank_income_refresh(
+        CreditBankIncomeRefreshRequest(user_token="some example string")
+    )
     # TODO: Handle 'response' of type CreditBankIncomeRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6006,7 +6454,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditBankIncomeRefreshRequest](the_plaid_api/models/credit_bank_income_refresh_request.py) \| [CreditBankIncomeRefreshRequestDict](the_plaid_api/models/credit_bank_income_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6055,7 +6503,9 @@ If a user is subscribed, on significant changes to the user's income profile, yo
 
 ```python
 try:
-    response = client.credit_bank_income_webhook_update(body)
+    response = client.credit_bank_income_webhook_update(
+        CreditBankIncomeWebhookUpdateRequest(user_token="some example string", enable_webhooks=True)
+    )
     # TODO: Handle 'response' of type CreditBankIncomeWebhookUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6065,7 +6515,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_bank_income_webhook_update(body)
+    response = await async_client.credit_bank_income_webhook_update(
+        CreditBankIncomeWebhookUpdateRequest(user_token="some example string", enable_webhooks=True)
+    )
     # TODO: Handle 'response' of type CreditBankIncomeWebhookUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6082,7 +6534,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditBankIncomeWebhookUpdateRequest](the_plaid_api/models/credit_bank_income_webhook_update_request.py) \| [CreditBankIncomeWebhookUpdateRequestDict](the_plaid_api/models/credit_bank_income_webhook_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6129,7 +6581,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.credit_bank_statements_uploads_get(body)
+    response = client.credit_bank_statements_uploads_get(
+        CreditBankStatementsUploadsGetRequest(user_token="some example string")
+    )
     # TODO: Handle 'response' of type CreditBankStatementsUploadsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6139,7 +6593,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_bank_statements_uploads_get(body)
+    response = await async_client.credit_bank_statements_uploads_get(
+        CreditBankStatementsUploadsGetRequest(user_token="some example string")
+    )
     # TODO: Handle 'response' of type CreditBankStatementsUploadsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6156,7 +6612,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditBankStatementsUploadsGetRequest](the_plaid_api/models/credit_bank_statements_uploads_get_request.py) \| [CreditBankStatementsUploadsGetRequestDict](the_plaid_api/models/credit_bank_statements_uploads_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6203,7 +6659,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.credit_employment_get(body)
+    response = client.credit_employment_get(CreditEmploymentGetRequest(user_token="some example string"))
     # TODO: Handle 'response' of type CreditEmploymentGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6213,7 +6669,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_employment_get(body)
+    response = await async_client.credit_employment_get(CreditEmploymentGetRequest(user_token="some example string"))
     # TODO: Handle 'response' of type CreditEmploymentGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6230,7 +6686,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditEmploymentGetRequest](the_plaid_api/models/credit_employment_get_request.py) \| [CreditEmploymentGetRequestDict](the_plaid_api/models/credit_employment_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6277,7 +6733,9 @@ The `/credit/freddie_mac/reports/get` endpoint retrieves the Verification of Ass
 
 ```python
 try:
-    response = client.credit_freddie_mac_reports_get(body)
+    response = client.credit_freddie_mac_reports_get(
+        CreditFreddieMacReportsGetRequest(audit_copy_token="some example string")
+    )
     # TODO: Handle 'response' of type CreditFreddieMacReportsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6287,7 +6745,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_freddie_mac_reports_get(body)
+    response = await async_client.credit_freddie_mac_reports_get(
+        CreditFreddieMacReportsGetRequest(audit_copy_token="some example string")
+    )
     # TODO: Handle 'response' of type CreditFreddieMacReportsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6304,7 +6764,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditFreddieMacReportsGetRequest](the_plaid_api/models/credit_freddie_mac_reports_get_request.py) \| [CreditFreddieMacReportsGetRequestDict](the_plaid_api/models/credit_freddie_mac_reports_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6351,7 +6811,7 @@ This endpoint gets payroll income information for a specific user, either as a r
 
 ```python
 try:
-    response = client.credit_payroll_income_get(body)
+    response = client.credit_payroll_income_get(CreditPayrollIncomeGetRequest())
     # TODO: Handle 'response' of type CreditPayrollIncomeGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6361,7 +6821,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_payroll_income_get(body)
+    response = await async_client.credit_payroll_income_get(CreditPayrollIncomeGetRequest())
     # TODO: Handle 'response' of type CreditPayrollIncomeGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6378,7 +6838,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditPayrollIncomeGetRequest](the_plaid_api/models/credit_payroll_income_get_request.py) \| [CreditPayrollIncomeGetRequestDict](the_plaid_api/models/credit_payroll_income_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6425,7 +6885,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.credit_payroll_income_parsing_config_update(body)
+    response = client.credit_payroll_income_parsing_config_update(
+        CreditPayrollIncomeParsingConfigUpdateRequest(
+            user_token="some example string", parsing_config=[IncomeVerificationDocParsingConfig.OCR]
+        ),
+    )
     # TODO: Handle 'response' of type CreditPayrollIncomeParsingConfigUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6435,7 +6899,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_payroll_income_parsing_config_update(body)
+    response = await async_client.credit_payroll_income_parsing_config_update(
+        CreditPayrollIncomeParsingConfigUpdateRequest(
+            user_token="some example string", parsing_config=[IncomeVerificationDocParsingConfig.OCR]
+        ),
+    )
     # TODO: Handle 'response' of type CreditPayrollIncomeParsingConfigUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6452,7 +6920,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditPayrollIncomeParsingConfigUpdateRequest](the_plaid_api/models/credit_payroll_income_parsing_config_update_request.py) \| [CreditPayrollIncomeParsingConfigUpdateRequestDict](the_plaid_api/models/credit_payroll_income_parsing_config_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6503,7 +6971,7 @@ When testing in Sandbox, you can control the results by providing special test v
 
 ```python
 try:
-    response = client.credit_payroll_income_precheck(body)
+    response = client.credit_payroll_income_precheck(CreditPayrollIncomePrecheckRequest())
     # TODO: Handle 'response' of type CreditPayrollIncomePrecheckResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6513,7 +6981,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_payroll_income_precheck(body)
+    response = await async_client.credit_payroll_income_precheck(CreditPayrollIncomePrecheckRequest())
     # TODO: Handle 'response' of type CreditPayrollIncomePrecheckResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6530,7 +6998,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditPayrollIncomePrecheckRequest](the_plaid_api/models/credit_payroll_income_precheck_request.py) \| [CreditPayrollIncomePrecheckRequestDict](the_plaid_api/models/credit_payroll_income_precheck_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6577,7 +7045,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.credit_payroll_income_refresh(body)
+    response = client.credit_payroll_income_refresh(CreditPayrollIncomeRefreshRequest(user_token="some example string"))
     # TODO: Handle 'response' of type CreditPayrollIncomeRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6587,7 +7055,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_payroll_income_refresh(body)
+    response = await async_client.credit_payroll_income_refresh(
+        CreditPayrollIncomeRefreshRequest(user_token="some example string")
+    )
     # TODO: Handle 'response' of type CreditPayrollIncomeRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6604,7 +7074,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditPayrollIncomeRefreshRequest](the_plaid_api/models/credit_payroll_income_refresh_request.py) \| [CreditPayrollIncomeRefreshRequestDict](the_plaid_api/models/credit_payroll_income_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6655,7 +7125,7 @@ To trigger risk signal generation for an Item, call `/link/token/create` with `p
 
 ```python
 try:
-    response = client.credit_payroll_income_risk_signals_get(body)
+    response = client.credit_payroll_income_risk_signals_get(CreditPayrollIncomeRiskSignalsGetRequest())
     # TODO: Handle 'response' of type CreditPayrollIncomeRiskSignalsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6665,7 +7135,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_payroll_income_risk_signals_get(body)
+    response = await async_client.credit_payroll_income_risk_signals_get(CreditPayrollIncomeRiskSignalsGetRequest())
     # TODO: Handle 'response' of type CreditPayrollIncomeRiskSignalsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6682,7 +7152,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditPayrollIncomeRiskSignalsGetRequest](the_plaid_api/models/credit_payroll_income_risk_signals_get_request.py) \| [CreditPayrollIncomeRiskSignalsGetRequestDict](the_plaid_api/models/credit_payroll_income_risk_signals_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6731,7 +7201,9 @@ To grant a third party access to an Asset Report, use the `/credit/relay/create`
 
 ```python
 try:
-    response = client.credit_relay_create(body)
+    response = client.credit_relay_create(
+        CreditRelayCreateRequest(report_tokens=["some example string"], secondary_client_id="some example string")
+    )
     # TODO: Handle 'response' of type CreditRelayCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6741,7 +7213,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_relay_create(body)
+    response = await async_client.credit_relay_create(
+        CreditRelayCreateRequest(report_tokens=["some example string"], secondary_client_id="some example string")
+    )
     # TODO: Handle 'response' of type CreditRelayCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6758,7 +7232,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditRelayCreateRequest](the_plaid_api/models/credit_relay_create_request.py) \| [CreditRelayCreateRequestDict](the_plaid_api/models/credit_relay_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6805,7 +7279,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.credit_relay_get(body)
+    response = client.credit_relay_get(
+        CreditRelayGetRequest(relay_token="some example string", report_type=ReportType.ASSET)
+    )
     # TODO: Handle 'response' of type AssetReportGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6815,7 +7291,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_relay_get(body)
+    response = await async_client.credit_relay_get(
+        CreditRelayGetRequest(relay_token="some example string", report_type=ReportType.ASSET)
+    )
     # TODO: Handle 'response' of type AssetReportGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6832,7 +7310,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditRelayGetRequest](the_plaid_api/models/credit_relay_get_request.py) \| [CreditRelayGetRequestDict](the_plaid_api/models/credit_relay_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6885,7 +7363,9 @@ The response to `/credit/relay/pdf/get` is the PDF binary data. The `request_id`
 
 ```python
 try:
-    client.credit_relay_pdf_get(body)
+    client.credit_relay_pdf_get(
+        CreditRelayPdfgetRequest(relay_token="some example string", report_type=ReportType.ASSET)
+    )
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -6894,7 +7374,9 @@ except ApiError as e:
 
 ```python
 try:
-    await async_client.credit_relay_pdf_get(body)
+    await async_client.credit_relay_pdf_get(
+        CreditRelayPdfgetRequest(relay_token="some example string", report_type=ReportType.ASSET)
+    )
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -6910,7 +7392,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditRelayPdfgetRequest](the_plaid_api/models/credit_relay_pdfget_request.py) \| [CreditRelayPdfgetRequestDict](the_plaid_api/models/credit_relay_pdfget_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6957,7 +7439,9 @@ The `/credit/relay/refresh` endpoint allows third parties to refresh a report th
 
 ```python
 try:
-    response = client.credit_relay_refresh(body)
+    response = client.credit_relay_refresh(
+        CreditRelayRefreshRequest(relay_token="some example string", report_type=ReportType.ASSET)
+    )
     # TODO: Handle 'response' of type CreditRelayRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6967,7 +7451,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_relay_refresh(body)
+    response = await async_client.credit_relay_refresh(
+        CreditRelayRefreshRequest(relay_token="some example string", report_type=ReportType.ASSET)
+    )
     # TODO: Handle 'response' of type CreditRelayRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -6984,7 +7470,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditRelayRefreshRequest](the_plaid_api/models/credit_relay_refresh_request.py) \| [CreditRelayRefreshRequestDict](the_plaid_api/models/credit_relay_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7031,7 +7517,7 @@ The `/credit/relay/remove` endpoint allows you to invalidate a `relay_token`. Th
 
 ```python
 try:
-    response = client.credit_relay_remove(body)
+    response = client.credit_relay_remove(CreditRelayRemoveRequest(relay_token="some example string"))
     # TODO: Handle 'response' of type CreditRelayRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7041,7 +7527,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_relay_remove(body)
+    response = await async_client.credit_relay_remove(CreditRelayRemoveRequest(relay_token="some example string"))
     # TODO: Handle 'response' of type CreditRelayRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7058,7 +7544,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditRelayRemoveRequest](the_plaid_api/models/credit_relay_remove_request.py) \| [CreditRelayRemoveRequestDict](the_plaid_api/models/credit_relay_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7105,7 +7591,9 @@ The `/credit/audit_copy_token/remove` endpoint allows you to remove an Audit Cop
 
 ```python
 try:
-    response = client.credit_report_audit_copy_remove(body)
+    response = client.credit_report_audit_copy_remove(
+        CreditAuditCopyTokenRemoveRequest(audit_copy_token="some example string")
+    )
     # TODO: Handle 'response' of type CreditAuditCopyTokenRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7115,7 +7603,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_report_audit_copy_remove(body)
+    response = await async_client.credit_report_audit_copy_remove(
+        CreditAuditCopyTokenRemoveRequest(audit_copy_token="some example string")
+    )
     # TODO: Handle 'response' of type CreditAuditCopyTokenRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7132,7 +7622,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditAuditCopyTokenRemoveRequest](the_plaid_api/models/credit_audit_copy_token_remove_request.py) \| [CreditAuditCopyTokenRemoveRequestDict](the_plaid_api/models/credit_audit_copy_token_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7181,7 +7671,7 @@ These results include details about the Item that was created and some product r
 
 ```python
 try:
-    response = client.credit_sessions_get(body)
+    response = client.credit_sessions_get(CreditSessionsGetRequest(user_token="some example string"))
     # TODO: Handle 'response' of type CreditSessionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7191,7 +7681,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.credit_sessions_get(body)
+    response = await async_client.credit_sessions_get(CreditSessionsGetRequest(user_token="some example string"))
     # TODO: Handle 'response' of type CreditSessionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7208,7 +7698,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditSessionsGetRequest](the_plaid_api/models/credit_sessions_get_request.py) \| [CreditSessionsGetRequestDict](the_plaid_api/models/credit_sessions_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7255,7 +7745,7 @@ The `/dashboard_user/get` endpoint provides details (such as email address) abou
 
 ```python
 try:
-    response = client.dashboard_user_get(body)
+    response = client.dashboard_user_get(DashboardUserGetRequest(dashboard_user_id="some example string"))
     # TODO: Handle 'response' of type DashboardUserGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7265,7 +7755,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.dashboard_user_get(body)
+    response = await async_client.dashboard_user_get(DashboardUserGetRequest(dashboard_user_id="some example string"))
     # TODO: Handle 'response' of type DashboardUserGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7282,7 +7772,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[DashboardUserGetRequest](the_plaid_api/models/dashboard_user_get_request.py) \| [DashboardUserGetRequestDict](the_plaid_api/models/dashboard_user_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7329,7 +7819,7 @@ The `/dashboard_user/list` endpoint provides details (such as email address) abo
 
 ```python
 try:
-    response = client.dashboard_user_list(body)
+    response = client.dashboard_user_list(DashboardUserListRequest())
     # TODO: Handle 'response' of type DashboardUserListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7339,7 +7829,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.dashboard_user_list(body)
+    response = await async_client.dashboard_user_list(DashboardUserListRequest())
     # TODO: Handle 'response' of type DashboardUserListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7356,7 +7846,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[DashboardUserListRequest](the_plaid_api/models/dashboard_user_list_request.py) \| [DashboardUserListRequestDict](the_plaid_api/models/dashboard_user_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7405,7 +7895,9 @@ The data in the employer database is currently limited. As the Deposit Switch an
 
 ```python
 try:
-    response = client.employers_search(body)
+    response = client.employers_search(
+        EmployersSearchRequest(query="some example string", products=["some example string"])
+    )
     # TODO: Handle 'response' of type EmployersSearchResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7415,7 +7907,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.employers_search(body)
+    response = await async_client.employers_search(
+        EmployersSearchRequest(query="some example string", products=["some example string"])
+    )
     # TODO: Handle 'response' of type EmployersSearchResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7432,7 +7926,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[EmployersSearchRequest](the_plaid_api/models/employers_search_request.py) \| [EmployersSearchRequestDict](the_plaid_api/models/employers_search_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7481,7 +7975,7 @@ This endpoint has been deprecated; new integrations should use `/credit/employme
 
 ```python
 try:
-    response = client.employment_verification_get(body)
+    response = client.employment_verification_get(EmploymentVerificationGetRequest(access_token="some example string"))
     # TODO: Handle 'response' of type EmploymentVerificationGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7491,7 +7985,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.employment_verification_get(body)
+    response = await async_client.employment_verification_get(
+        EmploymentVerificationGetRequest(access_token="some example string")
+    )
     # TODO: Handle 'response' of type EmploymentVerificationGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7508,7 +8004,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[EmploymentVerificationGetRequest](the_plaid_api/models/employment_verification_get_request.py) \| [EmploymentVerificationGetRequestDict](the_plaid_api/models/employment_verification_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7555,7 +8051,7 @@ Returns a consent grant by its identifier
 
 ```python
 try:
-    response = client.fdx_consents_get(consent_id)
+    response = client.fdx_consents_get("some example string")
     # TODO: Handle 'response' of type FdxconsentGrant
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7565,7 +8061,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.fdx_consents_get(consent_id)
+    response = await async_client.fdx_consents_get("some example string")
     # TODO: Handle 'response' of type FdxconsentGrant
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7582,7 +8078,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>consent_id</code> | <code>str</code> | Consent Grant Identifier. Uniquely identifies the consent grant |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7629,7 +8125,7 @@ Returns zero or more consent grants associated with the given data provider cust
 
 ```python
 try:
-    response = client.fdx_consents_list(customer_id)
+    response = client.fdx_consents_list("some example string")
     # TODO: Handle 'response' of type GetConsentsResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7639,7 +8135,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.fdx_consents_list(customer_id)
+    response = await async_client.fdx_consents_list("some example string")
     # TODO: Handle 'response' of type GetConsentsResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7657,7 +8153,7 @@ except ApiError as e:
 | --- | --- | --- |
 | <code>customer_id</code> | <code>str</code> | Data provider customer identifier whose consent grants to return. |
 | <code>status</code> | <code>[FdxConsentGrantStatusOrStr](the_plaid_api/models/enums/fdx_consent_grant_status.py) \| None</code> | Optional filter restricting results to a single consent grant status. One of `ACTIVE`, `REVOKED`, `EXPIRED`.<br>**Default**: <code>None</code> |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7704,7 +8200,7 @@ Returns the revocation history of a consent grant
 
 ```python
 try:
-    response = client.fdx_consents_revocation_get(consent_id)
+    response = client.fdx_consents_revocation_get("some example string")
     # TODO: Handle 'response' of type FdxconsentRevocations
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7714,7 +8210,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.fdx_consents_revocation_get(consent_id)
+    response = await async_client.fdx_consents_revocation_get("some example string")
     # TODO: Handle 'response' of type FdxconsentRevocations
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7731,7 +8227,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>consent_id</code> | <code>str</code> | Consent Grant Identifier. Uniquely identifies the consent grant |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7778,7 +8274,10 @@ Appends a REVOKED status record to the named consent grant
 
 ```python
 try:
-    client.fdx_consents_revoke(consent_id, body)
+    client.fdx_consents_revoke(
+        "some example string",
+        FdxconsentRevocation(initiator=PartyType.DATA_ACCESS_PLATFORM, reason=FdxUpdateReason.BUSINESS_RULE),
+    )
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -7787,7 +8286,10 @@ except ApiError as e:
 
 ```python
 try:
-    await async_client.fdx_consents_revoke(consent_id, body)
+    await async_client.fdx_consents_revoke(
+        "some example string",
+        FdxconsentRevocation(initiator=PartyType.DATA_ACCESS_PLATFORM, reason=FdxUpdateReason.BUSINESS_RULE),
+    )
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -7804,7 +8306,7 @@ except ApiError as e:
 | --- | --- | --- |
 | <code>consent_id</code> | <code>str</code> | Consent Grant Identifier. Uniquely identifies the consent grant |
 | <code>body</code> | <code>[FdxconsentRevocation](the_plaid_api/models/fdxconsent_revocation.py) \| [FdxconsentRevocationDict](the_plaid_api/models/fdxconsent_revocation.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7851,7 +8353,15 @@ A generic webhook receiver endpoint for FDX Event Notifications
 
 ```python
 try:
-    client.fdx_notifications(body)
+    client.fdx_notifications(
+        FdxNotificationEntity(
+            notification_id="some example string",
+            type_=NotificationType.ACCOUNT_TAKEOVER,
+            sent_on=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc),
+            category=NotificationCategory.SECURITY,
+            notification_payload=NotificationPayloadEntity(),
+        ),
+    )
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -7860,7 +8370,15 @@ except ApiError as e:
 
 ```python
 try:
-    await async_client.fdx_notifications(body)
+    await async_client.fdx_notifications(
+        FdxNotificationEntity(
+            notification_id="some example string",
+            type_=NotificationType.ACCOUNT_TAKEOVER,
+            sent_on=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc),
+            category=NotificationCategory.SECURITY,
+            notification_payload=NotificationPayloadEntity(),
+        ),
+    )
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -7876,7 +8394,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[FdxNotificationEntity](the_plaid_api/models/fdx_notification_entity.py) \| [FdxNotificationEntityDict](the_plaid_api/models/fdx_notification_entity.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7923,7 +8441,7 @@ Get a specific recipient
 
 ```python
 try:
-    response = client.get_recipient(recipient_id)
+    response = client.get_recipient("some example string")
     # TODO: Handle 'response' of type FdxrecipientMetadata
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7933,7 +8451,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.get_recipient(recipient_id)
+    response = await async_client.get_recipient("some example string")
     # TODO: Handle 'response' of type FdxrecipientMetadata
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7951,7 +8469,7 @@ except ApiError as e:
 | --- | --- | --- |
 | <code>recipient_id</code> | <code>str</code> | Recipient Identifier. Uniquely identifies the recipient |
 | <code>oauth_state_id</code> | <code>str \| None</code> | The value that is passed into the OAuth URI 'state' query parameter.<br>**Default**: <code>None</code> |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8024,7 +8542,7 @@ except ApiError as e:
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8071,7 +8589,9 @@ Use `/identity/documents/uploads/get` to retrieve identity details when using [I
 
 ```python
 try:
-    response = client.identity_documents_uploads_get(body)
+    response = client.identity_documents_uploads_get(
+        IdentityDocumentsUploadsGetRequest(access_token="some example string")
+    )
     # TODO: Handle 'response' of type IdentityDocumentsUploadsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8081,7 +8601,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.identity_documents_uploads_get(body)
+    response = await async_client.identity_documents_uploads_get(
+        IdentityDocumentsUploadsGetRequest(access_token="some example string")
+    )
     # TODO: Handle 'response' of type IdentityDocumentsUploadsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8098,7 +8620,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IdentityDocumentsUploadsGetRequest](the_plaid_api/models/identity_documents_uploads_get_request.py) \| [IdentityDocumentsUploadsGetRequestDict](the_plaid_api/models/identity_documents_uploads_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8147,7 +8669,7 @@ Note: In API versions 2018-05-22 and earlier, the `owners` object is not returne
 
 ```python
 try:
-    response = client.identity_get(body)
+    response = client.identity_get(IdentityGetRequest(access_token="some example string"))
     # TODO: Handle 'response' of type IdentityGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8157,7 +8679,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.identity_get(body)
+    response = await async_client.identity_get(IdentityGetRequest(access_token="some example string"))
     # TODO: Handle 'response' of type IdentityGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8174,7 +8696,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IdentityGetRequest](the_plaid_api/models/identity_get_request.py) \| [IdentityGetRequestDict](the_plaid_api/models/identity_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8223,7 +8745,7 @@ Fields within the `balances` object will always be null when retrieved by `/iden
 
 ```python
 try:
-    response = client.identity_match(body)
+    response = client.identity_match(IdentityMatchRequest(access_token="some example string"))
     # TODO: Handle 'response' of type IdentityMatchResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8233,7 +8755,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.identity_match(body)
+    response = await async_client.identity_match(IdentityMatchRequest(access_token="some example string"))
     # TODO: Handle 'response' of type IdentityMatchResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8250,7 +8772,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IdentityMatchRequest](the_plaid_api/models/identity_match_request.py) \| [IdentityMatchRequestDict](the_plaid_api/models/identity_match_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8301,7 +8823,7 @@ As this endpoint triggers a synchronous request for fresh data, latency may be h
 
 ```python
 try:
-    response = client.identity_refresh(body)
+    response = client.identity_refresh(IdentityRefreshRequest(access_token="some example string"))
     # TODO: Handle 'response' of type IdentityRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8311,7 +8833,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.identity_refresh(body)
+    response = await async_client.identity_refresh(IdentityRefreshRequest(access_token="some example string"))
     # TODO: Handle 'response' of type IdentityRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8328,7 +8850,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IdentityRefreshRequest](the_plaid_api/models/identity_refresh_request.py) \| [IdentityRefreshRequestDict](the_plaid_api/models/identity_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8375,7 +8897,9 @@ Try to autofill an Identity Verification based on the provided phone number, dat
 
 ```python
 try:
-    response = client.identity_verification_autofill_create(body)
+    response = client.identity_verification_autofill_create(
+        IdentityVerificationAutofillCreateRequest(identity_verification_id="flwses_42cF1MNo42r9Xj")
+    )
     # TODO: Handle 'response' of type IdentityVerificationAutofillCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8385,7 +8909,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.identity_verification_autofill_create(body)
+    response = await async_client.identity_verification_autofill_create(
+        IdentityVerificationAutofillCreateRequest(identity_verification_id="flwses_42cF1MNo42r9Xj")
+    )
     # TODO: Handle 'response' of type IdentityVerificationAutofillCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8402,7 +8928,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IdentityVerificationAutofillCreateRequest](the_plaid_api/models/identity_verification_autofill_create_request.py) \| [IdentityVerificationAutofillCreateRequestDict](the_plaid_api/models/identity_verification_autofill_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8454,7 +8980,9 @@ If `user_id` is not provided, you can also use this endpoint to supply informati
 
 ```python
 try:
-    response = client.identity_verification_create(body)
+    response = client.identity_verification_create(
+        IdentityVerificationCreateRequest(is_shareable=True, template_id="some example string", gave_consent=True)
+    )
     # TODO: Handle 'response' of type IdentityVerificationCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8464,7 +8992,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.identity_verification_create(body)
+    response = await async_client.identity_verification_create(
+        IdentityVerificationCreateRequest(is_shareable=True, template_id="some example string", gave_consent=True)
+    )
     # TODO: Handle 'response' of type IdentityVerificationCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8481,7 +9011,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IdentityVerificationCreateRequest](the_plaid_api/models/identity_verification_create_request.py) \| [IdentityVerificationCreateRequestDict](the_plaid_api/models/identity_verification_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8528,7 +9058,9 @@ Retrieve a previously created Identity Verification.
 
 ```python
 try:
-    response = client.identity_verification_get(body)
+    response = client.identity_verification_get(
+        IdentityVerificationGetRequest(identity_verification_id="some example string")
+    )
     # TODO: Handle 'response' of type IdentityVerificationGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8538,7 +9070,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.identity_verification_get(body)
+    response = await async_client.identity_verification_get(
+        IdentityVerificationGetRequest(identity_verification_id="some example string")
+    )
     # TODO: Handle 'response' of type IdentityVerificationGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8555,7 +9089,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IdentityVerificationGetRequest](the_plaid_api/models/identity_verification_get_request.py) \| [IdentityVerificationGetRequestDict](the_plaid_api/models/identity_verification_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8602,7 +9136,7 @@ Filter and list Identity Verifications created by your account
 
 ```python
 try:
-    response = client.identity_verification_list(body)
+    response = client.identity_verification_list(IdentityVerificationListRequest(template_id="some example string"))
     # TODO: Handle 'response' of type IdentityVerificationListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8612,7 +9146,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.identity_verification_list(body)
+    response = await async_client.identity_verification_list(
+        IdentityVerificationListRequest(template_id="some example string")
+    )
     # TODO: Handle 'response' of type IdentityVerificationListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8629,7 +9165,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IdentityVerificationListRequest](the_plaid_api/models/identity_verification_list_request.py) \| [IdentityVerificationListRequestDict](the_plaid_api/models/identity_verification_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8676,7 +9212,11 @@ Allow a customer to retry their Identity Verification
 
 ```python
 try:
-    response = client.identity_verification_retry(body)
+    response = client.identity_verification_retry(
+        IdentityVerificationRetryRequest(
+            client_user_id="some example string", template_id="some example string", strategy=Strategy.RESET
+        ),
+    )
     # TODO: Handle 'response' of type IdentityVerificationRetryResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8686,7 +9226,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.identity_verification_retry(body)
+    response = await async_client.identity_verification_retry(
+        IdentityVerificationRetryRequest(
+            client_user_id="some example string", template_id="some example string", strategy=Strategy.RESET
+        ),
+    )
     # TODO: Handle 'response' of type IdentityVerificationRetryResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8703,7 +9247,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IdentityVerificationRetryRequest](the_plaid_api/models/identity_verification_retry_request.py) \| [IdentityVerificationRetryRequestDict](the_plaid_api/models/identity_verification_retry_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8750,7 +9294,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.income_verification_create(body)
+    response = client.income_verification_create(IncomeVerificationCreateRequest(webhook="some example string"))
     # TODO: Handle 'response' of type IncomeVerificationCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8760,7 +9304,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.income_verification_create(body)
+    response = await async_client.income_verification_create(
+        IncomeVerificationCreateRequest(webhook="some example string")
+    )
     # TODO: Handle 'response' of type IncomeVerificationCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8777,7 +9323,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IncomeVerificationCreateRequest](the_plaid_api/models/income_verification_create_request.py) \| [IncomeVerificationCreateRequestDict](the_plaid_api/models/income_verification_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8831,7 +9377,7 @@ The `request_id` is returned in the `Plaid-Request-ID` header.
 
 ```python
 try:
-    client.income_verification_documents_download(body)
+    client.income_verification_documents_download(IncomeVerificationDocumentsDownloadRequest())
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -8840,7 +9386,7 @@ except ApiError as e:
 
 ```python
 try:
-    await async_client.income_verification_documents_download(body)
+    await async_client.income_verification_documents_download(IncomeVerificationDocumentsDownloadRequest())
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -8856,7 +9402,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IncomeVerificationDocumentsDownloadRequest](the_plaid_api/models/income_verification_documents_download_request.py) \| [IncomeVerificationDocumentsDownloadRequestDict](the_plaid_api/models/income_verification_documents_download_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8905,7 +9451,7 @@ This endpoint has been deprecated; new integrations should use `/credit/payroll_
 
 ```python
 try:
-    response = client.income_verification_paystubs_get(body)
+    response = client.income_verification_paystubs_get(IncomeVerificationPaystubsGetRequest())
     # TODO: Handle 'response' of type IncomeVerificationPaystubsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8915,7 +9461,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.income_verification_paystubs_get(body)
+    response = await async_client.income_verification_paystubs_get(IncomeVerificationPaystubsGetRequest())
     # TODO: Handle 'response' of type IncomeVerificationPaystubsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8932,7 +9478,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IncomeVerificationPaystubsGetRequest](the_plaid_api/models/income_verification_paystubs_get_request.py) \| [IncomeVerificationPaystubsGetRequestDict](the_plaid_api/models/income_verification_paystubs_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8983,7 +9529,7 @@ This endpoint has been deprecated; new integrations should use `/credit/payroll_
 
 ```python
 try:
-    response = client.income_verification_precheck(body)
+    response = client.income_verification_precheck(IncomeVerificationPrecheckRequest())
     # TODO: Handle 'response' of type IncomeVerificationPrecheckResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8993,7 +9539,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.income_verification_precheck(body)
+    response = await async_client.income_verification_precheck(IncomeVerificationPrecheckRequest())
     # TODO: Handle 'response' of type IncomeVerificationPrecheckResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9010,7 +9556,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IncomeVerificationPrecheckRequest](the_plaid_api/models/income_verification_precheck_request.py) \| [IncomeVerificationPrecheckRequestDict](the_plaid_api/models/income_verification_precheck_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9059,7 +9605,7 @@ This endpoint has been deprecated; new integrations should use `/credit/payroll_
 
 ```python
 try:
-    response = client.income_verification_taxforms_get(body)
+    response = client.income_verification_taxforms_get(IncomeVerificationTaxformsGetRequest())
     # TODO: Handle 'response' of type IncomeVerificationTaxformsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9069,7 +9615,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.income_verification_taxforms_get(body)
+    response = await async_client.income_verification_taxforms_get(IncomeVerificationTaxformsGetRequest())
     # TODO: Handle 'response' of type IncomeVerificationTaxformsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9086,7 +9632,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IncomeVerificationTaxformsGetRequest](the_plaid_api/models/income_verification_taxforms_get_request.py) \| [IncomeVerificationTaxformsGetRequestDict](the_plaid_api/models/income_verification_taxforms_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9135,7 +9681,7 @@ If there is no overlap between an institution's enabled products and a client's 
 
 ```python
 try:
-    response = client.institutions_get(body)
+    response = client.institutions_get(InstitutionsGetRequest(count=1, offset=1, country_codes=[CountryCode.US]))
     # TODO: Handle 'response' of type InstitutionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9145,7 +9691,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.institutions_get(body)
+    response = await async_client.institutions_get(
+        InstitutionsGetRequest(count=1, offset=1, country_codes=[CountryCode.US])
+    )
     # TODO: Handle 'response' of type InstitutionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9162,7 +9710,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[InstitutionsGetRequest](the_plaid_api/models/institutions_get_request.py) \| [InstitutionsGetRequestDict](the_plaid_api/models/institutions_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9211,7 +9759,9 @@ Versioning note: API versions 2019-05-29 and earlier allow use of the `public_ke
 
 ```python
 try:
-    response = client.institutions_get_by_id(body)
+    response = client.institutions_get_by_id(
+        InstitutionsGetByIdRequest(institution_id="some example string", country_codes=[CountryCode.US])
+    )
     # TODO: Handle 'response' of type InstitutionsGetByIdResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9221,7 +9771,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.institutions_get_by_id(body)
+    response = await async_client.institutions_get_by_id(
+        InstitutionsGetByIdRequest(institution_id="some example string", country_codes=[CountryCode.US])
+    )
     # TODO: Handle 'response' of type InstitutionsGetByIdResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9238,7 +9790,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[InstitutionsGetByIdRequest](the_plaid_api/models/institutions_get_by_id_request.py) \| [InstitutionsGetByIdRequestDict](the_plaid_api/models/institutions_get_by_id_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9287,7 +9839,9 @@ Versioning note: API versions 2019-05-29 and earlier allow use of the `public_ke
 
 ```python
 try:
-    response = client.institutions_search(body)
+    response = client.institutions_search(
+        InstitutionsSearchRequest(query="some example string", country_codes=[CountryCode.US])
+    )
     # TODO: Handle 'response' of type InstitutionsSearchResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9297,7 +9851,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.institutions_search(body)
+    response = await async_client.institutions_search(
+        InstitutionsSearchRequest(query="some example string", country_codes=[CountryCode.US])
+    )
     # TODO: Handle 'response' of type InstitutionsSearchResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9314,7 +9870,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[InstitutionsSearchRequest](the_plaid_api/models/institutions_search_request.py) \| [InstitutionsSearchRequestDict](the_plaid_api/models/institutions_search_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9361,7 +9917,7 @@ The `/investments/auth/get` endpoint allows developers to receive user-authorize
 
 ```python
 try:
-    response = client.investments_auth_get(body)
+    response = client.investments_auth_get(InvestmentsAuthGetRequest(access_token="some example string"))
     # TODO: Handle 'response' of type InvestmentsAuthGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9371,7 +9927,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.investments_auth_get(body)
+    response = await async_client.investments_auth_get(InvestmentsAuthGetRequest(access_token="some example string"))
     # TODO: Handle 'response' of type InvestmentsAuthGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9388,7 +9944,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[InvestmentsAuthGetRequest](the_plaid_api/models/investments_auth_get_request.py) \| [InvestmentsAuthGetRequestDict](the_plaid_api/models/investments_auth_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9435,7 +9991,7 @@ The `/investments/holdings/get` endpoint allows developers to receive user-autho
 
 ```python
 try:
-    response = client.investments_holdings_get(body)
+    response = client.investments_holdings_get(InvestmentsHoldingsGetRequest(access_token="some example string"))
     # TODO: Handle 'response' of type InvestmentsHoldingsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9445,7 +10001,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.investments_holdings_get(body)
+    response = await async_client.investments_holdings_get(
+        InvestmentsHoldingsGetRequest(access_token="some example string")
+    )
     # TODO: Handle 'response' of type InvestmentsHoldingsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9462,7 +10020,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[InvestmentsHoldingsGetRequest](the_plaid_api/models/investments_holdings_get_request.py) \| [InvestmentsHoldingsGetRequestDict](the_plaid_api/models/investments_holdings_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9513,7 +10071,7 @@ As this endpoint triggers a synchronous request for fresh data, latency may be h
 
 ```python
 try:
-    response = client.investments_refresh(body)
+    response = client.investments_refresh(InvestmentsRefreshRequest(access_token="some example string"))
     # TODO: Handle 'response' of type InvestmentsRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9523,7 +10081,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.investments_refresh(body)
+    response = await async_client.investments_refresh(InvestmentsRefreshRequest(access_token="some example string"))
     # TODO: Handle 'response' of type InvestmentsRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9540,7 +10098,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[InvestmentsRefreshRequest](the_plaid_api/models/investments_refresh_request.py) \| [InvestmentsRefreshRequestDict](the_plaid_api/models/investments_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9595,7 +10153,11 @@ Data returned by the asynchronous investments extraction flow (when `async_updat
 
 ```python
 try:
-    response = client.investments_transactions_get(body)
+    response = client.investments_transactions_get(
+        InvestmentsTransactionsGetRequest(
+            access_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15)
+        ),
+    )
     # TODO: Handle 'response' of type InvestmentsTransactionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9605,7 +10167,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.investments_transactions_get(body)
+    response = await async_client.investments_transactions_get(
+        InvestmentsTransactionsGetRequest(
+            access_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15)
+        ),
+    )
     # TODO: Handle 'response' of type InvestmentsTransactionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9622,7 +10188,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[InvestmentsTransactionsGetRequest](the_plaid_api/models/investments_transactions_get_request.py) \| [InvestmentsTransactionsGetRequestDict](the_plaid_api/models/investments_transactions_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9669,7 +10235,7 @@ Retrieve detailed information about a specific `Issue`. This endpoint returns a 
 
 ```python
 try:
-    response = client.issues_get(body)
+    response = client.issues_get(IssuesGetRequest(issue_id="some example string"))
     # TODO: Handle 'response' of type IssuesGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9679,7 +10245,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.issues_get(body)
+    response = await async_client.issues_get(IssuesGetRequest(issue_id="some example string"))
     # TODO: Handle 'response' of type IssuesGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9696,7 +10262,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IssuesGetRequest](the_plaid_api/models/issues_get_request.py) \| [IssuesGetRequestDict](the_plaid_api/models/issues_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9743,7 +10309,7 @@ Search for an issue associated with one of the following identifiers:  `item_id`
 
 ```python
 try:
-    response = client.issues_search(body)
+    response = client.issues_search(IssuesSearchRequest())
     # TODO: Handle 'response' of type IssuesSearchResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9753,7 +10319,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.issues_search(body)
+    response = await async_client.issues_search(IssuesSearchRequest())
     # TODO: Handle 'response' of type IssuesSearchResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9770,7 +10336,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IssuesSearchRequest](the_plaid_api/models/issues_search_request.py) \| [IssuesSearchRequestDict](the_plaid_api/models/issues_search_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9817,7 +10383,9 @@ Allows a user to subscribe to updates on a specific `Issue` using a POST method.
 
 ```python
 try:
-    response = client.issues_subscribe(body)
+    response = client.issues_subscribe(
+        IssuesSubscribeRequest(issue_id="some example string", webhook="some example string")
+    )
     # TODO: Handle 'response' of type IssuesSubscribeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9827,7 +10395,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.issues_subscribe(body)
+    response = await async_client.issues_subscribe(
+        IssuesSubscribeRequest(issue_id="some example string", webhook="some example string")
+    )
     # TODO: Handle 'response' of type IssuesSubscribeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9844,7 +10414,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IssuesSubscribeRequest](the_plaid_api/models/issues_subscribe_request.py) \| [IssuesSubscribeRequestDict](the_plaid_api/models/issues_subscribe_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9893,7 +10463,7 @@ You can use the `/item/access_token/invalidate` endpoint to rotate the `access_t
 
 ```python
 try:
-    response = client.item_access_token_invalidate(body)
+    response = client.item_access_token_invalidate(ItemAccessTokenInvalidateRequest(access_token="some example string"))
     # TODO: Handle 'response' of type ItemAccessTokenInvalidateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9903,7 +10473,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.item_access_token_invalidate(body)
+    response = await async_client.item_access_token_invalidate(
+        ItemAccessTokenInvalidateRequest(access_token="some example string")
+    )
     # TODO: Handle 'response' of type ItemAccessTokenInvalidateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9920,7 +10492,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemAccessTokenInvalidateRequest](the_plaid_api/models/item_access_token_invalidate_request.py) \| [ItemAccessTokenInvalidateRequestDict](the_plaid_api/models/item_access_token_invalidate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9967,7 +10539,7 @@ List a historical log of user consent events
 
 ```python
 try:
-    response = client.item_activity_list(body)
+    response = client.item_activity_list(ItemActivityListRequest())
     # TODO: Handle 'response' of type ItemActivityListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9977,7 +10549,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.item_activity_list(body)
+    response = await async_client.item_activity_list(ItemActivityListRequest())
     # TODO: Handle 'response' of type ItemActivityListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -9994,7 +10566,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemActivityListRequest](the_plaid_api/models/item_activity_list_request.py) \| [ItemActivityListRequestDict](the_plaid_api/models/item_activity_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10041,7 +10613,7 @@ List a user's connected applications
 
 ```python
 try:
-    response = client.item_application_list(body)
+    response = client.item_application_list(ItemApplicationListRequest())
     # TODO: Handle 'response' of type ItemApplicationListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10051,7 +10623,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.item_application_list(body)
+    response = await async_client.item_application_list(ItemApplicationListRequest())
     # TODO: Handle 'response' of type ItemApplicationListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10068,7 +10640,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemApplicationListRequest](the_plaid_api/models/item_application_list_request.py) \| [ItemApplicationListRequestDict](the_plaid_api/models/item_application_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10115,7 +10687,14 @@ Enable consumers to update product access on selected accounts for an applicatio
 
 ```python
 try:
-    response = client.item_application_scopes_update(body)
+    response = client.item_application_scopes_update(
+        ItemApplicationScopesUpdateRequest(
+            access_token="some example string",
+            application_id="some example string",
+            scopes=Scopes(),
+            context=ScopesContext.ENROLLMENT,
+        ),
+    )
     # TODO: Handle 'response' of type ItemApplicationScopesUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10125,7 +10704,14 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.item_application_scopes_update(body)
+    response = await async_client.item_application_scopes_update(
+        ItemApplicationScopesUpdateRequest(
+            access_token="some example string",
+            application_id="some example string",
+            scopes=Scopes(),
+            context=ScopesContext.ENROLLMENT,
+        ),
+    )
     # TODO: Handle 'response' of type ItemApplicationScopesUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10142,7 +10728,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemApplicationScopesUpdateRequest](the_plaid_api/models/item_application_scopes_update_request.py) \| [ItemApplicationScopesUpdateRequestDict](the_plaid_api/models/item_application_scopes_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10193,7 +10779,9 @@ This endpoint should be called in real time as the User is unlinking an Applicat
 
 ```python
 try:
-    response = client.item_application_unlink(body)
+    response = client.item_application_unlink(
+        ItemApplicationUnlinkRequest(access_token="some example string", application_id="some example string")
+    )
     # TODO: Handle 'response' of type ItemApplicationUnlinkResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10203,7 +10791,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.item_application_unlink(body)
+    response = await async_client.item_application_unlink(
+        ItemApplicationUnlinkRequest(access_token="some example string", application_id="some example string")
+    )
     # TODO: Handle 'response' of type ItemApplicationUnlinkResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10220,7 +10810,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemApplicationUnlinkRequest](the_plaid_api/models/item_application_unlink_request.py) \| [ItemApplicationUnlinkRequestDict](the_plaid_api/models/item_application_unlink_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10273,7 +10863,7 @@ The `/item/public_token/create` endpoint is **not** used to create your initial 
 
 ```python
 try:
-    response = client.item_create_public_token(body)
+    response = client.item_create_public_token(ItemPublicTokenCreateRequest(access_token="some example string"))
     # TODO: Handle 'response' of type ItemPublicTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10283,7 +10873,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.item_create_public_token(body)
+    response = await async_client.item_create_public_token(
+        ItemPublicTokenCreateRequest(access_token="some example string")
+    )
     # TODO: Handle 'response' of type ItemPublicTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10300,7 +10892,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemPublicTokenCreateRequest](the_plaid_api/models/item_public_token_create_request.py) \| [ItemPublicTokenCreateRequestDict](the_plaid_api/models/item_public_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10347,7 +10939,7 @@ Returns information about the status of an Item.
 
 ```python
 try:
-    response = client.item_get(body)
+    response = client.item_get(ItemGetRequest(access_token="some example string"))
     # TODO: Handle 'response' of type ItemGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10357,7 +10949,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.item_get(body)
+    response = await async_client.item_get(ItemGetRequest(access_token="some example string"))
     # TODO: Handle 'response' of type ItemGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10374,7 +10966,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemGetRequest](the_plaid_api/models/item_get_request.py) \| [ItemGetRequestDict](the_plaid_api/models/item_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10423,7 +11015,12 @@ Upon creating an Item via `/item/import`, Plaid will automatically begin an extr
 
 ```python
 try:
-    response = client.item_import(body)
+    response = client.item_import(
+        ItemImportRequest(
+            products=[Products.ASSETS],
+            user_auth=ItemImportRequestUserAuth(user_id="some example string", auth_token="some example string"),
+        ),
+    )
     # TODO: Handle 'response' of type ItemImportResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10433,7 +11030,12 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.item_import(body)
+    response = await async_client.item_import(
+        ItemImportRequest(
+            products=[Products.ASSETS],
+            user_auth=ItemImportRequestUserAuth(user_id="some example string", auth_token="some example string"),
+        ),
+    )
     # TODO: Handle 'response' of type ItemImportResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10450,7 +11052,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemImportRequest](the_plaid_api/models/item_import_request.py) \| [ItemImportRequestDict](the_plaid_api/models/item_import_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10499,7 +11101,11 @@ The `/item/products/terminate` endpoint allows you to terminate an Item. Once te
 
 ```python
 try:
-    response = client.item_products_terminate(body)
+    response = client.item_products_terminate(
+        ItemProductsTerminateRequest(
+            access_token="some example string", reason_code=ProductsTerminateReasonCode.FRAUD_FIRST_PARTY
+        ),
+    )
     # TODO: Handle 'response' of type ItemProductsTerminateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10509,7 +11115,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.item_products_terminate(body)
+    response = await async_client.item_products_terminate(
+        ItemProductsTerminateRequest(
+            access_token="some example string", reason_code=ProductsTerminateReasonCode.FRAUD_FIRST_PARTY
+        ),
+    )
     # TODO: Handle 'response' of type ItemProductsTerminateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10526,7 +11136,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemProductsTerminateRequest](the_plaid_api/models/item_products_terminate_request.py) \| [ItemProductsTerminateRequestDict](the_plaid_api/models/item_products_terminate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10575,7 +11185,7 @@ The response also includes an `item_id` that should be stored with the `access_t
 
 ```python
 try:
-    response = client.item_public_token_exchange(body)
+    response = client.item_public_token_exchange(ItemPublicTokenExchangeRequest(public_token="some example string"))
     # TODO: Handle 'response' of type ItemPublicTokenExchangeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10585,7 +11195,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.item_public_token_exchange(body)
+    response = await async_client.item_public_token_exchange(
+        ItemPublicTokenExchangeRequest(public_token="some example string")
+    )
     # TODO: Handle 'response' of type ItemPublicTokenExchangeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10602,7 +11214,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemPublicTokenExchangeRequest](the_plaid_api/models/item_public_token_exchange_request.py) \| [ItemPublicTokenExchangeRequestDict](the_plaid_api/models/item_public_token_exchange_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10659,7 +11271,7 @@ API versions 2019-05-29 and earlier return a `removed` boolean as part of the re
 
 ```python
 try:
-    response = client.item_remove(body)
+    response = client.item_remove(ItemRemoveRequest(access_token="some example string"))
     # TODO: Handle 'response' of type ItemRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10669,7 +11281,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.item_remove(body)
+    response = await async_client.item_remove(ItemRemoveRequest(access_token="some example string"))
     # TODO: Handle 'response' of type ItemRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10686,7 +11298,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemRemoveRequest](the_plaid_api/models/item_remove_request.py) \| [ItemRemoveRequestDict](the_plaid_api/models/item_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10733,7 +11345,7 @@ The POST `/item/webhook/update` allows you to update the webhook URL associated 
 
 ```python
 try:
-    response = client.item_webhook_update(body)
+    response = client.item_webhook_update(ItemWebhookUpdateRequest(access_token="some example string"))
     # TODO: Handle 'response' of type ItemWebhookUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10743,7 +11355,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.item_webhook_update(body)
+    response = await async_client.item_webhook_update(ItemWebhookUpdateRequest(access_token="some example string"))
     # TODO: Handle 'response' of type ItemWebhookUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10760,7 +11372,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemWebhookUpdateRequest](the_plaid_api/models/item_webhook_update_request.py) \| [ItemWebhookUpdateRequestDict](the_plaid_api/models/item_webhook_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10809,7 +11421,7 @@ The types of information returned by Liabilities can include balances and due da
 
 ```python
 try:
-    response = client.liabilities_get(body)
+    response = client.liabilities_get(LiabilitiesGetRequest(access_token="some example string"))
     # TODO: Handle 'response' of type LiabilitiesGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10819,7 +11431,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.liabilities_get(body)
+    response = await async_client.liabilities_get(LiabilitiesGetRequest(access_token="some example string"))
     # TODO: Handle 'response' of type LiabilitiesGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10836,7 +11448,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[LiabilitiesGetRequest](the_plaid_api/models/liabilities_get_request.py) \| [LiabilitiesGetRequestDict](the_plaid_api/models/liabilities_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10883,7 +11495,7 @@ Use the `/link_delivery/create` endpoint to create a Hosted Link session.
 
 ```python
 try:
-    response = client.link_delivery_create(body)
+    response = client.link_delivery_create(LinkDeliveryCreateRequest(link_token="some example string"))
     # TODO: Handle 'response' of type LinkDeliveryCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10893,7 +11505,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.link_delivery_create(body)
+    response = await async_client.link_delivery_create(LinkDeliveryCreateRequest(link_token="some example string"))
     # TODO: Handle 'response' of type LinkDeliveryCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10910,7 +11522,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[LinkDeliveryCreateRequest](the_plaid_api/models/link_delivery_create_request.py) \| [LinkDeliveryCreateRequestDict](the_plaid_api/models/link_delivery_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10957,7 +11569,7 @@ Use the `/link_delivery/get` endpoint to get the status of a Hosted Link session
 
 ```python
 try:
-    response = client.link_delivery_get(body)
+    response = client.link_delivery_get(LinkDeliveryGetRequest(link_delivery_session_id="some example string"))
     # TODO: Handle 'response' of type LinkDeliveryGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10967,7 +11579,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.link_delivery_get(body)
+    response = await async_client.link_delivery_get(
+        LinkDeliveryGetRequest(link_delivery_session_id="some example string")
+    )
     # TODO: Handle 'response' of type LinkDeliveryGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -10984,7 +11598,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[LinkDeliveryGetRequest](the_plaid_api/models/link_delivery_get_request.py) \| [LinkDeliveryGetRequestDict](the_plaid_api/models/link_delivery_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11032,7 +11646,9 @@ The `link_correlation_id` is ephemeral and expires in a brief period, after whic
 
 ```python
 try:
-    response = client.link_oauth_correlation_id_exchange(body)
+    response = client.link_oauth_correlation_id_exchange(
+        LinkOauthCorrelationIdExchangeRequest(link_correlation_id="some example string")
+    )
     # TODO: Handle 'response' of type LinkOauthCorrelationIdExchangeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11042,7 +11658,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.link_oauth_correlation_id_exchange(body)
+    response = await async_client.link_oauth_correlation_id_exchange(
+        LinkOauthCorrelationIdExchangeRequest(link_correlation_id="some example string")
+    )
     # TODO: Handle 'response' of type LinkOauthCorrelationIdExchangeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11059,7 +11677,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[LinkOauthCorrelationIdExchangeRequest](the_plaid_api/models/link_oauth_correlation_id_exchange_request.py) \| [LinkOauthCorrelationIdExchangeRequestDict](the_plaid_api/models/link_oauth_correlation_id_exchange_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11108,7 +11726,11 @@ A `link_token` generated by `/link/token/create` is also used to initialize othe
 
 ```python
 try:
-    response = client.link_token_create(body)
+    response = client.link_token_create(
+        LinkTokenCreateRequest(
+            client_name="some example string", language="some example string", country_codes=[CountryCode.US]
+        ),
+    )
     # TODO: Handle 'response' of type LinkTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11118,7 +11740,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.link_token_create(body)
+    response = await async_client.link_token_create(
+        LinkTokenCreateRequest(
+            client_name="some example string", language="some example string", country_codes=[CountryCode.US]
+        ),
+    )
     # TODO: Handle 'response' of type LinkTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11135,7 +11761,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[LinkTokenCreateRequest](the_plaid_api/models/link_token_create_request.py) \| [LinkTokenCreateRequestDict](the_plaid_api/models/link_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11184,7 +11810,7 @@ By default, this endpoint will only return complete event data for Hosted Link s
 
 ```python
 try:
-    response = client.link_token_get(body)
+    response = client.link_token_get(LinkTokenGetRequest(link_token="some example string"))
     # TODO: Handle 'response' of type LinkTokenGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11194,7 +11820,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.link_token_get(body)
+    response = await async_client.link_token_get(LinkTokenGetRequest(link_token="some example string"))
     # TODO: Handle 'response' of type LinkTokenGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11211,7 +11837,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[LinkTokenGetRequest](the_plaid_api/models/link_token_get_request.py) \| [LinkTokenGetRequestDict](the_plaid_api/models/link_token_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11262,7 +11888,9 @@ For instructions on performing a frontend eligibility check, see the [Layer docu
 
 ```python
 try:
-    response = client.network_status_get(body)
+    response = client.network_status_get(
+        NetworkStatusGetRequest(user=NetworkStatusGetUser(phone_number="some example string"))
+    )
     # TODO: Handle 'response' of type NetworkStatusGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11272,7 +11900,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.network_status_get(body)
+    response = await async_client.network_status_get(
+        NetworkStatusGetRequest(user=NetworkStatusGetUser(phone_number="some example string"))
+    )
     # TODO: Handle 'response' of type NetworkStatusGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11289,7 +11919,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[NetworkStatusGetRequest](the_plaid_api/models/network_status_get_request.py) \| [NetworkStatusGetRequestDict](the_plaid_api/models/network_status_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11338,7 +11968,7 @@ Note: This endpoint supports `Content-Type: application/x-www-form-urlencoded` a
 
 ```python
 try:
-    response = client.oauth_introspect(body)
+    response = client.oauth_introspect(OauthIntrospectRequest(token="some example string"))
     # TODO: Handle 'response' of type OauthIntrospectResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11348,7 +11978,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.oauth_introspect(body)
+    response = await async_client.oauth_introspect(OauthIntrospectRequest(token="some example string"))
     # TODO: Handle 'response' of type OauthIntrospectResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11365,7 +11995,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[OauthIntrospectRequest](the_plaid_api/models/oauth_introspect_request.py) \| [OauthIntrospectRequestDict](the_plaid_api/models/oauth_introspect_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11414,7 +12044,7 @@ Note: This endpoint supports `Content-Type: application/x-www-form-urlencoded` a
 
 ```python
 try:
-    response = client.oauth_revoke(body)
+    response = client.oauth_revoke(OauthRevokeRequest(token="some example string"))
     # TODO: Handle 'response' of type OauthRevokeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11424,7 +12054,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.oauth_revoke(body)
+    response = await async_client.oauth_revoke(OauthRevokeRequest(token="some example string"))
     # TODO: Handle 'response' of type OauthRevokeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11441,7 +12071,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[OauthRevokeRequest](the_plaid_api/models/oauth_revoke_request.py) \| [OauthRevokeRequestDict](the_plaid_api/models/oauth_revoke_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11488,7 +12118,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.oauth_token(body)
+    response = client.oauth_token(OauthTokenRequest(grant_type=OauthGrantType.REFRESH_TOKEN))
     # TODO: Handle 'response' of type OauthTokenResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11498,7 +12128,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.oauth_token(body)
+    response = await async_client.oauth_token(OauthTokenRequest(grant_type=OauthGrantType.REFRESH_TOKEN))
     # TODO: Handle 'response' of type OauthTokenResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11515,7 +12145,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[OauthTokenRequest](the_plaid_api/models/oauth_token_request.py) \| [OauthTokenRequestDict](the_plaid_api/models/oauth_token_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11562,7 +12192,36 @@ The `/partner/customer/create` endpoint is used by reseller partners to create e
 
 ```python
 try:
-    response = client.partner_customer_create(body)
+    response = client.partner_customer_create(
+        PartnerCustomerCreateRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            company_name="Plaid",
+            is_diligence_attested=True,
+            products=[Products.AUTH, Products.IDENTITY],
+            create_link_customization=True,
+            legal_entity_name="Plaid",
+            website="plaid.com",
+            application_name="Plaid",
+            technical_contact=PartnerEndCustomerTechnicalContact(
+                given_name="Alice", family_name="Smith", email="alice.smith@example.com"
+            ),
+            billing_contact=PartnerEndCustomerBillingContact(
+                given_name="Bob", family_name="Jones", email="bob.jones@example.com"
+            ),
+            customer_support_info=PartnerEndCustomerCustomerSupportInfo(
+                email="support@example.com",
+                phone_number="1234567890",
+                contact_url="example.com/contact",
+                link_update_url="example.com/update",
+            ),
+            address=PartnerEndCustomerAddress(
+                city="New York", street="123 Main St", region="NY", postal_code="12345", country_code="US"
+            ),
+            is_bank_addendum_completed=True,
+            redirect_uris=["http://localhost/oauth.html", "https://www.example.com/oauth.html"],
+        ),
+    )
     # TODO: Handle 'response' of type PartnerCustomerCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11572,7 +12231,36 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.partner_customer_create(body)
+    response = await async_client.partner_customer_create(
+        PartnerCustomerCreateRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            company_name="Plaid",
+            is_diligence_attested=True,
+            products=[Products.AUTH, Products.IDENTITY],
+            create_link_customization=True,
+            legal_entity_name="Plaid",
+            website="plaid.com",
+            application_name="Plaid",
+            technical_contact=PartnerEndCustomerTechnicalContact(
+                given_name="Alice", family_name="Smith", email="alice.smith@example.com"
+            ),
+            billing_contact=PartnerEndCustomerBillingContact(
+                given_name="Bob", family_name="Jones", email="bob.jones@example.com"
+            ),
+            customer_support_info=PartnerEndCustomerCustomerSupportInfo(
+                email="support@example.com",
+                phone_number="1234567890",
+                contact_url="example.com/contact",
+                link_update_url="example.com/update",
+            ),
+            address=PartnerEndCustomerAddress(
+                city="New York", street="123 Main St", region="NY", postal_code="12345", country_code="US"
+            ),
+            is_bank_addendum_completed=True,
+            redirect_uris=["http://localhost/oauth.html", "https://www.example.com/oauth.html"],
+        ),
+    )
     # TODO: Handle 'response' of type PartnerCustomerCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11589,7 +12277,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PartnerCustomerCreateRequest](the_plaid_api/models/partner_customer_create_request.py) \| [PartnerCustomerCreateRequestDict](the_plaid_api/models/partner_customer_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11636,7 +12324,13 @@ The `/partner/customer/enable` endpoint is used by reseller partners to enable a
 
 ```python
 try:
-    response = client.partner_customer_enable(body)
+    response = client.partner_customer_enable(
+        PartnerCustomerEnableRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            end_customer_client_id="7f57eb3d2a9j6480121fx361",
+        ),
+    )
     # TODO: Handle 'response' of type PartnerCustomerEnableResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11646,7 +12340,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.partner_customer_enable(body)
+    response = await async_client.partner_customer_enable(
+        PartnerCustomerEnableRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            end_customer_client_id="7f57eb3d2a9j6480121fx361",
+        ),
+    )
     # TODO: Handle 'response' of type PartnerCustomerEnableResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11663,7 +12363,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PartnerCustomerEnableRequest](the_plaid_api/models/partner_customer_enable_request.py) \| [PartnerCustomerEnableRequestDict](the_plaid_api/models/partner_customer_enable_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11710,7 +12410,13 @@ The `/partner/customer/get` endpoint is used by reseller partners to retrieve da
 
 ```python
 try:
-    response = client.partner_customer_get(body)
+    response = client.partner_customer_get(
+        PartnerCustomerGetRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            end_customer_client_id="7f57eb3d2a9j6480121fx361",
+        ),
+    )
     # TODO: Handle 'response' of type PartnerCustomerGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11720,7 +12426,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.partner_customer_get(body)
+    response = await async_client.partner_customer_get(
+        PartnerCustomerGetRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            end_customer_client_id="7f57eb3d2a9j6480121fx361",
+        ),
+    )
     # TODO: Handle 'response' of type PartnerCustomerGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11737,7 +12449,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PartnerCustomerGetRequest](the_plaid_api/models/partner_customer_get_request.py) \| [PartnerCustomerGetRequestDict](the_plaid_api/models/partner_customer_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11784,7 +12496,13 @@ The `/partner/customer/oauth_institutions/get` endpoint is used by reseller part
 
 ```python
 try:
-    response = client.partner_customer_oauth_institutions_get(body)
+    response = client.partner_customer_oauth_institutions_get(
+        PartnerCustomerOauthInstitutionsGetRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            end_customer_client_id="7f57eb3d2a9j6480121fx361",
+        ),
+    )
     # TODO: Handle 'response' of type PartnerCustomerOauthInstitutionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11794,7 +12512,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.partner_customer_oauth_institutions_get(body)
+    response = await async_client.partner_customer_oauth_institutions_get(
+        PartnerCustomerOauthInstitutionsGetRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            end_customer_client_id="7f57eb3d2a9j6480121fx361",
+        ),
+    )
     # TODO: Handle 'response' of type PartnerCustomerOauthInstitutionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11811,7 +12535,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PartnerCustomerOauthInstitutionsGetRequest](the_plaid_api/models/partner_customer_oauth_institutions_get_request.py) \| [PartnerCustomerOauthInstitutionsGetRequestDict](the_plaid_api/models/partner_customer_oauth_institutions_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11858,7 +12582,13 @@ The `/partner/customer/remove` endpoint is used by reseller partners to remove a
 
 ```python
 try:
-    response = client.partner_customer_remove(body)
+    response = client.partner_customer_remove(
+        PartnerCustomerRemoveRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            end_customer_client_id="7f57eb3d2a9j6480121fx361",
+        ),
+    )
     # TODO: Handle 'response' of type PartnerCustomerRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11868,7 +12598,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.partner_customer_remove(body)
+    response = await async_client.partner_customer_remove(
+        PartnerCustomerRemoveRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            end_customer_client_id="7f57eb3d2a9j6480121fx361",
+        ),
+    )
     # TODO: Handle 'response' of type PartnerCustomerRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11885,7 +12621,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PartnerCustomerRemoveRequest](the_plaid_api/models/partner_customer_remove_request.py) \| [PartnerCustomerRemoveRequestDict](the_plaid_api/models/partner_customer_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11934,7 +12670,22 @@ Consents can be limited in time and scope, and have constraints that describe li
 
 ```python
 try:
-    response = client.payment_initiation_consent_create(body)
+    response = client.payment_initiation_consent_create(
+        PaymentInitiationConsentCreateRequest(
+            recipient_id="some example string",
+            reference="some example string",
+            constraints=PaymentInitiationConsentConstraints(
+                max_payment_amount=PaymentAmount(currency=PaymentAmountCurrency.GBP, value=1.5),
+                periodic_amounts=[
+                    PaymentConsentPeriodicAmount(
+                        amount=PaymentAmount(),
+                        interval=PaymentConsentPeriodicInterval.DAY,
+                        alignment=PaymentConsentPeriodicAlignment.CALENDAR,
+                    ),
+                ],
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type PaymentInitiationConsentCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11944,7 +12695,22 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.payment_initiation_consent_create(body)
+    response = await async_client.payment_initiation_consent_create(
+        PaymentInitiationConsentCreateRequest(
+            recipient_id="some example string",
+            reference="some example string",
+            constraints=PaymentInitiationConsentConstraints(
+                max_payment_amount=PaymentAmount(currency=PaymentAmountCurrency.GBP, value=1.5),
+                periodic_amounts=[
+                    PaymentConsentPeriodicAmount(
+                        amount=PaymentAmount(),
+                        interval=PaymentConsentPeriodicInterval.DAY,
+                        alignment=PaymentConsentPeriodicAlignment.CALENDAR,
+                    ),
+                ],
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type PaymentInitiationConsentCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -11961,7 +12727,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationConsentCreateRequest](the_plaid_api/models/payment_initiation_consent_create_request.py) \| [PaymentInitiationConsentCreateRequestDict](the_plaid_api/models/payment_initiation_consent_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12008,7 +12774,9 @@ The `/payment_initiation/consent/get` endpoint can be used to check the status o
 
 ```python
 try:
-    response = client.payment_initiation_consent_get(body)
+    response = client.payment_initiation_consent_get(
+        PaymentInitiationConsentGetRequest(consent_id="some example string")
+    )
     # TODO: Handle 'response' of type PaymentInitiationConsentGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12018,7 +12786,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.payment_initiation_consent_get(body)
+    response = await async_client.payment_initiation_consent_get(
+        PaymentInitiationConsentGetRequest(consent_id="some example string")
+    )
     # TODO: Handle 'response' of type PaymentInitiationConsentGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12035,7 +12805,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationConsentGetRequest](the_plaid_api/models/payment_initiation_consent_get_request.py) \| [PaymentInitiationConsentGetRequestDict](the_plaid_api/models/payment_initiation_consent_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12082,7 +12852,13 @@ The `/payment_initiation/consent/payment/execute` endpoint can be used to execut
 
 ```python
 try:
-    response = client.payment_initiation_consent_payment_execute(body)
+    response = client.payment_initiation_consent_payment_execute(
+        PaymentInitiationConsentPaymentExecuteRequest(
+            consent_id="some example string",
+            amount=PaymentAmount(currency=PaymentAmountCurrency.GBP, value=1.5),
+            idempotency_key="some example string",
+        ),
+    )
     # TODO: Handle 'response' of type PaymentInitiationConsentPaymentExecuteResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12092,7 +12868,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.payment_initiation_consent_payment_execute(body)
+    response = await async_client.payment_initiation_consent_payment_execute(
+        PaymentInitiationConsentPaymentExecuteRequest(
+            consent_id="some example string",
+            amount=PaymentAmount(currency=PaymentAmountCurrency.GBP, value=1.5),
+            idempotency_key="some example string",
+        ),
+    )
     # TODO: Handle 'response' of type PaymentInitiationConsentPaymentExecuteResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12109,7 +12891,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationConsentPaymentExecuteRequest](the_plaid_api/models/payment_initiation_consent_payment_execute_request.py) \| [PaymentInitiationConsentPaymentExecuteRequestDict](the_plaid_api/models/payment_initiation_consent_payment_execute_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12156,7 +12938,9 @@ The `/payment_initiation/consent/revoke` endpoint can be used to revoke the paym
 
 ```python
 try:
-    response = client.payment_initiation_consent_revoke(body)
+    response = client.payment_initiation_consent_revoke(
+        PaymentInitiationConsentRevokeRequest(consent_id="some example string")
+    )
     # TODO: Handle 'response' of type PaymentInitiationConsentRevokeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12166,7 +12950,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.payment_initiation_consent_revoke(body)
+    response = await async_client.payment_initiation_consent_revoke(
+        PaymentInitiationConsentRevokeRequest(consent_id="some example string")
+    )
     # TODO: Handle 'response' of type PaymentInitiationConsentRevokeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12183,7 +12969,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationConsentRevokeRequest](the_plaid_api/models/payment_initiation_consent_revoke_request.py) \| [PaymentInitiationConsentRevokeRequestDict](the_plaid_api/models/payment_initiation_consent_revoke_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12232,7 +13018,13 @@ Standing orders (recurring payments) must be denominated in GBP and can only be 
 
 ```python
 try:
-    response = client.payment_initiation_payment_create(body)
+    response = client.payment_initiation_payment_create(
+        PaymentInitiationPaymentCreateRequest(
+            recipient_id="some example string",
+            reference="some example string",
+            amount=PaymentAmount(currency=PaymentAmountCurrency.GBP, value=1.5),
+        ),
+    )
     # TODO: Handle 'response' of type PaymentInitiationPaymentCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12242,7 +13034,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.payment_initiation_payment_create(body)
+    response = await async_client.payment_initiation_payment_create(
+        PaymentInitiationPaymentCreateRequest(
+            recipient_id="some example string",
+            reference="some example string",
+            amount=PaymentAmount(currency=PaymentAmountCurrency.GBP, value=1.5),
+        ),
+    )
     # TODO: Handle 'response' of type PaymentInitiationPaymentCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12259,7 +13057,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationPaymentCreateRequest](the_plaid_api/models/payment_initiation_payment_create_request.py) \| [PaymentInitiationPaymentCreateRequestDict](the_plaid_api/models/payment_initiation_payment_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12308,7 +13106,9 @@ Polling for status updates in Production is highly discouraged. Repeatedly calli
 
 ```python
 try:
-    response = client.payment_initiation_payment_get(body)
+    response = client.payment_initiation_payment_get(
+        PaymentInitiationPaymentGetRequest(payment_id="some example string")
+    )
     # TODO: Handle 'response' of type PaymentInitiationPaymentGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12318,7 +13118,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.payment_initiation_payment_get(body)
+    response = await async_client.payment_initiation_payment_get(
+        PaymentInitiationPaymentGetRequest(payment_id="some example string")
+    )
     # TODO: Handle 'response' of type PaymentInitiationPaymentGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12335,7 +13137,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationPaymentGetRequest](the_plaid_api/models/payment_initiation_payment_get_request.py) \| [PaymentInitiationPaymentGetRequestDict](the_plaid_api/models/payment_initiation_payment_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12382,7 +13184,7 @@ The `/payment_initiation/payment/list` endpoint can be used to retrieve all crea
 
 ```python
 try:
-    response = client.payment_initiation_payment_list(body)
+    response = client.payment_initiation_payment_list(PaymentInitiationPaymentListRequest())
     # TODO: Handle 'response' of type PaymentInitiationPaymentListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12392,7 +13194,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.payment_initiation_payment_list(body)
+    response = await async_client.payment_initiation_payment_list(PaymentInitiationPaymentListRequest())
     # TODO: Handle 'response' of type PaymentInitiationPaymentListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12409,7 +13211,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationPaymentListRequest](the_plaid_api/models/payment_initiation_payment_list_request.py) \| [PaymentInitiationPaymentListRequestDict](the_plaid_api/models/payment_initiation_payment_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12468,7 +13270,11 @@ the likelihood of refund being successful without human intervention.
 
 ```python
 try:
-    response = client.payment_initiation_payment_reverse(body)
+    response = client.payment_initiation_payment_reverse(
+        PaymentInitiationPaymentReverseRequest(
+            payment_id="some example string", idempotency_key="some example string", reference="some example string"
+        ),
+    )
     # TODO: Handle 'response' of type PaymentInitiationPaymentReverseResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12478,7 +13284,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.payment_initiation_payment_reverse(body)
+    response = await async_client.payment_initiation_payment_reverse(
+        PaymentInitiationPaymentReverseRequest(
+            payment_id="some example string", idempotency_key="some example string", reference="some example string"
+        ),
+    )
     # TODO: Handle 'response' of type PaymentInitiationPaymentReverseResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12495,7 +13305,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationPaymentReverseRequest](the_plaid_api/models/payment_initiation_payment_reverse_request.py) \| [PaymentInitiationPaymentReverseRequestDict](the_plaid_api/models/payment_initiation_payment_reverse_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12546,7 +13356,9 @@ The endpoint is idempotent: if a developer has already made a request with the s
 
 ```python
 try:
-    response = client.payment_initiation_recipient_create(body)
+    response = client.payment_initiation_recipient_create(
+        PaymentInitiationRecipientCreateRequest(name="some example string")
+    )
     # TODO: Handle 'response' of type PaymentInitiationRecipientCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12556,7 +13368,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.payment_initiation_recipient_create(body)
+    response = await async_client.payment_initiation_recipient_create(
+        PaymentInitiationRecipientCreateRequest(name="some example string")
+    )
     # TODO: Handle 'response' of type PaymentInitiationRecipientCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12573,7 +13387,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationRecipientCreateRequest](the_plaid_api/models/payment_initiation_recipient_create_request.py) \| [PaymentInitiationRecipientCreateRequestDict](the_plaid_api/models/payment_initiation_recipient_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12620,7 +13434,9 @@ Get details about a payment recipient you have previously created.
 
 ```python
 try:
-    response = client.payment_initiation_recipient_get(body)
+    response = client.payment_initiation_recipient_get(
+        PaymentInitiationRecipientGetRequest(recipient_id="some example string")
+    )
     # TODO: Handle 'response' of type PaymentInitiationRecipientGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12630,7 +13446,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.payment_initiation_recipient_get(body)
+    response = await async_client.payment_initiation_recipient_get(
+        PaymentInitiationRecipientGetRequest(recipient_id="some example string")
+    )
     # TODO: Handle 'response' of type PaymentInitiationRecipientGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12647,7 +13465,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationRecipientGetRequest](the_plaid_api/models/payment_initiation_recipient_get_request.py) \| [PaymentInitiationRecipientGetRequestDict](the_plaid_api/models/payment_initiation_recipient_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12694,7 +13512,7 @@ The `/payment_initiation/recipient/list` endpoint lists the payment recipients t
 
 ```python
 try:
-    response = client.payment_initiation_recipient_list(body)
+    response = client.payment_initiation_recipient_list(PaymentInitiationRecipientListRequest())
     # TODO: Handle 'response' of type PaymentInitiationRecipientListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12704,7 +13522,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.payment_initiation_recipient_list(body)
+    response = await async_client.payment_initiation_recipient_list(PaymentInitiationRecipientListRequest())
     # TODO: Handle 'response' of type PaymentInitiationRecipientListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12721,7 +13539,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationRecipientListRequest](the_plaid_api/models/payment_initiation_recipient_list_request.py) \| [PaymentInitiationRecipientListRequestDict](the_plaid_api/models/payment_initiation_recipient_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12770,7 +13588,7 @@ You can then use the `payment_profile_token` when creating transfers using `/tra
 
 ```python
 try:
-    response = client.payment_profile_create(body)
+    response = client.payment_profile_create(PaymentProfileCreateRequest())
     # TODO: Handle 'response' of type PaymentProfileCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12780,7 +13598,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.payment_profile_create(body)
+    response = await async_client.payment_profile_create(PaymentProfileCreateRequest())
     # TODO: Handle 'response' of type PaymentProfileCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12797,7 +13615,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentProfileCreateRequest](the_plaid_api/models/payment_profile_create_request.py) \| [PaymentProfileCreateRequestDict](the_plaid_api/models/payment_profile_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12844,7 +13662,7 @@ Use `/payment_profile/get` endpoint to get the status of a given Payment Profile
 
 ```python
 try:
-    response = client.payment_profile_get(body)
+    response = client.payment_profile_get(PaymentProfileGetRequest(payment_profile_token="some example string"))
     # TODO: Handle 'response' of type PaymentProfileGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12854,7 +13672,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.payment_profile_get(body)
+    response = await async_client.payment_profile_get(
+        PaymentProfileGetRequest(payment_profile_token="some example string")
+    )
     # TODO: Handle 'response' of type PaymentProfileGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12871,7 +13691,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentProfileGetRequest](the_plaid_api/models/payment_profile_get_request.py) \| [PaymentProfileGetRequestDict](the_plaid_api/models/payment_profile_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12918,7 +13738,7 @@ Use the `/payment_profile/remove` endpoint to remove a given Payment Profile. On
 
 ```python
 try:
-    response = client.payment_profile_remove(body)
+    response = client.payment_profile_remove(PaymentProfileRemoveRequest(payment_profile_token="some example string"))
     # TODO: Handle 'response' of type PaymentProfileRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12928,7 +13748,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.payment_profile_remove(body)
+    response = await async_client.payment_profile_remove(
+        PaymentProfileRemoveRequest(payment_profile_token="some example string")
+    )
     # TODO: Handle 'response' of type PaymentProfileRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -12945,7 +13767,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentProfileRemoveRequest](the_plaid_api/models/payment_profile_remove_request.py) \| [PaymentProfileRemoveRequestDict](the_plaid_api/models/payment_profile_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12994,7 +13816,7 @@ This endpoint retrieves cached information, rather than extracting fresh informa
 
 ```python
 try:
-    response = client.processor_account_get(body)
+    response = client.processor_account_get(ProcessorAccountGetRequest(processor_token="some example string"))
     # TODO: Handle 'response' of type ProcessorAccountGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13004,7 +13826,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_account_get(body)
+    response = await async_client.processor_account_get(
+        ProcessorAccountGetRequest(processor_token="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorAccountGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13021,7 +13845,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorAccountGetRequest](the_plaid_api/models/processor_account_get_request.py) \| [ProcessorAccountGetRequestDict](the_plaid_api/models/processor_account_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13068,7 +13892,9 @@ Used to create a token suitable for sending to Apex to enable Plaid-Apex integra
 
 ```python
 try:
-    response = client.processor_apex_processor_token_create(body)
+    response = client.processor_apex_processor_token_create(
+        ProcessorApexProcessorTokenCreateRequest(access_token="some example string", account_id="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13078,7 +13904,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_apex_processor_token_create(body)
+    response = await async_client.processor_apex_processor_token_create(
+        ProcessorApexProcessorTokenCreateRequest(access_token="some example string", account_id="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13095,7 +13923,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorApexProcessorTokenCreateRequest](the_plaid_api/models/processor_apex_processor_token_create_request.py) \| [ProcessorApexProcessorTokenCreateRequestDict](the_plaid_api/models/processor_apex_processor_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13144,7 +13972,7 @@ Versioning note: API versions 2019-05-29 and earlier use a different schema for 
 
 ```python
 try:
-    response = client.processor_auth_get(body)
+    response = client.processor_auth_get(ProcessorAuthGetRequest(processor_token="some example string"))
     # TODO: Handle 'response' of type ProcessorAuthGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13154,7 +13982,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_auth_get(body)
+    response = await async_client.processor_auth_get(ProcessorAuthGetRequest(processor_token="some example string"))
     # TODO: Handle 'response' of type ProcessorAuthGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13171,7 +13999,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorAuthGetRequest](the_plaid_api/models/processor_auth_get_request.py) \| [ProcessorAuthGetRequestDict](the_plaid_api/models/processor_auth_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13218,7 +14046,7 @@ The `/processor/balance/get` endpoint returns the real-time balance for each of 
 
 ```python
 try:
-    response = client.processor_balance_get(body)
+    response = client.processor_balance_get(ProcessorBalanceGetRequest(processor_token="some example string"))
     # TODO: Handle 'response' of type ProcessorBalanceGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13228,7 +14056,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_balance_get(body)
+    response = await async_client.processor_balance_get(
+        ProcessorBalanceGetRequest(processor_token="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorBalanceGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13245,7 +14075,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorBalanceGetRequest](the_plaid_api/models/processor_balance_get_request.py) \| [ProcessorBalanceGetRequestDict](the_plaid_api/models/processor_balance_get_request.py)</code> | The `/processor/balance/get` endpoint returns the real-time balance for the account associated with a given `processor_token`.<br><br>The current balance is the total amount of funds in the account. The available balance is the current balance less any outstanding holds or debits that have not yet posted to the account.<br><br>Note that not all institutions calculate the available balance. In the event that available balance is unavailable from the institution, Plaid will return an available balance value of `null`. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13292,7 +14122,18 @@ Use the `/processor/bank_transfer/create` endpoint to initiate a new bank transf
 
 ```python
 try:
-    response = client.processor_bank_transfer_create(body)
+    response = client.processor_bank_transfer_create(
+        ProcessorBankTransferCreateRequest(
+            idempotency_key="some example string",
+            processor_token="some example string",
+            type_=BankTransferType.DEBIT,
+            network=BankTransferNetwork.ACH,
+            amount="some example string",
+            iso_currency_code="some example string",
+            description="some example string",
+            user=BankTransferUser(legal_name="some example string"),
+        ),
+    )
     # TODO: Handle 'response' of type ProcessorBankTransferCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13302,7 +14143,18 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_bank_transfer_create(body)
+    response = await async_client.processor_bank_transfer_create(
+        ProcessorBankTransferCreateRequest(
+            idempotency_key="some example string",
+            processor_token="some example string",
+            type_=BankTransferType.DEBIT,
+            network=BankTransferNetwork.ACH,
+            amount="some example string",
+            iso_currency_code="some example string",
+            description="some example string",
+            user=BankTransferUser(legal_name="some example string"),
+        ),
+    )
     # TODO: Handle 'response' of type ProcessorBankTransferCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13319,7 +14171,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorBankTransferCreateRequest](the_plaid_api/models/processor_bank_transfer_create_request.py) \| [ProcessorBankTransferCreateRequestDict](the_plaid_api/models/processor_bank_transfer_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13366,7 +14218,7 @@ The `/processor/identity/get` endpoint allows you to retrieve various account ho
 
 ```python
 try:
-    response = client.processor_identity_get(body)
+    response = client.processor_identity_get(ProcessorIdentityGetRequest(processor_token="some example string"))
     # TODO: Handle 'response' of type ProcessorIdentityGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13376,7 +14228,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_identity_get(body)
+    response = await async_client.processor_identity_get(
+        ProcessorIdentityGetRequest(processor_token="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorIdentityGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13393,7 +14247,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorIdentityGetRequest](the_plaid_api/models/processor_identity_get_request.py) \| [ProcessorIdentityGetRequestDict](the_plaid_api/models/processor_identity_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13442,7 +14296,7 @@ Fields within the `balances` object will always be null when retrieved by `/proc
 
 ```python
 try:
-    response = client.processor_identity_match(body)
+    response = client.processor_identity_match(ProcessorIdentityMatchRequest(processor_token="some example string"))
     # TODO: Handle 'response' of type ProcessorIdentityMatchResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13452,7 +14306,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_identity_match(body)
+    response = await async_client.processor_identity_match(
+        ProcessorIdentityMatchRequest(processor_token="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorIdentityMatchResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13469,7 +14325,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorIdentityMatchRequest](the_plaid_api/models/processor_identity_match_request.py) \| [ProcessorIdentityMatchRequestDict](the_plaid_api/models/processor_identity_match_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13519,7 +14375,9 @@ To receive Investments Auth webhooks for a processor token, set its webhook URL 
 
 ```python
 try:
-    response = client.processor_investments_auth_get(body)
+    response = client.processor_investments_auth_get(
+        ProcessorInvestmentsAuthGetRequest(processor_token="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorInvestmentsAuthGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13529,7 +14387,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_investments_auth_get(body)
+    response = await async_client.processor_investments_auth_get(
+        ProcessorInvestmentsAuthGetRequest(processor_token="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorInvestmentsAuthGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13546,7 +14406,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorInvestmentsAuthGetRequest](the_plaid_api/models/processor_investments_auth_get_request.py) \| [ProcessorInvestmentsAuthGetRequestDict](the_plaid_api/models/processor_investments_auth_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13593,7 +14453,9 @@ This endpoint returns the stock position data of the account associated with a g
 
 ```python
 try:
-    response = client.processor_investments_holdings_get(body)
+    response = client.processor_investments_holdings_get(
+        ProcessorInvestmentsHoldingsGetRequest(processor_token="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorInvestmentsHoldingsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13603,7 +14465,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_investments_holdings_get(body)
+    response = await async_client.processor_investments_holdings_get(
+        ProcessorInvestmentsHoldingsGetRequest(processor_token="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorInvestmentsHoldingsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13620,7 +14484,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorInvestmentsHoldingsGetRequest](the_plaid_api/models/processor_investments_holdings_get_request.py) \| [ProcessorInvestmentsHoldingsGetRequestDict](the_plaid_api/models/processor_investments_holdings_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13677,7 +14541,11 @@ To receive Investments Transactions webhooks for a processor token, set its webh
 
 ```python
 try:
-    response = client.processor_investments_transactions_get(body)
+    response = client.processor_investments_transactions_get(
+        ProcessorInvestmentsTransactionsGetRequest(
+            processor_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15)
+        ),
+    )
     # TODO: Handle 'response' of type ProcessorInvestmentsTransactionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13687,7 +14555,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_investments_transactions_get(body)
+    response = await async_client.processor_investments_transactions_get(
+        ProcessorInvestmentsTransactionsGetRequest(
+            processor_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15)
+        ),
+    )
     # TODO: Handle 'response' of type ProcessorInvestmentsTransactionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13704,7 +14576,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorInvestmentsTransactionsGetRequest](the_plaid_api/models/processor_investments_transactions_get_request.py) \| [ProcessorInvestmentsTransactionsGetRequestDict](the_plaid_api/models/processor_investments_transactions_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13755,7 +14627,7 @@ Note: This request may take some time to complete if `liabilities` was not speci
 
 ```python
 try:
-    response = client.processor_liabilities_get(body)
+    response = client.processor_liabilities_get(ProcessorLiabilitiesGetRequest(processor_token="some example string"))
     # TODO: Handle 'response' of type ProcessorLiabilitiesGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13765,7 +14637,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_liabilities_get(body)
+    response = await async_client.processor_liabilities_get(
+        ProcessorLiabilitiesGetRequest(processor_token="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorLiabilitiesGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13782,7 +14656,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorLiabilitiesGetRequest](the_plaid_api/models/processor_liabilities_get_request.py) \| [ProcessorLiabilitiesGetRequestDict](the_plaid_api/models/processor_liabilities_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13833,7 +14707,11 @@ If using a Balance-only ruleset, this endpoint will not impact scores (Balance d
 
 ```python
 try:
-    response = client.processor_signal_decision_report(body)
+    response = client.processor_signal_decision_report(
+        ProcessorSignalDecisionReportRequest(
+            processor_token="some example string", client_transaction_id="some example string", initiated=True
+        ),
+    )
     # TODO: Handle 'response' of type ProcessorSignalDecisionReportResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13843,7 +14721,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_signal_decision_report(body)
+    response = await async_client.processor_signal_decision_report(
+        ProcessorSignalDecisionReportRequest(
+            processor_token="some example string", client_transaction_id="some example string", initiated=True
+        ),
+    )
     # TODO: Handle 'response' of type ProcessorSignalDecisionReportResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13860,7 +14742,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorSignalDecisionReportRequest](the_plaid_api/models/processor_signal_decision_report_request.py) \| [ProcessorSignalDecisionReportRequestDict](the_plaid_api/models/processor_signal_decision_report_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13911,7 +14793,11 @@ Note: This request may have higher latency if Signal Transaction Scores is being
 
 ```python
 try:
-    response = client.processor_signal_evaluate(body)
+    response = client.processor_signal_evaluate(
+        ProcessorSignalEvaluateRequest(
+            processor_token="some example string", client_transaction_id="some example string", amount=1.5
+        ),
+    )
     # TODO: Handle 'response' of type ProcessorSignalEvaluateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13921,7 +14807,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_signal_evaluate(body)
+    response = await async_client.processor_signal_evaluate(
+        ProcessorSignalEvaluateRequest(
+            processor_token="some example string", client_transaction_id="some example string", amount=1.5
+        ),
+    )
     # TODO: Handle 'response' of type ProcessorSignalEvaluateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13938,7 +14828,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorSignalEvaluateRequest](the_plaid_api/models/processor_signal_evaluate_request.py) \| [ProcessorSignalEvaluateRequestDict](the_plaid_api/models/processor_signal_evaluate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13987,7 +14877,7 @@ If this endpoint is called with a processor token that is already initialized wi
 
 ```python
 try:
-    response = client.processor_signal_prepare(body)
+    response = client.processor_signal_prepare(ProcessorSignalPrepareRequest(processor_token="some example string"))
     # TODO: Handle 'response' of type ProcessorSignalPrepareResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -13997,7 +14887,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_signal_prepare(body)
+    response = await async_client.processor_signal_prepare(
+        ProcessorSignalPrepareRequest(processor_token="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorSignalPrepareResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14014,7 +14906,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorSignalPrepareRequest](the_plaid_api/models/processor_signal_prepare_request.py) \| [ProcessorSignalPrepareRequestDict](the_plaid_api/models/processor_signal_prepare_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14063,7 +14955,13 @@ If you are using the [Plaid Transfer product](https://plaid.com/docs/transfer) t
 
 ```python
 try:
-    response = client.processor_signal_return_report(body)
+    response = client.processor_signal_return_report(
+        ProcessorSignalReturnReportRequest(
+            processor_token="some example string",
+            client_transaction_id="some example string",
+            return_code="some example string",
+        ),
+    )
     # TODO: Handle 'response' of type ProcessorSignalReturnReportResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14073,7 +14971,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_signal_return_report(body)
+    response = await async_client.processor_signal_return_report(
+        ProcessorSignalReturnReportRequest(
+            processor_token="some example string",
+            client_transaction_id="some example string",
+            return_code="some example string",
+        ),
+    )
     # TODO: Handle 'response' of type ProcessorSignalReturnReportResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14090,7 +14994,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorSignalReturnReportRequest](the_plaid_api/models/processor_signal_return_report_request.py) \| [ProcessorSignalReturnReportRequestDict](the_plaid_api/models/processor_signal_return_report_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14141,7 +15045,11 @@ To revoke a bank account token, the entire underlying access token must be revok
 
 ```python
 try:
-    response = client.processor_stripe_bank_account_token_create(body)
+    response = client.processor_stripe_bank_account_token_create(
+        ProcessorStripeBankAccountTokenCreateRequest(
+            access_token="some example string", account_id="some example string"
+        ),
+    )
     # TODO: Handle 'response' of type ProcessorStripeBankAccountTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14151,7 +15059,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_stripe_bank_account_token_create(body)
+    response = await async_client.processor_stripe_bank_account_token_create(
+        ProcessorStripeBankAccountTokenCreateRequest(
+            access_token="some example string", account_id="some example string"
+        ),
+    )
     # TODO: Handle 'response' of type ProcessorStripeBankAccountTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14168,7 +15080,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorStripeBankAccountTokenCreateRequest](the_plaid_api/models/processor_stripe_bank_account_token_create_request.py) \| [ProcessorStripeBankAccountTokenCreateRequestDict](the_plaid_api/models/processor_stripe_bank_account_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14215,7 +15127,11 @@ Used to create a token suitable for sending to one of Plaid's partners to enable
 
 ```python
 try:
-    response = client.processor_token_create(body)
+    response = client.processor_token_create(
+        ProcessorTokenCreateRequest(
+            access_token="some example string", account_id="some example string", processor=Processor.DWOLLA
+        ),
+    )
     # TODO: Handle 'response' of type ProcessorTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14225,7 +15141,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_token_create(body)
+    response = await async_client.processor_token_create(
+        ProcessorTokenCreateRequest(
+            access_token="some example string", account_id="some example string", processor=Processor.DWOLLA
+        ),
+    )
     # TODO: Handle 'response' of type ProcessorTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14242,7 +15162,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorTokenCreateRequest](the_plaid_api/models/processor_token_create_request.py) \| [ProcessorTokenCreateRequestDict](the_plaid_api/models/processor_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14289,7 +15209,9 @@ Used to get a processor token's product permissions. The `products` field will b
 
 ```python
 try:
-    response = client.processor_token_permissions_get(body)
+    response = client.processor_token_permissions_get(
+        ProcessorTokenPermissionsGetRequest(processor_token="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorTokenPermissionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14299,7 +15221,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_token_permissions_get(body)
+    response = await async_client.processor_token_permissions_get(
+        ProcessorTokenPermissionsGetRequest(processor_token="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorTokenPermissionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14316,7 +15240,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorTokenPermissionsGetRequest](the_plaid_api/models/processor_token_permissions_get_request.py) \| [ProcessorTokenPermissionsGetRequestDict](the_plaid_api/models/processor_token_permissions_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14363,7 +15287,9 @@ Used to control a processor's access to products on the given processor token. B
 
 ```python
 try:
-    response = client.processor_token_permissions_set(body)
+    response = client.processor_token_permissions_set(
+        ProcessorTokenPermissionsSetRequest(processor_token="some example string", products=[Products.ASSETS])
+    )
     # TODO: Handle 'response' of type ProcessorTokenPermissionsSetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14373,7 +15299,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_token_permissions_set(body)
+    response = await async_client.processor_token_permissions_set(
+        ProcessorTokenPermissionsSetRequest(processor_token="some example string", products=[Products.ASSETS])
+    )
     # TODO: Handle 'response' of type ProcessorTokenPermissionsSetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14390,7 +15318,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorTokenPermissionsSetRequest](the_plaid_api/models/processor_token_permissions_set_request.py) \| [ProcessorTokenPermissionsSetRequestDict](the_plaid_api/models/processor_token_permissions_set_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14437,7 +15365,9 @@ This endpoint allows you, the processor, to update the webhook URL associated wi
 
 ```python
 try:
-    response = client.processor_token_webhook_update(body)
+    response = client.processor_token_webhook_update(
+        ProcessorTokenWebhookUpdateRequest(processor_token="some example string", webhook="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorTokenWebhookUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14447,7 +15377,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_token_webhook_update(body)
+    response = await async_client.processor_token_webhook_update(
+        ProcessorTokenWebhookUpdateRequest(processor_token="some example string", webhook="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorTokenWebhookUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14464,7 +15396,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorTokenWebhookUpdateRequest](the_plaid_api/models/processor_token_webhook_update_request.py) \| [ProcessorTokenWebhookUpdateRequestDict](the_plaid_api/models/processor_token_webhook_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14521,7 +15453,11 @@ To receive Transactions webhooks for a processor token, set its webhook URL via 
 
 ```python
 try:
-    response = client.processor_transactions_get(body)
+    response = client.processor_transactions_get(
+        ProcessorTransactionsGetRequest(
+            processor_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15)
+        ),
+    )
     # TODO: Handle 'response' of type ProcessorTransactionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14531,7 +15467,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_transactions_get(body)
+    response = await async_client.processor_transactions_get(
+        ProcessorTransactionsGetRequest(
+            processor_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15)
+        ),
+    )
     # TODO: Handle 'response' of type ProcessorTransactionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14548,7 +15488,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorTransactionsGetRequest](the_plaid_api/models/processor_transactions_get_request.py) \| [ProcessorTransactionsGetRequestDict](the_plaid_api/models/processor_transactions_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14603,7 +15543,9 @@ To receive Transactions webhooks for a processor token, set its webhook URL via 
 
 ```python
 try:
-    response = client.processor_transactions_recurring_get(body)
+    response = client.processor_transactions_recurring_get(
+        ProcessorTransactionsRecurringGetRequest(processor_token="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorTransactionsRecurringGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14613,7 +15555,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_transactions_recurring_get(body)
+    response = await async_client.processor_transactions_recurring_get(
+        ProcessorTransactionsRecurringGetRequest(processor_token="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorTransactionsRecurringGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14630,7 +15574,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorTransactionsRecurringGetRequest](the_plaid_api/models/processor_transactions_recurring_get_request.py) \| [ProcessorTransactionsRecurringGetRequestDict](the_plaid_api/models/processor_transactions_recurring_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14681,7 +15625,9 @@ As this endpoint triggers a synchronous request for fresh data, latency may be h
 
 ```python
 try:
-    response = client.processor_transactions_refresh(body)
+    response = client.processor_transactions_refresh(
+        ProcessorTransactionsRefreshRequest(processor_token="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorTransactionsRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14691,7 +15637,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_transactions_refresh(body)
+    response = await async_client.processor_transactions_refresh(
+        ProcessorTransactionsRefreshRequest(processor_token="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorTransactionsRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14708,7 +15656,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorTransactionsRefreshRequest](the_plaid_api/models/processor_transactions_refresh_request.py) \| [ProcessorTransactionsRefreshRequestDict](the_plaid_api/models/processor_transactions_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14769,7 +15717,9 @@ To receive Transactions webhooks for a processor token, set its webhook URL via 
 
 ```python
 try:
-    response = client.processor_transactions_sync(body)
+    response = client.processor_transactions_sync(
+        ProcessorTransactionsSyncRequest(processor_token="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorTransactionsSyncResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14779,7 +15729,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.processor_transactions_sync(body)
+    response = await async_client.processor_transactions_sync(
+        ProcessorTransactionsSyncRequest(processor_token="some example string")
+    )
     # TODO: Handle 'response' of type ProcessorTransactionsSyncResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14796,7 +15748,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorTransactionsSyncRequest](the_plaid_api/models/processor_transactions_sync_request.py) \| [ProcessorTransactionsSyncRequestDict](the_plaid_api/models/processor_transactions_sync_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14843,7 +15795,9 @@ The `/profile/network_status/get` endpoint can be used to check whether Plaid ha
 
 ```python
 try:
-    response = client.profile_network_status_get(body)
+    response = client.profile_network_status_get(
+        ProfileNetworkStatusGetRequest(user=NetworkStatusGetUser(phone_number="some example string"))
+    )
     # TODO: Handle 'response' of type ProfileNetworkStatusGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14853,7 +15807,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.profile_network_status_get(body)
+    response = await async_client.profile_network_status_get(
+        ProfileNetworkStatusGetRequest(user=NetworkStatusGetUser(phone_number="some example string"))
+    )
     # TODO: Handle 'response' of type ProfileNetworkStatusGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14870,7 +15826,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProfileNetworkStatusGetRequest](the_plaid_api/models/profile_network_status_get_request.py) \| [ProfileNetworkStatusGetRequestDict](the_plaid_api/models/profile_network_status_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14919,7 +15875,7 @@ The endpoint returns HTTP 400 with `error_type` = `INVALID_REQUEST` and `error_c
 
 ```python
 try:
-    response = client.protect_compute(body)
+    response = client.protect_compute(ProtectComputeRequest(model="some example string", user=ProtectUser()))
     # TODO: Handle 'response' of type ProtectComputeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14929,7 +15885,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.protect_compute(body)
+    response = await async_client.protect_compute(
+        ProtectComputeRequest(model="some example string", user=ProtectUser())
+    )
     # TODO: Handle 'response' of type ProtectComputeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -14946,7 +15904,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProtectComputeRequest](the_plaid_api/models/protect_compute_request.py) \| [ProtectComputeRequestDict](the_plaid_api/models/protect_compute_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14993,7 +15951,7 @@ Get information about a user event including Trust Index score and fraud attribu
 
 ```python
 try:
-    response = client.protect_event_get(body)
+    response = client.protect_event_get(ProtectEventGetRequest(event_id="some example string"))
     # TODO: Handle 'response' of type ProtectEventGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15003,7 +15961,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.protect_event_get(body)
+    response = await async_client.protect_event_get(ProtectEventGetRequest(event_id="some example string"))
     # TODO: Handle 'response' of type ProtectEventGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15020,7 +15978,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProtectEventGetRequest](the_plaid_api/models/protect_event_get_request.py) \| [ProtectEventGetRequestDict](the_plaid_api/models/protect_event_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15067,7 +16025,9 @@ Send a new event to enrich user data and optionally get a Trust Index score for 
 
 ```python
 try:
-    response = client.protect_event_send(body)
+    response = client.protect_event_send(
+        ProtectEventSendRequest(event=ProtectEvent(timestamp=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc)))
+    )
     # TODO: Handle 'response' of type ProtectEventSendResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15077,7 +16037,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.protect_event_send(body)
+    response = await async_client.protect_event_send(
+        ProtectEventSendRequest(event=ProtectEvent(timestamp=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc)))
+    )
     # TODO: Handle 'response' of type ProtectEventSendResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15094,7 +16056,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProtectEventSendRequest](the_plaid_api/models/protect_event_send_request.py) \| [ProtectEventSendRequestDict](the_plaid_api/models/protect_event_send_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15146,7 +16108,13 @@ Each report must include `user_id`, or an `incident_event` with at least one sup
 
 ```python
 try:
-    response = client.protect_report_create(body)
+    response = client.protect_report_create(
+        ProtectReportCreateRequest(
+            report_confidence=ProtectReportConfidence.CONFIRMED,
+            report_type=ProtectReportType.USER_ACCOUNT_TAKEOVER,
+            report_source=ProtectReportSource.INTERNAL_REVIEW,
+        ),
+    )
     # TODO: Handle 'response' of type ProtectReportCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15156,7 +16124,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.protect_report_create(body)
+    response = await async_client.protect_report_create(
+        ProtectReportCreateRequest(
+            report_confidence=ProtectReportConfidence.CONFIRMED,
+            report_type=ProtectReportType.USER_ACCOUNT_TAKEOVER,
+            report_source=ProtectReportSource.INTERNAL_REVIEW,
+        ),
+    )
     # TODO: Handle 'response' of type ProtectReportCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15173,7 +16147,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProtectReportCreateRequest](the_plaid_api/models/protect_report_create_request.py) \| [ProtectReportCreateRequestDict](the_plaid_api/models/protect_report_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15220,7 +16194,7 @@ Use this endpoint to get basic information about a user as it relates to their f
 
 ```python
 try:
-    response = client.protect_user_insights_get(body)
+    response = client.protect_user_insights_get(ProtectUserInsightsGetRequest())
     # TODO: Handle 'response' of type ProtectUserInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15230,7 +16204,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.protect_user_insights_get(body)
+    response = await async_client.protect_user_insights_get(ProtectUserInsightsGetRequest())
     # TODO: Handle 'response' of type ProtectUserInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15247,7 +16221,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProtectUserInsightsGetRequest](the_plaid_api/models/protect_user_insights_get_request.py) \| [ProtectUserInsightsGetRequestDict](the_plaid_api/models/protect_user_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15294,7 +16268,12 @@ Use the `/sandbox/bank_income/fire_webhook` endpoint to manually trigger a Bank 
 
 ```python
 try:
-    response = client.sandbox_bank_income_fire_webhook(body)
+    response = client.sandbox_bank_income_fire_webhook(
+        SandboxBankIncomeFireWebhookRequest(
+            webhook_code=SandboxBankIncomeWebhookFireRequestWebhookCode.BANK_INCOME_REFRESH_UPDATE,
+            webhook_fields=SandboxBankIncomeWebhookFireRequestWebhookFields(user_id="some example string"),
+        ),
+    )
     # TODO: Handle 'response' of type SandboxBankIncomeFireWebhookResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15304,7 +16283,12 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_bank_income_fire_webhook(body)
+    response = await async_client.sandbox_bank_income_fire_webhook(
+        SandboxBankIncomeFireWebhookRequest(
+            webhook_code=SandboxBankIncomeWebhookFireRequestWebhookCode.BANK_INCOME_REFRESH_UPDATE,
+            webhook_fields=SandboxBankIncomeWebhookFireRequestWebhookFields(user_id="some example string"),
+        ),
+    )
     # TODO: Handle 'response' of type SandboxBankIncomeFireWebhookResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15321,7 +16305,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxBankIncomeFireWebhookRequest](the_plaid_api/models/sandbox_bank_income_fire_webhook_request.py) \| [SandboxBankIncomeFireWebhookRequestDict](the_plaid_api/models/sandbox_bank_income_fire_webhook_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15368,7 +16352,9 @@ Use the `/sandbox/bank_transfer/fire_webhook` endpoint to manually trigger a Ban
 
 ```python
 try:
-    response = client.sandbox_bank_transfer_fire_webhook(body)
+    response = client.sandbox_bank_transfer_fire_webhook(
+        SandboxBankTransferFireWebhookRequest(webhook="some example string")
+    )
     # TODO: Handle 'response' of type SandboxBankTransferFireWebhookResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15378,7 +16364,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_bank_transfer_fire_webhook(body)
+    response = await async_client.sandbox_bank_transfer_fire_webhook(
+        SandboxBankTransferFireWebhookRequest(webhook="some example string")
+    )
     # TODO: Handle 'response' of type SandboxBankTransferFireWebhookResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15395,7 +16383,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxBankTransferFireWebhookRequest](the_plaid_api/models/sandbox_bank_transfer_fire_webhook_request.py) \| [SandboxBankTransferFireWebhookRequestDict](the_plaid_api/models/sandbox_bank_transfer_fire_webhook_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15442,7 +16430,9 @@ Use the `/sandbox/bank_transfer/simulate` endpoint to simulate a bank transfer e
 
 ```python
 try:
-    response = client.sandbox_bank_transfer_simulate(body)
+    response = client.sandbox_bank_transfer_simulate(
+        SandboxBankTransferSimulateRequest(bank_transfer_id="some example string", event_type="some example string")
+    )
     # TODO: Handle 'response' of type SandboxBankTransferSimulateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15452,7 +16442,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_bank_transfer_simulate(body)
+    response = await async_client.sandbox_bank_transfer_simulate(
+        SandboxBankTransferSimulateRequest(bank_transfer_id="some example string", event_type="some example string")
+    )
     # TODO: Handle 'response' of type SandboxBankTransferSimulateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15469,7 +16461,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxBankTransferSimulateRequest](the_plaid_api/models/sandbox_bank_transfer_simulate_request.py) \| [SandboxBankTransferSimulateRequestDict](the_plaid_api/models/sandbox_bank_transfer_simulate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15516,7 +16508,7 @@ Use the `/sandbox/cra/cashflow_updates/update` endpoint to manually trigger an u
 
 ```python
 try:
-    response = client.sandbox_cra_cashflow_updates_update(body)
+    response = client.sandbox_cra_cashflow_updates_update(SandboxCraCashflowUpdatesUpdateRequest())
     # TODO: Handle 'response' of type SandboxCraCashflowUpdatesUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15526,7 +16518,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_cra_cashflow_updates_update(body)
+    response = await async_client.sandbox_cra_cashflow_updates_update(SandboxCraCashflowUpdatesUpdateRequest())
     # TODO: Handle 'response' of type SandboxCraCashflowUpdatesUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15543,7 +16535,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxCraCashflowUpdatesUpdateRequest](the_plaid_api/models/sandbox_cra_cashflow_updates_update_request.py) \| [SandboxCraCashflowUpdatesUpdateRequestDict](the_plaid_api/models/sandbox_cra_cashflow_updates_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15592,7 +16584,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.sandbox_fdx_consent_seed(body)
+    response = client.sandbox_fdx_consent_seed(
+        SandboxFdxConsentSeedRequest(customer_id="some example string", application_id="some example string")
+    )
     # TODO: Handle 'response' of type SandboxFdxConsentSeedResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15602,7 +16596,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_fdx_consent_seed(body)
+    response = await async_client.sandbox_fdx_consent_seed(
+        SandboxFdxConsentSeedRequest(customer_id="some example string", application_id="some example string")
+    )
     # TODO: Handle 'response' of type SandboxFdxConsentSeedResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15619,7 +16615,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxFdxConsentSeedRequest](the_plaid_api/models/sandbox_fdx_consent_seed_request.py) \| [SandboxFdxConsentSeedRequestDict](the_plaid_api/models/sandbox_fdx_consent_seed_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15666,7 +16662,13 @@ Use the `/sandbox/income/fire_webhook` endpoint to manually trigger a Payroll or
 
 ```python
 try:
-    response = client.sandbox_income_fire_webhook(body)
+    response = client.sandbox_income_fire_webhook(
+        SandboxIncomeFireWebhookRequest(
+            item_id="some example string",
+            webhook="some example string",
+            webhook_code=SandboxIncomeWebhookFireRequestWebhookCode.INCOME_VERIFICATION,
+        ),
+    )
     # TODO: Handle 'response' of type SandboxIncomeFireWebhookResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15676,7 +16678,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_income_fire_webhook(body)
+    response = await async_client.sandbox_income_fire_webhook(
+        SandboxIncomeFireWebhookRequest(
+            item_id="some example string",
+            webhook="some example string",
+            webhook_code=SandboxIncomeWebhookFireRequestWebhookCode.INCOME_VERIFICATION,
+        ),
+    )
     # TODO: Handle 'response' of type SandboxIncomeFireWebhookResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15693,7 +16701,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxIncomeFireWebhookRequest](the_plaid_api/models/sandbox_income_fire_webhook_request.py) \| [SandboxIncomeFireWebhookRequestDict](the_plaid_api/models/sandbox_income_fire_webhook_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15742,7 +16750,9 @@ The `access_token` must belong to a Permissions Manager Item created via `/item/
 
 ```python
 try:
-    response = client.sandbox_item_application_seed(body)
+    response = client.sandbox_item_application_seed(
+        SandboxItemApplicationSeedRequest(access_token="some example string", application_id="some example string")
+    )
     # TODO: Handle 'response' of type SandboxItemApplicationSeedResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15752,7 +16762,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_item_application_seed(body)
+    response = await async_client.sandbox_item_application_seed(
+        SandboxItemApplicationSeedRequest(access_token="some example string", application_id="some example string")
+    )
     # TODO: Handle 'response' of type SandboxItemApplicationSeedResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15769,7 +16781,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxItemApplicationSeedRequest](the_plaid_api/models/sandbox_item_application_seed_request.py) \| [SandboxItemApplicationSeedRequestDict](the_plaid_api/models/sandbox_item_application_seed_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15840,7 +16852,9 @@ Note that this endpoint is provided for developer ease-of-use and is not require
 
 ```python
 try:
-    response = client.sandbox_item_fire_webhook(body)
+    response = client.sandbox_item_fire_webhook(
+        SandboxItemFireWebhookRequest(access_token="some example string", webhook_code=WebhookCode.DEFAULT_UPDATE)
+    )
     # TODO: Handle 'response' of type SandboxItemFireWebhookResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15850,7 +16864,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_item_fire_webhook(body)
+    response = await async_client.sandbox_item_fire_webhook(
+        SandboxItemFireWebhookRequest(access_token="some example string", webhook_code=WebhookCode.DEFAULT_UPDATE)
+    )
     # TODO: Handle 'response' of type SandboxItemFireWebhookResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15867,7 +16883,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxItemFireWebhookRequest](the_plaid_api/models/sandbox_item_fire_webhook_request.py) \| [SandboxItemFireWebhookRequestDict](the_plaid_api/models/sandbox_item_fire_webhook_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15915,7 +16931,7 @@ In the Sandbox, Items will transition to an `ITEM_LOGIN_REQUIRED` error state au
 
 ```python
 try:
-    response = client.sandbox_item_reset_login(body)
+    response = client.sandbox_item_reset_login(SandboxItemResetLoginRequest(access_token="some example string"))
     # TODO: Handle 'response' of type SandboxItemResetLoginResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15925,7 +16941,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_item_reset_login(body)
+    response = await async_client.sandbox_item_reset_login(
+        SandboxItemResetLoginRequest(access_token="some example string")
+    )
     # TODO: Handle 'response' of type SandboxItemResetLoginResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -15942,7 +16960,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxItemResetLoginRequest](the_plaid_api/models/sandbox_item_reset_login_request.py) \| [SandboxItemResetLoginRequestDict](the_plaid_api/models/sandbox_item_reset_login_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15991,7 +17009,13 @@ For more information on testing Automated Micro-deposits in Sandbox, see [Auth f
 
 ```python
 try:
-    response = client.sandbox_item_set_verification_status(body)
+    response = client.sandbox_item_set_verification_status(
+        SandboxItemSetVerificationStatusRequest(
+            access_token="some example string",
+            account_id="some example string",
+            verification_status=VerificationStatus1.AUTOMATICALLY_VERIFIED,
+        ),
+    )
     # TODO: Handle 'response' of type SandboxItemSetVerificationStatusResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16001,7 +17025,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_item_set_verification_status(body)
+    response = await async_client.sandbox_item_set_verification_status(
+        SandboxItemSetVerificationStatusRequest(
+            access_token="some example string",
+            account_id="some example string",
+            verification_status=VerificationStatus1.AUTOMATICALLY_VERIFIED,
+        ),
+    )
     # TODO: Handle 'response' of type SandboxItemSetVerificationStatusResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16018,7 +17048,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxItemSetVerificationStatusRequest](the_plaid_api/models/sandbox_item_set_verification_status_request.py) \| [SandboxItemSetVerificationStatusRequestDict](the_plaid_api/models/sandbox_item_set_verification_status_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16065,7 +17095,9 @@ Save the selected accounts when connecting to the Platypus OAuth institution
 
 ```python
 try:
-    response = client.sandbox_oauth_select_accounts(body)
+    response = client.sandbox_oauth_select_accounts(
+        SandboxOauthSelectAccountsRequest(oauth_state_id="some example string", accounts=["some example string"])
+    )
     # TODO: Handle 'response' of type Any
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16075,7 +17107,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_oauth_select_accounts(body)
+    response = await async_client.sandbox_oauth_select_accounts(
+        SandboxOauthSelectAccountsRequest(oauth_state_id="some example string", accounts=["some example string"])
+    )
     # TODO: Handle 'response' of type Any
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16092,7 +17126,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxOauthSelectAccountsRequest](the_plaid_api/models/sandbox_oauth_select_accounts_request.py) \| [SandboxOauthSelectAccountsRequestDict](the_plaid_api/models/sandbox_oauth_select_accounts_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16143,7 +17177,9 @@ After calling `/sandbox/payment_profile/reset_login`, calls to the `/transfer/au
 
 ```python
 try:
-    response = client.sandbox_payment_profile_reset_login(body)
+    response = client.sandbox_payment_profile_reset_login(
+        SandboxPaymentProfileResetLoginRequest(payment_profile_token="some example string")
+    )
     # TODO: Handle 'response' of type SandboxPaymentProfileResetLoginResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16153,7 +17189,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_payment_profile_reset_login(body)
+    response = await async_client.sandbox_payment_profile_reset_login(
+        SandboxPaymentProfileResetLoginRequest(payment_profile_token="some example string")
+    )
     # TODO: Handle 'response' of type SandboxPaymentProfileResetLoginResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16170,7 +17208,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxPaymentProfileResetLoginRequest](the_plaid_api/models/sandbox_payment_profile_reset_login_request.py) \| [SandboxPaymentProfileResetLoginRequestDict](the_plaid_api/models/sandbox_payment_profile_reset_login_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16217,7 +17255,11 @@ Use the `/sandbox/payment/simulate` endpoint to simulate various payment events 
 
 ```python
 try:
-    response = client.sandbox_payment_simulate(body)
+    response = client.sandbox_payment_simulate(
+        SandboxPaymentSimulateRequest(
+            payment_id="some example string", webhook="some example string", status="some example string"
+        ),
+    )
     # TODO: Handle 'response' of type SandboxPaymentSimulateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16227,7 +17269,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_payment_simulate(body)
+    response = await async_client.sandbox_payment_simulate(
+        SandboxPaymentSimulateRequest(
+            payment_id="some example string", webhook="some example string", status="some example string"
+        ),
+    )
     # TODO: Handle 'response' of type SandboxPaymentSimulateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16244,7 +17290,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxPaymentSimulateRequest](the_plaid_api/models/sandbox_payment_simulate_request.py) \| [SandboxPaymentSimulateRequestDict](the_plaid_api/models/sandbox_payment_simulate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16291,7 +17337,9 @@ Use the `/sandbox/processor_token/create` endpoint to create a valid `processor_
 
 ```python
 try:
-    response = client.sandbox_processor_token_create(body)
+    response = client.sandbox_processor_token_create(
+        SandboxProcessorTokenCreateRequest(institution_id="some example string")
+    )
     # TODO: Handle 'response' of type SandboxProcessorTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16301,7 +17349,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_processor_token_create(body)
+    response = await async_client.sandbox_processor_token_create(
+        SandboxProcessorTokenCreateRequest(institution_id="some example string")
+    )
     # TODO: Handle 'response' of type SandboxProcessorTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16318,7 +17368,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxProcessorTokenCreateRequest](the_plaid_api/models/sandbox_processor_token_create_request.py) \| [SandboxProcessorTokenCreateRequestDict](the_plaid_api/models/sandbox_processor_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16365,7 +17415,9 @@ Use the `/sandbox/public_token/create` endpoint to create a valid `public_token`
 
 ```python
 try:
-    response = client.sandbox_public_token_create(body)
+    response = client.sandbox_public_token_create(
+        SandboxPublicTokenCreateRequest(institution_id="some example string", initial_products=[Products.ASSETS])
+    )
     # TODO: Handle 'response' of type SandboxPublicTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16375,7 +17427,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_public_token_create(body)
+    response = await async_client.sandbox_public_token_create(
+        SandboxPublicTokenCreateRequest(institution_id="some example string", initial_products=[Products.ASSETS])
+    )
     # TODO: Handle 'response' of type SandboxPublicTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16392,7 +17446,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxPublicTokenCreateRequest](the_plaid_api/models/sandbox_public_token_create_request.py) \| [SandboxPublicTokenCreateRequestDict](the_plaid_api/models/sandbox_public_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16443,7 +17497,19 @@ Custom transactions are only applied to the depository account. Support for per-
 
 ```python
 try:
-    response = client.sandbox_transactions_create(body)
+    response = client.sandbox_transactions_create(
+        SandboxTransactionsCreateRequest(
+            access_token="some example string",
+            transactions=[
+                CustomSandboxTransaction(
+                    date_transacted=date(2024, 1, 15),
+                    date_posted=date(2024, 1, 15),
+                    amount=1.5,
+                    description="some example string",
+                ),
+            ],
+        ),
+    )
     # TODO: Handle 'response' of type SandboxTransactionsCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type SandboxTransactionsCreateErrorBody
@@ -16453,7 +17519,19 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_transactions_create(body)
+    response = await async_client.sandbox_transactions_create(
+        SandboxTransactionsCreateRequest(
+            access_token="some example string",
+            transactions=[
+                CustomSandboxTransaction(
+                    date_transacted=date(2024, 1, 15),
+                    date_posted=date(2024, 1, 15),
+                    amount=1.5,
+                    description="some example string",
+                ),
+            ],
+        ),
+    )
     # TODO: Handle 'response' of type SandboxTransactionsCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type SandboxTransactionsCreateErrorBody
@@ -16470,7 +17548,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransactionsCreateRequest](the_plaid_api/models/sandbox_transactions_create_request.py) \| [SandboxTransactionsCreateRequestDict](the_plaid_api/models/sandbox_transactions_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16524,7 +17602,7 @@ Use the `/sandbox/transfer/fire_webhook` endpoint to manually trigger a `TRANSFE
 
 ```python
 try:
-    response = client.sandbox_transfer_fire_webhook(body)
+    response = client.sandbox_transfer_fire_webhook(SandboxTransferFireWebhookRequest(webhook="some example string"))
     # TODO: Handle 'response' of type SandboxTransferFireWebhookResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16534,7 +17612,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_transfer_fire_webhook(body)
+    response = await async_client.sandbox_transfer_fire_webhook(
+        SandboxTransferFireWebhookRequest(webhook="some example string")
+    )
     # TODO: Handle 'response' of type SandboxTransferFireWebhookResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16551,7 +17631,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferFireWebhookRequest](the_plaid_api/models/sandbox_transfer_fire_webhook_request.py) \| [SandboxTransferFireWebhookRequestDict](the_plaid_api/models/sandbox_transfer_fire_webhook_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16598,7 +17678,11 @@ Use the `/sandbox/transfer/ledger/deposit/simulate` endpoint to simulate a ledge
 
 ```python
 try:
-    response = client.sandbox_transfer_ledger_deposit_simulate(body)
+    response = client.sandbox_transfer_ledger_deposit_simulate(
+        SandboxTransferLedgerDepositSimulateRequest(
+            sweep_id="some example string", event_type=TransferLedgerSweepSimulateEventType.SWEEP_POSTED
+        ),
+    )
     # TODO: Handle 'response' of type SandboxTransferLedgerDepositSimulateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16608,7 +17692,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_transfer_ledger_deposit_simulate(body)
+    response = await async_client.sandbox_transfer_ledger_deposit_simulate(
+        SandboxTransferLedgerDepositSimulateRequest(
+            sweep_id="some example string", event_type=TransferLedgerSweepSimulateEventType.SWEEP_POSTED
+        ),
+    )
     # TODO: Handle 'response' of type SandboxTransferLedgerDepositSimulateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16625,7 +17713,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferLedgerDepositSimulateRequest](the_plaid_api/models/sandbox_transfer_ledger_deposit_simulate_request.py) \| [SandboxTransferLedgerDepositSimulateRequestDict](the_plaid_api/models/sandbox_transfer_ledger_deposit_simulate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16672,7 +17760,7 @@ Use the `/sandbox/transfer/ledger/simulate_available` endpoint to simulate conve
 
 ```python
 try:
-    response = client.sandbox_transfer_ledger_simulate_available(body)
+    response = client.sandbox_transfer_ledger_simulate_available(SandboxTransferLedgerSimulateAvailableRequest())
     # TODO: Handle 'response' of type SandboxTransferLedgerSimulateAvailableResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16682,7 +17770,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_transfer_ledger_simulate_available(body)
+    response = await async_client.sandbox_transfer_ledger_simulate_available(
+        SandboxTransferLedgerSimulateAvailableRequest()
+    )
     # TODO: Handle 'response' of type SandboxTransferLedgerSimulateAvailableResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16699,7 +17789,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferLedgerSimulateAvailableRequest](the_plaid_api/models/sandbox_transfer_ledger_simulate_available_request.py) \| [SandboxTransferLedgerSimulateAvailableRequestDict](the_plaid_api/models/sandbox_transfer_ledger_simulate_available_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16746,7 +17836,11 @@ Use the `/sandbox/transfer/ledger/withdraw/simulate` endpoint to simulate a ledg
 
 ```python
 try:
-    response = client.sandbox_transfer_ledger_withdraw_simulate(body)
+    response = client.sandbox_transfer_ledger_withdraw_simulate(
+        SandboxTransferLedgerWithdrawSimulateRequest(
+            sweep_id="some example string", event_type=TransferLedgerSweepSimulateEventType.SWEEP_POSTED
+        ),
+    )
     # TODO: Handle 'response' of type SandboxTransferLedgerWithdrawSimulateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16756,7 +17850,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_transfer_ledger_withdraw_simulate(body)
+    response = await async_client.sandbox_transfer_ledger_withdraw_simulate(
+        SandboxTransferLedgerWithdrawSimulateRequest(
+            sweep_id="some example string", event_type=TransferLedgerSweepSimulateEventType.SWEEP_POSTED
+        ),
+    )
     # TODO: Handle 'response' of type SandboxTransferLedgerWithdrawSimulateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16773,7 +17871,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferLedgerWithdrawSimulateRequest](the_plaid_api/models/sandbox_transfer_ledger_withdraw_simulate_request.py) \| [SandboxTransferLedgerWithdrawSimulateRequestDict](the_plaid_api/models/sandbox_transfer_ledger_withdraw_simulate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16820,7 +17918,9 @@ Use the `/sandbox/transfer/refund/simulate` endpoint to simulate a refund event 
 
 ```python
 try:
-    response = client.sandbox_transfer_refund_simulate(body)
+    response = client.sandbox_transfer_refund_simulate(
+        SandboxTransferRefundSimulateRequest(refund_id="some example string", event_type="some example string")
+    )
     # TODO: Handle 'response' of type SandboxTransferRefundSimulateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16830,7 +17930,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_transfer_refund_simulate(body)
+    response = await async_client.sandbox_transfer_refund_simulate(
+        SandboxTransferRefundSimulateRequest(refund_id="some example string", event_type="some example string")
+    )
     # TODO: Handle 'response' of type SandboxTransferRefundSimulateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16847,7 +17949,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferRefundSimulateRequest](the_plaid_api/models/sandbox_transfer_refund_simulate_request.py) \| [SandboxTransferRefundSimulateRequestDict](the_plaid_api/models/sandbox_transfer_refund_simulate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16894,7 +17996,7 @@ Use the `/sandbox/transfer/repayment/simulate` endpoint to trigger the creation 
 
 ```python
 try:
-    response = client.sandbox_transfer_repayment_simulate(body)
+    response = client.sandbox_transfer_repayment_simulate(SandboxTransferRepaymentSimulateRequest())
     # TODO: Handle 'response' of type SandboxTransferRepaymentSimulateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16904,7 +18006,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_transfer_repayment_simulate(body)
+    response = await async_client.sandbox_transfer_repayment_simulate(SandboxTransferRepaymentSimulateRequest())
     # TODO: Handle 'response' of type SandboxTransferRepaymentSimulateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16921,7 +18023,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferRepaymentSimulateRequest](the_plaid_api/models/sandbox_transfer_repayment_simulate_request.py) \| [SandboxTransferRepaymentSimulateRequestDict](the_plaid_api/models/sandbox_transfer_repayment_simulate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16968,7 +18070,9 @@ Use the `/sandbox/transfer/simulate` endpoint to simulate a transfer event in th
 
 ```python
 try:
-    response = client.sandbox_transfer_simulate(body)
+    response = client.sandbox_transfer_simulate(
+        SandboxTransferSimulateRequest(transfer_id="some example string", event_type="some example string")
+    )
     # TODO: Handle 'response' of type SandboxTransferSimulateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16978,7 +18082,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_transfer_simulate(body)
+    response = await async_client.sandbox_transfer_simulate(
+        SandboxTransferSimulateRequest(transfer_id="some example string", event_type="some example string")
+    )
     # TODO: Handle 'response' of type SandboxTransferSimulateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -16995,7 +18101,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferSimulateRequest](the_plaid_api/models/sandbox_transfer_simulate_request.py) \| [SandboxTransferSimulateRequestDict](the_plaid_api/models/sandbox_transfer_simulate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17042,7 +18148,7 @@ Use the `/sandbox/transfer/sweep/simulate` endpoint to create a sweep and associ
 
 ```python
 try:
-    response = client.sandbox_transfer_sweep_simulate(body)
+    response = client.sandbox_transfer_sweep_simulate(SandboxTransferSweepSimulateRequest())
     # TODO: Handle 'response' of type SandboxTransferSweepSimulateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17052,7 +18158,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_transfer_sweep_simulate(body)
+    response = await async_client.sandbox_transfer_sweep_simulate(SandboxTransferSweepSimulateRequest())
     # TODO: Handle 'response' of type SandboxTransferSweepSimulateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17069,7 +18175,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferSweepSimulateRequest](the_plaid_api/models/sandbox_transfer_sweep_simulate_request.py) \| [SandboxTransferSweepSimulateRequestDict](the_plaid_api/models/sandbox_transfer_sweep_simulate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17126,7 +18232,11 @@ For example, if the recurring transfer associated with this test clock originate
 
 ```python
 try:
-    response = client.sandbox_transfer_test_clock_advance(body)
+    response = client.sandbox_transfer_test_clock_advance(
+        SandboxTransferTestClockAdvanceRequest(
+            test_clock_id="some example string", new_virtual_time=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc)
+        ),
+    )
     # TODO: Handle 'response' of type SandboxTransferTestClockAdvanceResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17136,7 +18246,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_transfer_test_clock_advance(body)
+    response = await async_client.sandbox_transfer_test_clock_advance(
+        SandboxTransferTestClockAdvanceRequest(
+            test_clock_id="some example string", new_virtual_time=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc)
+        ),
+    )
     # TODO: Handle 'response' of type SandboxTransferTestClockAdvanceResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17153,7 +18267,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferTestClockAdvanceRequest](the_plaid_api/models/sandbox_transfer_test_clock_advance_request.py) \| [SandboxTransferTestClockAdvanceRequestDict](the_plaid_api/models/sandbox_transfer_test_clock_advance_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17204,7 +18318,7 @@ A test clock can be associated with up to 5 recurring transfers.
 
 ```python
 try:
-    response = client.sandbox_transfer_test_clock_create(body)
+    response = client.sandbox_transfer_test_clock_create(SandboxTransferTestClockCreateRequest())
     # TODO: Handle 'response' of type SandboxTransferTestClockCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17214,7 +18328,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_transfer_test_clock_create(body)
+    response = await async_client.sandbox_transfer_test_clock_create(SandboxTransferTestClockCreateRequest())
     # TODO: Handle 'response' of type SandboxTransferTestClockCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17231,7 +18345,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferTestClockCreateRequest](the_plaid_api/models/sandbox_transfer_test_clock_create_request.py) \| [SandboxTransferTestClockCreateRequestDict](the_plaid_api/models/sandbox_transfer_test_clock_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17278,7 +18392,9 @@ Use the `/sandbox/transfer/test_clock/get` endpoint to get a `test_clock` in the
 
 ```python
 try:
-    response = client.sandbox_transfer_test_clock_get(body)
+    response = client.sandbox_transfer_test_clock_get(
+        SandboxTransferTestClockGetRequest(test_clock_id="some example string")
+    )
     # TODO: Handle 'response' of type SandboxTransferTestClockGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17288,7 +18404,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_transfer_test_clock_get(body)
+    response = await async_client.sandbox_transfer_test_clock_get(
+        SandboxTransferTestClockGetRequest(test_clock_id="some example string")
+    )
     # TODO: Handle 'response' of type SandboxTransferTestClockGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17305,7 +18423,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferTestClockGetRequest](the_plaid_api/models/sandbox_transfer_test_clock_get_request.py) \| [SandboxTransferTestClockGetRequestDict](the_plaid_api/models/sandbox_transfer_test_clock_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17352,7 +18470,7 @@ Use the `/sandbox/transfer/test_clock/list` endpoint to see a list of all your t
 
 ```python
 try:
-    response = client.sandbox_transfer_test_clock_list(body)
+    response = client.sandbox_transfer_test_clock_list(SandboxTransferTestClockListRequest())
     # TODO: Handle 'response' of type SandboxTransferTestClockListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17362,7 +18480,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_transfer_test_clock_list(body)
+    response = await async_client.sandbox_transfer_test_clock_list(SandboxTransferTestClockListRequest())
     # TODO: Handle 'response' of type SandboxTransferTestClockListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17379,7 +18497,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferTestClockListRequest](the_plaid_api/models/sandbox_transfer_test_clock_list_request.py) \| [SandboxTransferTestClockListRequestDict](the_plaid_api/models/sandbox_transfer_test_clock_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17427,7 +18545,7 @@ In the Sandbox, Items will transition to an `ITEM_LOGIN_REQUIRED` error state au
 
 ```python
 try:
-    response = client.sandbox_user_reset_login(body)
+    response = client.sandbox_user_reset_login(SandboxUserResetLoginRequest())
     # TODO: Handle 'response' of type SandboxUserResetLoginResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17437,7 +18555,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.sandbox_user_reset_login(body)
+    response = await async_client.sandbox_user_reset_login(SandboxUserResetLoginRequest())
     # TODO: Handle 'response' of type SandboxUserResetLoginResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17454,7 +18572,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxUserResetLoginRequest](the_plaid_api/models/sandbox_user_reset_login_request.py) \| [SandboxUserResetLoginRequestDict](the_plaid_api/models/sandbox_user_reset_login_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17501,7 +18619,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.session_token_create(body)
+    response = client.session_token_create(SessionTokenCreateRequest(template_id="some example string"))
     # TODO: Handle 'response' of type SessionTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17511,7 +18629,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.session_token_create(body)
+    response = await async_client.session_token_create(SessionTokenCreateRequest(template_id="some example string"))
     # TODO: Handle 'response' of type SessionTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17528,7 +18646,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SessionTokenCreateRequest](the_plaid_api/models/session_token_create_request.py) \| [SessionTokenCreateRequestDict](the_plaid_api/models/session_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17579,7 +18697,9 @@ If using a Balance-only ruleset, this endpoint will not impact scores (Balance d
 
 ```python
 try:
-    response = client.signal_decision_report(body)
+    response = client.signal_decision_report(
+        SignalDecisionReportRequest(client_transaction_id="some example string", initiated=True)
+    )
     # TODO: Handle 'response' of type SignalDecisionReportResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17589,7 +18709,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.signal_decision_report(body)
+    response = await async_client.signal_decision_report(
+        SignalDecisionReportRequest(client_transaction_id="some example string", initiated=True)
+    )
     # TODO: Handle 'response' of type SignalDecisionReportResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17606,7 +18728,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SignalDecisionReportRequest](the_plaid_api/models/signal_decision_report_request.py) \| [SignalDecisionReportRequestDict](the_plaid_api/models/signal_decision_report_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17659,7 +18781,14 @@ Note: This request may have higher latency when using a Balance-only ruleset. Th
 
 ```python
 try:
-    response = client.signal_evaluate(body)
+    response = client.signal_evaluate(
+        SignalEvaluateRequest(
+            access_token="some example string",
+            account_id="some example string",
+            client_transaction_id="some example string",
+            amount=1.5,
+        ),
+    )
     # TODO: Handle 'response' of type SignalEvaluateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17669,7 +18798,14 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.signal_evaluate(body)
+    response = await async_client.signal_evaluate(
+        SignalEvaluateRequest(
+            access_token="some example string",
+            account_id="some example string",
+            client_transaction_id="some example string",
+            amount=1.5,
+        ),
+    )
     # TODO: Handle 'response' of type SignalEvaluateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17686,7 +18822,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SignalEvaluateRequest](the_plaid_api/models/signal_evaluate_request.py) \| [SignalEvaluateRequestDict](the_plaid_api/models/signal_evaluate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17737,7 +18873,7 @@ If run on an Item that is already initialized with `signal`, this endpoint will 
 
 ```python
 try:
-    response = client.signal_prepare(body)
+    response = client.signal_prepare(SignalPrepareRequest(access_token="some example string"))
     # TODO: Handle 'response' of type SignalPrepareResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17747,7 +18883,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.signal_prepare(body)
+    response = await async_client.signal_prepare(SignalPrepareRequest(access_token="some example string"))
     # TODO: Handle 'response' of type SignalPrepareResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17764,7 +18900,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SignalPrepareRequest](the_plaid_api/models/signal_prepare_request.py) \| [SignalPrepareRequestDict](the_plaid_api/models/signal_prepare_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17811,7 +18947,9 @@ Call the `/signal/return/report` endpoint to report a returned transaction that 
 
 ```python
 try:
-    response = client.signal_return_report(body)
+    response = client.signal_return_report(
+        SignalReturnReportRequest(client_transaction_id="some example string", return_code="some example string")
+    )
     # TODO: Handle 'response' of type SignalReturnReportResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17821,7 +18959,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.signal_return_report(body)
+    response = await async_client.signal_return_report(
+        SignalReturnReportRequest(client_transaction_id="some example string", return_code="some example string")
+    )
     # TODO: Handle 'response' of type SignalReturnReportResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17838,7 +18978,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SignalReturnReportRequest](the_plaid_api/models/signal_return_report_request.py) \| [SignalReturnReportRequestDict](the_plaid_api/models/signal_return_report_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17885,7 +19025,14 @@ Use `/signal/schedule` to schedule a planned ACH transaction.
 
 ```python
 try:
-    response = client.signal_schedule(body)
+    response = client.signal_schedule(
+        SignalScheduleRequest(
+            access_token="some example string",
+            account_id="some example string",
+            client_transaction_id="some example string",
+            amount=1.5,
+        ),
+    )
     # TODO: Handle 'response' of type SignalScheduleResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17895,7 +19042,14 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.signal_schedule(body)
+    response = await async_client.signal_schedule(
+        SignalScheduleRequest(
+            access_token="some example string",
+            account_id="some example string",
+            client_transaction_id="some example string",
+            amount=1.5,
+        ),
+    )
     # TODO: Handle 'response' of type SignalScheduleResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -17912,7 +19066,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SignalScheduleRequest](the_plaid_api/models/signal_schedule_request.py) \| [SignalScheduleRequestDict](the_plaid_api/models/signal_schedule_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17959,7 +19113,9 @@ The `/statements/download` endpoint retrieves a single statement PDF in binary f
 
 ```python
 try:
-    client.statements_download(body)
+    client.statements_download(
+        StatementsDownloadRequest(access_token="some example string", statement_id="some example string")
+    )
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -17968,7 +19124,9 @@ except ApiError as e:
 
 ```python
 try:
-    await async_client.statements_download(body)
+    await async_client.statements_download(
+        StatementsDownloadRequest(access_token="some example string", statement_id="some example string")
+    )
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -17984,7 +19142,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[StatementsDownloadRequest](the_plaid_api/models/statements_download_request.py) \| [StatementsDownloadRequestDict](the_plaid_api/models/statements_download_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18031,7 +19189,7 @@ The `/statements/list` endpoint retrieves a list of all statements associated wi
 
 ```python
 try:
-    response = client.statements_list(body)
+    response = client.statements_list(StatementsListRequest(access_token="some example string"))
     # TODO: Handle 'response' of type StatementsListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18041,7 +19199,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.statements_list(body)
+    response = await async_client.statements_list(StatementsListRequest(access_token="some example string"))
     # TODO: Handle 'response' of type StatementsListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18058,7 +19216,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[StatementsListRequest](the_plaid_api/models/statements_list_request.py) \| [StatementsListRequestDict](the_plaid_api/models/statements_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18105,7 +19263,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.statements_refresh(body)
+    response = client.statements_refresh(
+        StatementsRefreshRequest(
+            access_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15)
+        ),
+    )
     # TODO: Handle 'response' of type StatementsRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18115,7 +19277,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.statements_refresh(body)
+    response = await async_client.statements_refresh(
+        StatementsRefreshRequest(
+            access_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15)
+        ),
+    )
     # TODO: Handle 'response' of type StatementsRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18132,7 +19298,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[StatementsRefreshRequest](the_plaid_api/models/statements_refresh_request.py) \| [StatementsRefreshRequestDict](the_plaid_api/models/statements_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18181,7 +19347,19 @@ The product is currently in beta.
 
 ```python
 try:
-    response = client.transactions_enhance(body)
+    response = client.transactions_enhance(
+        TransactionsEnhanceGetRequest(
+            account_type="some example string",
+            transactions=[
+                ClientProvidedRawTransaction(
+                    id="some example string",
+                    description="some example string",
+                    amount=1.5,
+                    iso_currency_code="some example string",
+                ),
+            ],
+        ),
+    )
     # TODO: Handle 'response' of type TransactionsEnhanceGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18191,7 +19369,19 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transactions_enhance(body)
+    response = await async_client.transactions_enhance(
+        TransactionsEnhanceGetRequest(
+            account_type="some example string",
+            transactions=[
+                ClientProvidedRawTransaction(
+                    id="some example string",
+                    description="some example string",
+                    amount=1.5,
+                    iso_currency_code="some example string",
+                ),
+            ],
+        ),
+    )
     # TODO: Handle 'response' of type TransactionsEnhanceGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18208,7 +19398,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsEnhanceGetRequest](the_plaid_api/models/transactions_enhance_get_request.py) \| [TransactionsEnhanceGetRequestDict](the_plaid_api/models/transactions_enhance_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18255,7 +19445,20 @@ The `/transactions/enrich` endpoint enriches raw transaction data generated by y
 
 ```python
 try:
-    response = client.transactions_enrich(body)
+    response = client.transactions_enrich(
+        TransactionsEnrichRequest(
+            account_type="some example string",
+            transactions=[
+                ClientProvidedTransaction(
+                    id="some example string",
+                    description="some example string",
+                    amount=1.5,
+                    direction=EnrichTransactionDirection.INFLOW,
+                    iso_currency_code="some example string",
+                ),
+            ],
+        ),
+    )
     # TODO: Handle 'response' of type TransactionsEnrichResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18265,7 +19468,20 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transactions_enrich(body)
+    response = await async_client.transactions_enrich(
+        TransactionsEnrichRequest(
+            account_type="some example string",
+            transactions=[
+                ClientProvidedTransaction(
+                    id="some example string",
+                    description="some example string",
+                    amount=1.5,
+                    direction=EnrichTransactionDirection.INFLOW,
+                    iso_currency_code="some example string",
+                ),
+            ],
+        ),
+    )
     # TODO: Handle 'response' of type TransactionsEnrichResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18282,7 +19498,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsEnrichRequest](the_plaid_api/models/transactions_enrich_request.py) \| [TransactionsEnrichRequestDict](the_plaid_api/models/transactions_enrich_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18335,7 +19551,11 @@ Note that data may not be immediately available to `/transactions/get`. Plaid wi
 
 ```python
 try:
-    response = client.transactions_get(body)
+    response = client.transactions_get(
+        TransactionsGetRequest(
+            access_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15)
+        ),
+    )
     # TODO: Handle 'response' of type TransactionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18345,7 +19565,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transactions_get(body)
+    response = await async_client.transactions_get(
+        TransactionsGetRequest(
+            access_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15)
+        ),
+    )
     # TODO: Handle 'response' of type TransactionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18362,7 +19586,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsGetRequest](the_plaid_api/models/transactions_get_request.py) \| [TransactionsGetRequestDict](the_plaid_api/models/transactions_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18417,7 +19641,7 @@ After the initial call, you can call the `/transactions/recurring/get` endpoint 
 
 ```python
 try:
-    response = client.transactions_recurring_get(body)
+    response = client.transactions_recurring_get(TransactionsRecurringGetRequest(access_token="some example string"))
     # TODO: Handle 'response' of type TransactionsRecurringGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18427,7 +19651,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transactions_recurring_get(body)
+    response = await async_client.transactions_recurring_get(
+        TransactionsRecurringGetRequest(access_token="some example string")
+    )
     # TODO: Handle 'response' of type TransactionsRecurringGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18444,7 +19670,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsRecurringGetRequest](the_plaid_api/models/transactions_recurring_get_request.py) \| [TransactionsRecurringGetRequestDict](the_plaid_api/models/transactions_recurring_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18499,7 +19725,7 @@ As this endpoint triggers a synchronous request for fresh data, latency may be h
 
 ```python
 try:
-    response = client.transactions_refresh(body)
+    response = client.transactions_refresh(TransactionsRefreshRequest(access_token="some example string"))
     # TODO: Handle 'response' of type TransactionsRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18509,7 +19735,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transactions_refresh(body)
+    response = await async_client.transactions_refresh(TransactionsRefreshRequest(access_token="some example string"))
     # TODO: Handle 'response' of type TransactionsRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18526,7 +19752,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsRefreshRequest](the_plaid_api/models/transactions_refresh_request.py) \| [TransactionsRefreshRequestDict](the_plaid_api/models/transactions_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18577,7 +19803,20 @@ The product is currently in beta. To request access, contact transactions-feedba
 
 ```python
 try:
-    response = client.transactions_rules_create(body)
+    response = client.transactions_rules_create(
+        TransactionsRulesCreateRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            client_user_id="your-client-user-id",
+            pfc_primary_category="FOOD_AND_DRINK",
+            pfc_detailed_category="FOOD_AND_DRINK_FAST_FOOD",
+            rule_details=TransactionsRuleDetails(
+                field=TransactionsRuleField.MERCHANT_NAME,
+                type_=TransactionsRuleType.SUBSTRING_MATCH,
+                query="Burger Shack",
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type TransactionsRulesCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18587,7 +19826,20 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transactions_rules_create(body)
+    response = await async_client.transactions_rules_create(
+        TransactionsRulesCreateRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            client_user_id="your-client-user-id",
+            pfc_primary_category="FOOD_AND_DRINK",
+            pfc_detailed_category="FOOD_AND_DRINK_FAST_FOOD",
+            rule_details=TransactionsRuleDetails(
+                field=TransactionsRuleField.MERCHANT_NAME,
+                type_=TransactionsRuleType.SUBSTRING_MATCH,
+                query="Burger Shack",
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type TransactionsRulesCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18604,7 +19856,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsRulesCreateRequest](the_plaid_api/models/transactions_rules_create_request.py) \| [TransactionsRulesCreateRequestDict](the_plaid_api/models/transactions_rules_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18651,7 +19903,13 @@ The `/beta/transactions/rules/v1/list` returns a list of transaction rules creat
 
 ```python
 try:
-    response = client.transactions_rules_list(body)
+    response = client.transactions_rules_list(
+        TransactionsRulesListRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            client_user_id="your-client-user-id",
+        ),
+    )
     # TODO: Handle 'response' of type TransactionsRulesListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18661,7 +19919,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transactions_rules_list(body)
+    response = await async_client.transactions_rules_list(
+        TransactionsRulesListRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            client_user_id="your-client-user-id",
+        ),
+    )
     # TODO: Handle 'response' of type TransactionsRulesListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18678,7 +19942,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsRulesListRequest](the_plaid_api/models/transactions_rules_list_request.py) \| [TransactionsRulesListRequestDict](the_plaid_api/models/transactions_rules_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18725,7 +19989,14 @@ The `/beta/transactions/rules/v1/remove` endpoint is used to remove a transactio
 
 ```python
 try:
-    response = client.transactions_rules_remove(body)
+    response = client.transactions_rules_remove(
+        TransactionsRulesRemoveRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            client_user_id="your-client-user-id",
+            rule_id="eVBnVMp7zdTJLkRNr33Rs6zr7KNJqBF",
+        ),
+    )
     # TODO: Handle 'response' of type TransactionsRulesRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18735,7 +20006,14 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transactions_rules_remove(body)
+    response = await async_client.transactions_rules_remove(
+        TransactionsRulesRemoveRequest(
+            client_id="7f57eb3d2a9j6480121fx361",
+            secret="79g03eoofwl8240v776r2h667442119",
+            client_user_id="your-client-user-id",
+            rule_id="eVBnVMp7zdTJLkRNr33Rs6zr7KNJqBF",
+        ),
+    )
     # TODO: Handle 'response' of type TransactionsRulesRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18752,7 +20030,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsRulesRemoveRequest](the_plaid_api/models/transactions_rules_remove_request.py) \| [TransactionsRulesRemoveRequestDict](the_plaid_api/models/transactions_rules_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18811,7 +20089,7 @@ To be alerted when new transactions are available, listen for the https://plaid.
 
 ```python
 try:
-    response = client.transactions_sync(body)
+    response = client.transactions_sync(TransactionsSyncRequest(access_token="some example string"))
     # TODO: Handle 'response' of type TransactionsSyncResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18821,7 +20099,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transactions_sync(body)
+    response = await async_client.transactions_sync(TransactionsSyncRequest(access_token="some example string"))
     # TODO: Handle 'response' of type TransactionsSyncResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18838,7 +20116,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsSyncRequest](the_plaid_api/models/transactions_sync_request.py) \| [TransactionsSyncRequestDict](the_plaid_api/models/transactions_sync_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18887,7 +20165,9 @@ The product is currently in beta.
 
 ```python
 try:
-    response = client.transactions_user_insights_get(body)
+    response = client.transactions_user_insights_get(
+        TransactionsUserInsightsGetRequest(client_user_id="some example string")
+    )
     # TODO: Handle 'response' of type TransactionsUserInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18897,7 +20177,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transactions_user_insights_get(body)
+    response = await async_client.transactions_user_insights_get(
+        TransactionsUserInsightsGetRequest(client_user_id="some example string")
+    )
     # TODO: Handle 'response' of type TransactionsUserInsightsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18914,7 +20196,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsUserInsightsGetRequest](the_plaid_api/models/transactions_user_insights_get_request.py) \| [TransactionsUserInsightsGetRequestDict](the_plaid_api/models/transactions_user_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18961,7 +20243,9 @@ Use the `/transfer/authorization/cancel` endpoint to cancel a transfer authoriza
 
 ```python
 try:
-    response = client.transfer_authorization_cancel(body)
+    response = client.transfer_authorization_cancel(
+        TransferAuthorizationCancelRequest(authorization_id="some example string")
+    )
     # TODO: Handle 'response' of type TransferAuthorizationCancelResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18971,7 +20255,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_authorization_cancel(body)
+    response = await async_client.transfer_authorization_cancel(
+        TransferAuthorizationCancelRequest(authorization_id="some example string")
+    )
     # TODO: Handle 'response' of type TransferAuthorizationCancelResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -18988,7 +20274,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferAuthorizationCancelRequest](the_plaid_api/models/transfer_authorization_cancel_request.py) \| [TransferAuthorizationCancelRequestDict](the_plaid_api/models/transfer_authorization_cancel_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19057,7 +20343,16 @@ In Plaid's Sandbox environment the decisions will be returned as follows:
 
 ```python
 try:
-    response = client.transfer_authorization_create(body)
+    response = client.transfer_authorization_create(
+        TransferAuthorizationCreateRequest(
+            access_token="some example string",
+            account_id="some example string",
+            type_=TransferType.DEBIT,
+            network=TransferNetwork.ACH,
+            amount="some example string",
+            user=TransferAuthorizationUserInRequest(legal_name="some example string"),
+        ),
+    )
     # TODO: Handle 'response' of type TransferAuthorizationCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19067,7 +20362,16 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_authorization_create(body)
+    response = await async_client.transfer_authorization_create(
+        TransferAuthorizationCreateRequest(
+            access_token="some example string",
+            account_id="some example string",
+            type_=TransferType.DEBIT,
+            network=TransferNetwork.ACH,
+            amount="some example string",
+            user=TransferAuthorizationUserInRequest(legal_name="some example string"),
+        ),
+    )
     # TODO: Handle 'response' of type TransferAuthorizationCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19084,7 +20388,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferAuthorizationCreateRequest](the_plaid_api/models/transfer_authorization_create_request.py) \| [TransferAuthorizationCreateRequestDict](the_plaid_api/models/transfer_authorization_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19131,7 +20435,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.transfer_balance_get(body)
+    response = client.transfer_balance_get(TransferBalanceGetRequest())
     # TODO: Handle 'response' of type TransferBalanceGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19141,7 +20445,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_balance_get(body)
+    response = await async_client.transfer_balance_get(TransferBalanceGetRequest())
     # TODO: Handle 'response' of type TransferBalanceGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19158,7 +20462,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferBalanceGetRequest](the_plaid_api/models/transfer_balance_get_request.py) \| [TransferBalanceGetRequestDict](the_plaid_api/models/transfer_balance_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19205,7 +20509,7 @@ Use the `/transfer/cancel` endpoint to cancel a transfer.  A transfer is eligibl
 
 ```python
 try:
-    response = client.transfer_cancel(body)
+    response = client.transfer_cancel(TransferCancelRequest(transfer_id="some example string"))
     # TODO: Handle 'response' of type TransferCancelResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19215,7 +20519,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_cancel(body)
+    response = await async_client.transfer_cancel(TransferCancelRequest(transfer_id="some example string"))
     # TODO: Handle 'response' of type TransferCancelResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19232,7 +20536,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferCancelRequest](the_plaid_api/models/transfer_cancel_request.py) \| [TransferCancelRequestDict](the_plaid_api/models/transfer_cancel_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19279,7 +20583,9 @@ Use the `/transfer/capabilities/get` endpoint to determine the RTP eligibility i
 
 ```python
 try:
-    response = client.transfer_capabilities_get(body)
+    response = client.transfer_capabilities_get(
+        TransferCapabilitiesGetRequest(access_token="some example string", account_id="some example string")
+    )
     # TODO: Handle 'response' of type TransferCapabilitiesGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19289,7 +20595,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_capabilities_get(body)
+    response = await async_client.transfer_capabilities_get(
+        TransferCapabilitiesGetRequest(access_token="some example string", account_id="some example string")
+    )
     # TODO: Handle 'response' of type TransferCapabilitiesGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19306,7 +20614,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferCapabilitiesGetRequest](the_plaid_api/models/transfer_capabilities_get_request.py) \| [TransferCapabilitiesGetRequestDict](the_plaid_api/models/transfer_capabilities_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19353,7 +20661,7 @@ Use the `/transfer/configuration/get` endpoint to view your transfer product con
 
 ```python
 try:
-    response = client.transfer_configuration_get(body)
+    response = client.transfer_configuration_get(TransferConfigurationGetRequest())
     # TODO: Handle 'response' of type TransferConfigurationGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19363,7 +20671,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_configuration_get(body)
+    response = await async_client.transfer_configuration_get(TransferConfigurationGetRequest())
     # TODO: Handle 'response' of type TransferConfigurationGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19380,7 +20688,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferConfigurationGetRequest](the_plaid_api/models/transfer_configuration_get_request.py) \| [TransferConfigurationGetRequestDict](the_plaid_api/models/transfer_configuration_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19427,7 +20735,14 @@ Use the `/transfer/create` endpoint to initiate a new transfer. This endpoint is
 
 ```python
 try:
-    response = client.transfer_create(body)
+    response = client.transfer_create(
+        TransferCreateRequest(
+            access_token="some example string",
+            account_id="some example string",
+            authorization_id="some example string",
+            description="some example string",
+        ),
+    )
     # TODO: Handle 'response' of type TransferCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19437,7 +20752,14 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_create(body)
+    response = await async_client.transfer_create(
+        TransferCreateRequest(
+            access_token="some example string",
+            account_id="some example string",
+            authorization_id="some example string",
+            description="some example string",
+        ),
+    )
     # TODO: Handle 'response' of type TransferCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19454,7 +20776,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferCreateRequest](the_plaid_api/models/transfer_create_request.py) \| [TransferCreateRequestDict](the_plaid_api/models/transfer_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19502,7 +20824,11 @@ You must provide the `client_id` in the `PLAID-CLIENT-ID` header and `secret` in
 
 ```python
 try:
-    response = client.transfer_diligence_document_upload(body)
+    response = client.transfer_diligence_document_upload(
+        TransferDiligenceDocumentUploadRequest(
+            originator_client_id="some example string", file=Path("path/to/file.bin"), purpose=Purpose.DUE_DILIGENCE
+        ),
+    )
     # TODO: Handle 'response' of type TransferDiligenceDocumentUploadResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19512,7 +20838,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_diligence_document_upload(body)
+    response = await async_client.transfer_diligence_document_upload(
+        TransferDiligenceDocumentUploadRequest(
+            originator_client_id="some example string", file=Path("path/to/file.bin"), purpose=Purpose.DUE_DILIGENCE
+        ),
+    )
     # TODO: Handle 'response' of type TransferDiligenceDocumentUploadResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19529,7 +20859,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferDiligenceDocumentUploadRequest](the_plaid_api/models/transfer_diligence_document_upload_request.py) \| [TransferDiligenceDocumentUploadRequestDict](the_plaid_api/models/transfer_diligence_document_upload_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19576,7 +20906,27 @@ Use the `/transfer/diligence/submit` endpoint to submit transfer diligence on be
 
 ```python
 try:
-    response = client.transfer_diligence_submit(body)
+    response = client.transfer_diligence_submit(
+        TransferDiligenceSubmitRequest(
+            originator_client_id="some example string",
+            originator_diligence=TransferOriginatorDiligence(
+                dba="some example string",
+                tax_id="some example string",
+                address=TransferOriginatorAddress(
+                    city="some example string",
+                    street="some example string",
+                    region="some example string",
+                    postal_code="some example string",
+                    country_code="some example string",
+                ),
+                website="some example string",
+                naics_code="some example string",
+                funding_account=TransferFundingAccount(
+                    access_token="some example string", account_id="some example string"
+                ),
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type TransferDiligenceSubmitResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19586,7 +20936,27 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_diligence_submit(body)
+    response = await async_client.transfer_diligence_submit(
+        TransferDiligenceSubmitRequest(
+            originator_client_id="some example string",
+            originator_diligence=TransferOriginatorDiligence(
+                dba="some example string",
+                tax_id="some example string",
+                address=TransferOriginatorAddress(
+                    city="some example string",
+                    street="some example string",
+                    region="some example string",
+                    postal_code="some example string",
+                    country_code="some example string",
+                ),
+                website="some example string",
+                naics_code="some example string",
+                funding_account=TransferFundingAccount(
+                    access_token="some example string", account_id="some example string"
+                ),
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type TransferDiligenceSubmitResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19603,7 +20973,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferDiligenceSubmitRequest](the_plaid_api/models/transfer_diligence_submit_request.py) \| [TransferDiligenceSubmitRequestDict](the_plaid_api/models/transfer_diligence_submit_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19650,7 +21020,7 @@ Use the `/transfer/event/list` endpoint to get a list of transfer events based o
 
 ```python
 try:
-    response = client.transfer_event_list(body)
+    response = client.transfer_event_list(TransferEventListRequest())
     # TODO: Handle 'response' of type TransferEventListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19660,7 +21030,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_event_list(body)
+    response = await async_client.transfer_event_list(TransferEventListRequest())
     # TODO: Handle 'response' of type TransferEventListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19677,7 +21047,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferEventListRequest](the_plaid_api/models/transfer_event_list_request.py) \| [TransferEventListRequestDict](the_plaid_api/models/transfer_event_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19724,7 +21094,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.transfer_event_sync(body)
+    response = client.transfer_event_sync(TransferEventSyncRequest(after_id=1))
     # TODO: Handle 'response' of type TransferEventSyncResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19734,7 +21104,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_event_sync(body)
+    response = await async_client.transfer_event_sync(TransferEventSyncRequest(after_id=1))
     # TODO: Handle 'response' of type TransferEventSyncResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19751,7 +21121,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferEventSyncRequest](the_plaid_api/models/transfer_event_sync_request.py) \| [TransferEventSyncRequestDict](the_plaid_api/models/transfer_event_sync_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19798,7 +21168,7 @@ The `/transfer/get` endpoint fetches information about the transfer correspondin
 
 ```python
 try:
-    response = client.transfer_get(body)
+    response = client.transfer_get(TransferGetRequest())
     # TODO: Handle 'response' of type TransferGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19808,7 +21178,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_get(body)
+    response = await async_client.transfer_get(TransferGetRequest())
     # TODO: Handle 'response' of type TransferGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19825,7 +21195,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferGetRequest](the_plaid_api/models/transfer_get_request.py) \| [TransferGetRequestDict](the_plaid_api/models/transfer_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19872,7 +21242,14 @@ Use the `/transfer/intent/create` endpoint to generate a transfer intent object 
 
 ```python
 try:
-    response = client.transfer_intent_create(body)
+    response = client.transfer_intent_create(
+        TransferIntentCreateRequest(
+            mode=TransferIntentCreateMode.PAYMENT,
+            amount="some example string",
+            description="some example string",
+            user=TransferUserInRequest(legal_name="some example string"),
+        ),
+    )
     # TODO: Handle 'response' of type TransferIntentCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19882,7 +21259,14 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_intent_create(body)
+    response = await async_client.transfer_intent_create(
+        TransferIntentCreateRequest(
+            mode=TransferIntentCreateMode.PAYMENT,
+            amount="some example string",
+            description="some example string",
+            user=TransferUserInRequest(legal_name="some example string"),
+        ),
+    )
     # TODO: Handle 'response' of type TransferIntentCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19899,7 +21283,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferIntentCreateRequest](the_plaid_api/models/transfer_intent_create_request.py) \| [TransferIntentCreateRequestDict](the_plaid_api/models/transfer_intent_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19946,7 +21330,7 @@ Use the `/transfer/intent/get` endpoint to retrieve more information about a tra
 
 ```python
 try:
-    response = client.transfer_intent_get(body)
+    response = client.transfer_intent_get(TransferIntentGetRequest(transfer_intent_id="some example string"))
     # TODO: Handle 'response' of type TransferIntentGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19956,7 +21340,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_intent_get(body)
+    response = await async_client.transfer_intent_get(
+        TransferIntentGetRequest(transfer_intent_id="some example string")
+    )
     # TODO: Handle 'response' of type TransferIntentGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -19973,7 +21359,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferIntentGetRequest](the_plaid_api/models/transfer_intent_get_request.py) \| [TransferIntentGetRequestDict](the_plaid_api/models/transfer_intent_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20020,7 +21406,11 @@ Use the `/transfer/ledger/deposit` endpoint to deposit funds into Plaid Ledger.
 
 ```python
 try:
-    response = client.transfer_ledger_deposit(body)
+    response = client.transfer_ledger_deposit(
+        TransferLedgerDepositRequest(
+            amount="some example string", idempotency_key="some example string", network=TransferAchnetwork.ACH
+        ),
+    )
     # TODO: Handle 'response' of type TransferLedgerDepositResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20030,7 +21420,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_ledger_deposit(body)
+    response = await async_client.transfer_ledger_deposit(
+        TransferLedgerDepositRequest(
+            amount="some example string", idempotency_key="some example string", network=TransferAchnetwork.ACH
+        ),
+    )
     # TODO: Handle 'response' of type TransferLedgerDepositResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20047,7 +21441,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferLedgerDepositRequest](the_plaid_api/models/transfer_ledger_deposit_request.py) \| [TransferLedgerDepositRequestDict](the_plaid_api/models/transfer_ledger_deposit_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20094,7 +21488,14 @@ Use the `/transfer/ledger/distribute` endpoint to move available balance between
 
 ```python
 try:
-    response = client.transfer_ledger_distribute(body)
+    response = client.transfer_ledger_distribute(
+        TransferLedgerDistributeRequest(
+            from_ledger_id="some example string",
+            to_ledger_id="some example string",
+            amount="some example string",
+            idempotency_key="some example string",
+        ),
+    )
     # TODO: Handle 'response' of type TransferLedgerDistributeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20104,7 +21505,14 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_ledger_distribute(body)
+    response = await async_client.transfer_ledger_distribute(
+        TransferLedgerDistributeRequest(
+            from_ledger_id="some example string",
+            to_ledger_id="some example string",
+            amount="some example string",
+            idempotency_key="some example string",
+        ),
+    )
     # TODO: Handle 'response' of type TransferLedgerDistributeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20121,7 +21529,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferLedgerDistributeRequest](the_plaid_api/models/transfer_ledger_distribute_request.py) \| [TransferLedgerDistributeRequestDict](the_plaid_api/models/transfer_ledger_distribute_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20168,7 +21576,7 @@ Use the `/transfer/ledger/event/list` endpoint to get a list of ledger events fo
 
 ```python
 try:
-    response = client.transfer_ledger_event_list(body)
+    response = client.transfer_ledger_event_list(TransferLedgerEventListRequest())
     # TODO: Handle 'response' of type TransferLedgerEventListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20178,7 +21586,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_ledger_event_list(body)
+    response = await async_client.transfer_ledger_event_list(TransferLedgerEventListRequest())
     # TODO: Handle 'response' of type TransferLedgerEventListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20195,7 +21603,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferLedgerEventListRequest](the_plaid_api/models/transfer_ledger_event_list_request.py) \| [TransferLedgerEventListRequestDict](the_plaid_api/models/transfer_ledger_event_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20242,7 +21650,7 @@ Use the `/transfer/ledger/get` endpoint to view a balance on the ledger held wit
 
 ```python
 try:
-    response = client.transfer_ledger_get(body)
+    response = client.transfer_ledger_get(TransferLedgerGetRequest())
     # TODO: Handle 'response' of type TransferLedgerGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20252,7 +21660,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_ledger_get(body)
+    response = await async_client.transfer_ledger_get(TransferLedgerGetRequest())
     # TODO: Handle 'response' of type TransferLedgerGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20269,7 +21677,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferLedgerGetRequest](the_plaid_api/models/transfer_ledger_get_request.py) \| [TransferLedgerGetRequestDict](the_plaid_api/models/transfer_ledger_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20316,7 +21724,11 @@ Use the `/transfer/ledger/withdraw` endpoint to withdraw funds from a Plaid Ledg
 
 ```python
 try:
-    response = client.transfer_ledger_withdraw(body)
+    response = client.transfer_ledger_withdraw(
+        TransferLedgerWithdrawRequest(
+            amount="some example string", idempotency_key="some example string", network=TransferNetwork.ACH
+        ),
+    )
     # TODO: Handle 'response' of type TransferLedgerWithdrawResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20326,7 +21738,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_ledger_withdraw(body)
+    response = await async_client.transfer_ledger_withdraw(
+        TransferLedgerWithdrawRequest(
+            amount="some example string", idempotency_key="some example string", network=TransferNetwork.ACH
+        ),
+    )
     # TODO: Handle 'response' of type TransferLedgerWithdrawResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20343,7 +21759,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferLedgerWithdrawRequest](the_plaid_api/models/transfer_ledger_withdraw_request.py) \| [TransferLedgerWithdrawRequestDict](the_plaid_api/models/transfer_ledger_withdraw_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20390,7 +21806,7 @@ Use the `/transfer/list` endpoint to see a list of all your transfers and their 
 
 ```python
 try:
-    response = client.transfer_list(body)
+    response = client.transfer_list(TransferListRequest())
     # TODO: Handle 'response' of type TransferListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20400,7 +21816,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_list(body)
+    response = await async_client.transfer_list(TransferListRequest())
     # TODO: Handle 'response' of type TransferListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20417,7 +21833,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferListRequest](the_plaid_api/models/transfer_list_request.py) \| [TransferListRequestDict](the_plaid_api/models/transfer_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20466,7 +21882,7 @@ In the Sandbox environment, this endpoint returns static placeholder values rath
 
 ```python
 try:
-    response = client.transfer_metrics_get(body)
+    response = client.transfer_metrics_get(TransferMetricsGetRequest())
     # TODO: Handle 'response' of type TransferMetricsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20476,7 +21892,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_metrics_get(body)
+    response = await async_client.transfer_metrics_get(TransferMetricsGetRequest())
     # TODO: Handle 'response' of type TransferMetricsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20493,7 +21909,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferMetricsGetRequest](the_plaid_api/models/transfer_metrics_get_request.py) \| [TransferMetricsGetRequestDict](the_plaid_api/models/transfer_metrics_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20540,7 +21956,13 @@ As an alternative to adding Items via Link, you can also use the `/transfer/migr
 
 ```python
 try:
-    response = client.transfer_migrate_account(body)
+    response = client.transfer_migrate_account(
+        TransferMigrateAccountRequest(
+            account_number="some example string",
+            routing_number="some example string",
+            account_type="some example string",
+        ),
+    )
     # TODO: Handle 'response' of type TransferMigrateAccountResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20550,7 +21972,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_migrate_account(body)
+    response = await async_client.transfer_migrate_account(
+        TransferMigrateAccountRequest(
+            account_number="some example string",
+            routing_number="some example string",
+            account_type="some example string",
+        ),
+    )
     # TODO: Handle 'response' of type TransferMigrateAccountResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20567,7 +21995,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferMigrateAccountRequest](the_plaid_api/models/transfer_migrate_account_request.py) \| [TransferMigrateAccountRequestDict](the_plaid_api/models/transfer_migrate_account_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20614,7 +22042,7 @@ Use the `/transfer/originator/create` endpoint to create a new originator and re
 
 ```python
 try:
-    response = client.transfer_originator_create(body)
+    response = client.transfer_originator_create(TransferOriginatorCreateRequest(company_name="some example string"))
     # TODO: Handle 'response' of type TransferOriginatorCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20624,7 +22052,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_originator_create(body)
+    response = await async_client.transfer_originator_create(
+        TransferOriginatorCreateRequest(company_name="some example string")
+    )
     # TODO: Handle 'response' of type TransferOriginatorCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20641,7 +22071,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferOriginatorCreateRequest](the_plaid_api/models/transfer_originator_create_request.py) \| [TransferOriginatorCreateRequestDict](the_plaid_api/models/transfer_originator_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20688,7 +22118,14 @@ Use the `/transfer/originator/funding_account/create` endpoint to create a new f
 
 ```python
 try:
-    response = client.transfer_originator_funding_account_create(body)
+    response = client.transfer_originator_funding_account_create(
+        TransferOriginatorFundingAccountCreateRequest(
+            originator_client_id="some example string",
+            funding_account=TransferFundingAccountWithDisplayName(
+                access_token="some example string", account_id="some example string"
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type TransferOriginatorFundingAccountCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20698,7 +22135,14 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_originator_funding_account_create(body)
+    response = await async_client.transfer_originator_funding_account_create(
+        TransferOriginatorFundingAccountCreateRequest(
+            originator_client_id="some example string",
+            funding_account=TransferFundingAccountWithDisplayName(
+                access_token="some example string", account_id="some example string"
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type TransferOriginatorFundingAccountCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20715,7 +22159,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferOriginatorFundingAccountCreateRequest](the_plaid_api/models/transfer_originator_funding_account_create_request.py) \| [TransferOriginatorFundingAccountCreateRequestDict](the_plaid_api/models/transfer_originator_funding_account_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20762,7 +22206,14 @@ Use the `/transfer/originator/funding_account/update` endpoint to update the fun
 
 ```python
 try:
-    response = client.transfer_originator_funding_account_update(body)
+    response = client.transfer_originator_funding_account_update(
+        TransferOriginatorFundingAccountUpdateRequest(
+            originator_client_id="some example string",
+            funding_account=TransferFundingAccount(
+                access_token="some example string", account_id="some example string"
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type TransferOriginatorFundingAccountUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20772,7 +22223,14 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_originator_funding_account_update(body)
+    response = await async_client.transfer_originator_funding_account_update(
+        TransferOriginatorFundingAccountUpdateRequest(
+            originator_client_id="some example string",
+            funding_account=TransferFundingAccount(
+                access_token="some example string", account_id="some example string"
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type TransferOriginatorFundingAccountUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20789,7 +22247,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferOriginatorFundingAccountUpdateRequest](the_plaid_api/models/transfer_originator_funding_account_update_request.py) \| [TransferOriginatorFundingAccountUpdateRequestDict](the_plaid_api/models/transfer_originator_funding_account_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20836,7 +22294,7 @@ The `/transfer/originator/get` endpoint gets status updates for an originator's 
 
 ```python
 try:
-    response = client.transfer_originator_get(body)
+    response = client.transfer_originator_get(TransferOriginatorGetRequest(originator_client_id="some example string"))
     # TODO: Handle 'response' of type TransferOriginatorGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20846,7 +22304,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_originator_get(body)
+    response = await async_client.transfer_originator_get(
+        TransferOriginatorGetRequest(originator_client_id="some example string")
+    )
     # TODO: Handle 'response' of type TransferOriginatorGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20863,7 +22323,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferOriginatorGetRequest](the_plaid_api/models/transfer_originator_get_request.py) \| [TransferOriginatorGetRequestDict](the_plaid_api/models/transfer_originator_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20910,7 +22370,7 @@ The `/transfer/originator/list` endpoint gets status updates for all of your ori
 
 ```python
 try:
-    response = client.transfer_originator_list(body)
+    response = client.transfer_originator_list(TransferOriginatorListRequest())
     # TODO: Handle 'response' of type TransferOriginatorListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20920,7 +22380,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_originator_list(body)
+    response = await async_client.transfer_originator_list(TransferOriginatorListRequest())
     # TODO: Handle 'response' of type TransferOriginatorListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20937,7 +22397,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferOriginatorListRequest](the_plaid_api/models/transfer_originator_list_request.py) \| [TransferOriginatorListRequestDict](the_plaid_api/models/transfer_originator_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20984,7 +22444,17 @@ Use the `/transfer/platform/originator/create` endpoint to submit information ab
 
 ```python
 try:
-    response = client.transfer_platform_originator_create(body)
+    response = client.transfer_platform_originator_create(
+        TransferPlatformOriginatorCreateRequest(
+            originator_client_id="some example string",
+            tos_acceptance_metadata=TosacceptanceMetadata(
+                agreement_accepted=True,
+                originator_ip_address="some example string",
+                agreement_accepted_at=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc),
+            ),
+            originator_reviewed_at=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc),
+        ),
+    )
     # TODO: Handle 'response' of type TransferPlatformOriginatorCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -20994,7 +22464,17 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_platform_originator_create(body)
+    response = await async_client.transfer_platform_originator_create(
+        TransferPlatformOriginatorCreateRequest(
+            originator_client_id="some example string",
+            tos_acceptance_metadata=TosacceptanceMetadata(
+                agreement_accepted=True,
+                originator_ip_address="some example string",
+                agreement_accepted_at=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc),
+            ),
+            originator_reviewed_at=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc),
+        ),
+    )
     # TODO: Handle 'response' of type TransferPlatformOriginatorCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21011,7 +22491,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferPlatformOriginatorCreateRequest](the_plaid_api/models/transfer_platform_originator_create_request.py) \| [TransferPlatformOriginatorCreateRequestDict](the_plaid_api/models/transfer_platform_originator_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21058,7 +22538,9 @@ Use the `/transfer/platform/person/create` endpoint to create a person associate
 
 ```python
 try:
-    response = client.transfer_platform_person_create(body)
+    response = client.transfer_platform_person_create(
+        TransferPlatformPersonCreateRequest(originator_client_id="some example string")
+    )
     # TODO: Handle 'response' of type TransferPlatformPersonCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21068,7 +22550,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_platform_person_create(body)
+    response = await async_client.transfer_platform_person_create(
+        TransferPlatformPersonCreateRequest(originator_client_id="some example string")
+    )
     # TODO: Handle 'response' of type TransferPlatformPersonCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21085,7 +22569,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferPlatformPersonCreateRequest](the_plaid_api/models/transfer_platform_person_create_request.py) \| [TransferPlatformPersonCreateRequestDict](the_plaid_api/models/transfer_platform_person_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21132,7 +22616,14 @@ Use the `/transfer/platform/requirement/submit` endpoint to submit additional on
 
 ```python
 try:
-    response = client.transfer_platform_requirement_submit(body)
+    response = client.transfer_platform_requirement_submit(
+        TransferPlatformRequirementSubmitRequest(
+            originator_client_id="some example string",
+            requirement_submissions=[
+                RequirementSubmission(requirement_type="some example string", value="some example string")
+            ],
+        ),
+    )
     # TODO: Handle 'response' of type TransferPlatformRequirementSubmitResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21142,7 +22633,14 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_platform_requirement_submit(body)
+    response = await async_client.transfer_platform_requirement_submit(
+        TransferPlatformRequirementSubmitRequest(
+            originator_client_id="some example string",
+            requirement_submissions=[
+                RequirementSubmission(requirement_type="some example string", value="some example string")
+            ],
+        ),
+    )
     # TODO: Handle 'response' of type TransferPlatformRequirementSubmitResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21159,7 +22657,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferPlatformRequirementSubmitRequest](the_plaid_api/models/transfer_platform_requirement_submit_request.py) \| [TransferPlatformRequirementSubmitRequestDict](the_plaid_api/models/transfer_platform_requirement_submit_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21206,7 +22704,11 @@ The `/transfer/questionnaire/create` endpoint generates a Plaid-hosted onboardin
 
 ```python
 try:
-    response = client.transfer_questionnaire_create(body)
+    response = client.transfer_questionnaire_create(
+        TransferQuestionnaireCreateRequest(
+            originator_client_id="some example string", redirect_uri="some example string"
+        ),
+    )
     # TODO: Handle 'response' of type TransferQuestionnaireCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21216,7 +22718,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_questionnaire_create(body)
+    response = await async_client.transfer_questionnaire_create(
+        TransferQuestionnaireCreateRequest(
+            originator_client_id="some example string", redirect_uri="some example string"
+        ),
+    )
     # TODO: Handle 'response' of type TransferQuestionnaireCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21233,7 +22739,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferQuestionnaireCreateRequest](the_plaid_api/models/transfer_questionnaire_create_request.py) \| [TransferQuestionnaireCreateRequestDict](the_plaid_api/models/transfer_questionnaire_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21280,7 +22786,9 @@ Use the `/transfer/recurring/cancel` endpoint to cancel a recurring transfer.  A
 
 ```python
 try:
-    response = client.transfer_recurring_cancel(body)
+    response = client.transfer_recurring_cancel(
+        TransferRecurringCancelRequest(recurring_transfer_id="some example string")
+    )
     # TODO: Handle 'response' of type TransferRecurringCancelResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21290,7 +22798,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_recurring_cancel(body)
+    response = await async_client.transfer_recurring_cancel(
+        TransferRecurringCancelRequest(recurring_transfer_id="some example string")
+    )
     # TODO: Handle 'response' of type TransferRecurringCancelResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21307,7 +22817,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferRecurringCancelRequest](the_plaid_api/models/transfer_recurring_cancel_request.py) \| [TransferRecurringCancelRequestDict](the_plaid_api/models/transfer_recurring_cancel_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21354,7 +22864,24 @@ Use the `/transfer/recurring/create` endpoint to initiate a new recurring transf
 
 ```python
 try:
-    response = client.transfer_recurring_create(body)
+    response = client.transfer_recurring_create(
+        TransferRecurringCreateRequest(
+            access_token="some example string",
+            idempotency_key="some example string",
+            account_id="some example string",
+            type_=TransferType.DEBIT,
+            network=TransferRecurringNetwork.ACH,
+            amount="some example string",
+            description="some example string",
+            schedule=TransferRecurringSchedule(
+                interval_unit=TransferScheduleIntervalUnit.WEEK,
+                interval_count=1,
+                interval_execution_day=1,
+                start_date=date(2024, 1, 15),
+            ),
+            user=TransferUserInRequest(legal_name="some example string"),
+        ),
+    )
     # TODO: Handle 'response' of type TransferRecurringCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21364,7 +22891,24 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_recurring_create(body)
+    response = await async_client.transfer_recurring_create(
+        TransferRecurringCreateRequest(
+            access_token="some example string",
+            idempotency_key="some example string",
+            account_id="some example string",
+            type_=TransferType.DEBIT,
+            network=TransferRecurringNetwork.ACH,
+            amount="some example string",
+            description="some example string",
+            schedule=TransferRecurringSchedule(
+                interval_unit=TransferScheduleIntervalUnit.WEEK,
+                interval_count=1,
+                interval_execution_day=1,
+                start_date=date(2024, 1, 15),
+            ),
+            user=TransferUserInRequest(legal_name="some example string"),
+        ),
+    )
     # TODO: Handle 'response' of type TransferRecurringCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21381,7 +22925,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferRecurringCreateRequest](the_plaid_api/models/transfer_recurring_create_request.py) \| [TransferRecurringCreateRequestDict](the_plaid_api/models/transfer_recurring_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21428,7 +22972,7 @@ The `/transfer/recurring/get` fetches information about the recurring transfer c
 
 ```python
 try:
-    response = client.transfer_recurring_get(body)
+    response = client.transfer_recurring_get(TransferRecurringGetRequest(recurring_transfer_id="some example string"))
     # TODO: Handle 'response' of type TransferRecurringGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21438,7 +22982,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_recurring_get(body)
+    response = await async_client.transfer_recurring_get(
+        TransferRecurringGetRequest(recurring_transfer_id="some example string")
+    )
     # TODO: Handle 'response' of type TransferRecurringGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21455,7 +23001,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferRecurringGetRequest](the_plaid_api/models/transfer_recurring_get_request.py) \| [TransferRecurringGetRequestDict](the_plaid_api/models/transfer_recurring_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21502,7 +23048,7 @@ Use the `/transfer/recurring/list` endpoint to see a list of all your recurring 
 
 ```python
 try:
-    response = client.transfer_recurring_list(body)
+    response = client.transfer_recurring_list(TransferRecurringListRequest())
     # TODO: Handle 'response' of type TransferRecurringListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21512,7 +23058,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_recurring_list(body)
+    response = await async_client.transfer_recurring_list(TransferRecurringListRequest())
     # TODO: Handle 'response' of type TransferRecurringListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21529,7 +23075,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferRecurringListRequest](the_plaid_api/models/transfer_recurring_list_request.py) \| [TransferRecurringListRequestDict](the_plaid_api/models/transfer_recurring_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21576,7 +23122,7 @@ Use the `/transfer/refund/cancel` endpoint to cancel a refund.  A refund is elig
 
 ```python
 try:
-    response = client.transfer_refund_cancel(body)
+    response = client.transfer_refund_cancel(TransferRefundCancelRequest(refund_id="some example string"))
     # TODO: Handle 'response' of type TransferRefundCancelResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21586,7 +23132,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_refund_cancel(body)
+    response = await async_client.transfer_refund_cancel(TransferRefundCancelRequest(refund_id="some example string"))
     # TODO: Handle 'response' of type TransferRefundCancelResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21603,7 +23149,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferRefundCancelRequest](the_plaid_api/models/transfer_refund_cancel_request.py) \| [TransferRefundCancelRequestDict](the_plaid_api/models/transfer_refund_cancel_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21654,7 +23200,11 @@ A refund can still be issued even if the Item's `access_token` is no longer vali
 
 ```python
 try:
-    response = client.transfer_refund_create(body)
+    response = client.transfer_refund_create(
+        TransferRefundCreateRequest(
+            transfer_id="some example string", amount="some example string", idempotency_key="some example string"
+        ),
+    )
     # TODO: Handle 'response' of type TransferRefundCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21664,7 +23214,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_refund_create(body)
+    response = await async_client.transfer_refund_create(
+        TransferRefundCreateRequest(
+            transfer_id="some example string", amount="some example string", idempotency_key="some example string"
+        ),
+    )
     # TODO: Handle 'response' of type TransferRefundCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21681,7 +23235,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferRefundCreateRequest](the_plaid_api/models/transfer_refund_create_request.py) \| [TransferRefundCreateRequestDict](the_plaid_api/models/transfer_refund_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21728,7 +23282,7 @@ The `/transfer/refund/get` endpoint fetches information about the refund corresp
 
 ```python
 try:
-    response = client.transfer_refund_get(body)
+    response = client.transfer_refund_get(TransferRefundGetRequest(refund_id="some example string"))
     # TODO: Handle 'response' of type TransferRefundGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21738,7 +23292,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_refund_get(body)
+    response = await async_client.transfer_refund_get(TransferRefundGetRequest(refund_id="some example string"))
     # TODO: Handle 'response' of type TransferRefundGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21755,7 +23309,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferRefundGetRequest](the_plaid_api/models/transfer_refund_get_request.py) \| [TransferRefundGetRequestDict](the_plaid_api/models/transfer_refund_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21802,7 +23356,7 @@ The `/transfer/repayment/list` endpoint fetches repayments matching the given fi
 
 ```python
 try:
-    response = client.transfer_repayment_list(body)
+    response = client.transfer_repayment_list(TransferRepaymentListRequest(count=1))
     # TODO: Handle 'response' of type TransferRepaymentListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21812,7 +23366,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_repayment_list(body)
+    response = await async_client.transfer_repayment_list(TransferRepaymentListRequest(count=1))
     # TODO: Handle 'response' of type TransferRepaymentListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21829,7 +23383,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferRepaymentListRequest](the_plaid_api/models/transfer_repayment_list_request.py) \| [TransferRepaymentListRequestDict](the_plaid_api/models/transfer_repayment_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21876,7 +23430,9 @@ The `/transfer/repayment/return/list` endpoint retrieves the set of returns that
 
 ```python
 try:
-    response = client.transfer_repayment_return_list(body)
+    response = client.transfer_repayment_return_list(
+        TransferRepaymentReturnListRequest(repayment_id="d4bfce70-2470-4298-ae87-5e9b3e18bfaf", count=1)
+    )
     # TODO: Handle 'response' of type TransferRepaymentReturnListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21886,7 +23442,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_repayment_return_list(body)
+    response = await async_client.transfer_repayment_return_list(
+        TransferRepaymentReturnListRequest(repayment_id="d4bfce70-2470-4298-ae87-5e9b3e18bfaf", count=1)
+    )
     # TODO: Handle 'response' of type TransferRepaymentReturnListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21903,7 +23461,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferRepaymentReturnListRequest](the_plaid_api/models/transfer_repayment_return_list_request.py) \| [TransferRepaymentReturnListRequestDict](the_plaid_api/models/transfer_repayment_return_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21952,7 +23510,11 @@ Recovery can be reported in full or in parts; the sum of recovered amounts acros
 
 ```python
 try:
-    response = client.transfer_return_recover(body)
+    response = client.transfer_return_recover(
+        TransferReturnRecoverRequest(
+            transfer_id="some example string", amount="some example string", idempotency_key="some example string"
+        ),
+    )
     # TODO: Handle 'response' of type TransferReturnRecoverResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21962,7 +23524,11 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_return_recover(body)
+    response = await async_client.transfer_return_recover(
+        TransferReturnRecoverRequest(
+            transfer_id="some example string", amount="some example string", idempotency_key="some example string"
+        ),
+    )
     # TODO: Handle 'response' of type TransferReturnRecoverResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -21979,7 +23545,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferReturnRecoverRequest](the_plaid_api/models/transfer_return_recover_request.py) \| [TransferReturnRecoverRequestDict](the_plaid_api/models/transfer_return_recover_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22026,7 +23592,7 @@ The `/transfer/sweep/get` endpoint fetches a sweep corresponding to the given `s
 
 ```python
 try:
-    response = client.transfer_sweep_get(body)
+    response = client.transfer_sweep_get(TransferSweepGetRequest(sweep_id="some example string"))
     # TODO: Handle 'response' of type TransferSweepGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22036,7 +23602,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_sweep_get(body)
+    response = await async_client.transfer_sweep_get(TransferSweepGetRequest(sweep_id="some example string"))
     # TODO: Handle 'response' of type TransferSweepGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22053,7 +23619,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferSweepGetRequest](the_plaid_api/models/transfer_sweep_get_request.py) \| [TransferSweepGetRequestDict](the_plaid_api/models/transfer_sweep_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22100,7 +23666,7 @@ The `/transfer/sweep/list` endpoint fetches sweeps matching the given filters.
 
 ```python
 try:
-    response = client.transfer_sweep_list(body)
+    response = client.transfer_sweep_list(TransferSweepListRequest())
     # TODO: Handle 'response' of type TransferSweepListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22110,7 +23676,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.transfer_sweep_list(body)
+    response = await async_client.transfer_sweep_list(TransferSweepListRequest())
     # TODO: Handle 'response' of type TransferSweepListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22127,7 +23693,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferSweepListRequest](the_plaid_api/models/transfer_sweep_list_request.py) \| [TransferSweepListRequestDict](the_plaid_api/models/transfer_sweep_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22174,7 +23740,14 @@ This endpoint allows sending client-specific events related to Layer sessions fo
 
 ```python
 try:
-    response = client.user_account_session_event_send(body)
+    response = client.user_account_session_event_send(
+        UserAccountSessionEventSendRequest(
+            link_session_id="some example string",
+            event=UserAccountSessionEvent(
+                name="some example string", timestamp=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc)
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type UserAccountSessionEventSendResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22184,7 +23757,14 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.user_account_session_event_send(body)
+    response = await async_client.user_account_session_event_send(
+        UserAccountSessionEventSendRequest(
+            link_session_id="some example string",
+            event=UserAccountSessionEvent(
+                name="some example string", timestamp=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc)
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type UserAccountSessionEventSendResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22201,7 +23781,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserAccountSessionEventSendRequest](the_plaid_api/models/user_account_session_event_send_request.py) \| [UserAccountSessionEventSendRequestDict](the_plaid_api/models/user_account_session_event_send_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22248,7 +23828,7 @@ This endpoint returns user permissioned account data, including identity and Ite
 
 ```python
 try:
-    response = client.user_account_session_get(body)
+    response = client.user_account_session_get(UserAccountSessionGetRequest(public_token="some example string"))
     # TODO: Handle 'response' of type UserAccountSessionGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22258,7 +23838,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.user_account_session_get(body)
+    response = await async_client.user_account_session_get(
+        UserAccountSessionGetRequest(public_token="some example string")
+    )
     # TODO: Handle 'response' of type UserAccountSessionGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22275,7 +23857,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserAccountSessionGetRequest](the_plaid_api/models/user_account_session_get_request.py) \| [UserAccountSessionGetRequestDict](the_plaid_api/models/user_account_session_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22332,7 +23914,7 @@ Plaid will normalize identity fields before storing them and utilize the same id
 
 ```python
 try:
-    response = client.user_create(body)
+    response = client.user_create(UserCreateRequest(client_user_id="some example string"))
     # TODO: Handle 'response' of type UserCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22342,7 +23924,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.user_create(body)
+    response = await async_client.user_create(UserCreateRequest(client_user_id="some example string"))
     # TODO: Handle 'response' of type UserCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22360,7 +23942,7 @@ except ApiError as e:
 | --- | --- | --- |
 | <code>body</code> | <code>[UserCreateRequest](the_plaid_api/models/user_create_request.py) \| [UserCreateRequestDict](the_plaid_api/models/user_create_request.py)</code> | The request body. |
 | <code>plaid_new_user_api_enabled</code> | <code>bool \| None</code> | The HTTP header used in API requests to determine which set of User APIs to invoke: the legacy CRA version or the new User API version.<br>**Default**: <code>False</code> |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22412,7 +23994,7 @@ This endpoint is distinct from `/transactions/refresh`, which triggers a refresh
 
 ```python
 try:
-    response = client.user_financial_data_refresh(body)
+    response = client.user_financial_data_refresh(UserFinancialDataRefreshRequest(user_id="usr_8c3ZbDBYjaqUXZ"))
     # TODO: Handle 'response' of type UserFinancialDataRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22422,7 +24004,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.user_financial_data_refresh(body)
+    response = await async_client.user_financial_data_refresh(
+        UserFinancialDataRefreshRequest(user_id="usr_8c3ZbDBYjaqUXZ")
+    )
     # TODO: Handle 'response' of type UserFinancialDataRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22439,7 +24023,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserFinancialDataRefreshRequest](the_plaid_api/models/user_financial_data_refresh_request.py) \| [UserFinancialDataRefreshRequestDict](the_plaid_api/models/user_financial_data_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22486,7 +24070,7 @@ Get user details using a `user_id`. This endpoint only supports users that were 
 
 ```python
 try:
-    response = client.user_get(body)
+    response = client.user_get(UserGetRequest(user_id="some example string"))
     # TODO: Handle 'response' of type UserGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22496,7 +24080,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.user_get(body)
+    response = await async_client.user_get(UserGetRequest(user_id="some example string"))
     # TODO: Handle 'response' of type UserGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22514,7 +24098,7 @@ except ApiError as e:
 | --- | --- | --- |
 | <code>body</code> | <code>[UserGetRequest](the_plaid_api/models/user_get_request.py) \| [UserGetRequestDict](the_plaid_api/models/user_get_request.py)</code> | The request body. |
 | <code>plaid_new_user_api_enabled</code> | <code>bool \| None</code> | The HTTP header used in API requests to determine which set of User APIs to invoke: the legacy CRA version or the new User API version.<br>**Default**: <code>False</code> |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22561,7 +24145,7 @@ This endpoint allows customers to explicitly purge identity/PII data provided to
 
 ```python
 try:
-    response = client.user_identity_remove(body)
+    response = client.user_identity_remove(UserIdentityRemoveRequest(user_id="some example string"))
     # TODO: Handle 'response' of type UserIdentityRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22571,7 +24155,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.user_identity_remove(body)
+    response = await async_client.user_identity_remove(UserIdentityRemoveRequest(user_id="some example string"))
     # TODO: Handle 'response' of type UserIdentityRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22589,7 +24173,7 @@ except ApiError as e:
 | --- | --- | --- |
 | <code>body</code> | <code>[UserIdentityRemoveRequest](the_plaid_api/models/user_identity_remove_request.py) \| [UserIdentityRemoveRequestDict](the_plaid_api/models/user_identity_remove_request.py)</code> | The request body. |
 | <code>plaid_new_user_api_enabled</code> | <code>bool \| None</code> | The HTTP header used in API requests to determine which set of User APIs to invoke: the legacy CRA version or the new User API version.<br>**Default**: <code>False</code> |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22636,7 +24220,9 @@ Associates Items to the target user. If an Item is already associated to another
 
 ```python
 try:
-    response = client.user_items_associate(body)
+    response = client.user_items_associate(
+        UserItemsAssociateRequest(user_id="some example string", item_ids=["some example string"])
+    )
     # TODO: Handle 'response' of type UserItemsAssociateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22646,7 +24232,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.user_items_associate(body)
+    response = await async_client.user_items_associate(
+        UserItemsAssociateRequest(user_id="some example string", item_ids=["some example string"])
+    )
     # TODO: Handle 'response' of type UserItemsAssociateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22663,7 +24251,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserItemsAssociateRequest](the_plaid_api/models/user_items_associate_request.py) \| [UserItemsAssociateRequestDict](the_plaid_api/models/user_items_associate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22710,7 +24298,7 @@ Returns Items associated with a `user_id`, along with their corresponding status
 
 ```python
 try:
-    response = client.user_items_get(body)
+    response = client.user_items_get(UserItemsGetRequest())
     # TODO: Handle 'response' of type UserItemsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22720,7 +24308,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.user_items_get(body)
+    response = await async_client.user_items_get(UserItemsGetRequest())
     # TODO: Handle 'response' of type UserItemsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22737,7 +24325,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserItemsGetRequest](the_plaid_api/models/user_items_get_request.py) \| [UserItemsGetRequestDict](the_plaid_api/models/user_items_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22785,7 +24373,7 @@ This endpoint is not intended to remove all data for a user, as it will only rem
 
 ```python
 try:
-    response = client.user_items_remove(body)
+    response = client.user_items_remove(UserItemsRemoveRequest(item_ids=["some example string"]))
     # TODO: Handle 'response' of type UserItemsRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22795,7 +24383,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.user_items_remove(body)
+    response = await async_client.user_items_remove(UserItemsRemoveRequest(item_ids=["some example string"]))
     # TODO: Handle 'response' of type UserItemsRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22812,7 +24400,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserItemsRemoveRequest](the_plaid_api/models/user_items_remove_request.py) \| [UserItemsRemoveRequestDict](the_plaid_api/models/user_items_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22859,7 +24447,13 @@ Terminates user-based recurring subscription bundles or products (Financial Mana
 
 ```python
 try:
-    response = client.user_products_terminate(body)
+    response = client.user_products_terminate(
+        UserProductsTerminateRequest(
+            user_id="usr_8c3ZbDBYjaqUXZ",
+            reason_code=ProductsTerminateReasonCode.CONSUMER_ACCOUNT_CLOSED,
+            reason_note="User closed account with client.",
+        ),
+    )
     # TODO: Handle 'response' of type UserProductsTerminateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22869,7 +24463,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.user_products_terminate(body)
+    response = await async_client.user_products_terminate(
+        UserProductsTerminateRequest(
+            user_id="usr_8c3ZbDBYjaqUXZ",
+            reason_code=ProductsTerminateReasonCode.CONSUMER_ACCOUNT_CLOSED,
+            reason_note="User closed account with client.",
+        ),
+    )
     # TODO: Handle 'response' of type UserProductsTerminateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22886,7 +24486,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserProductsTerminateRequest](the_plaid_api/models/user_products_terminate_request.py) \| [UserProductsTerminateRequestDict](the_plaid_api/models/user_products_terminate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22933,7 +24533,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.user_remove(body)
+    response = client.user_remove(UserRemoveRequest())
     # TODO: Handle 'response' of type UserRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22943,7 +24543,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.user_remove(body)
+    response = await async_client.user_remove(UserRemoveRequest())
     # TODO: Handle 'response' of type UserRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -22961,7 +24561,7 @@ except ApiError as e:
 | --- | --- | --- |
 | <code>body</code> | <code>[UserRemoveRequest](the_plaid_api/models/user_remove_request.py) \| [UserRemoveRequestDict](the_plaid_api/models/user_remove_request.py)</code> | The request body. |
 | <code>plaid_new_user_api_enabled</code> | <code>bool \| None</code> | The HTTP header used in API requests to determine which set of User APIs to invoke: the legacy CRA version or the new User API version.<br>**Default**: <code>False</code> |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23010,7 +24610,9 @@ Ensure you store the `third_party_user_token` along with the `user_token` and `t
 
 ```python
 try:
-    response = client.user_third_party_token_create(body)
+    response = client.user_third_party_token_create(
+        UserThirdPartyTokenCreateRequest(third_party_client_id="some example string")
+    )
     # TODO: Handle 'response' of type UserThirdPartyTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23020,7 +24622,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.user_third_party_token_create(body)
+    response = await async_client.user_third_party_token_create(
+        UserThirdPartyTokenCreateRequest(third_party_client_id="some example string")
+    )
     # TODO: Handle 'response' of type UserThirdPartyTokenCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23037,7 +24641,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserThirdPartyTokenCreateRequest](the_plaid_api/models/user_third_party_token_create_request.py) \| [UserThirdPartyTokenCreateRequestDict](the_plaid_api/models/user_third_party_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23086,7 +24690,9 @@ Any subsequent calls to retrieve information using the same third-party user tok
 
 ```python
 try:
-    response = client.user_third_party_token_remove(body)
+    response = client.user_third_party_token_remove(
+        UserThirdPartyTokenRemoveRequest(third_party_user_token="some example string")
+    )
     # TODO: Handle 'response' of type UserThirdPartyTokenRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23096,7 +24702,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.user_third_party_token_remove(body)
+    response = await async_client.user_third_party_token_remove(
+        UserThirdPartyTokenRemoveRequest(third_party_user_token="some example string")
+    )
     # TODO: Handle 'response' of type UserThirdPartyTokenRemoveResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23113,7 +24721,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserThirdPartyTokenRemoveRequest](the_plaid_api/models/user_third_party_token_remove_request.py) \| [UserThirdPartyTokenRemoveRequestDict](the_plaid_api/models/user_third_party_token_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23165,7 +24773,7 @@ This endpoint is distinct from `/transactions/refresh`, which triggers a refresh
 
 ```python
 try:
-    response = client.user_transactions_refresh(body)
+    response = client.user_transactions_refresh(UserTransactionsRefreshRequest(user_id="usr_8c3ZbDBYjaqUXZ"))
     # TODO: Handle 'response' of type UserTransactionsRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23175,7 +24783,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.user_transactions_refresh(body)
+    response = await async_client.user_transactions_refresh(
+        UserTransactionsRefreshRequest(user_id="usr_8c3ZbDBYjaqUXZ")
+    )
     # TODO: Handle 'response' of type UserTransactionsRefreshResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23192,7 +24802,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserTransactionsRefreshRequest](the_plaid_api/models/user_transactions_refresh_request.py) \| [UserTransactionsRefreshRequestDict](the_plaid_api/models/user_transactions_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23241,7 +24851,7 @@ Identity updates use merge semantics: provided fields overwrite existing ones; o
 
 ```python
 try:
-    response = client.user_update(body)
+    response = client.user_update(UserUpdateRequest())
     # TODO: Handle 'response' of type UserUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23251,7 +24861,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.user_update(body)
+    response = await async_client.user_update(UserUpdateRequest())
     # TODO: Handle 'response' of type UserUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23269,7 +24879,7 @@ except ApiError as e:
 | --- | --- | --- |
 | <code>body</code> | <code>[UserUpdateRequest](the_plaid_api/models/user_update_request.py) \| [UserUpdateRequestDict](the_plaid_api/models/user_update_request.py)</code> | The request body. |
 | <code>plaid_new_user_api_enabled</code> | <code>bool \| None</code> | The HTTP header used in API requests to determine which set of User APIs to invoke: the legacy CRA version or the new User API version.<br>**Default**: <code>False</code> |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23316,7 +24926,7 @@ Create an e-wallet. The response is the newly created e-wallet object.
 
 ```python
 try:
-    response = client.wallet_create(body)
+    response = client.wallet_create(WalletCreateRequest(iso_currency_code=IsoCurrencyCode.GBP))
     # TODO: Handle 'response' of type WalletCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23326,7 +24936,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.wallet_create(body)
+    response = await async_client.wallet_create(WalletCreateRequest(iso_currency_code=IsoCurrencyCode.GBP))
     # TODO: Handle 'response' of type WalletCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23343,7 +24953,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WalletCreateRequest](the_plaid_api/models/wallet_create_request.py) \| [WalletCreateRequestDict](the_plaid_api/models/wallet_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23390,7 +25000,7 @@ Fetch an e-wallet. The response includes the current balance.
 
 ```python
 try:
-    response = client.wallet_get(body)
+    response = client.wallet_get(WalletGetRequest(wallet_id="some example string"))
     # TODO: Handle 'response' of type WalletGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23400,7 +25010,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.wallet_get(body)
+    response = await async_client.wallet_get(WalletGetRequest(wallet_id="some example string"))
     # TODO: Handle 'response' of type WalletGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23417,7 +25027,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WalletGetRequest](the_plaid_api/models/wallet_get_request.py) \| [WalletGetRequestDict](the_plaid_api/models/wallet_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23464,7 +25074,7 @@ This endpoint lists all e-wallets in descending order of creation.
 
 ```python
 try:
-    response = client.wallet_list(body)
+    response = client.wallet_list(WalletListRequest())
     # TODO: Handle 'response' of type WalletListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23474,7 +25084,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.wallet_list(body)
+    response = await async_client.wallet_list(WalletListRequest())
     # TODO: Handle 'response' of type WalletListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23491,7 +25101,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WalletListRequest](the_plaid_api/models/wallet_list_request.py) \| [WalletListRequestDict](the_plaid_api/models/wallet_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23540,7 +25150,17 @@ Transactions will settle in seconds to several days, depending on the underlying
 
 ```python
 try:
-    response = client.wallet_transaction_execute(body)
+    response = client.wallet_transaction_execute(
+        WalletTransactionExecuteRequest(
+            idempotency_key="some example string",
+            wallet_id="some example string",
+            counterparty=WalletTransactionCounterparty(
+                name="some example string", numbers=WalletTransactionCounterpartyNumbers()
+            ),
+            amount=WalletTransactionAmount(iso_currency_code=IsoCurrencyCode.GBP, value=1.5),
+            reference="some example string",
+        ),
+    )
     # TODO: Handle 'response' of type WalletTransactionExecuteResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23550,7 +25170,17 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.wallet_transaction_execute(body)
+    response = await async_client.wallet_transaction_execute(
+        WalletTransactionExecuteRequest(
+            idempotency_key="some example string",
+            wallet_id="some example string",
+            counterparty=WalletTransactionCounterparty(
+                name="some example string", numbers=WalletTransactionCounterpartyNumbers()
+            ),
+            amount=WalletTransactionAmount(iso_currency_code=IsoCurrencyCode.GBP, value=1.5),
+            reference="some example string",
+        ),
+    )
     # TODO: Handle 'response' of type WalletTransactionExecuteResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23567,7 +25197,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WalletTransactionExecuteRequest](the_plaid_api/models/wallet_transaction_execute_request.py) \| [WalletTransactionExecuteRequestDict](the_plaid_api/models/wallet_transaction_execute_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23614,7 +25244,7 @@ Fetch a specific e-wallet transaction
 
 ```python
 try:
-    response = client.wallet_transaction_get(body)
+    response = client.wallet_transaction_get(WalletTransactionGetRequest(transaction_id="some example string"))
     # TODO: Handle 'response' of type WalletTransactionGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23624,7 +25254,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.wallet_transaction_get(body)
+    response = await async_client.wallet_transaction_get(
+        WalletTransactionGetRequest(transaction_id="some example string")
+    )
     # TODO: Handle 'response' of type WalletTransactionGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23641,7 +25273,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WalletTransactionGetRequest](the_plaid_api/models/wallet_transaction_get_request.py) \| [WalletTransactionGetRequestDict](the_plaid_api/models/wallet_transaction_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23688,7 +25320,7 @@ This endpoint lists the latest transactions of the specified e-wallet. Transacti
 
 ```python
 try:
-    response = client.wallet_transaction_list(body)
+    response = client.wallet_transaction_list(WalletTransactionListRequest(wallet_id="some example string"))
     # TODO: Handle 'response' of type WalletTransactionListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23698,7 +25330,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.wallet_transaction_list(body)
+    response = await async_client.wallet_transaction_list(WalletTransactionListRequest(wallet_id="some example string"))
     # TODO: Handle 'response' of type WalletTransactionListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23715,7 +25347,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WalletTransactionListRequest](the_plaid_api/models/wallet_transaction_list_request.py) \| [WalletTransactionListRequestDict](the_plaid_api/models/wallet_transaction_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23762,7 +25394,13 @@ Create a new entity watchlist screening to check your customer against watchlist
 
 ```python
 try:
-    response = client.watchlist_screening_entity_create(body)
+    response = client.watchlist_screening_entity_create(
+        WatchlistScreeningEntityCreateRequest(
+            search_terms=EntityWatchlistSearchTerms(
+                entity_watchlist_program_id="some example string", legal_name="some example string"
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type WatchlistScreeningEntityCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23772,7 +25410,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_entity_create(body)
+    response = await async_client.watchlist_screening_entity_create(
+        WatchlistScreeningEntityCreateRequest(
+            search_terms=EntityWatchlistSearchTerms(
+                entity_watchlist_program_id="some example string", legal_name="some example string"
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type WatchlistScreeningEntityCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23789,7 +25433,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityCreateRequest](the_plaid_api/models/watchlist_screening_entity_create_request.py) \| [WatchlistScreeningEntityCreateRequestDict](the_plaid_api/models/watchlist_screening_entity_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23836,7 +25480,9 @@ Retrieve an entity watchlist screening.
 
 ```python
 try:
-    response = client.watchlist_screening_entity_get(body)
+    response = client.watchlist_screening_entity_get(
+        WatchlistScreeningEntityGetRequest(entity_watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningEntityGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23846,7 +25492,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_entity_get(body)
+    response = await async_client.watchlist_screening_entity_get(
+        WatchlistScreeningEntityGetRequest(entity_watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningEntityGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23863,7 +25511,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityGetRequest](the_plaid_api/models/watchlist_screening_entity_get_request.py) \| [WatchlistScreeningEntityGetRequestDict](the_plaid_api/models/watchlist_screening_entity_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23910,7 +25558,9 @@ List all changes to the entity watchlist screening in reverse-chronological orde
 
 ```python
 try:
-    response = client.watchlist_screening_entity_history_list(body)
+    response = client.watchlist_screening_entity_history_list(
+        WatchlistScreeningEntityHistoryListRequest(entity_watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningEntityHistoryListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23920,7 +25570,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_entity_history_list(body)
+    response = await async_client.watchlist_screening_entity_history_list(
+        WatchlistScreeningEntityHistoryListRequest(entity_watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningEntityHistoryListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23937,7 +25589,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityHistoryListRequest](the_plaid_api/models/watchlist_screening_entity_history_list_request.py) \| [WatchlistScreeningEntityHistoryListRequestDict](the_plaid_api/models/watchlist_screening_entity_history_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23984,7 +25636,9 @@ List all hits for the entity watchlist screening.
 
 ```python
 try:
-    response = client.watchlist_screening_entity_hit_list(body)
+    response = client.watchlist_screening_entity_hit_list(
+        WatchlistScreeningEntityHitListRequest(entity_watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningEntityHitListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -23994,7 +25648,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_entity_hit_list(body)
+    response = await async_client.watchlist_screening_entity_hit_list(
+        WatchlistScreeningEntityHitListRequest(entity_watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningEntityHitListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24011,7 +25667,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityHitListRequest](the_plaid_api/models/watchlist_screening_entity_hit_list_request.py) \| [WatchlistScreeningEntityHitListRequestDict](the_plaid_api/models/watchlist_screening_entity_hit_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24058,7 +25714,9 @@ List all entity screenings.
 
 ```python
 try:
-    response = client.watchlist_screening_entity_list(body)
+    response = client.watchlist_screening_entity_list(
+        WatchlistScreeningEntityListRequest(entity_watchlist_program_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningEntityListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24068,7 +25726,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_entity_list(body)
+    response = await async_client.watchlist_screening_entity_list(
+        WatchlistScreeningEntityListRequest(entity_watchlist_program_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningEntityListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24085,7 +25745,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityListRequest](the_plaid_api/models/watchlist_screening_entity_list_request.py) \| [WatchlistScreeningEntityListRequestDict](the_plaid_api/models/watchlist_screening_entity_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24132,7 +25792,9 @@ Get an entity watchlist screening program
 
 ```python
 try:
-    response = client.watchlist_screening_entity_program_get(body)
+    response = client.watchlist_screening_entity_program_get(
+        WatchlistScreeningEntityProgramGetRequest(entity_watchlist_program_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningEntityProgramGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24142,7 +25804,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_entity_program_get(body)
+    response = await async_client.watchlist_screening_entity_program_get(
+        WatchlistScreeningEntityProgramGetRequest(entity_watchlist_program_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningEntityProgramGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24159,7 +25823,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityProgramGetRequest](the_plaid_api/models/watchlist_screening_entity_program_get_request.py) \| [WatchlistScreeningEntityProgramGetRequestDict](the_plaid_api/models/watchlist_screening_entity_program_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24206,7 +25870,7 @@ List all entity watchlist screening programs
 
 ```python
 try:
-    response = client.watchlist_screening_entity_program_list(body)
+    response = client.watchlist_screening_entity_program_list(WatchlistScreeningEntityProgramListRequest())
     # TODO: Handle 'response' of type WatchlistScreeningEntityProgramListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24216,7 +25880,7 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_entity_program_list(body)
+    response = await async_client.watchlist_screening_entity_program_list(WatchlistScreeningEntityProgramListRequest())
     # TODO: Handle 'response' of type WatchlistScreeningEntityProgramListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24233,7 +25897,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityProgramListRequest](the_plaid_api/models/watchlist_screening_entity_program_list_request.py) \| [WatchlistScreeningEntityProgramListRequestDict](the_plaid_api/models/watchlist_screening_entity_program_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24280,7 +25944,13 @@ Create a review for an entity watchlist screening. Reviews are compliance report
 
 ```python
 try:
-    response = client.watchlist_screening_entity_review_create(body)
+    response = client.watchlist_screening_entity_review_create(
+        WatchlistScreeningEntityReviewCreateRequest(
+            confirmed_hits=["some example string"],
+            dismissed_hits=["some example string"],
+            entity_watchlist_screening_id="some example string",
+        ),
+    )
     # TODO: Handle 'response' of type WatchlistScreeningEntityReviewCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24290,7 +25960,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_entity_review_create(body)
+    response = await async_client.watchlist_screening_entity_review_create(
+        WatchlistScreeningEntityReviewCreateRequest(
+            confirmed_hits=["some example string"],
+            dismissed_hits=["some example string"],
+            entity_watchlist_screening_id="some example string",
+        ),
+    )
     # TODO: Handle 'response' of type WatchlistScreeningEntityReviewCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24307,7 +25983,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityReviewCreateRequest](the_plaid_api/models/watchlist_screening_entity_review_create_request.py) \| [WatchlistScreeningEntityReviewCreateRequestDict](the_plaid_api/models/watchlist_screening_entity_review_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24354,7 +26030,9 @@ List all reviews for a particular entity watchlist screening. Reviews are compli
 
 ```python
 try:
-    response = client.watchlist_screening_entity_review_list(body)
+    response = client.watchlist_screening_entity_review_list(
+        WatchlistScreeningEntityReviewListRequest(entity_watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningEntityReviewListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24364,7 +26042,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_entity_review_list(body)
+    response = await async_client.watchlist_screening_entity_review_list(
+        WatchlistScreeningEntityReviewListRequest(entity_watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningEntityReviewListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24381,7 +26061,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityReviewListRequest](the_plaid_api/models/watchlist_screening_entity_review_list_request.py) \| [WatchlistScreeningEntityReviewListRequestDict](the_plaid_api/models/watchlist_screening_entity_review_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24428,7 +26108,9 @@ Update an entity watchlist screening.
 
 ```python
 try:
-    response = client.watchlist_screening_entity_update(body)
+    response = client.watchlist_screening_entity_update(
+        WatchlistScreeningEntityUpdateRequest(entity_watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningEntityUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24438,7 +26120,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_entity_update(body)
+    response = await async_client.watchlist_screening_entity_update(
+        WatchlistScreeningEntityUpdateRequest(entity_watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningEntityUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24455,7 +26139,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityUpdateRequest](the_plaid_api/models/watchlist_screening_entity_update_request.py) \| [WatchlistScreeningEntityUpdateRequestDict](the_plaid_api/models/watchlist_screening_entity_update_request.py)</code> | The entity screening was successfully updated. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24502,7 +26186,13 @@ Create a new Watchlist Screening to check your customer against watchlists defin
 
 ```python
 try:
-    response = client.watchlist_screening_individual_create(body)
+    response = client.watchlist_screening_individual_create(
+        WatchlistScreeningIndividualCreateRequest(
+            search_terms=WatchlistScreeningRequestSearchTerms(
+                watchlist_program_id="some example string", legal_name="some example string"
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24512,7 +26202,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_individual_create(body)
+    response = await async_client.watchlist_screening_individual_create(
+        WatchlistScreeningIndividualCreateRequest(
+            search_terms=WatchlistScreeningRequestSearchTerms(
+                watchlist_program_id="some example string", legal_name="some example string"
+            ),
+        ),
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24529,7 +26225,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualCreateRequest](the_plaid_api/models/watchlist_screening_individual_create_request.py) \| [WatchlistScreeningIndividualCreateRequestDict](the_plaid_api/models/watchlist_screening_individual_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24576,7 +26272,9 @@ Retrieve a previously created individual watchlist screening
 
 ```python
 try:
-    response = client.watchlist_screening_individual_get(body)
+    response = client.watchlist_screening_individual_get(
+        WatchlistScreeningIndividualGetRequest(watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24586,7 +26284,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_individual_get(body)
+    response = await async_client.watchlist_screening_individual_get(
+        WatchlistScreeningIndividualGetRequest(watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24603,7 +26303,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualGetRequest](the_plaid_api/models/watchlist_screening_individual_get_request.py) \| [WatchlistScreeningIndividualGetRequestDict](the_plaid_api/models/watchlist_screening_individual_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24650,7 +26350,9 @@ List all changes to the individual watchlist screening in reverse-chronological 
 
 ```python
 try:
-    response = client.watchlist_screening_individual_history_list(body)
+    response = client.watchlist_screening_individual_history_list(
+        WatchlistScreeningIndividualHistoryListRequest(watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualHistoryListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24660,7 +26362,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_individual_history_list(body)
+    response = await async_client.watchlist_screening_individual_history_list(
+        WatchlistScreeningIndividualHistoryListRequest(watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualHistoryListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24677,7 +26381,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualHistoryListRequest](the_plaid_api/models/watchlist_screening_individual_history_list_request.py) \| [WatchlistScreeningIndividualHistoryListRequestDict](the_plaid_api/models/watchlist_screening_individual_history_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24724,7 +26428,9 @@ List all hits found by Plaid for a particular individual watchlist screening.
 
 ```python
 try:
-    response = client.watchlist_screening_individual_hit_list(body)
+    response = client.watchlist_screening_individual_hit_list(
+        WatchlistScreeningIndividualHitListRequest(watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualHitListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24734,7 +26440,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_individual_hit_list(body)
+    response = await async_client.watchlist_screening_individual_hit_list(
+        WatchlistScreeningIndividualHitListRequest(watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualHitListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24751,7 +26459,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualHitListRequest](the_plaid_api/models/watchlist_screening_individual_hit_list_request.py) \| [WatchlistScreeningIndividualHitListRequestDict](the_plaid_api/models/watchlist_screening_individual_hit_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24798,7 +26506,9 @@ List previously created watchlist screenings for individuals
 
 ```python
 try:
-    response = client.watchlist_screening_individual_list(body)
+    response = client.watchlist_screening_individual_list(
+        WatchlistScreeningIndividualListRequest(watchlist_program_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24808,7 +26518,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_individual_list(body)
+    response = await async_client.watchlist_screening_individual_list(
+        WatchlistScreeningIndividualListRequest(watchlist_program_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24825,7 +26537,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualListRequest](the_plaid_api/models/watchlist_screening_individual_list_request.py) \| [WatchlistScreeningIndividualListRequestDict](the_plaid_api/models/watchlist_screening_individual_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24872,7 +26584,9 @@ Get an individual watchlist screening program
 
 ```python
 try:
-    response = client.watchlist_screening_individual_program_get(body)
+    response = client.watchlist_screening_individual_program_get(
+        WatchlistScreeningIndividualProgramGetRequest(watchlist_program_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualProgramGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24882,7 +26596,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_individual_program_get(body)
+    response = await async_client.watchlist_screening_individual_program_get(
+        WatchlistScreeningIndividualProgramGetRequest(watchlist_program_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualProgramGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24899,7 +26615,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualProgramGetRequest](the_plaid_api/models/watchlist_screening_individual_program_get_request.py) \| [WatchlistScreeningIndividualProgramGetRequestDict](the_plaid_api/models/watchlist_screening_individual_program_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24946,7 +26662,7 @@ List all individual watchlist screening programs
 
 ```python
 try:
-    response = client.watchlist_screening_individual_program_list(body)
+    response = client.watchlist_screening_individual_program_list(WatchlistScreeningIndividualProgramListRequest())
     # TODO: Handle 'response' of type WatchlistScreeningIndividualProgramListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24956,7 +26672,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_individual_program_list(body)
+    response = await async_client.watchlist_screening_individual_program_list(
+        WatchlistScreeningIndividualProgramListRequest()
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualProgramListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -24973,7 +26691,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualProgramListRequest](the_plaid_api/models/watchlist_screening_individual_program_list_request.py) \| [WatchlistScreeningIndividualProgramListRequestDict](the_plaid_api/models/watchlist_screening_individual_program_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -25020,7 +26738,13 @@ Create a review for the individual watchlist screening. Reviews are compliance r
 
 ```python
 try:
-    response = client.watchlist_screening_individual_review_create(body)
+    response = client.watchlist_screening_individual_review_create(
+        WatchlistScreeningIndividualReviewCreateRequest(
+            confirmed_hits=["some example string"],
+            dismissed_hits=["some example string"],
+            watchlist_screening_id="some example string",
+        ),
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualReviewCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -25030,7 +26754,13 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_individual_review_create(body)
+    response = await async_client.watchlist_screening_individual_review_create(
+        WatchlistScreeningIndividualReviewCreateRequest(
+            confirmed_hits=["some example string"],
+            dismissed_hits=["some example string"],
+            watchlist_screening_id="some example string",
+        ),
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualReviewCreateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -25047,7 +26777,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualReviewCreateRequest](the_plaid_api/models/watchlist_screening_individual_review_create_request.py) \| [WatchlistScreeningIndividualReviewCreateRequestDict](the_plaid_api/models/watchlist_screening_individual_review_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -25094,7 +26824,9 @@ List all reviews for the individual watchlist screening.
 
 ```python
 try:
-    response = client.watchlist_screening_individual_review_list(body)
+    response = client.watchlist_screening_individual_review_list(
+        WatchlistScreeningIndividualReviewListRequest(watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualReviewListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -25104,7 +26836,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_individual_review_list(body)
+    response = await async_client.watchlist_screening_individual_review_list(
+        WatchlistScreeningIndividualReviewListRequest(watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualReviewListResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -25121,7 +26855,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualReviewListRequest](the_plaid_api/models/watchlist_screening_individual_review_list_request.py) \| [WatchlistScreeningIndividualReviewListRequestDict](the_plaid_api/models/watchlist_screening_individual_review_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -25168,7 +26902,9 @@ Update a specific individual watchlist screening. This endpoint can be used to a
 
 ```python
 try:
-    response = client.watchlist_screening_individual_update(body)
+    response = client.watchlist_screening_individual_update(
+        WatchlistScreeningIndividualUpdateRequest(watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -25178,7 +26914,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.watchlist_screening_individual_update(body)
+    response = await async_client.watchlist_screening_individual_update(
+        WatchlistScreeningIndividualUpdateRequest(watchlist_screening_id="some example string")
+    )
     # TODO: Handle 'response' of type WatchlistScreeningIndividualUpdateResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -25195,7 +26933,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualUpdateRequest](the_plaid_api/models/watchlist_screening_individual_update_request.py) \| [WatchlistScreeningIndividualUpdateRequestDict](the_plaid_api/models/watchlist_screening_individual_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -25244,7 +26982,7 @@ The `/webhook_verification_key/get` endpoint provides a JSON Web Key (JWK) that 
 
 ```python
 try:
-    response = client.webhook_verification_key_get(body)
+    response = client.webhook_verification_key_get(WebhookVerificationKeyGetRequest(key_id="some example string"))
     # TODO: Handle 'response' of type WebhookVerificationKeyGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -25254,7 +26992,9 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.webhook_verification_key_get(body)
+    response = await async_client.webhook_verification_key_get(
+        WebhookVerificationKeyGetRequest(key_id="some example string")
+    )
     # TODO: Handle 'response' of type WebhookVerificationKeyGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -25271,7 +27011,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WebhookVerificationKeyGetRequest](the_plaid_api/models/webhook_verification_key_get_request.py) \| [WebhookVerificationKeyGetRequestDict](the_plaid_api/models/webhook_verification_key_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>

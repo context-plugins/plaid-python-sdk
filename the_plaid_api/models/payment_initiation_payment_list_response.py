@@ -22,6 +22,6 @@ class PaymentInitiationPaymentListResponse(SdkBaseModel):
 
 
 class PaymentInitiationPaymentListResponseDict(TypedDict):
-    payments: list[PaymentInitiationPayment | PaymentInitiationPaymentDict]
+    payments: list[PaymentInitiationPaymentDict]
     next_cursor: RFC3339DateTime | None
     request_id: str

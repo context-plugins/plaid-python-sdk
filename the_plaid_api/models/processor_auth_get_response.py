@@ -26,5 +26,5 @@ class ProcessorAuthGetResponse(SdkBaseModel):
 
 class ProcessorAuthGetResponseDict(TypedDict):
     request_id: str
-    numbers: ProcessorNumber | ProcessorNumberDict
-    account: Account | AccountDict
+    numbers: ProcessorNumberDict
+    account: AccountDict

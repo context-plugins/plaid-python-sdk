@@ -51,14 +51,14 @@ class Paystub(SdkBaseModel):
 
 
 class PaystubDict(TypedDict):
-    deductions: Deductions | DeductionsDict
+    deductions: DeductionsDict
     doc_id: str
-    earnings: Earnings | EarningsDict
-    employee: Employee | EmployeeDict
-    employer: PaystubEmployer | PaystubEmployerDict
-    employment_details: NotRequired[EmploymentDetails | EmploymentDetailsDict]
-    net_pay: NetPay | NetPayDict
-    pay_period_details: PayPeriodDetails | PayPeriodDetailsDict
-    paystub_details: NotRequired[PaystubDetails | PaystubDetailsDict]
-    income_breakdown: NotRequired[list[IncomeBreakdown | IncomeBreakdownDict]]
-    ytd_earnings: NotRequired[PaystubYtddetails | PaystubYtddetailsDict]
+    earnings: EarningsDict
+    employee: EmployeeDict
+    employer: PaystubEmployerDict
+    employment_details: NotRequired[EmploymentDetailsDict]
+    net_pay: NetPayDict
+    pay_period_details: PayPeriodDetailsDict
+    paystub_details: NotRequired[PaystubDetailsDict]
+    income_breakdown: NotRequired[list[IncomeBreakdownDict]]
+    ytd_earnings: NotRequired[PaystubYtddetailsDict]

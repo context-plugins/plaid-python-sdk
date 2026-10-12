@@ -1,10 +1,9 @@
 from __future__ import annotations
 
-from typing import Literal
+from typing_extensions import TypedDict
 
-from typing_extensions import NotRequired, TypedDict
-
-from ..core import SdkBaseModel
+from ..core import FileResponse, SdkBaseModel
+from .enums.purpose import PurposeOrStr
 
 
 class TransferDiligenceDocumentUploadRequest(SdkBaseModel):
@@ -13,10 +12,10 @@ class TransferDiligenceDocumentUploadRequest(SdkBaseModel):
     originator_client_id: str
     """The Client ID of the originator whose document that you want to upload."""
 
-    file: bytes
+    file: FileResponse
     """A file to upload. The file size must be less than 20MB. Supported file extensions: .pdf."""
 
-    purpose: Literal["DUE_DILIGENCE"] = "DUE_DILIGENCE"
+    purpose: PurposeOrStr
     """Specifies the purpose of the uploaded file.
 
     ``"DUE_DILIGENCE"`` - The transfer due diligence document of the originator."""
@@ -24,5 +23,5 @@ class TransferDiligenceDocumentUploadRequest(SdkBaseModel):
 
 class TransferDiligenceDocumentUploadRequestDict(TypedDict):
     originator_client_id: str
-    file: bytes
-    purpose: NotRequired[Literal["DUE_DILIGENCE"]]
+    file: FileResponse
+    purpose: PurposeOrStr

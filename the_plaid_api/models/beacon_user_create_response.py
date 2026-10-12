@@ -66,6 +66,6 @@ class BeaconUserCreateResponseDict(TypedDict):
     status: BeaconUserStatusOrStr
     program_id: str
     client_user_id: str
-    user: BeaconUserData | BeaconUserDataDict
-    audit_trail: BeaconAuditTrail | BeaconAuditTrailDict
+    user: BeaconUserDataDict
+    audit_trail: BeaconAuditTrailDict
     request_id: str

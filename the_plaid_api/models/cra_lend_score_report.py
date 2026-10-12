@@ -22,4 +22,4 @@ class CraLendScoreReport(SdkBaseModel):
 class CraLendScoreReportDict(TypedDict):
     report_id: str
     generated_time: RFC3339DateTime
-    lend_score: NotRequired[LendScore | LendScoreDict | None]
+    lend_score: NotRequired[LendScoreDict | None]

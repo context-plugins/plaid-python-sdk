@@ -18,5 +18,5 @@ class ProcessorBalanceGetResponse(SdkBaseModel):
 
 
 class ProcessorBalanceGetResponseDict(TypedDict):
-    account: Account | AccountDict
+    account: AccountDict
     request_id: str

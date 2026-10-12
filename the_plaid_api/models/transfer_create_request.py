@@ -62,7 +62,7 @@ class TransferCreateRequest(SdkBaseModel):
     user: OptionalNullable[TransferUserInRequestDeprecated] = UNSET
     """The legal name and other information for the account holder."""
 
-    metadata: Optional[dict[str, str | None]] = UNSET
+    metadata: OptionalNullable[dict[str, str]] = UNSET
     """The Metadata object is a mapping of client-provided string fields to any string value. The following limitations
     apply: The JSON values must be Strings (no nested JSON objects allowed) Only ASCII characters may be used Maximum of
     50 key/value pairs Maximum key length of 40 characters Maximum value length of 500 characters"""
@@ -96,8 +96,8 @@ class TransferCreateRequestDict(TypedDict):
     amount: NotRequired[str]
     description: str
     ach_class: NotRequired[AchclassOrStr]
-    user: NotRequired[TransferUserInRequestDeprecated | TransferUserInRequestDeprecatedDict | None]
-    metadata: NotRequired[dict[str, str | None]]
+    user: NotRequired[TransferUserInRequestDeprecatedDict | None]
+    metadata: NotRequired[dict[str, str] | None]
     origination_account_id: NotRequired[str | None]
     iso_currency_code: NotRequired[str]
     test_clock_id: NotRequired[str | None]

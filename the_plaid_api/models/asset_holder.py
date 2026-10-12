@@ -15,4 +15,4 @@ class AssetHolder(SdkBaseModel):
 
 
 class AssetHolderDict(TypedDict):
-    name: AssetHolderName | AssetHolderNameDict
+    name: AssetHolderNameDict

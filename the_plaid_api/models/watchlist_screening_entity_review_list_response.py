@@ -21,6 +21,6 @@ class WatchlistScreeningEntityReviewListResponse(SdkBaseModel):
 
 
 class WatchlistScreeningEntityReviewListResponseDict(TypedDict):
-    entity_watchlist_screening_reviews: list[EntityWatchlistScreeningReview | EntityWatchlistScreeningReviewDict]
+    entity_watchlist_screening_reviews: list[EntityWatchlistScreeningReviewDict]
     next_cursor: str | None
     request_id: str

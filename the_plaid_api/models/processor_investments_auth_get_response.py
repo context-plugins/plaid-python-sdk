@@ -51,12 +51,12 @@ class ProcessorInvestmentsAuthGetResponse(SdkBaseModel):
 
 
 class ProcessorInvestmentsAuthGetResponseDict(TypedDict):
-    account: Account | AccountDict
-    holdings: list[Holding | HoldingDict]
-    securities: list[Security | SecurityDict]
-    owners: list[InvestmentsAuthOwner | InvestmentsAuthOwnerDict]
-    numbers: InvestmentsAuthGetNumbers | InvestmentsAuthGetNumbersDict
-    data_sources: InvestmentsAuthDataSources | InvestmentsAuthDataSourcesDict
-    account_details_401k: NotRequired[list[InvestmentsAuthAccountDetails401K | InvestmentsAuthAccountDetails401KDict]]
+    account: AccountDict
+    holdings: list[HoldingDict]
+    securities: list[SecurityDict]
+    owners: list[InvestmentsAuthOwnerDict]
+    numbers: InvestmentsAuthGetNumbersDict
+    data_sources: InvestmentsAuthDataSourcesDict
+    account_details_401k: NotRequired[list[InvestmentsAuthAccountDetails401KDict]]
     is_investments_fallback_item: NotRequired[bool]
     request_id: str

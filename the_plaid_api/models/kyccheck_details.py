@@ -36,8 +36,8 @@ class KyccheckDetails(SdkBaseModel):
 
 class KyccheckDetailsDict(TypedDict):
     status: str
-    address: KyccheckAddressSummary | KyccheckAddressSummaryDict
-    name: KyccheckNameSummary | KyccheckNameSummaryDict
-    date_of_birth: KyccheckDateOfBirthSummary | KyccheckDateOfBirthSummaryDict
-    id_number: KyccheckIdnumberSummary | KyccheckIdnumberSummaryDict
-    phone_number: KyccheckPhoneSummary | KyccheckPhoneSummaryDict
+    address: KyccheckAddressSummaryDict
+    name: KyccheckNameSummaryDict
+    date_of_birth: KyccheckDateOfBirthSummaryDict
+    id_number: KyccheckIdnumberSummaryDict
+    phone_number: KyccheckPhoneSummaryDict

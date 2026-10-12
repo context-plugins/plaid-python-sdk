@@ -33,5 +33,5 @@ class BetaEwaReportV1GetResponseDict(TypedDict):
     request_id: NotRequired[str]
     ewa_report_id: NotRequired[str]
     generation_time: NotRequired[RFC3339DateTime]
-    ewa_scores: NotRequired[list[EwaScore | EwaScoreDict]]
+    ewa_scores: NotRequired[list[EwaScoreDict]]
     ewa_attributes: NotRequired[dict[str, float | None] | None]

@@ -29,7 +29,7 @@ class LoanPaymentsIndicators(SdkBaseModel):
     """The monthly average amount calculated by dividing the total by the number of calendar months in the time
     period."""
 
-    category_details: OptionalNullable[list[CategoryExpenses]] = UNSET
+    category_details: Optional[list[CategoryExpenses | None]] = UNSET
     """Detailed categories view of all the transactions that fall into the ``LOAN_PAYMENTS`` credit category within the
     given time window, across all the accounts in the report."""
 
@@ -43,7 +43,7 @@ class LoanPaymentsIndicators(SdkBaseModel):
     """The total number of transactions that fall into the ``LOAN_PAYMENTS`` credit category, across all the accounts in
     the report."""
 
-    monthly_summaries: OptionalNullable[list[MonthlySummary]] = UNSET
+    monthly_summaries: Optional[list[MonthlySummary | None]] = UNSET
     """The monthly summaries of the transactions that fall into the ``LOAN_PAYMENTS`` credit category within the given
     time window, across all the accounts in the report."""
 
@@ -62,10 +62,10 @@ class LoanPaymentsIndicatorsDict(TypedDict):
     amount: NotRequired[float | None]
     iso_currency_code: NotRequired[str | None]
     unofficial_currency_code: NotRequired[str | None]
-    monthly_average: NotRequired[MonthlyAverage | MonthlyAverageDict | None]
-    category_details: NotRequired[list[CategoryExpenses | CategoryExpensesDict] | None]
+    monthly_average: NotRequired[MonthlyAverageDict | None]
+    category_details: NotRequired[list[CategoryExpensesDict | None]]
     top_providers: NotRequired[list[str]]
     transactions_count: NotRequired[int | None]
-    monthly_summaries: NotRequired[list[MonthlySummary | MonthlySummaryDict] | None]
+    monthly_summaries: NotRequired[list[MonthlySummaryDict | None]]
     days_since_last_occurrence: NotRequired[int | None]
     percentage_of_income: NotRequired[float | None]

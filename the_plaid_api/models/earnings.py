@@ -18,7 +18,7 @@ class Earnings(SdkBaseModel):
 
 
 class EarningsDict(TypedDict):
-    subtotals: NotRequired[list[EarningsTotal | EarningsTotalDict]]
-    totals: NotRequired[list[EarningsTotal | EarningsTotalDict]]
-    breakdown: NotRequired[list[EarningsBreakdown | EarningsBreakdownDict]]
-    total: NotRequired[EarningsTotal | EarningsTotalDict]
+    subtotals: NotRequired[list[EarningsTotalDict]]
+    totals: NotRequired[list[EarningsTotalDict]]
+    breakdown: NotRequired[list[EarningsBreakdownDict]]
+    total: NotRequired[EarningsTotalDict]

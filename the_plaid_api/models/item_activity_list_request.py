@@ -22,7 +22,7 @@ class ItemActivityListRequest(SdkBaseModel):
     cursor: Optional[str] = UNSET
     """Cursor used for pagination."""
 
-    count: Optional[int] = UNSET
+    count: int = 50
 
 
 class ItemActivityListRequestDict(TypedDict):

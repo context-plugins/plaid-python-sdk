@@ -172,11 +172,11 @@ class Credit1099(SdkBaseModel):
 
 class Credit1099Dict(TypedDict):
     document_id: str | None
-    document_metadata: NotRequired[CreditDocumentMetadata | CreditDocumentMetadataDict]
+    document_metadata: NotRequired[CreditDocumentMetadataDict]
     form_1099_type: NotRequired[Form1099TypeOrStr]
-    recipient: NotRequired[Credit1099Recipient | Credit1099RecipientDict]
-    payer: NotRequired[Credit1099Payer | Credit1099PayerDict]
-    filer: NotRequired[Credit1099Filer | Credit1099FilerDict]
+    recipient: NotRequired[Credit1099RecipientDict]
+    payer: NotRequired[Credit1099PayerDict]
+    filer: NotRequired[Credit1099FilerDict]
     tax_year: NotRequired[str | None]
     rents: NotRequired[float | None]
     royalties: NotRequired[float | None]

@@ -14,4 +14,4 @@ class CraIncomeInsightsUserSummary(SdkBaseModel):
 
 
 class CraIncomeInsightsUserSummaryDict(TypedDict):
-    income_metrics: list[CraIncomeMetrics | CraIncomeMetricsDict]
+    income_metrics: list[CraIncomeMetricsDict]

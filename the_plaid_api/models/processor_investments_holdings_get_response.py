@@ -32,8 +32,8 @@ class ProcessorInvestmentsHoldingsGetResponse(SdkBaseModel):
 
 
 class ProcessorInvestmentsHoldingsGetResponseDict(TypedDict):
-    account: InvestmentAccount | InvestmentAccountDict
-    holdings: list[Holding | HoldingDict]
-    securities: list[Security | SecurityDict]
+    account: InvestmentAccountDict
+    holdings: list[HoldingDict]
+    securities: list[SecurityDict]
     is_investments_fallback_item: NotRequired[bool]
     request_id: NotRequired[str]

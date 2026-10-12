@@ -37,5 +37,5 @@ class ItemImportRequestDict(TypedDict):
     secret: NotRequired[str]
     institution_id: NotRequired[str]
     products: list[ProductsOrStr]
-    user_auth: ItemImportRequestUserAuth | ItemImportRequestUserAuthDict
-    options: NotRequired[ItemImportRequestOptions | ItemImportRequestOptionsDict]
+    user_auth: ItemImportRequestUserAuthDict
+    options: NotRequired[ItemImportRequestOptionsDict]

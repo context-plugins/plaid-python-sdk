@@ -46,7 +46,7 @@ class HoldingsDefaultUpdateWebhookDict(TypedDict):
     webhook_code: str
     item_id: str
     user_id: NotRequired[str]
-    error: NotRequired[Error | ErrorDict | None]
+    error: NotRequired[ErrorDict | None]
     new_holdings: float
     updated_holdings: float
     environment: WebhookEnvironmentValuesOrStr

@@ -18,5 +18,5 @@ class TransferBalanceGetResponse(SdkBaseModel):
 
 
 class TransferBalanceGetResponseDict(TypedDict):
-    balance: TransferBalance | TransferBalanceDict
+    balance: TransferBalanceDict
     request_id: str

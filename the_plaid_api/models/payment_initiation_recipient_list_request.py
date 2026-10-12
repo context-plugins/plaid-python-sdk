@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
+from ..core import UNSET, Optional, SdkBaseModel
 
 
 class PaymentInitiationRecipientListRequest(SdkBaseModel):
@@ -16,7 +16,7 @@ class PaymentInitiationRecipientListRequest(SdkBaseModel):
     """Your Plaid API ``secret``. The ``secret`` is required and may be provided either in the ``PLAID-SECRET`` header
     or as part of a request body."""
 
-    count: OptionalNullable[int] = UNSET
+    count: int | None = 100
     """The maximum number of recipients to return. If ``count`` is not specified, a maximum of 100 recipients will be
     returned, beginning with the recipient at the cursor (if specified)."""
 

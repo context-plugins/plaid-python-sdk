@@ -35,4 +35,4 @@ class CreditPayrollIncomeRefreshRequestDict(TypedDict):
     secret: NotRequired[str]
     user_token: str
     user_id: NotRequired[str]
-    options: NotRequired[CreditPayrollIncomeRefreshRequestOptions | CreditPayrollIncomeRefreshRequestOptionsDict]
+    options: NotRequired[CreditPayrollIncomeRefreshRequestOptionsDict]

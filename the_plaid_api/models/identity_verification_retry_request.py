@@ -102,10 +102,8 @@ class IdentityVerificationRetryRequestDict(TypedDict):
     client_user_id: str
     template_id: str
     strategy: StrategyOrStr
-    user: NotRequired[IdentityVerificationRequestUser | IdentityVerificationRequestUserDict | None]
-    steps: NotRequired[
-        IdentityVerificationRetryRequestStepsObject | IdentityVerificationRetryRequestStepsObjectDict | None
-    ]
+    user: NotRequired[IdentityVerificationRequestUserDict | None]
+    steps: NotRequired[IdentityVerificationRetryRequestStepsObjectDict | None]
     is_shareable: NotRequired[bool | None]
     client_id: NotRequired[str]
     secret: NotRequired[str]

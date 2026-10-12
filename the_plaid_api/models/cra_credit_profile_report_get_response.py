@@ -28,7 +28,7 @@ class CraCreditProfileReportGetResponse(SdkBaseModel):
 
 
 class CraCreditProfileReportGetResponseDict(TypedDict):
-    report: CraCreditProfileReport | CraCreditProfileReportDict
+    report: CraCreditProfileReportDict
     request_id: str
     user_id: NotRequired[str]
-    warnings: list[CraReportWarning | CraReportWarningDict]
+    warnings: list[CraReportWarningDict]

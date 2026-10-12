@@ -26,6 +26,6 @@ class ItemActivityListResponse(SdkBaseModel):
 
 class ItemActivityListResponseDict(TypedDict):
     request_id: str
-    activities: list[Activity | ActivityDict]
-    last_data_access_times: list[LastDataAccessTimes | LastDataAccessTimesDict]
+    activities: list[ActivityDict]
+    last_data_access_times: list[LastDataAccessTimesDict]
     cursor: NotRequired[str]

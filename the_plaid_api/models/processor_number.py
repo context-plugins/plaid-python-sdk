@@ -29,7 +29,7 @@ class ProcessorNumber(SdkBaseModel):
 
 
 class ProcessorNumberDict(TypedDict):
-    ach: NotRequired[NumbersAchnullable | NumbersAchnullableDict | None]
-    eft: NotRequired[NumbersEftnullable | NumbersEftnullableDict | None]
-    international: NotRequired[NumbersInternationalNullable | NumbersInternationalNullableDict | None]
-    bacs: NotRequired[NumbersBacsnullable | NumbersBacsnullableDict | None]
+    ach: NotRequired[NumbersAchnullableDict | None]
+    eft: NotRequired[NumbersEftnullableDict | None]
+    international: NotRequired[NumbersInternationalNullableDict | None]
+    bacs: NotRequired[NumbersBacsnullableDict | None]

@@ -45,4 +45,4 @@ class CraCheckReportLendScoreGetRequestDict(TypedDict):
     user_id: NotRequired[str]
     third_party_user_token: NotRequired[str]
     user_token: NotRequired[str]
-    options: NotRequired[CraCheckReportLendScoreGetOptions | CraCheckReportLendScoreGetOptionsDict | None]
+    options: NotRequired[CraCheckReportLendScoreGetOptionsDict | None]

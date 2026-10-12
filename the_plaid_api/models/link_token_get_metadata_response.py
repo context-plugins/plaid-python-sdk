@@ -42,7 +42,7 @@ class LinkTokenGetMetadataResponseDict(TypedDict):
     webhook: str | None
     country_codes: list[CountryCodeOrStr]
     language: str | None
-    institution_data: NotRequired[LinkTokenCreateInstitutionData | LinkTokenCreateInstitutionDataDict]
-    account_filters: NotRequired[AccountFiltersResponse | AccountFiltersResponseDict]
+    institution_data: NotRequired[LinkTokenCreateInstitutionDataDict]
+    account_filters: NotRequired[AccountFiltersResponseDict]
     redirect_uri: str | None
     client_name: str | None

@@ -32,4 +32,4 @@ class UserAccountSessionEventSendRequestDict(TypedDict):
     secret: NotRequired[str]
     cohort_id: NotRequired[str]
     link_session_id: str
-    event: UserAccountSessionEvent | UserAccountSessionEventDict
+    event: UserAccountSessionEventDict

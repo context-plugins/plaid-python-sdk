@@ -31,5 +31,5 @@ class PartnerCustomerOauthInstitutionsGetResponse(SdkBaseModel):
 class PartnerCustomerOauthInstitutionsGetResponseDict(TypedDict):
     flowdown_status: NotRequired[PartnerEndCustomerFlowdownStatusOrStr]
     questionnaire_status: NotRequired[PartnerEndCustomerQuestionnaireStatusOrStr]
-    institutions: NotRequired[list[PartnerEndCustomerOauthInstitution | PartnerEndCustomerOauthInstitutionDict]]
+    institutions: NotRequired[list[PartnerEndCustomerOauthInstitutionDict]]
     request_id: NotRequired[str]

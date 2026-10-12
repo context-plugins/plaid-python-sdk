@@ -30,7 +30,7 @@ class PayrollIncomeObject(SdkBaseModel):
 
 class PayrollIncomeObjectDict(TypedDict):
     account_id: str | None
-    pay_stubs: list[CreditPayStub | CreditPayStubDict]
-    w2s: list[CreditW2 | CreditW2Dict]
-    form1099s: list[Credit1099 | Credit1099Dict]
-    i20s: list[CreditI20 | CreditI20Dict]
+    pay_stubs: list[CreditPayStubDict]
+    w2s: list[CreditW2Dict]
+    form1099s: list[Credit1099Dict]
+    i20s: list[CreditI20Dict]

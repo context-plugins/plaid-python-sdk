@@ -27,7 +27,7 @@ class TransactionsUserInsightsGetResponse(SdkBaseModel):
 
 
 class TransactionsUserInsightsGetResponseDict(TypedDict):
-    user_data_overview: UserDataOverview | UserDataOverviewDict
-    counterparty_insights: NotRequired[CounterpartyInsights | CounterpartyInsightsDict]
-    category_insights: NotRequired[CategoryInsights | CategoryInsightsDict]
-    recurring_transactions: NotRequired[RecurringTransactions | RecurringTransactionsDict]
+    user_data_overview: UserDataOverviewDict
+    counterparty_insights: NotRequired[CounterpartyInsightsDict]
+    category_insights: NotRequired[CategoryInsightsDict]
+    recurring_transactions: NotRequired[RecurringTransactionsDict]

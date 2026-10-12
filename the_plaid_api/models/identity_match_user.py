@@ -34,4 +34,4 @@ class IdentityMatchUserDict(TypedDict):
     legal_name: NotRequired[str | None]
     phone_number: NotRequired[str | None]
     email_address: NotRequired[str | None]
-    address: NotRequired[AddressDataNullableNoRequiredFields | AddressDataNullableNoRequiredFieldsDict | None]
+    address: NotRequired[AddressDataNullableNoRequiredFieldsDict | None]

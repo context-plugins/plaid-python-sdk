@@ -29,6 +29,6 @@ class OwnerOverride(SdkBaseModel):
 
 class OwnerOverrideDict(TypedDict):
     names: list[str]
-    phone_numbers: list[PhoneNumber | PhoneNumberDict]
-    emails: list[Email | EmailDict]
-    addresses: list[Address | AddressDict]
+    phone_numbers: list[PhoneNumberDict]
+    emails: list[EmailDict]
+    addresses: list[AddressDict]

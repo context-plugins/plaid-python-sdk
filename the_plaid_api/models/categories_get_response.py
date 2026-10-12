@@ -18,5 +18,5 @@ class CategoriesGetResponse(SdkBaseModel):
 
 
 class CategoriesGetResponseDict(TypedDict):
-    categories: list[Category | CategoryDict]
+    categories: list[CategoryDict]
     request_id: str

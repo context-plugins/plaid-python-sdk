@@ -18,5 +18,5 @@ class TransferAuthorizationCreateResponse(SdkBaseModel):
 
 
 class TransferAuthorizationCreateResponseDict(TypedDict):
-    authorization: TransferAuthorization | TransferAuthorizationDict
+    authorization: TransferAuthorizationDict
     request_id: str

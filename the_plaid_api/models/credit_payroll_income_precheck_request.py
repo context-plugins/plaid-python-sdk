@@ -55,10 +55,6 @@ class CreditPayrollIncomePrecheckRequestDict(TypedDict):
     user_token: NotRequired[str]
     user_id: NotRequired[str]
     access_tokens: NotRequired[list[str]]
-    employer: NotRequired[IncomeVerificationPrecheckEmployer | IncomeVerificationPrecheckEmployerDict | None]
-    us_military_info: NotRequired[
-        IncomeVerificationPrecheckMilitaryInfo | IncomeVerificationPrecheckMilitaryInfoDict | None
-    ]
-    payroll_institution: NotRequired[
-        IncomeVerificationPrecheckPayrollInstitution | IncomeVerificationPrecheckPayrollInstitutionDict | None
-    ]
+    employer: NotRequired[IncomeVerificationPrecheckEmployerDict | None]
+    us_military_info: NotRequired[IncomeVerificationPrecheckMilitaryInfoDict | None]
+    payroll_institution: NotRequired[IncomeVerificationPrecheckPayrollInstitutionDict | None]

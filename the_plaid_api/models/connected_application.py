@@ -45,4 +45,4 @@ class ConnectedApplicationDict(TypedDict):
     application_url: NotRequired[str | None]
     reason_for_access: NotRequired[str | None]
     created_at: RFC3339DateTime
-    scopes: NotRequired[ScopesNullable | ScopesNullableDict | None]
+    scopes: NotRequired[ScopesNullableDict | None]

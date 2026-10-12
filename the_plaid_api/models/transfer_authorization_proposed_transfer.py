@@ -85,11 +85,11 @@ class TransferAuthorizationProposedTransferDict(TypedDict):
     funding_account_id: str | None
     ledger_id: NotRequired[str | None]
     type_: TransferTypeOrStr
-    user: TransferUserInResponse | TransferUserInResponseDict
+    user: TransferUserInResponseDict
     amount: str
     requested_amount: str
     network: str
-    wire_details: NotRequired[TransferWireDetails | TransferWireDetailsDict | None]
+    wire_details: NotRequired[TransferWireDetailsDict | None]
     origination_account_id: str
     iso_currency_code: str
     originator_client_id: str | None

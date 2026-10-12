@@ -32,6 +32,6 @@ class CraPartnerInsightsUltraFicoScoreResult(SdkBaseModel):
 class CraPartnerInsightsUltraFicoScoreResultDict(TypedDict):
     request_correlation_id: NotRequired[str]
     fico_scoring_request_id: NotRequired[str]
-    ultrafico_score: NotRequired[CraPartnerInsightsUltraFicoScore | CraPartnerInsightsUltraFicoScoreDict | None]
+    ultrafico_score: NotRequired[CraPartnerInsightsUltraFicoScoreDict | None]
     error_reason: NotRequired[str]
     exclusion_code: NotRequired[str | None]

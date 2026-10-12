@@ -41,4 +41,4 @@ class InstitutionsGetRequestDict(TypedDict):
     count: int
     offset: int
     country_codes: list[CountryCodeOrStr]
-    options: NotRequired[InstitutionsGetRequestOptions | InstitutionsGetRequestOptionsDict]
+    options: NotRequired[InstitutionsGetRequestOptionsDict]

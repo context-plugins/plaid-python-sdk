@@ -61,4 +61,4 @@ class CraEmploymentRefreshReportAccountDict(TypedDict):
     official_name: str | None
     type_: AccountTypeOrStr
     subtype: AccountSubtypeOrStr | None
-    transactions: list[CraEmploymentRefreshReportTransaction | CraEmploymentRefreshReportTransactionDict]
+    transactions: list[CraEmploymentRefreshReportTransactionDict]

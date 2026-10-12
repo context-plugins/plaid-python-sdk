@@ -75,7 +75,7 @@ class BankTransfer(SdkBaseModel):
     custom_tag: str | None
     """A string containing the custom tag provided by the client in the create request. Will be null if not provided."""
 
-    metadata: dict[str, str | None]
+    metadata: dict[str, str] | None
     """The Metadata object is a mapping of client-provided string fields to any string value. The following limitations
     apply: The JSON values must be Strings (no nested JSON objects allowed) Only ASCII characters may be used Maximum of
     50 key/value pairs Maximum key length of 40 characters Maximum value length of 500 characters"""
@@ -93,7 +93,7 @@ class BankTransferDict(TypedDict):
     ach_class: AchclassOrStr
     account_id: str
     type_: BankTransferTypeOrStr
-    user: BankTransferUser | BankTransferUserDict
+    user: BankTransferUserDict
     amount: str
     iso_currency_code: str
     description: str
@@ -101,8 +101,8 @@ class BankTransferDict(TypedDict):
     status: BankTransferStatusOrStr
     network: BankTransferNetworkOrStr
     cancellable: bool
-    failure_reason: BankTransferFailure | BankTransferFailureDict | None
+    failure_reason: BankTransferFailureDict | None
     custom_tag: str | None
-    metadata: dict[str, str | None]
+    metadata: dict[str, str] | None
     origination_account_id: str
     direction: BankTransferDirectionOrStr | None

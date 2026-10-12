@@ -61,4 +61,4 @@ class CounterpartyDict(TypedDict):
     logo_url: str | None
     confidence_level: NotRequired[str | None]
     phone_number: str | None
-    account_numbers: NotRequired[CounterpartyNumbers | CounterpartyNumbersDict | None]
+    account_numbers: NotRequired[CounterpartyNumbersDict | None]

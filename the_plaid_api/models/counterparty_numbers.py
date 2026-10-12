@@ -19,5 +19,5 @@ class CounterpartyNumbers(SdkBaseModel):
 
 
 class CounterpartyNumbersDict(TypedDict):
-    bacs: NotRequired[CounterpartyNumbersBacs | CounterpartyNumbersBacsDict | None]
-    international: NotRequired[CounterpartyNumbersInternational | CounterpartyNumbersInternationalDict | None]
+    bacs: NotRequired[CounterpartyNumbersBacsDict | None]
+    international: NotRequired[CounterpartyNumbersInternationalDict | None]

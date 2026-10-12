@@ -36,12 +36,8 @@ class CreditSessionResults(SdkBaseModel):
 
 
 class CreditSessionResultsDict(TypedDict):
-    item_add_results: NotRequired[list[CreditSessionItemAddResult | CreditSessionItemAddResultDict]]
-    bank_income_results: NotRequired[list[CreditSessionBankIncomeResult | CreditSessionBankIncomeResultDict]]
-    bank_employment_results: NotRequired[
-        list[CreditSessionBankEmploymentResult | CreditSessionBankEmploymentResultDict]
-    ]
-    payroll_income_results: NotRequired[list[CreditSessionPayrollIncomeResult | CreditSessionPayrollIncomeResultDict]]
-    document_income_results: NotRequired[
-        CreditSessionDocumentIncomeResult | CreditSessionDocumentIncomeResultDict | None
-    ]
+    item_add_results: NotRequired[list[CreditSessionItemAddResultDict]]
+    bank_income_results: NotRequired[list[CreditSessionBankIncomeResultDict]]
+    bank_employment_results: NotRequired[list[CreditSessionBankEmploymentResultDict]]
+    payroll_income_results: NotRequired[list[CreditSessionPayrollIncomeResultDict]]
+    document_income_results: NotRequired[CreditSessionDocumentIncomeResultDict | None]

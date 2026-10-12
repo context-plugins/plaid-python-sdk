@@ -5,7 +5,7 @@ from typing_extensions import NotRequired, TypedDict
 from ..core import UNSET, Optional, OptionalNullable, RFC3339DateTime, SdkBaseModel
 from .enums.achclass import AchclassOrStr
 from .enums.transfer_intent_create_mode import TransferIntentCreateModeOrStr
-from .enums.transfer_intent_create_network import TransferIntentCreateNetworkOrStr
+from .enums.transfer_intent_create_network import TransferIntentCreateNetwork, TransferIntentCreateNetworkOrStr
 from .enums.transfer_intent_status import TransferIntentStatusOrStr
 from .transfer_user_in_response import TransferUserInResponse, TransferUserInResponseDict
 
@@ -50,7 +50,7 @@ class TransferIntentCreate(SdkBaseModel):
 
     ``DISBURSEMENT``: Transfers funds from your business account to an end user's account."""
 
-    network: Optional[TransferIntentCreateNetworkOrStr] = UNSET
+    network: TransferIntentCreateNetworkOrStr = TransferIntentCreateNetwork.SAME_DAY_ACH
     """The network or rails used for the transfer. Defaults to ``same-day-ach``.
 
     For transfers submitted using ``ach``, the Standard ACH cutoff is 8:30 PM Eastern Time.
@@ -88,7 +88,7 @@ class TransferIntentCreate(SdkBaseModel):
     description: str
     """A description for the underlying transfer. Maximum of 15 characters."""
 
-    metadata: Optional[dict[str, str | None]] = UNSET
+    metadata: OptionalNullable[dict[str, str]] = UNSET
     """The Metadata object is a mapping of client-provided string fields to any string value. The following limitations
     apply: The JSON values must be Strings (no nested JSON objects allowed) Only ASCII characters may be used Maximum of
     50 key/value pairs Maximum key length of 40 characters Maximum value length of 500 characters"""
@@ -112,8 +112,8 @@ class TransferIntentCreateDict(TypedDict):
     mode: TransferIntentCreateModeOrStr
     network: NotRequired[TransferIntentCreateNetworkOrStr]
     ach_class: NotRequired[AchclassOrStr]
-    user: TransferUserInResponse | TransferUserInResponseDict
+    user: TransferUserInResponseDict
     description: str
-    metadata: NotRequired[dict[str, str | None]]
+    metadata: NotRequired[dict[str, str] | None]
     iso_currency_code: str
     require_guarantee: NotRequired[bool | None]

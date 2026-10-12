@@ -27,7 +27,7 @@ class StatementsListResponse(SdkBaseModel):
 
 
 class StatementsListResponseDict(TypedDict):
-    accounts: list[StatementsAccount | StatementsAccountDict]
+    accounts: list[StatementsAccountDict]
     institution_id: str
     institution_name: str
     item_id: str

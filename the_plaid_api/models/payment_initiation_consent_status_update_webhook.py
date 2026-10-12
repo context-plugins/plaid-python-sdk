@@ -69,5 +69,5 @@ class PaymentInitiationConsentStatusUpdateWebhookDict(TypedDict):
     old_status: PaymentInitiationConsentStatusOrStr
     new_status: PaymentInitiationConsentStatusOrStr
     timestamp: RFC3339DateTime
-    error: NotRequired[Error | ErrorDict | None]
+    error: NotRequired[ErrorDict | None]
     environment: WebhookEnvironmentValuesOrStr

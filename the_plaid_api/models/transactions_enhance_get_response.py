@@ -17,4 +17,4 @@ class TransactionsEnhanceGetResponse(SdkBaseModel):
 
 
 class TransactionsEnhanceGetResponseDict(TypedDict):
-    enhanced_transactions: list[ClientProvidedEnhancedTransaction | ClientProvidedEnhancedTransactionDict]
+    enhanced_transactions: list[ClientProvidedEnhancedTransactionDict]

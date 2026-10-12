@@ -85,5 +85,5 @@ class PhysicalDocumentExtractedDataDict(TypedDict):
     issuing_country: str
     issuing_region: str | None
     date_of_birth: Date | None
-    address: IdentityVerificationDocumentAddressResponse | IdentityVerificationDocumentAddressResponseDict | None
-    name: NotRequired[IdentityVerificationDocumentNameResponse | IdentityVerificationDocumentNameResponseDict | None]
+    address: IdentityVerificationDocumentAddressResponseDict | None
+    name: NotRequired[IdentityVerificationDocumentNameResponseDict | None]

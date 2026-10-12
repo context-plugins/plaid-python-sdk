@@ -24,6 +24,6 @@ class AssetReportFreddie(SdkBaseModel):
 
 
 class AssetReportFreddieDict(TypedDict):
-    loans: Loans | LoansDict
-    parties: Parties | PartiesDict
-    services: Services | ServicesDict
+    loans: LoansDict
+    parties: PartiesDict
+    services: ServicesDict

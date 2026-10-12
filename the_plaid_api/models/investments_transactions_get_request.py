@@ -39,4 +39,4 @@ class InvestmentsTransactionsGetRequestDict(TypedDict):
     access_token: str
     start_date: Date
     end_date: Date
-    options: NotRequired[InvestmentsTransactionsGetRequestOptions | InvestmentsTransactionsGetRequestOptionsDict]
+    options: NotRequired[InvestmentsTransactionsGetRequestOptionsDict]

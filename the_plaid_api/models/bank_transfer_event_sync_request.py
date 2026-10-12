@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
+from ..core import UNSET, Optional, SdkBaseModel
 
 
 class BankTransferEventSyncRequest(SdkBaseModel):
@@ -19,7 +19,7 @@ class BankTransferEventSyncRequest(SdkBaseModel):
     after_id: int
     """The latest (largest) ``event_id`` fetched via the sync endpoint, or 0 initially."""
 
-    count: OptionalNullable[int] = UNSET
+    count: int | None = 25
     """The maximum number of bank transfer events to return."""
 
 

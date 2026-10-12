@@ -21,6 +21,6 @@ class WatchlistScreeningEntityProgramListResponse(SdkBaseModel):
 
 
 class WatchlistScreeningEntityProgramListResponseDict(TypedDict):
-    entity_watchlist_programs: list[EntityWatchlistProgram | EntityWatchlistProgramDict]
+    entity_watchlist_programs: list[EntityWatchlistProgramDict]
     next_cursor: str | None
     request_id: str

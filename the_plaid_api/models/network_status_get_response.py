@@ -23,5 +23,5 @@ class NetworkStatusGetResponse(SdkBaseModel):
 
 class NetworkStatusGetResponseDict(TypedDict):
     network_status: NetworkStatusGetResponseNetworkStatusOrStr
-    layer: NotRequired[NetworkStatusGetResponseLayer | NetworkStatusGetResponseLayerDict | None]
+    layer: NotRequired[NetworkStatusGetResponseLayerDict | None]
     request_id: str

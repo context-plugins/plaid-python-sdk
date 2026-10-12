@@ -40,5 +40,5 @@ class ItemErrorWebhookDict(TypedDict):
     webhook_code: str
     item_id: str
     user_id: NotRequired[str]
-    error: Error | ErrorDict | None
+    error: ErrorDict | None
     environment: WebhookEnvironmentValuesOrStr

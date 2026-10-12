@@ -55,5 +55,5 @@ class SandboxTransferRefundSimulateRequestDict(TypedDict):
     refund_id: str
     test_clock_id: NotRequired[str | None]
     event_type: str
-    failure_reason: NotRequired[TransferFailure | TransferFailureDict | None]
+    failure_reason: NotRequired[TransferFailureDict | None]
     webhook: NotRequired[str]

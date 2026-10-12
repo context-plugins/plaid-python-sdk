@@ -28,5 +28,5 @@ class RiskCheckIdentityAbuseSignals(SdkBaseModel):
 
 
 class RiskCheckIdentityAbuseSignalsDict(TypedDict):
-    synthetic_identity: RiskCheckSyntheticIdentity | RiskCheckSyntheticIdentityDict | None
-    stolen_identity: RiskCheckStolenIdentity | RiskCheckStolenIdentityDict | None
+    synthetic_identity: RiskCheckSyntheticIdentityDict | None
+    stolen_identity: RiskCheckStolenIdentityDict | None

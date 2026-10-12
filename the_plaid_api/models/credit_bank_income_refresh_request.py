@@ -35,4 +35,4 @@ class CreditBankIncomeRefreshRequestDict(TypedDict):
     secret: NotRequired[str]
     user_token: str
     user_id: NotRequired[str]
-    options: NotRequired[CreditBankIncomeRefreshRequestOptions | CreditBankIncomeRefreshRequestOptionsDict]
+    options: NotRequired[CreditBankIncomeRefreshRequestOptionsDict]

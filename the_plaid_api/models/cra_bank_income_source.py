@@ -116,7 +116,7 @@ class CraBankIncomeSourceDict(TypedDict):
     historical_average_monthly_gross_income: NotRequired[float | None]
     historical_average_monthly_income: NotRequired[float | None]
     forecasted_average_monthly_income: NotRequired[float | None]
-    forecasted_average_monthly_income_prediction_intervals: list[CraPredictionInterval | CraPredictionIntervalDict]
-    employer: NotRequired[CraBankIncomeEmployer | CraBankIncomeEmployerDict]
-    income_provider: CraBankIncomeIncomeProvider | CraBankIncomeIncomeProviderDict | None
-    historical_summary: NotRequired[list[CraBankIncomeHistoricalSummary | CraBankIncomeHistoricalSummaryDict]]
+    forecasted_average_monthly_income_prediction_intervals: list[CraPredictionIntervalDict]
+    employer: NotRequired[CraBankIncomeEmployerDict]
+    income_provider: CraBankIncomeIncomeProviderDict | None
+    historical_summary: NotRequired[list[CraBankIncomeHistoricalSummaryDict]]

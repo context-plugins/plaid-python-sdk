@@ -26,4 +26,4 @@ class TransferUserInRequestDeprecatedDict(TypedDict):
     legal_name: NotRequired[str]
     phone_number: NotRequired[str]
     email_address: NotRequired[str]
-    address: NotRequired[TransferUserAddressInRequest | TransferUserAddressInRequestDict]
+    address: NotRequired[TransferUserAddressInRequestDict]

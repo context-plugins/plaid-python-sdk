@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, Optional, SdkBaseModel
+from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
 from .enums.income_verification_source_type import IncomeVerificationSourceTypeOrStr
 from .link_token_create_request_income_verification_bank_income import (
     LinkTokenCreateRequestIncomeVerificationBankIncome,
@@ -31,7 +31,7 @@ class LinkTokenCreateRequestIncomeVerification(SdkBaseModel):
     Providing an ``asset_report_id`` is optional and can be used to verify the user through a streamlined flow. If
     provided, the bank linking flow will be skipped."""
 
-    access_tokens: Optional[list[str | None]] = UNSET
+    access_tokens: OptionalNullable[list[str]] = UNSET
     """An array of access tokens corresponding to Items that a user has previously connected with. Data from these
     institutions will be cross-referenced with document data received during the Document Income flow to help verify
     that the uploaded documents are accurate. If the ``transactions`` product was not initialized for these Items during
@@ -61,17 +61,8 @@ class LinkTokenCreateRequestIncomeVerification(SdkBaseModel):
 class LinkTokenCreateRequestIncomeVerificationDict(TypedDict):
     income_verification_id: NotRequired[str]
     asset_report_id: NotRequired[str]
-    access_tokens: NotRequired[list[str | None]]
+    access_tokens: NotRequired[list[str] | None]
     income_source_types: NotRequired[list[IncomeVerificationSourceTypeOrStr]]
-    bank_income: NotRequired[
-        LinkTokenCreateRequestIncomeVerificationBankIncome | LinkTokenCreateRequestIncomeVerificationBankIncomeDict
-    ]
-    payroll_income: NotRequired[
-        (
-            LinkTokenCreateRequestIncomeVerificationPayrollIncome
-            | LinkTokenCreateRequestIncomeVerificationPayrollIncomeDict
-        )
-    ]
-    stated_income_sources: NotRequired[
-        list[LinkTokenCreateRequestUserStatedIncomeSource | LinkTokenCreateRequestUserStatedIncomeSourceDict]
-    ]
+    bank_income: NotRequired[LinkTokenCreateRequestIncomeVerificationBankIncomeDict]
+    payroll_income: NotRequired[LinkTokenCreateRequestIncomeVerificationPayrollIncomeDict]
+    stated_income_sources: NotRequired[list[LinkTokenCreateRequestUserStatedIncomeSourceDict]]

@@ -13,10 +13,10 @@ class MultiDocumentRiskSignal(SdkBaseModel):
     document_references: list[RiskSignalDocumentReference]
     """Array of objects containing attributes that could indicate if a document is fraudulent"""
 
-    risk_signals: list[DocumentRiskSignal]
+    risk_signals: list[DocumentRiskSignal | None]
     """Array of attributes that indicate whether or not there is fraud risk with a set of documents"""
 
 
 class MultiDocumentRiskSignalDict(TypedDict):
-    document_references: list[RiskSignalDocumentReference | RiskSignalDocumentReferenceDict]
-    risk_signals: list[DocumentRiskSignal | DocumentRiskSignalDict]
+    document_references: list[RiskSignalDocumentReferenceDict]
+    risk_signals: list[DocumentRiskSignalDict | None]

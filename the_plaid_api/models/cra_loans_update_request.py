@@ -24,4 +24,4 @@ class CraLoansUpdateRequest(SdkBaseModel):
 class CraLoansUpdateRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
-    loans: list[CraLoanUpdate | CraLoanUpdateDict]
+    loans: list[CraLoanUpdateDict]

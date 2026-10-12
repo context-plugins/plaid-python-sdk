@@ -31,4 +31,4 @@ class ProcessorIdentityMatchRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     processor_token: str
-    user: NotRequired[IdentityMatchUser | IdentityMatchUserDict]
+    user: NotRequired[IdentityMatchUserDict]

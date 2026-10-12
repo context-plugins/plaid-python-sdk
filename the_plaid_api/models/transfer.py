@@ -141,7 +141,7 @@ class Transfer(SdkBaseModel):
     failure_reason: TransferFailure | None
     """The failure reason if the event type for a transfer is ``"failed"`` or ``"returned"``. Null value otherwise."""
 
-    metadata: dict[str, str | None]
+    metadata: dict[str, str] | None
     """The Metadata object is a mapping of client-provided string fields to any string value. The following limitations
     apply: The JSON values must be Strings (no nested JSON objects allowed) Only ASCII characters may be used Maximum of
     50 key/value pairs Maximum key length of 40 characters Maximum value length of 500 characters"""
@@ -214,34 +214,30 @@ class TransferDict(TypedDict):
     funding_account_id: str | None
     ledger_id: NotRequired[str | None]
     type_: TransferTypeOrStr
-    user: TransferUserInResponse | TransferUserInResponseDict
+    user: TransferUserInResponseDict
     amount: str
     description: str
     created: RFC3339DateTime
     status: TransferStatusOrStr
     sweep_status: NotRequired[TransferSweepStatusOrStr | None]
     network: TransferNetworkOrStr
-    wire_details: NotRequired[TransferWireDetails | TransferWireDetailsDict | None]
+    wire_details: NotRequired[TransferWireDetailsDict | None]
     cancellable: bool
-    failure_reason: TransferFailure | TransferFailureDict | None
-    metadata: dict[str, str | None]
+    failure_reason: TransferFailureDict | None
+    metadata: dict[str, str] | None
     origination_account_id: str
     guarantee_decision: TransferAuthorizationGuaranteeDecisionOrStr | None
-    guarantee_decision_rationale: (
-        TransferAuthorizationGuaranteeDecisionRationale | TransferAuthorizationGuaranteeDecisionRationaleDict | None
-    )
-    guarantee_details: NotRequired[TransferGuaranteeDetails | TransferGuaranteeDetailsDict | None]
+    guarantee_decision_rationale: TransferAuthorizationGuaranteeDecisionRationaleDict | None
+    guarantee_details: NotRequired[TransferGuaranteeDetailsDict | None]
     iso_currency_code: str
     standard_return_window: Date | None
     unauthorized_return_window: Date | None
     expected_settlement_date: Date | None
     expected_funds_available_date: NotRequired[Date | None]
     originator_client_id: str | None
-    refunds: list[TransferRefund | TransferRefundDict]
+    refunds: list[TransferRefundDict]
     recurring_transfer_id: str | None
-    expected_sweep_settlement_schedule: NotRequired[
-        list[TransferExpectedSweepSettlementScheduleItem | TransferExpectedSweepSettlementScheduleItemDict]
-    ]
+    expected_sweep_settlement_schedule: NotRequired[list[TransferExpectedSweepSettlementScheduleItemDict]]
     credit_funds_source: TransferCreditFundsSourceOrStr | None
     facilitator_fee: NotRequired[str]
     network_trace_id: NotRequired[str | None]

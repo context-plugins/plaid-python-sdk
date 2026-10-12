@@ -31,4 +31,4 @@ class TransferPlatformRequirementSubmitRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     originator_client_id: str
-    requirement_submissions: list[RequirementSubmission | RequirementSubmissionDict]
+    requirement_submissions: list[RequirementSubmissionDict]

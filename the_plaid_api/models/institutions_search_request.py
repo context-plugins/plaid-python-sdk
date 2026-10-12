@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, Optional, SdkBaseModel
+from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
 from .enums.country_code import CountryCodeOrStr
 from .enums.products import ProductsOrStr
 from .institutions_search_request_options import InstitutionsSearchRequestOptions, InstitutionsSearchRequestOptionsDict
@@ -22,7 +22,7 @@ class InstitutionsSearchRequest(SdkBaseModel):
     query: str
     """The search query. Institutions with names matching the query are returned"""
 
-    products: Optional[list[ProductsOrStr | None]] = UNSET
+    products: OptionalNullable[list[ProductsOrStr]] = UNSET
     """Filter the Institutions based on whether they support all products listed in ``products``. Provide ``null`` to
     get institutions regardless of supported products. Note that when ``auth`` is specified as a product, if you are
     enabled for Instant Match or Automated Micro-deposits, institutions that support those products will be returned
@@ -42,6 +42,6 @@ class InstitutionsSearchRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     query: str
-    products: NotRequired[list[ProductsOrStr | None]]
+    products: NotRequired[list[ProductsOrStr] | None]
     country_codes: list[CountryCodeOrStr]
-    options: NotRequired[InstitutionsSearchRequestOptions | InstitutionsSearchRequestOptionsDict]
+    options: NotRequired[InstitutionsSearchRequestOptionsDict]

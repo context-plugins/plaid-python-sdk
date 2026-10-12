@@ -14,7 +14,7 @@ class SandboxPublicTokenCreateRequestOptionsTransactions(SdkBaseModel):
     end_date: Optional[Date] = UNSET
     """The most recent date for which to fetch transaction history. Dates should be formatted as YYYY-MM-DD."""
 
-    days_requested: Optional[int] = UNSET
+    days_requested: int = 90
     """The maximum number of days of transaction history to request for the Transactions product."""
 
 

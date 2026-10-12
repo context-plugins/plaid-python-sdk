@@ -51,4 +51,4 @@ class BetaPartnerEndCustomerWithSecretsDict(TypedDict):
     status: NotRequired[PartnerEndCustomerStatusOrStr]
     product_statuses: NotRequired[Any]
     requirements_due: NotRequired[list[PartnerEndCustomerRequirementDueOrStr]]
-    secrets: NotRequired[PartnerEndCustomerSecrets | PartnerEndCustomerSecretsDict]
+    secrets: NotRequired[PartnerEndCustomerSecretsDict]

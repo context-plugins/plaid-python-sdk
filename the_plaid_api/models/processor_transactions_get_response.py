@@ -29,7 +29,7 @@ class ProcessorTransactionsGetResponse(SdkBaseModel):
 
 
 class ProcessorTransactionsGetResponseDict(TypedDict):
-    account: Account | AccountDict
-    transactions: list[Transaction | TransactionDict]
+    account: AccountDict
+    transactions: list[TransactionDict]
     total_transactions: int
     request_id: str

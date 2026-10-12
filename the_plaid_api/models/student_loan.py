@@ -19,7 +19,7 @@ class StudentLoan(SdkBaseModel):
     """The account number of the loan. For some institutions, this may be a masked version of the number (e.g., the last
     4 digits instead of the entire number)."""
 
-    disbursement_dates: list[Date | None]
+    disbursement_dates: list[Date] | None
     """The dates on which loaned funds were disbursed or will be disbursed. These are often in the past. Dates are
     returned in an `ISO 8601 <https://wikipedia.org/wiki/ISO_8601>`__ format (YYYY-MM-DD)."""
 
@@ -110,7 +110,7 @@ class StudentLoan(SdkBaseModel):
 class StudentLoanDict(TypedDict):
     account_id: str | None
     account_number: str | None
-    disbursement_dates: list[Date | None]
+    disbursement_dates: list[Date] | None
     expected_payoff_date: Date | None
     guarantor: str | None
     interest_rate_percentage: float
@@ -120,16 +120,16 @@ class StudentLoanDict(TypedDict):
     last_statement_balance: NotRequired[float | None]
     last_statement_issue_date: Date | None
     loan_name: str | None
-    loan_status: StudentLoanStatus | StudentLoanStatusDict
+    loan_status: StudentLoanStatusDict
     minimum_payment_amount: float | None
     next_payment_due_date: Date | None
     origination_date: Date | None
     origination_principal_amount: float | None
     outstanding_interest_amount: float | None
     payment_reference_number: str | None
-    pslf_status: Pslfstatus | PslfstatusDict
-    repayment_plan: StudentRepaymentPlan | StudentRepaymentPlanDict
+    pslf_status: PslfstatusDict
+    repayment_plan: StudentRepaymentPlanDict
     sequence_number: str | None
-    servicer_address: ServicerAddressData | ServicerAddressDataDict
+    servicer_address: ServicerAddressDataDict
     ytd_interest_paid: float | None
     ytd_principal_paid: float | None

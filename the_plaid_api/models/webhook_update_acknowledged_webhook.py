@@ -39,5 +39,5 @@ class WebhookUpdateAcknowledgedWebhookDict(TypedDict):
     webhook_code: str
     item_id: str
     new_webhook_url: str
-    error: NotRequired[Error | ErrorDict | None]
+    error: NotRequired[ErrorDict | None]
     environment: WebhookEnvironmentValuesOrStr

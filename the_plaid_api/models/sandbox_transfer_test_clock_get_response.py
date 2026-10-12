@@ -18,5 +18,5 @@ class SandboxTransferTestClockGetResponse(SdkBaseModel):
 
 
 class SandboxTransferTestClockGetResponseDict(TypedDict):
-    test_clock: TransferTestClock | TransferTestClockDict
+    test_clock: TransferTestClockDict
     request_id: str

@@ -36,6 +36,6 @@ class ProtectEventSendRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     timestamp: NotRequired[RFC3339DateTime]
-    event: ProtectEvent | ProtectEventDict | None
+    event: ProtectEventDict | None
     protect_session_id: NotRequired[str]
     request_trust_index: NotRequired[bool]

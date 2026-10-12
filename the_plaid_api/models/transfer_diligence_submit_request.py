@@ -28,4 +28,4 @@ class TransferDiligenceSubmitRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     originator_client_id: str
-    originator_diligence: TransferOriginatorDiligence | TransferOriginatorDiligenceDict
+    originator_diligence: TransferOriginatorDiligenceDict

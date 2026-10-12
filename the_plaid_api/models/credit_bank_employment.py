@@ -28,6 +28,6 @@ class CreditBankEmployment(SdkBaseModel):
 class CreditBankEmploymentDict(TypedDict):
     bank_employment_id: str
     account_id: str
-    employer: CreditBankEmployer | CreditBankEmployerDict
+    employer: CreditBankEmployerDict
     latest_deposit_date: Date
     earliest_deposit_date: Date

@@ -112,12 +112,10 @@ class BetaPartnerCustomerV1CreateRequestDict(TypedDict):
     legal_entity_name: NotRequired[str]
     website: str
     application_name: str
-    technical_contact: NotRequired[PartnerEndCustomerTechnicalContact | PartnerEndCustomerTechnicalContactDict]
-    billing_contact: NotRequired[PartnerEndCustomerBillingContact | PartnerEndCustomerBillingContactDict]
-    customer_support_info: PartnerEndCustomerCustomerSupportInfo | PartnerEndCustomerCustomerSupportInfoDict
-    address: PartnerEndCustomerAddress | PartnerEndCustomerAddressDict
+    technical_contact: NotRequired[PartnerEndCustomerTechnicalContactDict]
+    billing_contact: NotRequired[PartnerEndCustomerBillingContactDict]
+    customer_support_info: PartnerEndCustomerCustomerSupportInfoDict
+    address: PartnerEndCustomerAddressDict
     redirect_uris: NotRequired[list[str]]
-    bank_addendum_acceptance: NotRequired[
-        PartnerEndCustomerBankAddendumAcceptance | PartnerEndCustomerBankAddendumAcceptanceDict
-    ]
-    questionnaires: NotRequired[PartnerEndCustomerQuestionnaires | PartnerEndCustomerQuestionnairesDict]
+    bank_addendum_acceptance: NotRequired[PartnerEndCustomerBankAddendumAcceptanceDict]
+    questionnaires: NotRequired[PartnerEndCustomerQuestionnairesDict]

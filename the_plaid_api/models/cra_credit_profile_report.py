@@ -22,15 +22,15 @@ class CraCreditProfileReport(SdkBaseModel):
     client_report_id: str
     """Client-generated identifier, which can be used by lenders to track loan applications."""
 
-    lend_scores: list[CraCreditProfileLendScore]
+    lend_scores: list[CraCreditProfileLendScore | None]
     """The LendScore results for the credit profile report."""
 
-    cashflow_insights_attributes: dict[str, Any | None]
+    cashflow_insights_attributes: dict[str, Any] | None
     """A map of cash flow attributes, where the key is a string, and the value is a string, float, int, or boolean. The
     specific list of attributes will depend on the cash flow attributes version used. For a full list of attributes,
     contact your account manager."""
 
-    network_insights_attributes: dict[str, Any | None]
+    network_insights_attributes: dict[str, Any] | None
     """A map of network attributes, where the key is a string, and the value is a float, int, or boolean. For a full
     list of attributes, contact your account manager."""
 
@@ -42,7 +42,7 @@ class CraCreditProfileReportDict(TypedDict):
     date_retrieved: RFC3339DateTime
     inquiry_type: CraCreditProfileInquiryTypeOrStr
     client_report_id: str
-    lend_scores: list[CraCreditProfileLendScore | CraCreditProfileLendScoreDict]
-    cashflow_insights_attributes: dict[str, Any | None]
-    network_insights_attributes: dict[str, Any | None]
-    metadata: CraCreditProfileReportMetadata | CraCreditProfileReportMetadataDict | None
+    lend_scores: list[CraCreditProfileLendScoreDict | None]
+    cashflow_insights_attributes: dict[str, Any] | None
+    network_insights_attributes: dict[str, Any] | None
+    metadata: CraCreditProfileReportMetadataDict | None

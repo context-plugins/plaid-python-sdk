@@ -42,4 +42,4 @@ class TransactionsCategoryRuleDict(TypedDict):
     updated_at: NotRequired[RFC3339DateTime]
     pfc_primary_category: NotRequired[str]
     pfc_detailed_category: NotRequired[str]
-    rule_details: NotRequired[TransactionsRuleDetails | TransactionsRuleDetailsDict]
+    rule_details: NotRequired[TransactionsRuleDetailsDict]

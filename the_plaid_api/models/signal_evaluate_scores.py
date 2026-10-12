@@ -25,5 +25,5 @@ class SignalEvaluateScores(SdkBaseModel):
 
 
 class SignalEvaluateScoresDict(TypedDict):
-    customer_initiated_return_risk: NotRequired[CustomerInitiatedReturnRisk | CustomerInitiatedReturnRiskDict]
-    bank_initiated_return_risk: NotRequired[BankInitiatedReturnRisk | BankInitiatedReturnRiskDict]
+    customer_initiated_return_risk: NotRequired[CustomerInitiatedReturnRiskDict]
+    bank_initiated_return_risk: NotRequired[BankInitiatedReturnRiskDict]

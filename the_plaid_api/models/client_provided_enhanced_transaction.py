@@ -32,4 +32,4 @@ class ClientProvidedEnhancedTransactionDict(TypedDict):
     description: str
     amount: float
     iso_currency_code: str
-    enhancements: Enhancements | EnhancementsDict
+    enhancements: EnhancementsDict

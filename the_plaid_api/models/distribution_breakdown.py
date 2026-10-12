@@ -48,4 +48,4 @@ class DistributionBreakdownDict(TypedDict):
     mask: NotRequired[str | None]
     type_: NotRequired[str | None]
     unofficial_currency_code: NotRequired[str | None]
-    current_pay: NotRequired[Pay | PayDict]
+    current_pay: NotRequired[PayDict]

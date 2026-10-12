@@ -49,5 +49,5 @@ class UserPermissionRevokedWebhookDict(TypedDict):
     webhook_code: str
     item_id: str
     user_id: NotRequired[str]
-    error: NotRequired[Error | ErrorDict | None]
+    error: NotRequired[ErrorDict | None]
     environment: WebhookEnvironmentValuesOrStr

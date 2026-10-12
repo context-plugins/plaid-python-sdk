@@ -43,10 +43,10 @@ class ExpenditureInsights(SdkBaseModel):
 
 
 class ExpenditureInsightsDict(TypedDict):
-    cash_flow: NotRequired[AmountWithCurrencyWithMonthlyAverage | AmountWithCurrencyWithMonthlyAverageDict | None]
-    total_expenditure: NotRequired[ExpenditureSummary | ExpenditureSummaryDict | None]
-    essential_expenditure: NotRequired[ExpenditureSummary | ExpenditureSummaryDict | None]
-    non_essential_expenditure: NotRequired[ExpenditureSummary | ExpenditureSummaryDict | None]
-    other: NotRequired[ExpenditureSummary | ExpenditureSummaryDict | None]
-    transfers_out: NotRequired[ExpenditureSummary | ExpenditureSummaryDict | None]
-    outlier_transactions: NotRequired[OutlierTransactionsInsights | OutlierTransactionsInsightsDict | None]
+    cash_flow: NotRequired[AmountWithCurrencyWithMonthlyAverageDict | None]
+    total_expenditure: NotRequired[ExpenditureSummaryDict | None]
+    essential_expenditure: NotRequired[ExpenditureSummaryDict | None]
+    non_essential_expenditure: NotRequired[ExpenditureSummaryDict | None]
+    other: NotRequired[ExpenditureSummaryDict | None]
+    transfers_out: NotRequired[ExpenditureSummaryDict | None]
+    outlier_transactions: NotRequired[OutlierTransactionsInsightsDict | None]

@@ -35,9 +35,9 @@ class InvestmentsHoldingsGetResponse(SdkBaseModel):
 
 
 class InvestmentsHoldingsGetResponseDict(TypedDict):
-    accounts: list[InvestmentAccount | InvestmentAccountDict]
-    holdings: list[Holding | HoldingDict]
-    securities: list[Security | SecurityDict]
-    item: Item | ItemDict
+    accounts: list[InvestmentAccountDict]
+    holdings: list[HoldingDict]
+    securities: list[SecurityDict]
+    item: ItemDict
     request_id: str
     is_investments_fallback_item: NotRequired[bool]

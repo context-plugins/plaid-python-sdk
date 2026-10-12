@@ -30,7 +30,7 @@ class LinkSessionExitMetadata(SdkBaseModel):
 
 
 class LinkSessionExitMetadataDict(TypedDict):
-    institution: NotRequired[LinkSessionExitMetadataInstitution | LinkSessionExitMetadataInstitutionDict | None]
-    status: NotRequired[Status2 | Status2Dict]
+    institution: NotRequired[LinkSessionExitMetadataInstitutionDict | None]
+    status: NotRequired[Status2Dict]
     link_session_id: NotRequired[str]
     request_id: NotRequired[str]

@@ -18,5 +18,5 @@ class ScreeningHitDocumentsItems(SdkBaseModel):
 
 
 class ScreeningHitDocumentsItemsDict(TypedDict):
-    analysis: NotRequired[MatchSummary | MatchSummaryDict]
-    data: NotRequired[WatchlistScreeningDocument | WatchlistScreeningDocumentDict]
+    analysis: NotRequired[MatchSummaryDict]
+    data: NotRequired[WatchlistScreeningDocumentDict]

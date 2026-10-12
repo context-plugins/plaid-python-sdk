@@ -24,4 +24,4 @@ class CraloansRegisterRequest(SdkBaseModel):
 class CraloansRegisterRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
-    loans: list[CraLoanRegister | CraLoanRegisterDict]
+    loans: list[CraLoanRegisterDict]

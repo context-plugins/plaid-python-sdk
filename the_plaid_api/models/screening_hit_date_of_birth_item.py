@@ -18,5 +18,5 @@ class ScreeningHitDateOfBirthItem(SdkBaseModel):
 
 
 class ScreeningHitDateOfBirthItemDict(TypedDict):
-    analysis: NotRequired[MatchSummary | MatchSummaryDict]
-    data: NotRequired[DateRange | DateRangeDict]
+    analysis: NotRequired[MatchSummaryDict]
+    data: NotRequired[DateRangeDict]

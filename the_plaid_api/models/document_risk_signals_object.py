@@ -22,5 +22,5 @@ class DocumentRiskSignalsObject(SdkBaseModel):
 
 class DocumentRiskSignalsObjectDict(TypedDict):
     account_id: str | None
-    single_document_risk_signals: list[SingleDocumentRiskSignal | SingleDocumentRiskSignalDict]
-    multi_document_risk_signals: list[MultiDocumentRiskSignal | MultiDocumentRiskSignalDict]
+    single_document_risk_signals: list[SingleDocumentRiskSignalDict]
+    multi_document_risk_signals: list[MultiDocumentRiskSignalDict]

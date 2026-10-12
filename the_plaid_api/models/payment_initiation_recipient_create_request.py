@@ -40,5 +40,5 @@ class PaymentInitiationRecipientCreateRequestDict(TypedDict):
     secret: NotRequired[str]
     name: str
     iban: NotRequired[str | None]
-    bacs: NotRequired[RecipientBacsnullable | RecipientBacsnullableDict | None]
-    address: NotRequired[PaymentInitiationAddress | PaymentInitiationAddressDict | None]
+    bacs: NotRequired[RecipientBacsnullableDict | None]
+    address: NotRequired[PaymentInitiationAddressDict | None]

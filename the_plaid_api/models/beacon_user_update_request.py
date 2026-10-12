@@ -16,7 +16,7 @@ class BeaconUserUpdateRequest(SdkBaseModel):
     """A subset of a Beacon User's data which is used to patch the existing identity data associated with a Beacon User.
     At least one field must be provided. If left unset or null, user data will not be patched."""
 
-    access_tokens: Optional[list[str | None]] = UNSET
+    access_tokens: OptionalNullable[list[str]] = UNSET
     """Send this array of access tokens to add accounts to this user for evaluation. This will add accounts to this
     Beacon User. If left null only existing accounts will be returned in response. A maximum of 50 accounts total can be
     added to a Beacon User."""
@@ -32,7 +32,7 @@ class BeaconUserUpdateRequest(SdkBaseModel):
 
 class BeaconUserUpdateRequestDict(TypedDict):
     beacon_user_id: str
-    user: NotRequired[BeaconUserUpdateRequestData | BeaconUserUpdateRequestDataDict | None]
-    access_tokens: NotRequired[list[str | None]]
+    user: NotRequired[BeaconUserUpdateRequestDataDict | None]
+    access_tokens: NotRequired[list[str] | None]
     client_id: NotRequired[str]
     secret: NotRequired[str]

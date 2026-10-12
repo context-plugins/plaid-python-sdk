@@ -75,11 +75,9 @@ class TransferAuthorizationDict(TypedDict):
     id: str
     created: RFC3339DateTime
     decision: TransferAuthorizationDecisionOrStr
-    decision_rationale: TransferAuthorizationDecisionRationale | TransferAuthorizationDecisionRationaleDict | None
+    decision_rationale: TransferAuthorizationDecisionRationaleDict | None
     guarantee_decision: TransferAuthorizationGuaranteeDecisionOrStr | None
-    guarantee_decision_rationale: (
-        TransferAuthorizationGuaranteeDecisionRationale | TransferAuthorizationGuaranteeDecisionRationaleDict | None
-    )
-    guarantee_details: NotRequired[AuthorizationGuaranteeDetails | AuthorizationGuaranteeDetailsDict | None]
-    payment_risk: TransferAuthorizationPaymentRisk | TransferAuthorizationPaymentRiskDict | None
-    proposed_transfer: TransferAuthorizationProposedTransfer | TransferAuthorizationProposedTransferDict
+    guarantee_decision_rationale: TransferAuthorizationGuaranteeDecisionRationaleDict | None
+    guarantee_details: NotRequired[AuthorizationGuaranteeDetailsDict | None]
+    payment_risk: TransferAuthorizationPaymentRiskDict | None
+    proposed_transfer: TransferAuthorizationProposedTransferDict

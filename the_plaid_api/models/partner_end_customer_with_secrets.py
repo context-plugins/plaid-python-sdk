@@ -40,4 +40,4 @@ class PartnerEndCustomerWithSecretsDict(TypedDict):
     client_id: NotRequired[str]
     company_name: NotRequired[str]
     status: NotRequired[PartnerEndCustomerStatusOrStr]
-    secrets: NotRequired[PartnerEndCustomerSecrets | PartnerEndCustomerSecretsDict]
+    secrets: NotRequired[PartnerEndCustomerSecretsDict]

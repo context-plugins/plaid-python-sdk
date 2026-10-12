@@ -1,18 +1,17 @@
 from __future__ import annotations
 
-from typing import Literal
-
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import TypedDict
 
 from ..core import SdkBaseModel
 from .credit_bank_income_cause import CreditBankIncomeCause, CreditBankIncomeCauseDict
+from .enums.credit_bank_employment_warning_type import CreditBankEmploymentWarningTypeOrStr
 from .enums.credit_bank_income_warning_code import CreditBankIncomeWarningCodeOrStr
 
 
 class CreditBankEmploymentWarning(SdkBaseModel):
     """The warning associated with the data that was unavailable for the Bank Employment Report."""
 
-    warning_type: Literal["BANK_EMPLOYMENT_WARNING"] = "BANK_EMPLOYMENT_WARNING"
+    warning_type: CreditBankEmploymentWarningTypeOrStr
     """The warning type which will always be ``BANK_EMPLOYMENT_WARNING``."""
 
     warning_code: CreditBankIncomeWarningCodeOrStr
@@ -27,6 +26,6 @@ class CreditBankEmploymentWarning(SdkBaseModel):
 
 
 class CreditBankEmploymentWarningDict(TypedDict):
-    warning_type: NotRequired[Literal["BANK_EMPLOYMENT_WARNING"]]
+    warning_type: CreditBankEmploymentWarningTypeOrStr
     warning_code: CreditBankIncomeWarningCodeOrStr
-    cause: CreditBankIncomeCause | CreditBankIncomeCauseDict
+    cause: CreditBankIncomeCauseDict

@@ -215,11 +215,11 @@ class CashflowReportTransactionDict(TypedDict):
     unofficial_currency_code: str | None
     check_number: NotRequired[str | None]
     date: Date
-    location: TransactionLocation | TransactionLocationDict
+    location: TransactionLocationDict
     name: str | None
     merchant_name: NotRequired[str | None]
     original_description: NotRequired[str | None]
-    payment_meta: CashflowReportPaymentMeta | CashflowReportPaymentMetaDict
+    payment_meta: CashflowReportPaymentMetaDict
     pending: bool | None
     pending_transaction_id: str | None
     account_owner: str | None
@@ -230,10 +230,10 @@ class CashflowReportTransactionDict(TypedDict):
     authorized_datetime: RFC3339DateTime | None
     datetime: RFC3339DateTime | None
     payment_channel: TransactionPaymentChannelOrStr
-    personal_finance_category: NotRequired[PersonalFinanceCategory | PersonalFinanceCategoryDict | None]
-    business_finance_category: NotRequired[BusinessFinanceCategory | BusinessFinanceCategoryDict | None]
-    credit_category: NotRequired[CreditCategory | CreditCategoryDict | None]
+    personal_finance_category: NotRequired[PersonalFinanceCategoryDict | None]
+    business_finance_category: NotRequired[BusinessFinanceCategoryDict | None]
+    credit_category: NotRequired[CreditCategoryDict | None]
     transaction_code: TransactionCodeOrStr | None
     personal_finance_category_icon_url: NotRequired[str | None]
-    counterparties: NotRequired[list[TransactionCounterparty | TransactionCounterpartyDict]]
+    counterparties: NotRequired[list[TransactionCounterpartyDict]]
     merchant_entity_id: NotRequired[str | None]

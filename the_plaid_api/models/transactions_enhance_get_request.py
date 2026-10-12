@@ -28,4 +28,4 @@ class TransactionsEnhanceGetRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     account_type: str
-    transactions: list[ClientProvidedRawTransaction | ClientProvidedRawTransactionDict]
+    transactions: list[ClientProvidedRawTransactionDict]

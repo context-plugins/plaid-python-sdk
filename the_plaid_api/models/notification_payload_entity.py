@@ -25,4 +25,4 @@ class NotificationPayloadEntity(SdkBaseModel):
 class NotificationPayloadEntityDict(TypedDict):
     id: NotRequired[str]
     id_type: NotRequired[NotificationPayloadIdTypeOrStr]
-    event: NotRequired[FdxLifecycleEventEntity | FdxLifecycleEventEntityDict]
+    event: NotRequired[FdxLifecycleEventEntityDict]

@@ -47,6 +47,6 @@ class BeaconReportCreateRequestDict(TypedDict):
     beacon_user_id: str
     type_: BeaconReportCreateTypeOrStr
     fraud_date: Date
-    fraud_amount: NotRequired[FraudAmount | FraudAmountDict | None]
+    fraud_amount: NotRequired[FraudAmountDict | None]
     client_id: NotRequired[str]
     secret: NotRequired[str]

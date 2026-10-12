@@ -26,7 +26,7 @@ class WalletListRequest(SdkBaseModel):
     before that e-wallet. If omitted, the response will contain e-wallets starting from the most recent, and in
     descending order."""
 
-    count: Optional[int] = UNSET
+    count: int = 10
     """The number of e-wallets to fetch"""
 
 

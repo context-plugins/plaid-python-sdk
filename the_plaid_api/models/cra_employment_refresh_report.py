@@ -23,4 +23,4 @@ class CraEmploymentRefreshReport(SdkBaseModel):
 class CraEmploymentRefreshReportDict(TypedDict):
     generated_time: RFC3339DateTime
     days_requested: float
-    items: list[CraEmploymentRefreshReportItem | CraEmploymentRefreshReportItemDict]
+    items: list[CraEmploymentRefreshReportItemDict]

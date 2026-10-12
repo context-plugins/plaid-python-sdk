@@ -18,5 +18,5 @@ class IssuesGetResponse(SdkBaseModel):
 
 
 class IssuesGetResponseDict(TypedDict):
-    issue: NotRequired[Issue | IssueDict]
+    issue: NotRequired[IssueDict]
     request_id: NotRequired[str]

@@ -36,8 +36,8 @@ class BusinessDigitalPresenceCheck(SdkBaseModel):
 class BusinessDigitalPresenceCheckDict(TypedDict):
     status: BusinessVerificationStatusWebPresenceCheckOrStr
     score: int
-    address: BusinessFieldMatchSummary | BusinessFieldMatchSummaryDict
-    phone_number: BusinessFieldMatchSummary | BusinessFieldMatchSummaryDict
-    email_address: BusinessFieldMatchSummary | BusinessFieldMatchSummaryDict
-    website: BusinessFieldMatchSummary | BusinessFieldMatchSummaryDict
-    website_analysis: BusinessWebsiteAnalysis | BusinessWebsiteAnalysisDict | None
+    address: BusinessFieldMatchSummaryDict
+    phone_number: BusinessFieldMatchSummaryDict
+    email_address: BusinessFieldMatchSummaryDict
+    website: BusinessFieldMatchSummaryDict
+    website_analysis: BusinessWebsiteAnalysisDict | None

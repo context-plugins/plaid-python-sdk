@@ -17,4 +17,4 @@ class ServiceProductFulfillment(SdkBaseModel):
 
 
 class ServiceProductFulfillmentDict(TypedDict):
-    service_product_fulfillment_detail: ServiceProductFulfillmentDetail | ServiceProductFulfillmentDetailDict
+    service_product_fulfillment_detail: ServiceProductFulfillmentDetailDict

@@ -82,6 +82,6 @@ class ClientProvidedTransactionDict(TypedDict):
     amount: float
     direction: EnrichTransactionDirectionOrStr
     iso_currency_code: str
-    location: NotRequired[ClientProvidedTransactionLocation | ClientProvidedTransactionLocationDict]
+    location: NotRequired[ClientProvidedTransactionLocationDict]
     mcc: NotRequired[str]
     date_posted: NotRequired[Date]

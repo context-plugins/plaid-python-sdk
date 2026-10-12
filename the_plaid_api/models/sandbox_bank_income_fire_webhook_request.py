@@ -38,6 +38,4 @@ class SandboxBankIncomeFireWebhookRequestDict(TypedDict):
     secret: NotRequired[str]
     webhook_override: NotRequired[str]
     webhook_code: SandboxBankIncomeWebhookFireRequestWebhookCodeOrStr
-    webhook_fields: (
-        SandboxBankIncomeWebhookFireRequestWebhookFields | SandboxBankIncomeWebhookFireRequestWebhookFieldsDict
-    )
+    webhook_fields: SandboxBankIncomeWebhookFireRequestWebhookFieldsDict

@@ -31,7 +31,7 @@ class WatchlistScreeningIndividualCreateRequest(SdkBaseModel):
 
 
 class WatchlistScreeningIndividualCreateRequestDict(TypedDict):
-    search_terms: WatchlistScreeningRequestSearchTerms | WatchlistScreeningRequestSearchTermsDict
+    search_terms: WatchlistScreeningRequestSearchTermsDict
     client_user_id: NotRequired[str]
     client_id: NotRequired[str]
     secret: NotRequired[str]

@@ -22,6 +22,4 @@ class CraCheckReportHomeLendingReportOptions(SdkBaseModel):
 
 class CraCheckReportHomeLendingReportOptionsDict(TypedDict):
     reports_requested: list[CraCheckReportVerificationGetReportTypeOrStr]
-    employment_refresh_options: NotRequired[
-        CraCheckReportCreateEmploymentRefreshOptions | CraCheckReportCreateEmploymentRefreshOptionsDict | None
-    ]
+    employment_refresh_options: NotRequired[CraCheckReportCreateEmploymentRefreshOptionsDict | None]

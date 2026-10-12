@@ -19,5 +19,5 @@ class ProtectModelInputs(SdkBaseModel):
 
 
 class ProtectModelInputsDict(TypedDict):
-    link: NotRequired[ProtectLinkModelInputs | ProtectLinkModelInputsDict | None]
-    sdk: NotRequired[ProtectSdkmodelInputs | ProtectSdkmodelInputsDict | None]
+    link: NotRequired[ProtectLinkModelInputsDict | None]
+    sdk: NotRequired[ProtectSdkmodelInputsDict | None]

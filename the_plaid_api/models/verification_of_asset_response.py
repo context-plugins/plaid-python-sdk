@@ -15,4 +15,4 @@ class VerificationOfAssetResponse(SdkBaseModel):
 
 
 class VerificationOfAssetResponseDict(TypedDict):
-    assets: Assets | AssetsDict
+    assets: AssetsDict

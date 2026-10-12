@@ -40,5 +40,5 @@ class PaymentInitiationMetadataDict(TypedDict):
     supports_sepa_instant: bool
     maximum_payment_amount: dict[str, str]
     supports_refund_details: bool
-    standing_order_metadata: PaymentInitiationStandingOrderMetadata | PaymentInitiationStandingOrderMetadataDict | None
+    standing_order_metadata: PaymentInitiationStandingOrderMetadataDict | None
     supports_payment_consents: bool

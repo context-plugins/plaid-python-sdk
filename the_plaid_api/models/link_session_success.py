@@ -22,4 +22,4 @@ class LinkSessionSuccess(SdkBaseModel):
 
 class LinkSessionSuccessDict(TypedDict):
     public_token: str
-    metadata: LinkSessionSuccessMetadata | LinkSessionSuccessMetadataDict | None
+    metadata: LinkSessionSuccessMetadataDict | None

@@ -25,11 +25,11 @@ class AssetReportGetRequest(SdkBaseModel):
     """The user token associated with the User for which to create an asset report for. The latest asset report
     associated with the User will be returned"""
 
-    include_insights: Optional[bool] = UNSET
+    include_insights: bool = False
     """``true`` if you would like to retrieve the Asset Report with Insights, ``false`` otherwise. This field defaults
     to ``false`` if omitted."""
 
-    fast_report: Optional[bool] = UNSET
+    fast_report: bool = False
     """``true`` to fetch "fast" version of asset report. Defaults to false if omitted. Can only be used if
     ``/asset_report/create`` was called with ``options.add_ons`` set to ``["fast_assets"]``."""
 
@@ -44,4 +44,4 @@ class AssetReportGetRequestDict(TypedDict):
     user_token: NotRequired[str]
     include_insights: NotRequired[bool]
     fast_report: NotRequired[bool]
-    options: NotRequired[AssetReportGetRequestOptions | AssetReportGetRequestOptionsDict]
+    options: NotRequired[AssetReportGetRequestOptionsDict]

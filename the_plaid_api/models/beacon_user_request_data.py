@@ -52,10 +52,10 @@ class BeaconUserRequestData(SdkBaseModel):
 
 class BeaconUserRequestDataDict(TypedDict):
     date_of_birth: NotRequired[Date]
-    name: BeaconUserName | BeaconUserNameDict
-    address: NotRequired[BeaconUserRequestAddress | BeaconUserRequestAddressDict | None]
+    name: BeaconUserNameDict
+    address: NotRequired[BeaconUserRequestAddressDict | None]
     email_address: NotRequired[EmailStr]
     phone_number: NotRequired[str | None]
-    id_number: NotRequired[BeaconUserIdnumber | BeaconUserIdnumberDict | None]
+    id_number: NotRequired[BeaconUserIdnumberDict | None]
     ip_address: NotRequired[str | None]
-    depository_accounts: NotRequired[list[BeaconUserRequestDepositoryAccount | BeaconUserRequestDepositoryAccountDict]]
+    depository_accounts: NotRequired[list[BeaconUserRequestDepositoryAccountDict]]

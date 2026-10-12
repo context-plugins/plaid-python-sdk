@@ -20,6 +20,6 @@ class CraVoaReportTransactionsInsights(SdkBaseModel):
 
 
 class CraVoaReportTransactionsInsightsDict(TypedDict):
-    all_transactions: list[BaseReportTransaction | BaseReportTransactionDict]
+    all_transactions: list[BaseReportTransactionDict]
     end_date: Date | None
     start_date: Date | None

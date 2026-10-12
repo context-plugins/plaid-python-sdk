@@ -32,5 +32,5 @@ class SelfieAnalysis(SdkBaseModel):
 class SelfieAnalysisDict(TypedDict):
     document_comparison: SelfieAnalysisDocumentComparisonOrStr
     liveness_check: SelfieAnalysisLivenessCheckOrStr
-    age_check: NotRequired[SelfieAgeCheck | SelfieAgeCheckDict | None]
-    facial_analysis: NotRequired[SelfieAnalysisFacialAnalysis | SelfieAnalysisFacialAnalysisDict | None]
+    age_check: NotRequired[SelfieAgeCheckDict | None]
+    facial_analysis: NotRequired[SelfieAnalysisFacialAnalysisDict | None]

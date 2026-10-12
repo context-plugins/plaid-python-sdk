@@ -2,13 +2,13 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, Optional, SdkBaseModel
+from ..core import SdkBaseModel
 
 
 class LinkTokenTransactions(SdkBaseModel):
     """Configuration parameters for the Transactions product"""
 
-    days_requested: Optional[int] = UNSET
+    days_requested: int = 90
     """The maximum number of days of transaction history to request for the Transactions product. The more transaction
     history is requested, the longer the historical update poll will take. The default value is 90 days. In Production,
     if a value under 30 is provided, a minimum of 30 days of history will be requested. Once Transactions has been added

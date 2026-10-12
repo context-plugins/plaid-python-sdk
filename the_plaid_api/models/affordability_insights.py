@@ -22,5 +22,5 @@ class AffordabilityInsights(SdkBaseModel):
 
 
 class AffordabilityInsightsDict(TypedDict):
-    expenditure: NotRequired[ExpenditureInsights | ExpenditureInsightsDict | None]
-    income: NotRequired[IncomeInsights | IncomeInsightsDict | None]
+    expenditure: NotRequired[ExpenditureInsightsDict | None]
+    income: NotRequired[IncomeInsightsDict | None]

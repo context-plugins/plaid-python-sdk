@@ -21,6 +21,6 @@ class BankTransferBalanceGetResponse(SdkBaseModel):
 
 
 class BankTransferBalanceGetResponseDict(TypedDict):
-    balance: BankTransferBalance | BankTransferBalanceDict
+    balance: BankTransferBalanceDict
     origination_account_id: str | None
     request_id: str

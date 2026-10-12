@@ -32,7 +32,7 @@ class TransactionBase(SdkBaseModel):
     See the `currency code schema <https://plaid.com/docs/api/accounts#currency-code-schema>`__ for a full listing of
     supported ``unofficial_currency_code``s."""
 
-    category: Optional[list[str | None]] = UNSET
+    category: OptionalNullable[list[str]] = UNSET
     """A hierarchical array of the categories to which this transaction belongs. For a full list of categories, see
     https://plaid.com/docs/api/products/transactions/#categoriesget.
 
@@ -139,15 +139,15 @@ class TransactionBaseDict(TypedDict):
     amount: float
     iso_currency_code: str | None
     unofficial_currency_code: str | None
-    category: NotRequired[list[str | None]]
+    category: NotRequired[list[str] | None]
     category_id: NotRequired[str | None]
     check_number: NotRequired[str | None]
     date: Date
-    location: NotRequired[TransactionLocation | TransactionLocationDict]
+    location: NotRequired[TransactionLocationDict]
     name: NotRequired[str]
     merchant_name: NotRequired[str | None]
     original_description: NotRequired[str | None]
-    payment_meta: NotRequired[PaymentMeta | PaymentMetaDict]
+    payment_meta: NotRequired[PaymentMetaDict]
     pending: bool
     pending_transaction_id: NotRequired[str | None]
     account_owner: NotRequired[str | None]

@@ -46,9 +46,9 @@ class WatchlistScreeningEntityCreateResponse(SdkBaseModel):
 
 class WatchlistScreeningEntityCreateResponseDict(TypedDict):
     id: str
-    search_terms: EntityWatchlistScreeningSearchTerms | EntityWatchlistScreeningSearchTermsDict
+    search_terms: EntityWatchlistScreeningSearchTermsDict
     assignee: str | None
     status: WatchlistScreeningStatusOrStr
     client_user_id: str | None
-    audit_trail: WatchlistScreeningAuditTrail | WatchlistScreeningAuditTrailDict
+    audit_trail: WatchlistScreeningAuditTrailDict
     request_id: str

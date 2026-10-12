@@ -28,4 +28,4 @@ class CreditBankIncomeWarning(SdkBaseModel):
 class CreditBankIncomeWarningDict(TypedDict):
     warning_type: NotRequired[CreditBankIncomeWarningTypeOrStr]
     warning_code: NotRequired[CreditBankIncomeWarningCodeOrStr]
-    cause: NotRequired[CreditBankIncomeCause | CreditBankIncomeCauseDict]
+    cause: NotRequired[CreditBankIncomeCauseDict]

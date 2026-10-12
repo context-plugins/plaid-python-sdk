@@ -33,9 +33,9 @@ class CraPartnerInsightsPrism(SdkBaseModel):
 
 
 class CraPartnerInsightsPrismDict(TypedDict):
-    insights: NotRequired[PrismInsights | PrismInsightsDict | None]
-    cash_score: NotRequired[PrismCashScore | PrismCashScoreDict | None]
-    extend: NotRequired[PrismExtend | PrismExtendDict | None]
-    first_detect: NotRequired[PrismFirstDetect | PrismFirstDetectDict | None]
-    detect: NotRequired[PrismDetect | PrismDetectDict | None]
+    insights: NotRequired[PrismInsightsDict | None]
+    cash_score: NotRequired[PrismCashScoreDict | None]
+    extend: NotRequired[PrismExtendDict | None]
+    first_detect: NotRequired[PrismFirstDetectDict | None]
+    detect: NotRequired[PrismDetectDict | None]
     status: str

@@ -52,7 +52,7 @@ class UserCustomPassword(SdkBaseModel):
 class UserCustomPasswordDict(TypedDict):
     version: NotRequired[str | None]
     seed: str
-    override_accounts: list[OverrideAccounts | OverrideAccountsDict]
-    mfa: Mfa | MfaDict
+    override_accounts: list[OverrideAccountsDict]
+    mfa: MfaDict
     recaptcha: str
     force_error: str

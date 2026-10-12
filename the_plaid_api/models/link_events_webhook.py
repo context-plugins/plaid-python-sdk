@@ -44,7 +44,7 @@ class LinkEventsWebhook(SdkBaseModel):
 class LinkEventsWebhookDict(TypedDict):
     webhook_type: str
     webhook_code: str
-    events: list[LinkEvent | LinkEventDict]
+    events: list[LinkEventDict]
     link_session_id: str
     link_token: str
     environment: WebhookEnvironmentValuesOrStr

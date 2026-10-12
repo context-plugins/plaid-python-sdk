@@ -28,4 +28,4 @@ class DetailedOriginatorDict(TypedDict):
     client_id: str
     transfer_diligence_status: TransferDiligenceStatusOrStr
     company_name: str
-    outstanding_requirements: NotRequired[list[TransferPlatformRequirement | TransferPlatformRequirementDict]]
+    outstanding_requirements: NotRequired[list[TransferPlatformRequirementDict]]

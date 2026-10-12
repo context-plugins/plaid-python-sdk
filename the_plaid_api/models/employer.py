@@ -26,5 +26,5 @@ class Employer(SdkBaseModel):
 class EmployerDict(TypedDict):
     employer_id: str
     name: str
-    address: AddressDataNullable | AddressDataNullableDict | None
+    address: AddressDataNullableDict | None
     confidence_score: float

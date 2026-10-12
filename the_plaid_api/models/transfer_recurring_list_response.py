@@ -16,5 +16,5 @@ class TransferRecurringListResponse(SdkBaseModel):
 
 
 class TransferRecurringListResponseDict(TypedDict):
-    recurring_transfers: list[RecurringTransfer | RecurringTransferDict]
+    recurring_transfers: list[RecurringTransferDict]
     request_id: str

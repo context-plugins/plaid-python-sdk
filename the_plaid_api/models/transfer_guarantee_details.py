@@ -20,4 +20,4 @@ class TransferGuaranteeDetails(SdkBaseModel):
 
 class TransferGuaranteeDetailsDict(TypedDict):
     guaranteed_amount: str
-    schedule: list[TransferGuaranteeScheduleItem | TransferGuaranteeScheduleItemDict]
+    schedule: list[TransferGuaranteeScheduleItemDict]

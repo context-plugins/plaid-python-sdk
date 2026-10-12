@@ -127,7 +127,7 @@ class LinkTokenCreateRequest(SdkBaseModel):
     Multi-Item Link, or Plaid Check Consumer Report after December 10, 2025. For more details, see `New User APIs
     <https://plaid.com/docs/api/users/user-apis>`__. One of either the ``user_id`` or the ``user`` field is required."""
 
-    products: Optional[list[ProductsOrStr | None]] = UNSET
+    products: OptionalNullable[list[ProductsOrStr]] = UNSET
     """List of Plaid product(s) that the linked Item must support. If launching Link in update mode, should be omitted
     (unless you are using update mode to add a credit product, such as Assets, Statements, Income, or Plaid Check
     Consumer Report, to an existing Item); at least one ``product`` is required otherwise.
@@ -161,7 +161,7 @@ class LinkTokenCreateRequest(SdkBaseModel):
     subscription-based products, such as Liabilities, Investments, and Transactions, remove the Item via
     ``/item/remove``."""
 
-    required_if_supported_products: Optional[list[ProductsOrStr | None]] = UNSET
+    required_if_supported_products: OptionalNullable[list[ProductsOrStr]] = UNSET
     """List of Plaid product(s) you wish to use only if the institution and account(s) selected by the user support the
     product. Institutions that do not support these products will still be shown in Link. The products will only be
     extracted and billed if the user selects an institution and account type that supports them.
@@ -172,7 +172,7 @@ class LinkTokenCreateRequest(SdkBaseModel):
     For more details on using this feature, see `Required if Supported Products
     <https://plaid.com/docs/link/initializing-products/#required-if-supported-products>`__."""
 
-    optional_products: Optional[list[ProductsOrStr | None]] = UNSET
+    optional_products: OptionalNullable[list[ProductsOrStr]] = UNSET
     """List of Plaid product(s) that will enhance the consumer's use case, but that your app can function without. Plaid
     will attempt to fetch data for these products on a best-effort basis, and failure to support these products will not
     affect Item creation.
@@ -183,7 +183,7 @@ class LinkTokenCreateRequest(SdkBaseModel):
     For more details on using this feature, see `Optional Products
     <https://plaid.com/docs/link/initializing-products/#optional-products>`__."""
 
-    additional_consented_products: Optional[list[ProductsOrStr | None]] = UNSET
+    additional_consented_products: OptionalNullable[list[ProductsOrStr]] = UNSET
     """List of additional Plaid product(s) you wish to collect consent for to support your use case. These products will
     not be billed until you start using them by calling the relevant endpoints.
 
@@ -390,12 +390,12 @@ class LinkTokenCreateRequestDict(TypedDict):
     client_name: str
     language: str
     country_codes: list[CountryCodeOrStr]
-    user: NotRequired[LinkTokenCreateRequestUser | LinkTokenCreateRequestUserDict]
+    user: NotRequired[LinkTokenCreateRequestUserDict]
     user_id: NotRequired[str]
-    products: NotRequired[list[ProductsOrStr | None]]
-    required_if_supported_products: NotRequired[list[ProductsOrStr | None]]
-    optional_products: NotRequired[list[ProductsOrStr | None]]
-    additional_consented_products: NotRequired[list[ProductsOrStr | None]]
+    products: NotRequired[list[ProductsOrStr] | None]
+    required_if_supported_products: NotRequired[list[ProductsOrStr] | None]
+    optional_products: NotRequired[list[ProductsOrStr] | None]
+    additional_consented_products: NotRequired[list[ProductsOrStr] | None]
     webhook: NotRequired[str]
     access_token: NotRequired[str | None]
     access_tokens: NotRequired[list[str]]
@@ -403,42 +403,32 @@ class LinkTokenCreateRequestDict(TypedDict):
     appearance_mode: NotRequired[LinkTokenCreateRequestAppearanceModeOrStr | None]
     redirect_uri: NotRequired[str]
     android_package_name: NotRequired[str]
-    institution_data: NotRequired[LinkTokenCreateInstitutionData | LinkTokenCreateInstitutionDataDict]
-    card_switch: NotRequired[LinkTokenCreateCardSwitch | LinkTokenCreateCardSwitchDict]
-    account_filters: NotRequired[LinkTokenAccountFilters | LinkTokenAccountFiltersDict]
-    eu_config: NotRequired[LinkTokenEuconfig | LinkTokenEuconfigDict]
+    institution_data: NotRequired[LinkTokenCreateInstitutionDataDict]
+    card_switch: NotRequired[LinkTokenCreateCardSwitchDict]
+    account_filters: NotRequired[LinkTokenAccountFiltersDict]
+    eu_config: NotRequired[LinkTokenEuconfigDict]
     institution_id: NotRequired[str]
-    payment_configuration: NotRequired[
-        LinkTokenCreateRequestPaymentConfiguration | LinkTokenCreateRequestPaymentConfigurationDict
-    ]
-    payment_initiation: NotRequired[
-        LinkTokenCreateRequestPaymentInitiation | LinkTokenCreateRequestPaymentInitiationDict
-    ]
-    employment: NotRequired[LinkTokenCreateRequestEmployment | LinkTokenCreateRequestEmploymentDict]
-    income_verification: NotRequired[
-        LinkTokenCreateRequestIncomeVerification | LinkTokenCreateRequestIncomeVerificationDict
-    ]
-    base_report: NotRequired[LinkTokenCreateRequestBaseReport | LinkTokenCreateRequestBaseReportDict]
-    credit_partner_insights: NotRequired[
-        LinkTokenCreateRequestCreditPartnerInsights | LinkTokenCreateRequestCreditPartnerInsightsDict
-    ]
-    cra_options: NotRequired[LinkTokenCreateRequestCraOptions | LinkTokenCreateRequestCraOptionsDict]
+    payment_configuration: NotRequired[LinkTokenCreateRequestPaymentConfigurationDict]
+    payment_initiation: NotRequired[LinkTokenCreateRequestPaymentInitiationDict]
+    employment: NotRequired[LinkTokenCreateRequestEmploymentDict]
+    income_verification: NotRequired[LinkTokenCreateRequestIncomeVerificationDict]
+    base_report: NotRequired[LinkTokenCreateRequestBaseReportDict]
+    credit_partner_insights: NotRequired[LinkTokenCreateRequestCreditPartnerInsightsDict]
+    cra_options: NotRequired[LinkTokenCreateRequestCraOptionsDict]
     consumer_report_permissible_purpose: NotRequired[ConsumerReportPermissiblePurposeOrStr]
-    auth: NotRequired[LinkTokenCreateRequestAuth | LinkTokenCreateRequestAuthDict]
-    transfer: NotRequired[LinkTokenCreateRequestTransfer | LinkTokenCreateRequestTransferDict]
-    update: NotRequired[LinkTokenCreateRequestUpdate | LinkTokenCreateRequestUpdateDict]
-    identity_verification: NotRequired[
-        LinkTokenCreateRequestIdentityVerification | LinkTokenCreateRequestIdentityVerificationDict
-    ]
-    statements: NotRequired[LinkTokenCreateRequestStatements | LinkTokenCreateRequestStatementsDict]
+    auth: NotRequired[LinkTokenCreateRequestAuthDict]
+    transfer: NotRequired[LinkTokenCreateRequestTransferDict]
+    update: NotRequired[LinkTokenCreateRequestUpdateDict]
+    identity_verification: NotRequired[LinkTokenCreateRequestIdentityVerificationDict]
+    statements: NotRequired[LinkTokenCreateRequestStatementsDict]
     third_party_user_token: NotRequired[str]
-    investments: NotRequired[LinkTokenInvestments | LinkTokenInvestmentsDict]
-    investments_auth: NotRequired[LinkTokenInvestmentsAuth | LinkTokenInvestmentsAuthDict]
-    hosted_link: NotRequired[LinkTokenCreateHostedLink | LinkTokenCreateHostedLinkDict]
-    transactions: NotRequired[LinkTokenTransactions | LinkTokenTransactionsDict]
-    cashflow_report: NotRequired[LinkTokenCashflowReport | LinkTokenCashflowReportDict]
+    investments: NotRequired[LinkTokenInvestmentsDict]
+    investments_auth: NotRequired[LinkTokenInvestmentsAuthDict]
+    hosted_link: NotRequired[LinkTokenCreateHostedLinkDict]
+    transactions: NotRequired[LinkTokenTransactionsDict]
+    cashflow_report: NotRequired[LinkTokenCashflowReportDict]
     cra_enabled: NotRequired[bool]
-    identity: NotRequired[LinkTokenCreateIdentity | LinkTokenCreateIdentityDict]
+    identity: NotRequired[LinkTokenCreateIdentityDict]
     financekit_supported: NotRequired[bool]
     enable_multi_item_link: NotRequired[bool]
     user_token: NotRequired[str]

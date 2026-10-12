@@ -185,5 +185,5 @@ class PaymentStatusUpdateWebhookDict(TypedDict):
     original_start_date: Date | None
     adjusted_start_date: Date | None
     timestamp: RFC3339DateTime
-    error: NotRequired[Error | ErrorDict | None]
+    error: NotRequired[ErrorDict | None]
     environment: WebhookEnvironmentValuesOrStr

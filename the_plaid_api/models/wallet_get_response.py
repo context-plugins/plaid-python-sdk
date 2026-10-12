@@ -39,8 +39,8 @@ class WalletGetResponse(SdkBaseModel):
 
 class WalletGetResponseDict(TypedDict):
     wallet_id: str
-    balance: WalletBalance | WalletBalanceDict
-    numbers: WalletNumbers | WalletNumbersDict
+    balance: WalletBalanceDict
+    numbers: WalletNumbersDict
     recipient_id: NotRequired[str]
     status: WalletStatusOrStr
     request_id: str

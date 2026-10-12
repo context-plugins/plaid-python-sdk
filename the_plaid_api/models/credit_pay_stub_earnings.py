@@ -16,5 +16,5 @@ class CreditPayStubEarnings(SdkBaseModel):
 
 
 class CreditPayStubEarningsDict(TypedDict):
-    breakdown: list[PayStubEarningsBreakdown | PayStubEarningsBreakdownDict]
-    total: PayStubEarningsTotal | PayStubEarningsTotalDict
+    breakdown: list[PayStubEarningsBreakdownDict]
+    total: PayStubEarningsTotalDict

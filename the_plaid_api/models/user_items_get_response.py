@@ -16,5 +16,5 @@ class UserItemsGetResponse(SdkBaseModel):
 
 
 class UserItemsGetResponseDict(TypedDict):
-    items: list[Item | ItemDict]
+    items: list[ItemDict]
     request_id: str

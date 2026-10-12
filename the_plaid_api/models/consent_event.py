@@ -65,4 +65,4 @@ class ConsentEventDict(TypedDict):
     initiator: NotRequired[ConsentEventInitiatorOrStr]
     consented_use_cases: NotRequired[list[str]]
     consented_data_scopes: NotRequired[list[str]]
-    consented_accounts: NotRequired[list[ConsentedAccount | ConsentedAccountDict]]
+    consented_accounts: NotRequired[list[ConsentedAccountDict]]

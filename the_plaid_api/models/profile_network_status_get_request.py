@@ -24,4 +24,4 @@ class ProfileNetworkStatusGetRequest(SdkBaseModel):
 class ProfileNetworkStatusGetRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
-    user: NetworkStatusGetUser | NetworkStatusGetUserDict
+    user: NetworkStatusGetUserDict

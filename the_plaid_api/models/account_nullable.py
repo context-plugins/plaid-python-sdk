@@ -135,7 +135,7 @@ class AccountNullable(SdkBaseModel):
 
 class AccountNullableDict(TypedDict):
     account_id: str
-    balances: AccountBalance | AccountBalanceDict
+    balances: AccountBalanceDict
     mask: str | None
     name: str
     official_name: str | None
@@ -143,6 +143,6 @@ class AccountNullableDict(TypedDict):
     subtype: AccountSubtypeOrStr | None
     verification_status: NotRequired[VerificationStatus5OrStr]
     verification_name: NotRequired[str]
-    verification_insights: NotRequired[VerificationInsights | VerificationInsightsDict]
+    verification_insights: NotRequired[VerificationInsightsDict]
     persistent_account_id: NotRequired[str]
     holder_category: NotRequired[HolderCategoryOrStr | None]

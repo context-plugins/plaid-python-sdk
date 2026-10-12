@@ -18,5 +18,5 @@ class ScreeningHitNamesItems(SdkBaseModel):
 
 
 class ScreeningHitNamesItemsDict(TypedDict):
-    analysis: NotRequired[MatchSummary | MatchSummaryDict]
-    data: NotRequired[IndividualScreeningHitNames | IndividualScreeningHitNamesDict]
+    analysis: NotRequired[MatchSummaryDict]
+    data: NotRequired[IndividualScreeningHitNamesDict]

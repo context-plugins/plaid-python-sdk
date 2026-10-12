@@ -62,4 +62,4 @@ class CraReportGetReportDict(TypedDict):
     scope: CraReportScopeOrStr
     decision_stage: CraReportDecisionStageOrStr
     consumer_report_permissible_purpose: ConsumerReportPermissiblePurposeOrStr
-    products: list[CraReportGetResponseProduct | CraReportGetResponseProductDict]
+    products: list[CraReportGetResponseProductDict]

@@ -58,7 +58,7 @@ class CraVerificationIncomeAccount(SdkBaseModel):
 class CraVerificationIncomeAccountDict(TypedDict):
     account_id: str
     mask: str | None
-    metadata: CraBankIncomeAccountMetadata | CraBankIncomeAccountMetadataDict
+    metadata: CraBankIncomeAccountMetadataDict
     name: str
     official_name: str | None
     subtype: AccountSubtypeOrStr | None

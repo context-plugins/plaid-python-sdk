@@ -55,8 +55,8 @@ class SignalEvaluateResponse(SdkBaseModel):
 
 class SignalEvaluateResponseDict(TypedDict):
     request_id: str
-    scores: SignalEvaluateScores | SignalEvaluateScoresDict | None
-    core_attributes: NotRequired[SignalEvaluateCoreAttributes | SignalEvaluateCoreAttributesDict]
-    risk_profile: NotRequired[SignalEvaluateRiskProfile | SignalEvaluateRiskProfileDict | None]
-    ruleset: NotRequired[SignalEvaluateRuleset | SignalEvaluateRulesetDict | None]
-    warnings: list[SignalWarning | SignalWarningDict]
+    scores: SignalEvaluateScoresDict | None
+    core_attributes: NotRequired[SignalEvaluateCoreAttributesDict]
+    risk_profile: NotRequired[SignalEvaluateRiskProfileDict | None]
+    ruleset: NotRequired[SignalEvaluateRulesetDict | None]
+    warnings: list[SignalWarningDict]

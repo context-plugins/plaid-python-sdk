@@ -80,4 +80,4 @@ class HoldingDict(TypedDict):
     unofficial_currency_code: str | None
     vested_quantity: NotRequired[float | None]
     vested_value: NotRequired[float | None]
-    tax_lots: NotRequired[list[HoldingTaxLot | HoldingTaxLotDict]]
+    tax_lots: NotRequired[list[HoldingTaxLotDict]]

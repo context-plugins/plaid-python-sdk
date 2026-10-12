@@ -17,5 +17,5 @@ class CreditPayStubEmployer(SdkBaseModel):
 
 
 class CreditPayStubEmployerDict(TypedDict):
-    address: CreditPayStubAddress | CreditPayStubAddressDict
+    address: CreditPayStubAddressDict
     name: str | None

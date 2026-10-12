@@ -30,5 +30,5 @@ class RiskCheckSyntheticIdentity(SdkBaseModel):
 class RiskCheckSyntheticIdentityDict(TypedDict):
     score: int
     risk_level: NotRequired[RiskLevelOrStr]
-    first_party_synthetic_fraud: NotRequired[SyntheticFraud | SyntheticFraudDict | None]
-    third_party_synthetic_fraud: NotRequired[SyntheticFraud | SyntheticFraudDict | None]
+    first_party_synthetic_fraud: NotRequired[SyntheticFraudDict | None]
+    third_party_synthetic_fraud: NotRequired[SyntheticFraudDict | None]

@@ -41,11 +41,11 @@ class CreditPayStub(SdkBaseModel):
 
 
 class CreditPayStubDict(TypedDict):
-    deductions: CreditPayStubDeductions | CreditPayStubDeductionsDict
+    deductions: CreditPayStubDeductionsDict
     document_id: str | None
-    document_metadata: CreditDocumentMetadata | CreditDocumentMetadataDict
-    earnings: CreditPayStubEarnings | CreditPayStubEarningsDict
-    employee: CreditPayStubEmployee | CreditPayStubEmployeeDict
-    employer: CreditPayStubEmployer | CreditPayStubEmployerDict
-    net_pay: CreditPayStubNetPay | CreditPayStubNetPayDict
-    pay_period_details: PayStubPayPeriodDetails | PayStubPayPeriodDetailsDict
+    document_metadata: CreditDocumentMetadataDict
+    earnings: CreditPayStubEarningsDict
+    employee: CreditPayStubEmployeeDict
+    employer: CreditPayStubEmployerDict
+    net_pay: CreditPayStubNetPayDict
+    pay_period_details: PayStubPayPeriodDetailsDict

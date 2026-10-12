@@ -18,5 +18,5 @@ class EntityScreeningHitEmailsItems(SdkBaseModel):
 
 
 class EntityScreeningHitEmailsItemsDict(TypedDict):
-    analysis: NotRequired[MatchSummary | MatchSummaryDict]
-    data: NotRequired[EntityScreeningHitEmails | EntityScreeningHitEmailsDict]
+    analysis: NotRequired[MatchSummaryDict]
+    data: NotRequired[EntityScreeningHitEmailsDict]

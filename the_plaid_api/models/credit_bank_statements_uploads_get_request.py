@@ -35,6 +35,4 @@ class CreditBankStatementsUploadsGetRequestDict(TypedDict):
     secret: NotRequired[str]
     user_token: str
     user_id: NotRequired[str]
-    options: NotRequired[
-        CreditBankStatementsUploadsGetRequestOptions | CreditBankStatementsUploadsGetRequestOptionsDict
-    ]
+    options: NotRequired[CreditBankStatementsUploadsGetRequestOptionsDict]

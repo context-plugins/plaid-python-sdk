@@ -116,15 +116,11 @@ class PartnerCustomerCreateRequestDict(TypedDict):
     legal_entity_name: str
     website: str
     application_name: str
-    technical_contact: NotRequired[PartnerEndCustomerTechnicalContact | PartnerEndCustomerTechnicalContactDict]
-    billing_contact: NotRequired[PartnerEndCustomerBillingContact | PartnerEndCustomerBillingContactDict]
-    customer_support_info: NotRequired[
-        PartnerEndCustomerCustomerSupportInfo | PartnerEndCustomerCustomerSupportInfoDict
-    ]
-    address: PartnerEndCustomerAddress | PartnerEndCustomerAddressDict
+    technical_contact: NotRequired[PartnerEndCustomerTechnicalContactDict]
+    billing_contact: NotRequired[PartnerEndCustomerBillingContactDict]
+    customer_support_info: NotRequired[PartnerEndCustomerCustomerSupportInfoDict]
+    address: PartnerEndCustomerAddressDict
     is_bank_addendum_completed: bool
-    assets_under_management: NotRequired[
-        PartnerEndCustomerAssetsUnderManagement | PartnerEndCustomerAssetsUnderManagementDict
-    ]
+    assets_under_management: NotRequired[PartnerEndCustomerAssetsUnderManagementDict]
     redirect_uris: NotRequired[list[str]]
     registration_number: NotRequired[str]

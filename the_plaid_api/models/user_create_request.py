@@ -52,7 +52,7 @@ class UserCreateRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     client_user_id: str
-    identity: NotRequired[ClientUserIdentity | ClientUserIdentityDict | None]
+    identity: NotRequired[ClientUserIdentityDict | None]
     end_customer: NotRequired[str]
-    consumer_report_user_identity: NotRequired[ConsumerReportUserIdentity | ConsumerReportUserIdentityDict | None]
+    consumer_report_user_identity: NotRequired[ConsumerReportUserIdentityDict | None]
     with_upgraded_user: NotRequired[bool]

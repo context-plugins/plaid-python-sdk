@@ -35,8 +35,8 @@ class PaymentInitiationConsentPayerDetails(SdkBaseModel):
 
 class PaymentInitiationConsentPayerDetailsDict(TypedDict):
     name: str
-    numbers: PaymentInitiationConsentPayerNumbers | PaymentInitiationConsentPayerNumbersDict
-    address: NotRequired[PaymentInitiationAddress | PaymentInitiationAddressDict | None]
+    numbers: PaymentInitiationConsentPayerNumbersDict
+    address: NotRequired[PaymentInitiationAddressDict | None]
     date_of_birth: NotRequired[Date | None]
     phone_numbers: NotRequired[list[str]]
     emails: NotRequired[list[str]]

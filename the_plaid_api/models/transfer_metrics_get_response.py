@@ -55,7 +55,5 @@ class TransferMetricsGetResponseDict(TypedDict):
     monthly_debit_transfer_volume: str
     monthly_credit_transfer_volume: str
     iso_currency_code: str
-    return_rates: NotRequired[TransferMetricsGetReturnRates | TransferMetricsGetReturnRatesDict | None]
-    authorization_usage: NotRequired[
-        TransferMetricsGetAuthorizationUsage | TransferMetricsGetAuthorizationUsageDict | None
-    ]
+    return_rates: NotRequired[TransferMetricsGetReturnRatesDict | None]
+    authorization_usage: NotRequired[TransferMetricsGetAuthorizationUsageDict | None]

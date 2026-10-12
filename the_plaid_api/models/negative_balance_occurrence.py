@@ -26,4 +26,4 @@ class NegativeBalanceOccurrence(SdkBaseModel):
 class NegativeBalanceOccurrenceDict(TypedDict):
     start_date: NotRequired[Date | None]
     end_date: NotRequired[Date | None]
-    minimum_balance: NotRequired[AmountWithCurrency | AmountWithCurrencyDict | None]
+    minimum_balance: NotRequired[AmountWithCurrencyDict | None]

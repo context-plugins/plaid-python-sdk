@@ -44,8 +44,6 @@ class VerificationInsights(SdkBaseModel):
 
 class VerificationInsightsDict(TypedDict):
     name_match_score: NotRequired[int | None]
-    network_status: VerificationInsightsNetworkStatus | VerificationInsightsNetworkStatusDict
-    previous_returns: NotRequired[
-        AccountVerificationInsightsPreviousReturns | AccountVerificationInsightsPreviousReturnsDict
-    ]
+    network_status: VerificationInsightsNetworkStatusDict
+    previous_returns: NotRequired[AccountVerificationInsightsPreviousReturnsDict]
     account_number_format: VerificationInsightsAccountNumberFormatOrStr

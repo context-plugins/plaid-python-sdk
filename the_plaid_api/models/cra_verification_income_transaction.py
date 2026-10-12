@@ -62,4 +62,4 @@ class CraVerificationIncomeTransactionDict(TypedDict):
     original_description: str
     iso_currency_code: str | None
     unofficial_currency_code: str | None
-    outlier: CraVerificationIncomeTransactionOutlier | CraVerificationIncomeTransactionOutlierDict
+    outlier: CraVerificationIncomeTransactionOutlierDict

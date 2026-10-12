@@ -32,5 +32,5 @@ class CreditBankEmploymentReportDict(TypedDict):
     bank_employment_report_id: str
     generated_time: RFC3339DateTime
     days_requested: int
-    items: list[CreditBankEmploymentItem | CreditBankEmploymentItemDict]
-    warnings: list[CreditBankEmploymentWarning | CreditBankEmploymentWarningDict]
+    items: list[CreditBankEmploymentItemDict]
+    warnings: list[CreditBankEmploymentWarningDict]

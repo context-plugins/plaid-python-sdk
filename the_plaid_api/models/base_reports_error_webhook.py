@@ -35,6 +35,6 @@ class BaseReportsErrorWebhook(SdkBaseModel):
 class BaseReportsErrorWebhookDict(TypedDict):
     webhook_type: str
     webhook_code: str
-    error: Error | ErrorDict | None
+    error: ErrorDict | None
     user_id: str
     environment: WebhookEnvironmentValuesOrStr

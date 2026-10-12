@@ -28,5 +28,5 @@ class IdvprotectEvent(SdkBaseModel):
 class IdvprotectEventDict(TypedDict):
     event_id: str
     timestamp: RFC3339DateTime
-    trust_index: TrustIndex | TrustIndexDict | None
+    trust_index: TrustIndexDict | None
     fraud_attributes: Any | None

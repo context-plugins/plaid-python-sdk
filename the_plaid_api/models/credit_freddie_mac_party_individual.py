@@ -15,4 +15,4 @@ class CreditFreddieMacPartyIndividual(SdkBaseModel):
 
 
 class CreditFreddieMacPartyIndividualDict(TypedDict):
-    name: CreditFreddieMacIndividualName | CreditFreddieMacIndividualNameDict
+    name: CreditFreddieMacIndividualNameDict

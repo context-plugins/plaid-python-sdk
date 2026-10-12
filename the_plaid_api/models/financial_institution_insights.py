@@ -26,4 +26,4 @@ class FinancialInstitutionInsightsDict(TypedDict):
     name: str
     entity_id: NotRequired[str | None]
     website: str | None
-    detected_accounts: list[DetectedAccount | DetectedAccountDict]
+    detected_accounts: list[DetectedAccountDict]

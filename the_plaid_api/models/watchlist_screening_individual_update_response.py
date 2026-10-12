@@ -42,9 +42,9 @@ class WatchlistScreeningIndividualUpdateResponse(SdkBaseModel):
 
 class WatchlistScreeningIndividualUpdateResponseDict(TypedDict):
     id: str
-    search_terms: WatchlistScreeningSearchTerms | WatchlistScreeningSearchTermsDict
+    search_terms: WatchlistScreeningSearchTermsDict
     assignee: str | None
     status: WatchlistScreeningStatusOrStr
     client_user_id: str | None
-    audit_trail: WatchlistScreeningAuditTrail | WatchlistScreeningAuditTrailDict
+    audit_trail: WatchlistScreeningAuditTrailDict
     request_id: str

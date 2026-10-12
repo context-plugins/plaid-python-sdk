@@ -26,5 +26,5 @@ class Total(SdkBaseModel):
 class TotalDict(TypedDict):
     canonical_description: NotRequired[TotalCanonicalDescriptionOrStr | None]
     description: NotRequired[str | None]
-    current_pay: NotRequired[Pay | PayDict]
-    ytd_pay: NotRequired[Pay | PayDict]
+    current_pay: NotRequired[PayDict]
+    ytd_pay: NotRequired[PayDict]

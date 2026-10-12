@@ -130,6 +130,4 @@ class BeaconReportSyndicationAnalysisDict(TypedDict):
     id_number: BeaconMatchSummaryCodeOrStr
     ip_address: BeaconMatchSummaryCodeOrStr
     phone_number: BeaconMatchSummaryCodeOrStr
-    depository_accounts: list[
-        BeaconSyndicatedReportDepositoryAccountMatchAnalysis | BeaconSyndicatedReportDepositoryAccountMatchAnalysisDict
-    ]
+    depository_accounts: list[BeaconSyndicatedReportDepositoryAccountMatchAnalysisDict]

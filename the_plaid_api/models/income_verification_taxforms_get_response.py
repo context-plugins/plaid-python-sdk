@@ -30,6 +30,6 @@ class IncomeVerificationTaxformsGetResponse(SdkBaseModel):
 
 class IncomeVerificationTaxformsGetResponseDict(TypedDict):
     request_id: NotRequired[str]
-    document_metadata: list[DocumentMetadata | DocumentMetadataDict]
-    taxforms: list[Taxform | TaxformDict]
-    error: NotRequired[Error | ErrorDict | None]
+    document_metadata: list[DocumentMetadataDict]
+    taxforms: list[TaxformDict]
+    error: NotRequired[ErrorDict | None]

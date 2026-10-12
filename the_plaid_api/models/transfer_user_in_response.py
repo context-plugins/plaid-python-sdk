@@ -26,4 +26,4 @@ class TransferUserInResponseDict(TypedDict):
     legal_name: str
     phone_number: str | None
     email_address: str | None
-    address: TransferUserAddressInResponse | TransferUserAddressInResponseDict | None
+    address: TransferUserAddressInResponseDict | None

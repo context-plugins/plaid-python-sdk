@@ -49,7 +49,7 @@ class TransferRefundDict(TypedDict):
     transfer_id: str
     amount: str
     status: TransferRefundStatusOrStr
-    failure_reason: TransferRefundFailure | TransferRefundFailureDict | None
+    failure_reason: TransferRefundFailureDict | None
     ledger_id: NotRequired[str | None]
     created: RFC3339DateTime
     network_trace_id: NotRequired[str | None]

@@ -7,7 +7,7 @@ from .enums.achclass import AchclassOrStr
 from .enums.transfer_authorization_guarantee_decision import TransferAuthorizationGuaranteeDecisionOrStr
 from .enums.transfer_intent_authorization_decision import TransferIntentAuthorizationDecisionOrStr
 from .enums.transfer_intent_create_mode import TransferIntentCreateModeOrStr
-from .enums.transfer_intent_create_network import TransferIntentCreateNetworkOrStr
+from .enums.transfer_intent_create_network import TransferIntentCreateNetwork, TransferIntentCreateNetworkOrStr
 from .enums.transfer_intent_status import TransferIntentStatusOrStr
 from .transfer_authorization_decision_rationale import (
     TransferAuthorizationDecisionRationale,
@@ -84,7 +84,7 @@ class TransferIntentGet(SdkBaseModel):
 
     ``DISBURSEMENT``: Transfers funds from your business account to an end user's account."""
 
-    network: Optional[TransferIntentCreateNetworkOrStr] = UNSET
+    network: TransferIntentCreateNetworkOrStr = TransferIntentCreateNetwork.SAME_DAY_ACH
     """The network or rails used for the transfer. Defaults to ``same-day-ach``.
 
     For transfers submitted using ``ach``, the Standard ACH cutoff is 8:30 PM Eastern Time.
@@ -122,7 +122,7 @@ class TransferIntentGet(SdkBaseModel):
     description: str
     """A description for the underlying transfer. Maximum of 15 characters."""
 
-    metadata: Optional[dict[str, str | None]] = UNSET
+    metadata: OptionalNullable[dict[str, str]] = UNSET
     """The Metadata object is a mapping of client-provided string fields to any string value. The following limitations
     apply: The JSON values must be Strings (no nested JSON objects allowed) Only ASCII characters may be used Maximum of
     50 key/value pairs Maximum key length of 40 characters Maximum value length of 500 characters"""
@@ -148,11 +148,9 @@ class TransferIntentGetDict(TypedDict):
     created: RFC3339DateTime
     status: TransferIntentStatusOrStr
     transfer_id: str | None
-    failure_reason: TransferIntentGetFailureReason | TransferIntentGetFailureReasonDict | None
+    failure_reason: TransferIntentGetFailureReasonDict | None
     authorization_decision: TransferIntentAuthorizationDecisionOrStr | None
-    authorization_decision_rationale: (
-        TransferAuthorizationDecisionRationale | TransferAuthorizationDecisionRationaleDict | None
-    )
+    authorization_decision_rationale: TransferAuthorizationDecisionRationaleDict | None
     account_id: NotRequired[str | None]
     origination_account_id: str
     funding_account_id: str
@@ -160,12 +158,10 @@ class TransferIntentGetDict(TypedDict):
     mode: TransferIntentCreateModeOrStr
     network: NotRequired[TransferIntentCreateNetworkOrStr]
     ach_class: NotRequired[AchclassOrStr]
-    user: TransferUserInResponse | TransferUserInResponseDict
+    user: TransferUserInResponseDict
     description: str
-    metadata: NotRequired[dict[str, str | None]]
+    metadata: NotRequired[dict[str, str] | None]
     iso_currency_code: str
     require_guarantee: NotRequired[bool | None]
     guarantee_decision: TransferAuthorizationGuaranteeDecisionOrStr | None
-    guarantee_decision_rationale: (
-        TransferAuthorizationGuaranteeDecisionRationale | TransferAuthorizationGuaranteeDecisionRationaleDict | None
-    )
+    guarantee_decision_rationale: TransferAuthorizationGuaranteeDecisionRationaleDict | None

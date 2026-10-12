@@ -35,5 +35,5 @@ class BaseReportDict(TypedDict):
     date_generated: RFC3339DateTime
     days_requested: float
     client_report_id: NotRequired[str | None]
-    items: list[BaseReportItem | BaseReportItemDict]
-    attributes: NotRequired[BaseReportUserAttributes | BaseReportUserAttributesDict]
+    items: list[BaseReportItemDict]
+    attributes: NotRequired[BaseReportUserAttributesDict]

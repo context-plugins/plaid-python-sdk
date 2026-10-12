@@ -25,7 +25,7 @@ class LinkTokenCreateHostedLink(SdkBaseModel):
     lifetime is 7 days for links delivered by email, 1 day for links delivered via SMS, and 30 minutes for links not
     sent via Plaid Link delivery. This parameter will override the value of all three link types."""
 
-    is_mobile_app: Optional[bool] = UNSET
+    is_mobile_app: bool = False
     """This indicates whether the client is opening Hosted Link in a mobile app in an ``AsWebAuthenticationSession`` or
     Chrome custom tab."""
 

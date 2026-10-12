@@ -33,8 +33,8 @@ class RiskIndicators(SdkBaseModel):
 
 
 class RiskIndicatorsDict(TypedDict):
-    bank_penalties: NotRequired[BankPenaltiesIndicators | BankPenaltiesIndicatorsDict | None]
-    gambling: NotRequired[GamblingIndicators | GamblingIndicatorsDict | None]
-    loan_disbursements: NotRequired[LoanDisbursementsIndicators | LoanDisbursementsIndicatorsDict | None]
-    loan_payments: NotRequired[LoanPaymentsIndicators | LoanPaymentsIndicatorsDict | None]
-    negative_balance: NotRequired[NegativeBalanceInsights | NegativeBalanceInsightsDict | None]
+    bank_penalties: NotRequired[BankPenaltiesIndicatorsDict | None]
+    gambling: NotRequired[GamblingIndicatorsDict | None]
+    loan_disbursements: NotRequired[LoanDisbursementsIndicatorsDict | None]
+    loan_payments: NotRequired[LoanPaymentsIndicatorsDict | None]
+    negative_balance: NotRequired[NegativeBalanceInsightsDict | None]

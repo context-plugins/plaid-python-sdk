@@ -17,4 +17,4 @@ class PartnerEndCustomerQuestionnaires(SdkBaseModel):
 
 
 class PartnerEndCustomerQuestionnairesDict(TypedDict):
-    cra: NotRequired[PartnerEndCustomerCraquestionnaire | PartnerEndCustomerCraquestionnaireDict]
+    cra: NotRequired[PartnerEndCustomerCraquestionnaireDict]

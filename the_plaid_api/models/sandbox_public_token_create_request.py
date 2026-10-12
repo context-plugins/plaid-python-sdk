@@ -47,6 +47,6 @@ class SandboxPublicTokenCreateRequestDict(TypedDict):
     secret: NotRequired[str]
     institution_id: str
     initial_products: list[ProductsOrStr]
-    options: NotRequired[SandboxPublicTokenCreateRequestOptions | SandboxPublicTokenCreateRequestOptionsDict]
+    options: NotRequired[SandboxPublicTokenCreateRequestOptionsDict]
     user_token: NotRequired[str]
     user_id: NotRequired[str]

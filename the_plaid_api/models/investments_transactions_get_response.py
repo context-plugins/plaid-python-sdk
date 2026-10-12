@@ -39,10 +39,10 @@ class InvestmentsTransactionsGetResponse(SdkBaseModel):
 
 
 class InvestmentsTransactionsGetResponseDict(TypedDict):
-    item: Item | ItemDict
-    accounts: list[InvestmentAccount | InvestmentAccountDict]
-    securities: list[Security | SecurityDict]
-    investment_transactions: list[InvestmentTransaction | InvestmentTransactionDict]
+    item: ItemDict
+    accounts: list[InvestmentAccountDict]
+    securities: list[SecurityDict]
+    investment_transactions: list[InvestmentTransactionDict]
     total_investment_transactions: int
     request_id: str
     is_investments_fallback_item: NotRequired[bool]

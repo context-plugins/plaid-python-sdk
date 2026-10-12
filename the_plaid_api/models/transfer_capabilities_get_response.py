@@ -18,5 +18,5 @@ class TransferCapabilitiesGetResponse(SdkBaseModel):
 
 
 class TransferCapabilitiesGetResponseDict(TypedDict):
-    institution_supported_networks: InstitutionSupportedNetworks | InstitutionSupportedNetworksDict
+    institution_supported_networks: InstitutionSupportedNetworksDict
     request_id: str

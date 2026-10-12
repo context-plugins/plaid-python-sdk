@@ -24,6 +24,6 @@ class CraCheckReportFreddieMacVerificationOfAssetsDeal(SdkBaseModel):
 
 
 class CraCheckReportFreddieMacVerificationOfAssetsDealDict(TypedDict):
-    loans: CreditFreddieMacLoans | CreditFreddieMacLoansDict
-    parties: CreditFreddieMacParties | CreditFreddieMacPartiesDict
-    services: CreditFreddieMacServices | CreditFreddieMacServicesDict
+    loans: CreditFreddieMacLoansDict
+    parties: CreditFreddieMacPartiesDict
+    services: CreditFreddieMacServicesDict

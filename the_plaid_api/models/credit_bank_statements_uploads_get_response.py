@@ -18,5 +18,5 @@ class CreditBankStatementsUploadsGetResponse(SdkBaseModel):
 
 
 class CreditBankStatementsUploadsGetResponseDict(TypedDict):
-    items: list[CreditBankStatementUploadItem | CreditBankStatementUploadItemDict]
+    items: list[CreditBankStatementUploadItemDict]
     request_id: str

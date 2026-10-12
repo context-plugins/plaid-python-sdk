@@ -22,4 +22,4 @@ class TrustIndex(SdkBaseModel):
 class TrustIndexDict(TypedDict):
     score: int
     model: str
-    subscores: TrustIndexSubscores | TrustIndexSubscoresDict | None
+    subscores: TrustIndexSubscoresDict | None

@@ -58,7 +58,5 @@ class CraCheckReportPartnerInsightsGetRequestDict(TypedDict):
     third_party_user_token: NotRequired[str]
     user_token: NotRequired[str]
     user_tier: NotRequired[CraUserTierOrStr | None]
-    partner_insights: NotRequired[
-        CraCheckReportPartnerInsightsGetPartnerInsights | CraCheckReportPartnerInsightsGetPartnerInsightsDict
-    ]
-    options: NotRequired[CraCheckReportPartnerInsightsGetOptions | CraCheckReportPartnerInsightsGetOptionsDict | None]
+    partner_insights: NotRequired[CraCheckReportPartnerInsightsGetPartnerInsightsDict]
+    options: NotRequired[CraCheckReportPartnerInsightsGetOptionsDict | None]

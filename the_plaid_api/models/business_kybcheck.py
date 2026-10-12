@@ -34,7 +34,7 @@ class BusinessKybcheck(SdkBaseModel):
 class BusinessKybcheckDict(TypedDict):
     status: BusinessVerificationStatusOrStr
     score: int
-    name: BusinessFieldMatchSummary | BusinessFieldMatchSummaryDict
-    address: BusinessFieldMatchSummary | BusinessFieldMatchSummaryDict
-    website: BusinessFieldMatchSummary | BusinessFieldMatchSummaryDict
-    match_details: BusinessKybmatchDetails | BusinessKybmatchDetailsDict | None
+    name: BusinessFieldMatchSummaryDict
+    address: BusinessFieldMatchSummaryDict
+    website: BusinessFieldMatchSummaryDict
+    match_details: BusinessKybmatchDetailsDict | None

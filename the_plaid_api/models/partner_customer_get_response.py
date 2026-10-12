@@ -18,5 +18,5 @@ class PartnerCustomerGetResponse(SdkBaseModel):
 
 
 class PartnerCustomerGetResponseDict(TypedDict):
-    end_customer: NotRequired[PartnerEndCustomer | PartnerEndCustomerDict]
+    end_customer: NotRequired[PartnerEndCustomerDict]
     request_id: NotRequired[str]

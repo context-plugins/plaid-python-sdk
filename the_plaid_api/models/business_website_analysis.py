@@ -32,5 +32,5 @@ class BusinessWebsiteAnalysisDict(TypedDict):
     is_parked: BusinessCheckBooleanStatusOrStr
     email_is_deliverable: BusinessCheckBooleanStatusOrStr
     website_build_status: BusinessWebsiteBuildStatusOrStr
-    whois_record: BusinessWhoisRecord | BusinessWhoisRecordDict
-    ssl: BusinessWebsiteSsl | BusinessWebsiteSslDict
+    whois_record: BusinessWhoisRecordDict
+    ssl: BusinessWebsiteSslDict

@@ -41,6 +41,6 @@ class CraIncomeStreamDict(TypedDict):
     start_date: Date
     end_date: Date
     description: str
-    insights: CraIncomeStreamInsights | CraIncomeStreamInsightsDict
-    income_metrics: CraIncomeMetrics | CraIncomeMetricsDict
-    transactions: list[CraIncomeTransaction | CraIncomeTransactionDict]
+    insights: CraIncomeStreamInsightsDict
+    income_metrics: CraIncomeMetricsDict
+    transactions: list[CraIncomeTransactionDict]

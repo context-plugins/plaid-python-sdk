@@ -40,7 +40,7 @@ class DocumentaryVerificationDocument(SdkBaseModel):
 class DocumentaryVerificationDocumentDict(TypedDict):
     status: DocumentStatusOrStr
     attempt: int
-    images: PhysicalDocumentImages | PhysicalDocumentImagesDict
-    extracted_data: PhysicalDocumentExtractedData | PhysicalDocumentExtractedDataDict | None
-    analysis: DocumentAnalysis | DocumentAnalysisDict
+    images: PhysicalDocumentImagesDict
+    extracted_data: PhysicalDocumentExtractedDataDict | None
+    analysis: DocumentAnalysisDict
     redacted_at: RFC3339DateTime | None

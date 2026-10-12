@@ -41,10 +41,10 @@ class IncomeSummary(SdkBaseModel):
 
 
 class IncomeSummaryDict(TypedDict):
-    employer_name: EmployerIncomeSummaryFieldString | EmployerIncomeSummaryFieldStringDict | None
-    employee_name: EmployeeIncomeSummaryFieldString | EmployeeIncomeSummaryFieldStringDict | None
-    ytd_gross_income: YtdgrossIncomeSummaryFieldNumber | YtdgrossIncomeSummaryFieldNumberDict | None
-    ytd_net_income: YtdnetIncomeSummaryFieldNumber | YtdnetIncomeSummaryFieldNumberDict | None
-    pay_frequency: PayFrequency | PayFrequencyDict | None
-    projected_wage: ProjectedIncomeSummaryFieldNumber | ProjectedIncomeSummaryFieldNumberDict | None
-    verified_transaction: TransactionData | TransactionDataDict | None
+    employer_name: EmployerIncomeSummaryFieldStringDict | None
+    employee_name: EmployeeIncomeSummaryFieldStringDict | None
+    ytd_gross_income: YtdgrossIncomeSummaryFieldNumberDict | None
+    ytd_net_income: YtdnetIncomeSummaryFieldNumberDict | None
+    pay_frequency: PayFrequencyDict | None
+    projected_wage: ProjectedIncomeSummaryFieldNumberDict | None
+    verified_transaction: TransactionDataDict | None

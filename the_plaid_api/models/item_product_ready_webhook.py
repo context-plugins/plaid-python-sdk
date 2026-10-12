@@ -35,5 +35,5 @@ class ItemProductReadyWebhookDict(TypedDict):
     webhook_type: str
     webhook_code: str
     item_id: str
-    error: NotRequired[Error | ErrorDict | None]
+    error: NotRequired[ErrorDict | None]
     environment: WebhookEnvironmentValuesOrStr

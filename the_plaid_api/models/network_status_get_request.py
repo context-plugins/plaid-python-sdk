@@ -28,5 +28,5 @@ class NetworkStatusGetRequest(SdkBaseModel):
 class NetworkStatusGetRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
-    user: NetworkStatusGetUser | NetworkStatusGetUserDict
+    user: NetworkStatusGetUserDict
     template_id: NotRequired[str]

@@ -30,4 +30,4 @@ class CraReportWarning(SdkBaseModel):
 class CraReportWarningDict(TypedDict):
     warning_type: str
     warning_code: CheckReportWarningCodeOrStr
-    cause: Cause | CauseDict | None
+    cause: CauseDict | None

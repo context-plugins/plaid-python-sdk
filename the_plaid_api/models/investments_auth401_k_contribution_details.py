@@ -34,7 +34,7 @@ class InvestmentsAuth401KContributionDetails(SdkBaseModel):
 
 
 class InvestmentsAuth401KContributionDetailsDict(TypedDict):
-    last_contribution_transactions: list[InvestmentTransaction | InvestmentTransactionDict]
+    last_contribution_transactions: list[InvestmentTransactionDict]
     contribution_count_1m: int
     contribution_amount_1m: float
     contribution_count_6m: int

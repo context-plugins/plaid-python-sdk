@@ -78,6 +78,6 @@ class ProcessorSignalEvaluateRequestDict(TypedDict):
     client_user_id: NotRequired[str]
     is_recurring: NotRequired[bool | None]
     default_payment_method: NotRequired[str | None]
-    user: NotRequired[SignalUser | SignalUserDict]
-    device: NotRequired[SignalEvaluateDevice | SignalEvaluateDeviceDict]
+    user: NotRequired[SignalUserDict]
+    device: NotRequired[SignalEvaluateDeviceDict]
     ruleset_key: NotRequired[str | None]

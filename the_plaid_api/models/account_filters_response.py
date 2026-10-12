@@ -27,7 +27,7 @@ class AccountFiltersResponse(SdkBaseModel):
 
 
 class AccountFiltersResponseDict(TypedDict):
-    depository: NotRequired[DepositoryFilter | DepositoryFilterDict]
-    credit: NotRequired[CreditFilter | CreditFilterDict]
-    loan: NotRequired[LoanFilter | LoanFilterDict]
-    investment: NotRequired[InvestmentFilter | InvestmentFilterDict]
+    depository: NotRequired[DepositoryFilterDict]
+    credit: NotRequired[CreditFilterDict]
+    loan: NotRequired[LoanFilterDict]
+    investment: NotRequired[InvestmentFilterDict]

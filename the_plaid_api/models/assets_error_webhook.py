@@ -38,7 +38,7 @@ class AssetsErrorWebhook(SdkBaseModel):
 class AssetsErrorWebhookDict(TypedDict):
     webhook_type: str
     webhook_code: str
-    error: Error | ErrorDict | None
+    error: ErrorDict | None
     asset_report_id: str
     user_id: NotRequired[str]
     environment: WebhookEnvironmentValuesOrStr

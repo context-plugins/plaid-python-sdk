@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, OptionalNullable, SdkBaseModel
+from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
 from .amount_with_currency import AmountWithCurrency, AmountWithCurrencyDict
 from .negative_balance_occurrence import NegativeBalanceOccurrence, NegativeBalanceOccurrenceDict
 
@@ -24,7 +24,7 @@ class NegativeBalanceInsights(SdkBaseModel):
     """A monetary amount with its associated currency information, supporting both official and unofficial currency
     codes."""
 
-    occurrences: OptionalNullable[list[NegativeBalanceOccurrence]] = UNSET
+    occurrences: Optional[list[NegativeBalanceOccurrence | None]] = UNSET
     """The summary of the negative balance occurrences for this account.
 
     If the user has not had a negative balance in the account in the given time window, this list will be empty."""
@@ -33,5 +33,5 @@ class NegativeBalanceInsights(SdkBaseModel):
 class NegativeBalanceInsightsDict(TypedDict):
     days_since_last_occurrence: NotRequired[int | None]
     days_with_negative_balance: NotRequired[int | None]
-    minimum_balance: NotRequired[AmountWithCurrency | AmountWithCurrencyDict | None]
-    occurrences: NotRequired[list[NegativeBalanceOccurrence | NegativeBalanceOccurrenceDict] | None]
+    minimum_balance: NotRequired[AmountWithCurrencyDict | None]
+    occurrences: NotRequired[list[NegativeBalanceOccurrenceDict | None]]

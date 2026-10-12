@@ -67,5 +67,5 @@ class ClientProvidedEnrichedTransactionDict(TypedDict):
     amount: float
     direction: NotRequired[EnrichTransactionDirectionOrStr]
     iso_currency_code: str
-    enrichments: Enrichments | EnrichmentsDict
-    client_customization: NotRequired[ClientCustomization | ClientCustomizationDict | None]
+    enrichments: EnrichmentsDict
+    client_customization: NotRequired[ClientCustomizationDict | None]

@@ -65,7 +65,7 @@ class CraCheckReportCreateRequest(SdkBaseModel):
     client_report_id: OptionalNullable[str] = UNSET
     """Client-generated identifier, which can be used by lenders to track loan applications."""
 
-    products: Optional[list[ProductsOrStr | None]] = UNSET
+    products: OptionalNullable[list[ProductsOrStr]] = UNSET
     """Specifies a list of products to generate when creating the report (in addition to the Base Report, which is
     always generated). These products will be made available before a success webhook is sent. Note that specifying
     ``cra_partner_insights`` in this field will trigger a billable event. Other products are not billed until the
@@ -133,20 +133,12 @@ class CraCheckReportCreateRequestDict(TypedDict):
     days_requested: int
     days_required: NotRequired[int]
     client_report_id: NotRequired[str | None]
-    products: NotRequired[list[ProductsOrStr | None]]
-    base_report: NotRequired[CraCheckReportCreateBaseReportOptions | CraCheckReportCreateBaseReportOptionsDict | None]
-    cashflow_insights: NotRequired[
-        CraCheckReportCreateCashflowInsightsOptions | CraCheckReportCreateCashflowInsightsOptionsDict | None
-    ]
-    partner_insights: NotRequired[
-        CraCheckReportCreatePartnerInsightsOptions | CraCheckReportCreatePartnerInsightsOptionsDict | None
-    ]
-    lend_score: NotRequired[CraCheckReportCreateLendScoreOptions | CraCheckReportCreateLendScoreOptionsDict | None]
-    network_insights: NotRequired[
-        CraCheckReportCreateNetworkInsightsOptions | CraCheckReportCreateNetworkInsightsOptionsDict | None
-    ]
+    products: NotRequired[list[ProductsOrStr] | None]
+    base_report: NotRequired[CraCheckReportCreateBaseReportOptionsDict | None]
+    cashflow_insights: NotRequired[CraCheckReportCreateCashflowInsightsOptionsDict | None]
+    partner_insights: NotRequired[CraCheckReportCreatePartnerInsightsOptionsDict | None]
+    lend_score: NotRequired[CraCheckReportCreateLendScoreOptionsDict | None]
+    network_insights: NotRequired[CraCheckReportCreateNetworkInsightsOptionsDict | None]
     include_investments: NotRequired[bool | None]
-    income_insights: NotRequired[
-        CraCheckReportCreateIncomeInsightsOptions | CraCheckReportCreateIncomeInsightsOptionsDict | None
-    ]
+    income_insights: NotRequired[CraCheckReportCreateIncomeInsightsOptionsDict | None]
     consumer_report_permissible_purpose: ConsumerReportPermissiblePurposeOrStr

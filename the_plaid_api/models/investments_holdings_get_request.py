@@ -31,4 +31,4 @@ class InvestmentsHoldingsGetRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     access_token: str
-    options: NotRequired[InvestmentHoldingsGetRequestOptions | InvestmentHoldingsGetRequestOptionsDict]
+    options: NotRequired[InvestmentHoldingsGetRequestOptionsDict]

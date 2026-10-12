@@ -71,8 +71,8 @@ class DocumentAnalysis(SdkBaseModel):
 class DocumentAnalysisDict(TypedDict):
     authenticity: DocumentAuthenticityMatchCodeOrStr
     image_quality: ImageQualityOrStr
-    extracted_data: PhysicalDocumentExtractedDataAnalysis | PhysicalDocumentExtractedDataAnalysisDict | None
-    fraud_analysis_details: FraudAnalysisDetails | FraudAnalysisDetailsDict | None
-    image_quality_details: ImageQualityDetails | ImageQualityDetailsDict | None
-    human_review: NotRequired[HumanReview | HumanReviewDict | None]
-    aamva_verification: Aamvaanalysis | AamvaanalysisDict | None
+    extracted_data: PhysicalDocumentExtractedDataAnalysisDict | None
+    fraud_analysis_details: FraudAnalysisDetailsDict | None
+    image_quality_details: ImageQualityDetailsDict | None
+    human_review: NotRequired[HumanReviewDict | None]
+    aamva_verification: AamvaanalysisDict | None

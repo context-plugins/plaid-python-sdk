@@ -26,7 +26,7 @@ class ScreeningHitData(SdkBaseModel):
 
 
 class ScreeningHitDataDict(TypedDict):
-    dates_of_birth: NotRequired[list[ScreeningHitDateOfBirthItem | ScreeningHitDateOfBirthItemDict]]
-    documents: NotRequired[list[ScreeningHitDocumentsItems | ScreeningHitDocumentsItemsDict]]
-    locations: NotRequired[list[GenericScreeningHitLocationItems | GenericScreeningHitLocationItemsDict]]
-    names: NotRequired[list[ScreeningHitNamesItems | ScreeningHitNamesItemsDict]]
+    dates_of_birth: NotRequired[list[ScreeningHitDateOfBirthItemDict]]
+    documents: NotRequired[list[ScreeningHitDocumentsItemsDict]]
+    locations: NotRequired[list[GenericScreeningHitLocationItemsDict]]
+    names: NotRequired[list[ScreeningHitNamesItemsDict]]

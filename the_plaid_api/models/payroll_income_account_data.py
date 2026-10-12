@@ -21,5 +21,5 @@ class PayrollIncomeAccountData(SdkBaseModel):
 
 class PayrollIncomeAccountDataDict(TypedDict):
     account_id: str | None
-    rate_of_pay: PayrollIncomeRateOfPay | PayrollIncomeRateOfPayDict
+    rate_of_pay: PayrollIncomeRateOfPayDict
     pay_frequency: str | None

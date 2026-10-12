@@ -50,7 +50,7 @@ class LiabilitiesDefaultUpdateWebhookDict(TypedDict):
     webhook_code: str
     item_id: str
     user_id: NotRequired[str]
-    error: Error | ErrorDict | None
+    error: ErrorDict | None
     account_ids_with_new_liabilities: list[str]
     account_ids_with_updated_liabilities: dict[str, Any]
     environment: WebhookEnvironmentValuesOrStr

@@ -45,7 +45,7 @@ class InvestmentsHistoricalUpdateWebhookDict(TypedDict):
     webhook_code: str
     item_id: str
     user_id: NotRequired[str]
-    error: NotRequired[Error | ErrorDict | None]
+    error: NotRequired[ErrorDict | None]
     new_investments_transactions: float
     cancelled_investments_transactions: float
     environment: WebhookEnvironmentValuesOrStr

@@ -29,4 +29,4 @@ class TransactionsRecurringCreateRequestDict(TypedDict):
     client_id: NotRequired[str]
     access_token: str
     secret: NotRequired[str]
-    inputs: list[TransactionsRecurringCreateInput | TransactionsRecurringCreateInputDict]
+    inputs: list[TransactionsRecurringCreateInputDict]

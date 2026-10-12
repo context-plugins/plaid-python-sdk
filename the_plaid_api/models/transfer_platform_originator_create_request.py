@@ -34,6 +34,6 @@ class TransferPlatformOriginatorCreateRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     originator_client_id: str
-    tos_acceptance_metadata: TosacceptanceMetadata | TosacceptanceMetadataDict
+    tos_acceptance_metadata: TosacceptanceMetadataDict
     originator_reviewed_at: RFC3339DateTime
     webhook: NotRequired[str]

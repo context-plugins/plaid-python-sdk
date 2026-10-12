@@ -27,8 +27,6 @@ class IncomeVerificationPrecheckEmployer(SdkBaseModel):
 
 class IncomeVerificationPrecheckEmployerDict(TypedDict):
     name: NotRequired[str | None]
-    address: NotRequired[
-        IncomeVerificationPrecheckEmployerAddress | IncomeVerificationPrecheckEmployerAddressDict | None
-    ]
+    address: NotRequired[IncomeVerificationPrecheckEmployerAddressDict | None]
     tax_id: NotRequired[str | None]
     url: NotRequired[str | None]

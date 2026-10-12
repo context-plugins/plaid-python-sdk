@@ -19,5 +19,5 @@ class SandboxTransferSweepSimulateResponse(SdkBaseModel):
 
 
 class SandboxTransferSweepSimulateResponseDict(TypedDict):
-    sweep: NotRequired[SimulatedTransferSweep | SimulatedTransferSweepDict | None]
+    sweep: NotRequired[SimulatedTransferSweepDict | None]
     request_id: str

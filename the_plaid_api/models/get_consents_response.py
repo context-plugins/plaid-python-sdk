@@ -14,4 +14,4 @@ class GetConsentsResponse(SdkBaseModel):
 
 
 class GetConsentsResponseDict(TypedDict):
-    consent_grants: list[FdxconsentGrant | FdxconsentGrantDict]
+    consent_grants: list[FdxconsentGrantDict]

@@ -22,6 +22,6 @@ class WalletTransactionListResponse(SdkBaseModel):
 
 
 class WalletTransactionListResponseDict(TypedDict):
-    transactions: list[WalletTransaction | WalletTransactionDict]
+    transactions: list[WalletTransactionDict]
     next_cursor: NotRequired[str]
     request_id: str

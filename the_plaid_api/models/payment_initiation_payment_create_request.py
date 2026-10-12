@@ -47,6 +47,6 @@ class PaymentInitiationPaymentCreateRequestDict(TypedDict):
     secret: NotRequired[str]
     recipient_id: str
     reference: str
-    amount: PaymentAmount | PaymentAmountDict
-    schedule: NotRequired[ExternalPaymentScheduleRequest | ExternalPaymentScheduleRequestDict | None]
-    options: NotRequired[PaymentOptions | PaymentOptionsDict | None]
+    amount: PaymentAmountDict
+    schedule: NotRequired[ExternalPaymentScheduleRequestDict | None]
+    options: NotRequired[PaymentOptionsDict | None]

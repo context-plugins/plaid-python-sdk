@@ -16,7 +16,7 @@ class PaymentInitiationPaymentListRequest(SdkBaseModel):
     """Your Plaid API ``secret``. The ``secret`` is required and may be provided either in the ``PLAID-SECRET`` header
     or as part of a request body."""
 
-    count: OptionalNullable[int] = UNSET
+    count: int | None = 10
     """The maximum number of payments to return. If ``count`` is not specified, a maximum of 10 payments will be
     returned, beginning with the most recent payment before the cursor (if specified)."""
 

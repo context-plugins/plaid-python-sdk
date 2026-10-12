@@ -15,4 +15,4 @@ class TaxpayerIdentifiers(SdkBaseModel):
 
 
 class TaxpayerIdentifiersDict(TypedDict):
-    taxpayer_identifier: TaxpayerIdentifier | TaxpayerIdentifierDict
+    taxpayer_identifier: TaxpayerIdentifierDict

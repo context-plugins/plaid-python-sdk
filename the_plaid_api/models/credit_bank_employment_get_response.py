@@ -18,5 +18,5 @@ class CreditBankEmploymentGetResponse(SdkBaseModel):
 
 
 class CreditBankEmploymentGetResponseDict(TypedDict):
-    bank_employment_reports: list[CreditBankEmploymentReport | CreditBankEmploymentReportDict]
+    bank_employment_reports: list[CreditBankEmploymentReportDict]
     request_id: str

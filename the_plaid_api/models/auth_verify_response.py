@@ -43,4 +43,4 @@ class AuthVerifyResponseDict(TypedDict):
     request_id: str
     item_id: NotRequired[str | None]
     verification_status: str
-    verification_insights: VerificationInsights | VerificationInsightsDict
+    verification_insights: VerificationInsightsDict

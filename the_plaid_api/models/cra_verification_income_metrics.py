@@ -22,6 +22,6 @@ class CraVerificationIncomeMetrics(SdkBaseModel):
 
 
 class CraVerificationIncomeMetricsDict(TypedDict):
-    current: CraVerificationModeledIncome | CraVerificationModeledIncomeDict | None
+    current: CraVerificationModeledIncomeDict | None
     iso_currency_code: str | None
     unofficial_currency_code: str | None

@@ -39,4 +39,4 @@ class HoldingsOverrideDict(TypedDict):
     cost_basis: NotRequired[float]
     quantity: float
     currency: str
-    security: SecurityOverride | SecurityOverrideDict
+    security: SecurityOverrideDict

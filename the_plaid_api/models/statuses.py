@@ -15,4 +15,4 @@ class Statuses(SdkBaseModel):
 
 
 class StatusesDict(TypedDict):
-    status: Status | StatusDict
+    status: StatusDict

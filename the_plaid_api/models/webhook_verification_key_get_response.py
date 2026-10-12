@@ -19,5 +19,5 @@ class WebhookVerificationKeyGetResponse(SdkBaseModel):
 
 
 class WebhookVerificationKeyGetResponseDict(TypedDict):
-    key: JwkpublicKey | JwkpublicKeyDict
+    key: JwkpublicKeyDict
     request_id: str

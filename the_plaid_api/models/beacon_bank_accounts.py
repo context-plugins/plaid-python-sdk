@@ -17,4 +17,4 @@ class BeaconBankAccounts(SdkBaseModel):
 
 class BeaconBankAccountsDict(TypedDict):
     item_id: str
-    accounts: list[BeaconBankAccountInsights | BeaconBankAccountInsightsDict]
+    accounts: list[BeaconBankAccountInsightsDict]

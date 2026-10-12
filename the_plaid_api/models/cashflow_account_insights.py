@@ -20,5 +20,5 @@ class CashflowAccountInsights(SdkBaseModel):
 
 
 class CashflowAccountInsightsDict(TypedDict):
-    historical_balances: list[CashflowReportHistoricalBalance | CashflowReportHistoricalBalanceDict]
-    monthly_summaries: list[CashflowReportMonthlySummary | CashflowReportMonthlySummaryDict]
+    historical_balances: list[CashflowReportHistoricalBalanceDict]
+    monthly_summaries: list[CashflowReportMonthlySummaryDict]

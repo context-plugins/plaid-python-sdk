@@ -83,7 +83,7 @@ class MortgageLiabilityDict(TypedDict):
     escrow_balance: float | None
     has_pmi: bool | None
     has_prepayment_penalty: bool | None
-    interest_rate: MortgageInterestRate | MortgageInterestRateDict
+    interest_rate: MortgageInterestRateDict
     last_payment_amount: float | None
     last_payment_date: Date | None
     loan_type_description: str | None
@@ -94,6 +94,6 @@ class MortgageLiabilityDict(TypedDict):
     origination_date: Date | None
     origination_principal_amount: float | None
     past_due_amount: float | None
-    property_address: MortgagePropertyAddress | MortgagePropertyAddressDict
+    property_address: MortgagePropertyAddressDict
     ytd_interest_paid: float | None
     ytd_principal_paid: float | None

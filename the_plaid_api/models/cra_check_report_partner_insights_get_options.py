@@ -14,4 +14,4 @@ class CraCheckReportPartnerInsightsGetOptions(SdkBaseModel):
 
 
 class CraCheckReportPartnerInsightsGetOptionsDict(TypedDict):
-    prism_versions: NotRequired[PrismVersionsDeprecated | PrismVersionsDeprecatedDict | None]
+    prism_versions: NotRequired[PrismVersionsDeprecatedDict | None]

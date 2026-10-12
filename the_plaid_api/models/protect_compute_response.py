@@ -38,6 +38,6 @@ class ProtectComputeResponseDict(TypedDict):
     score: NotRequired[int | None]
     model: NotRequired[str]
     attributes: NotRequired[Any | None]
-    subscores: NotRequired[ProtectComputeSubscores | ProtectComputeSubscoresDict | None]
+    subscores: NotRequired[ProtectComputeSubscoresDict | None]
     timestamp: NotRequired[RFC3339DateTime | None]
     request_id: str

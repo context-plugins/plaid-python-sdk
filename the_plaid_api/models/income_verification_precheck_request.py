@@ -51,13 +51,9 @@ class IncomeVerificationPrecheckRequest(SdkBaseModel):
 class IncomeVerificationPrecheckRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
-    user: NotRequired[IncomeVerificationPrecheckUser | IncomeVerificationPrecheckUserDict | None]
-    employer: NotRequired[IncomeVerificationPrecheckEmployer | IncomeVerificationPrecheckEmployerDict | None]
-    payroll_institution: NotRequired[
-        IncomeVerificationPrecheckPayrollInstitution | IncomeVerificationPrecheckPayrollInstitutionDict | None
-    ]
+    user: NotRequired[IncomeVerificationPrecheckUserDict | None]
+    employer: NotRequired[IncomeVerificationPrecheckEmployerDict | None]
+    payroll_institution: NotRequired[IncomeVerificationPrecheckPayrollInstitutionDict | None]
     transactions_access_token: NotRequired[str | None]
     transactions_access_tokens: NotRequired[list[str]]
-    us_military_info: NotRequired[
-        IncomeVerificationPrecheckMilitaryInfo | IncomeVerificationPrecheckMilitaryInfoDict | None
-    ]
+    us_military_info: NotRequired[IncomeVerificationPrecheckMilitaryInfoDict | None]

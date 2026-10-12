@@ -81,5 +81,5 @@ class EntityWatchlistScreeningHitDict(TypedDict):
     plaid_uid: str
     source_uid: str | None
     sub_programs: list[str]
-    analysis: NotRequired[EntityScreeningHitAnalysis | EntityScreeningHitAnalysisDict]
-    data: NotRequired[EntityScreeningHitData | EntityScreeningHitDataDict]
+    analysis: NotRequired[EntityScreeningHitAnalysisDict]
+    data: NotRequired[EntityScreeningHitDataDict]

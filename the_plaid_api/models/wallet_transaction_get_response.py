@@ -143,14 +143,14 @@ class WalletTransactionGetResponseDict(TypedDict):
     reference: str
     type_: Type5OrStr
     scheme: NotRequired[WalletPaymentSchemeOrStr | None]
-    amount: WalletTransactionAmount | WalletTransactionAmountDict
-    counterparty: WalletTransactionCounterparty | WalletTransactionCounterpartyDict
+    amount: WalletTransactionAmountDict
+    counterparty: WalletTransactionCounterpartyDict
     status: WalletTransactionStatusOrStr
     created_at: RFC3339DateTime
     last_status_update: RFC3339DateTime
     payee_verification_status: NotRequired[WalletTransactionPayeeVerificationStatusOrStr | None]
     payment_id: NotRequired[str | None]
     failure_reason: NotRequired[WalletTransactionFailureReasonOrStr | None]
-    error: NotRequired[Error | ErrorDict | None]
-    related_transactions: NotRequired[list[WalletTransactionRelation | WalletTransactionRelationDict]]
+    error: NotRequired[ErrorDict | None]
+    related_transactions: NotRequired[list[WalletTransactionRelationDict]]
     request_id: str

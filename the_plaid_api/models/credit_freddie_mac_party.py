@@ -24,6 +24,6 @@ class CreditFreddieMacParty(SdkBaseModel):
 
 
 class CreditFreddieMacPartyDict(TypedDict):
-    individual: CreditFreddieMacPartyIndividual | CreditFreddieMacPartyIndividualDict
-    roles: Roles | RolesDict
-    taxpayer_identifiers: TaxpayerIdentifiers | TaxpayerIdentifiersDict
+    individual: CreditFreddieMacPartyIndividualDict
+    roles: RolesDict
+    taxpayer_identifiers: TaxpayerIdentifiersDict

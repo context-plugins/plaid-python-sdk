@@ -24,4 +24,4 @@ class CraMonitoringInsightsGetResponse(SdkBaseModel):
 class CraMonitoringInsightsGetResponseDict(TypedDict):
     request_id: str
     user_insights_id: str
-    items: list[CraMonitoringInsightsItem | CraMonitoringInsightsItemDict]
+    items: list[CraMonitoringInsightsItemDict]

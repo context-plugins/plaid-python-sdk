@@ -51,6 +51,6 @@ class IdentityVerificationUserDataDict(TypedDict):
     date_of_birth: Date | None
     ip_address: str | None
     email_address: EmailStr | None
-    name: IdentityVerificationResponseUserName | IdentityVerificationResponseUserNameDict | None
-    address: IdentityVerificationUserAddress | IdentityVerificationUserAddressDict | None
-    id_number: UserIdnumber | UserIdnumberDict | None
+    name: IdentityVerificationResponseUserNameDict | None
+    address: IdentityVerificationUserAddressDict | None
+    id_number: UserIdnumberDict | None

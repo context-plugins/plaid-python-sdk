@@ -26,7 +26,7 @@ class LoanDisbursementsIndicators(SdkBaseModel):
     See the `currency code schema <https://plaid.com/docs/api/accounts#currency-code-schema>`__ for a full listing of
     supported ``unofficial_currency_code``s."""
 
-    category_details: OptionalNullable[list[CategoryExpenses]] = UNSET
+    category_details: Optional[list[CategoryExpenses | None]] = UNSET
     """Detailed categories view of all the transactions that fall into the ``LOAN_DISBURSEMENTS`` credit category within
     the given time window, across all the accounts in the report."""
 
@@ -44,7 +44,7 @@ class LoanDisbursementsIndicators(SdkBaseModel):
     """The total number of transactions that fall into the ``LOAN_DISBURSEMENTS`` credit category, across all the
     accounts in the report."""
 
-    monthly_summaries: OptionalNullable[list[MonthlySummary]] = UNSET
+    monthly_summaries: Optional[list[MonthlySummary | None]] = UNSET
     """The monthly summaries of the transactions that fall into the ``LOAN_DISBURSEMENTS`` category within the given
     time window, across all the accounts in the report."""
 
@@ -64,10 +64,10 @@ class LoanDisbursementsIndicatorsDict(TypedDict):
     amount: NotRequired[float | None]
     iso_currency_code: NotRequired[str | None]
     unofficial_currency_code: NotRequired[str | None]
-    category_details: NotRequired[list[CategoryExpenses | CategoryExpensesDict] | None]
-    monthly_average: NotRequired[MonthlyAverage | MonthlyAverageDict | None]
+    category_details: NotRequired[list[CategoryExpensesDict | None]]
+    monthly_average: NotRequired[MonthlyAverageDict | None]
     top_providers: NotRequired[list[str]]
     transactions_count: NotRequired[int | None]
-    monthly_summaries: NotRequired[list[MonthlySummary | MonthlySummaryDict] | None]
+    monthly_summaries: NotRequired[list[MonthlySummaryDict | None]]
     days_since_last_occurrence: NotRequired[int | None]
     percentage_of_income: NotRequired[float | None]

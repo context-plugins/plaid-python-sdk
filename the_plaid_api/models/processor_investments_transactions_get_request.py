@@ -37,7 +37,7 @@ class ProcessorInvestmentsTransactionsGetRequest(SdkBaseModel):
 
 class ProcessorInvestmentsTransactionsGetRequestDict(TypedDict):
     client_id: NotRequired[str]
-    options: NotRequired[InvestmentsTransactionsGetRequestOptions | InvestmentsTransactionsGetRequestOptionsDict]
+    options: NotRequired[InvestmentsTransactionsGetRequestOptionsDict]
     processor_token: str
     secret: NotRequired[str]
     start_date: Date

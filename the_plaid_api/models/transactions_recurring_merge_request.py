@@ -29,4 +29,4 @@ class TransactionsRecurringMergeRequestDict(TypedDict):
     client_id: NotRequired[str]
     access_token: str
     secret: NotRequired[str]
-    inputs: list[TransactionsRecurringMergeInput | TransactionsRecurringMergeInputDict]
+    inputs: list[TransactionsRecurringMergeInputDict]

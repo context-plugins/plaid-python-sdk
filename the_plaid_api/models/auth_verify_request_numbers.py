@@ -14,4 +14,4 @@ class AuthVerifyRequestNumbers(SdkBaseModel):
 
 
 class AuthVerifyRequestNumbersDict(TypedDict):
-    ach: AuthVerifyNumbersAch | AuthVerifyNumbersAchDict
+    ach: AuthVerifyNumbersAchDict

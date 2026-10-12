@@ -46,5 +46,5 @@ class ActivityDict(TypedDict):
     initiator: str
     state: ActionStateOrStr
     target_application_id: NotRequired[str]
-    scopes: NotRequired[ScopesNullable | ScopesNullableDict | None]
+    scopes: NotRequired[ScopesNullableDict | None]
     authentication: NotRequired[ItemCreateAuthenticationOrStr]

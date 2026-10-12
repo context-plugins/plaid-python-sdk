@@ -48,11 +48,11 @@ class RiskCheckDetails(SdkBaseModel):
 
 class RiskCheckDetailsDict(TypedDict):
     status: IdentityVerificationStepStatusOrStr
-    behavior: RiskCheckBehavior | RiskCheckBehaviorDict | None
-    email: RiskCheckEmail | RiskCheckEmailDict | None
-    phone: RiskCheckPhone | RiskCheckPhoneDict | None
-    devices: list[RiskCheckDevice | RiskCheckDeviceDict]
-    identity_abuse_signals: RiskCheckIdentityAbuseSignals | RiskCheckIdentityAbuseSignalsDict | None
-    network: NotRequired[RiskCheckNetwork | RiskCheckNetworkDict | None]
-    facial_duplicates: list[RiskCheckFacialDuplicate | RiskCheckFacialDuplicateDict]
+    behavior: RiskCheckBehaviorDict | None
+    email: RiskCheckEmailDict | None
+    phone: RiskCheckPhoneDict | None
+    devices: list[RiskCheckDeviceDict]
+    identity_abuse_signals: RiskCheckIdentityAbuseSignalsDict | None
+    network: NotRequired[RiskCheckNetworkDict | None]
+    facial_duplicates: list[RiskCheckFacialDuplicateDict]
     trust_index_score: int | None

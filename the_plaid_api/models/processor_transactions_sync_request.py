@@ -26,7 +26,7 @@ class ProcessorTransactionsSyncRequest(SdkBaseModel):
     changes after this update. If omitted, the entire history of updates will be returned, starting with the first-added
     transactions on the Item. Note: The upper-bound length of this cursor is 256 characters of base64."""
 
-    count: Optional[int] = UNSET
+    count: int = 100
     """The number of transaction updates to fetch."""
 
     options: Optional[TransactionsSyncRequestOptions] = UNSET
@@ -39,4 +39,4 @@ class ProcessorTransactionsSyncRequestDict(TypedDict):
     secret: NotRequired[str]
     cursor: NotRequired[str]
     count: NotRequired[int]
-    options: NotRequired[TransactionsSyncRequestOptions | TransactionsSyncRequestOptionsDict]
+    options: NotRequired[TransactionsSyncRequestOptionsDict]

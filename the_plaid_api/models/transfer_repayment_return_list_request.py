@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
+from ..core import UNSET, Optional, SdkBaseModel
 
 
 class TransferRepaymentReturnListRequest(SdkBaseModel):
@@ -19,10 +19,10 @@ class TransferRepaymentReturnListRequest(SdkBaseModel):
     repayment_id: str
     """Identifier of the repayment to query."""
 
-    count: OptionalNullable[int] = UNSET
+    count: int | None = 25
     """The maximum number of repayments to return."""
 
-    offset: Optional[int] = UNSET
+    offset: int = 0
     """The number of repayments to skip before returning results."""
 
 

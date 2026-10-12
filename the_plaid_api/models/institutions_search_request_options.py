@@ -20,10 +20,10 @@ class InstitutionsSearchRequestOptions(SdkBaseModel):
     include_optional_metadata: Optional[bool] = UNSET
     """When true, return the institution's homepage URL, logo and primary brand color."""
 
-    include_auth_metadata: OptionalNullable[bool] = UNSET
+    include_auth_metadata: bool | None = False
     """When ``true``, returns metadata related to the Auth product indicating which auth methods are supported."""
 
-    include_payment_initiation_metadata: OptionalNullable[bool] = UNSET
+    include_payment_initiation_metadata: bool | None = False
     """When ``true``, returns metadata related to the Payment Initiation product indicating which payment configurations
     are supported."""
 
@@ -36,6 +36,4 @@ class InstitutionsSearchRequestOptionsDict(TypedDict):
     include_optional_metadata: NotRequired[bool]
     include_auth_metadata: NotRequired[bool | None]
     include_payment_initiation_metadata: NotRequired[bool | None]
-    payment_initiation: NotRequired[
-        InstitutionsSearchPaymentInitiationOptions | InstitutionsSearchPaymentInitiationOptionsDict | None
-    ]
+    payment_initiation: NotRequired[InstitutionsSearchPaymentInitiationOptionsDict | None]

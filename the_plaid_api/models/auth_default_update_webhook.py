@@ -53,5 +53,5 @@ class AuthDefaultUpdateWebhookDict(TypedDict):
     item_id: str
     account_ids_with_new_auth: list[str]
     account_ids_with_updated_auth: dict[str, Any]
-    error: Error | ErrorDict | None
+    error: ErrorDict | None
     environment: WebhookEnvironmentValuesOrStr

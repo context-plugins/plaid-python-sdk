@@ -72,4 +72,4 @@ class CreditBankIncomeSourceDict(TypedDict):
     pay_frequency: NotRequired[CreditBankIncomePayFrequencyOrStr]
     total_amount: NotRequired[float]
     transaction_count: NotRequired[int]
-    historical_summary: NotRequired[list[CreditBankIncomeHistoricalSummary | CreditBankIncomeHistoricalSummaryDict]]
+    historical_summary: NotRequired[list[CreditBankIncomeHistoricalSummaryDict]]

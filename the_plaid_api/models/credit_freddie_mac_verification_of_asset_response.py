@@ -15,4 +15,4 @@ class CreditFreddieMacVerificationOfAssetResponse(SdkBaseModel):
 
 
 class CreditFreddieMacVerificationOfAssetResponseDict(TypedDict):
-    assets: CreditFreddieMacAssets | CreditFreddieMacAssetsDict
+    assets: CreditFreddieMacAssetsDict

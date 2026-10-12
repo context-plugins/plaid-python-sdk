@@ -43,7 +43,7 @@ class CreditCardLiability(SdkBaseModel):
 
 class CreditCardLiabilityDict(TypedDict):
     account_id: str | None
-    aprs: list[Apr | AprDict]
+    aprs: list[AprDict]
     is_overdue: bool | None
     last_payment_amount: float | None
     last_payment_date: Date | None

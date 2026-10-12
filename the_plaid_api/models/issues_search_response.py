@@ -19,5 +19,5 @@ class IssuesSearchResponse(SdkBaseModel):
 
 
 class IssuesSearchResponseDict(TypedDict):
-    issues: NotRequired[list[Issue | IssueDict]]
+    issues: NotRequired[list[IssueDict]]
     request_id: NotRequired[str]

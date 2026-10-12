@@ -74,8 +74,8 @@ class W2Override(SdkBaseModel):
 
 
 class W2OverrideDict(TypedDict):
-    employer: NotRequired[PaystubOverrideEmployer | PaystubOverrideEmployerDict]
-    employee: NotRequired[PaystubOverrideEmployee | PaystubOverrideEmployeeDict]
+    employer: NotRequired[PaystubOverrideEmployerDict]
+    employee: NotRequired[PaystubOverrideEmployeeDict]
     tax_year: NotRequired[str | None]
     employer_id_number: NotRequired[str | None]
     wages_tips_other_comp: NotRequired[str | None]
@@ -89,9 +89,9 @@ class W2OverrideDict(TypedDict):
     box_9: NotRequired[str | None]
     dependent_care_benefits: NotRequired[str | None]
     nonqualified_plans: NotRequired[str | None]
-    box_12: NotRequired[list[W2Box12Override | W2Box12OverrideDict]]
+    box_12: NotRequired[list[W2Box12OverrideDict]]
     statutory_employee: NotRequired[str | None]
     retirement_plan: NotRequired[str | None]
     third_party_sick_pay: NotRequired[str | None]
     other: NotRequired[str | None]
-    state_and_local_wages: NotRequired[list[W2StateAndLocalWagesOverride | W2StateAndLocalWagesOverrideDict]]
+    state_and_local_wages: NotRequired[list[W2StateAndLocalWagesOverrideDict]]

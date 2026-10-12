@@ -30,7 +30,14 @@ Note: If you are getting real-time balance for the purpose of assessing the retu
 **Sync**
 
 ```python
-result = client.with_raw_response.accounts_balance_get(body)
+result = client.with_raw_response.accounts_balance_get(
+    AccountsBalanceGetRequest(
+        access_token="string",
+        secret="string",
+        client_id="string",
+        options=AccountsBalanceGetRequestOptions(account_ids=["string"]),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AccountsGetResponse
@@ -41,7 +48,14 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.accounts_balance_get(body)
+result = await async_client.with_raw_response.accounts_balance_get(
+    AccountsBalanceGetRequest(
+        access_token="string",
+        secret="string",
+        client_id="string",
+        options=AccountsBalanceGetRequestOptions(account_ids=["string"]),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AccountsGetResponse
@@ -60,7 +74,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AccountsBalanceGetRequest](the_plaid_api/models/accounts_balance_get_request.py) \| [AccountsBalanceGetRequestDict](the_plaid_api/models/accounts_balance_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -113,7 +127,14 @@ For real-time balance information, use the paid endpoints `/accounts/balance/get
 **Sync**
 
 ```python
-result = client.with_raw_response.accounts_get(body)
+result = client.with_raw_response.accounts_get(
+    AccountsGetRequest(
+        client_id="string",
+        secret="string",
+        access_token="string",
+        options=AccountsGetRequestOptions(account_ids=["string"]),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AccountsGetResponse
@@ -124,7 +145,14 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.accounts_get(body)
+result = await async_client.with_raw_response.accounts_get(
+    AccountsGetRequest(
+        client_id="string",
+        secret="string",
+        access_token="string",
+        options=AccountsGetRequestOptions(account_ids=["string"]),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AccountsGetResponse
@@ -143,7 +171,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AccountsGetRequest](the_plaid_api/models/accounts_get_request.py) \| [AccountsGetRequestDict](the_plaid_api/models/accounts_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -191,7 +219,11 @@ Allows financial institutions to retrieve information about Plaid clients for th
 **Sync**
 
 ```python
-result = client.with_raw_response.application_get(body)
+result = client.with_raw_response.application_get(
+    ApplicationGetRequest(
+        client_id="some example string", secret="some example string", application_id="some example string"
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ApplicationGetResponse
@@ -202,7 +234,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.application_get(body)
+result = await async_client.with_raw_response.application_get(
+    ApplicationGetRequest(
+        client_id="some example string", secret="some example string", application_id="some example string"
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ApplicationGetResponse
@@ -221,7 +257,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ApplicationGetRequest](the_plaid_api/models/application_get_request.py) \| [ApplicationGetRequestDict](the_plaid_api/models/application_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -271,7 +307,9 @@ To grant access to an Audit Copy, use the `/asset_report/audit_copy/create` endp
 **Sync**
 
 ```python
-result = client.with_raw_response.asset_report_audit_copy_create(body)
+result = client.with_raw_response.asset_report_audit_copy_create(
+    AssetReportAuditCopyCreateRequest(asset_report_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportAuditCopyCreateResponse
@@ -282,7 +320,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.asset_report_audit_copy_create(body)
+result = await async_client.with_raw_response.asset_report_audit_copy_create(
+    AssetReportAuditCopyCreateRequest(asset_report_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportAuditCopyCreateResponse
@@ -301,7 +341,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportAuditCopyCreateRequest](the_plaid_api/models/asset_report_audit_copy_create_request.py) \| [AssetReportAuditCopyCreateRequestDict](the_plaid_api/models/asset_report_audit_copy_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -349,7 +389,9 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.asset_report_audit_copy_get(body)
+result = client.with_raw_response.asset_report_audit_copy_get(
+    AssetReportAuditCopyGetRequest(audit_copy_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportGetResponse
@@ -360,7 +402,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.asset_report_audit_copy_get(body)
+result = await async_client.with_raw_response.asset_report_audit_copy_get(
+    AssetReportAuditCopyGetRequest(audit_copy_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportGetResponse
@@ -379,7 +423,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportAuditCopyGetRequest](the_plaid_api/models/asset_report_audit_copy_get_request.py) \| [AssetReportAuditCopyGetRequestDict](the_plaid_api/models/asset_report_audit_copy_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -431,7 +475,9 @@ The response to `/asset_report/audit_copy/pdf/get` is the PDF binary data. The `
 **Sync**
 
 ```python
-result = client.with_raw_response.asset_report_audit_copy_pdf_get(body)
+result = client.with_raw_response.asset_report_audit_copy_pdf_get(
+    AssetReportAuditCopyPdfGetRequest(audit_copy_token="some example string")
+)
 match result:
     case Success():
         ...  # 2xx, no content
@@ -442,7 +488,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.asset_report_audit_copy_pdf_get(body)
+result = await async_client.with_raw_response.asset_report_audit_copy_pdf_get(
+    AssetReportAuditCopyPdfGetRequest(audit_copy_token="some example string")
+)
 match result:
     case Success():
         ...  # 2xx, no content
@@ -461,7 +509,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportAuditCopyPdfGetRequest](the_plaid_api/models/asset_report_audit_copy_pdf_get_request.py) \| [AssetReportAuditCopyPdfGetRequestDict](the_plaid_api/models/asset_report_audit_copy_pdf_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -509,7 +557,9 @@ The `/asset_report/audit_copy/remove` endpoint allows you to remove an Audit Cop
 **Sync**
 
 ```python
-result = client.with_raw_response.asset_report_audit_copy_remove(body)
+result = client.with_raw_response.asset_report_audit_copy_remove(
+    AssetReportAuditCopyRemoveRequest(audit_copy_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportAuditCopyRemoveResponse
@@ -520,7 +570,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.asset_report_audit_copy_remove(body)
+result = await async_client.with_raw_response.asset_report_audit_copy_remove(
+    AssetReportAuditCopyRemoveRequest(audit_copy_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportAuditCopyRemoveResponse
@@ -539,7 +591,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportAuditCopyRemoveRequest](the_plaid_api/models/asset_report_audit_copy_remove_request.py) \| [AssetReportAuditCopyRemoveRequestDict](the_plaid_api/models/asset_report_audit_copy_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -591,7 +643,7 @@ The `/asset_report/create` endpoint creates an Asset Report at a moment in time.
 **Sync**
 
 ```python
-result = client.with_raw_response.asset_report_create(body)
+result = client.with_raw_response.asset_report_create(AssetReportCreateRequest(days_requested=1))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportCreateResponse
@@ -602,7 +654,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.asset_report_create(body)
+result = await async_client.with_raw_response.asset_report_create(AssetReportCreateRequest(days_requested=1))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportCreateResponse
@@ -621,7 +673,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportCreateRequest](the_plaid_api/models/asset_report_create_request.py) \| [AssetReportCreateRequestDict](the_plaid_api/models/asset_report_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -675,7 +727,9 @@ Plaid will fire a https://plaid.com/docs/api/products/assets/#product_ready webh
 **Sync**
 
 ```python
-result = client.with_raw_response.asset_report_filter(body)
+result = client.with_raw_response.asset_report_filter(
+    AssetReportFilterRequest(asset_report_token="some example string", account_ids_to_exclude=["some example string"])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportFilterResponse
@@ -686,7 +740,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.asset_report_filter(body)
+result = await async_client.with_raw_response.asset_report_filter(
+    AssetReportFilterRequest(asset_report_token="some example string", account_ids_to_exclude=["some example string"])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportFilterResponse
@@ -705,7 +761,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportFilterRequest](the_plaid_api/models/asset_report_filter_request.py) \| [AssetReportFilterRequestDict](the_plaid_api/models/asset_report_filter_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -757,7 +813,7 @@ For latency-sensitive applications, you can optionally call `/asset_report/creat
 **Sync**
 
 ```python
-result = client.with_raw_response.asset_report_get(body)
+result = client.with_raw_response.asset_report_get(AssetReportGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportGetResponse
@@ -768,7 +824,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.asset_report_get(body)
+result = await async_client.with_raw_response.asset_report_get(AssetReportGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportGetResponse
@@ -787,7 +843,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportGetRequest](the_plaid_api/models/asset_report_get_request.py) \| [AssetReportGetRequestDict](the_plaid_api/models/asset_report_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -839,7 +895,9 @@ The response to `/asset_report/pdf/get` is the PDF binary data. The `request_id`
 **Sync**
 
 ```python
-result = client.with_raw_response.asset_report_pdf_get(body)
+result = client.with_raw_response.asset_report_pdf_get(
+    AssetReportPdfgetRequest(asset_report_token="some example string")
+)
 match result:
     case Success():
         ...  # 2xx, no content
@@ -850,7 +908,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.asset_report_pdf_get(body)
+result = await async_client.with_raw_response.asset_report_pdf_get(
+    AssetReportPdfgetRequest(asset_report_token="some example string")
+)
 match result:
     case Success():
         ...  # 2xx, no content
@@ -869,7 +929,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportPdfgetRequest](the_plaid_api/models/asset_report_pdfget_request.py) \| [AssetReportPdfgetRequestDict](the_plaid_api/models/asset_report_pdfget_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -919,7 +979,9 @@ The new Asset Report will contain the same Items as the original Report, as well
 **Sync**
 
 ```python
-result = client.with_raw_response.asset_report_refresh(body)
+result = client.with_raw_response.asset_report_refresh(
+    AssetReportRefreshRequest(asset_report_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportRefreshResponse
@@ -930,7 +992,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.asset_report_refresh(body)
+result = await async_client.with_raw_response.asset_report_refresh(
+    AssetReportRefreshRequest(asset_report_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportRefreshResponse
@@ -949,7 +1013,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportRefreshRequest](the_plaid_api/models/asset_report_refresh_request.py) \| [AssetReportRefreshRequestDict](the_plaid_api/models/asset_report_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -999,7 +1063,9 @@ The `/asset_report/remove` endpoint allows you to remove access to an Asset Repo
 **Sync**
 
 ```python
-result = client.with_raw_response.asset_report_remove(body)
+result = client.with_raw_response.asset_report_remove(
+    AssetReportRemoveRequest(asset_report_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportRemoveResponse
@@ -1010,7 +1076,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.asset_report_remove(body)
+result = await async_client.with_raw_response.asset_report_remove(
+    AssetReportRemoveRequest(asset_report_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportRemoveResponse
@@ -1029,7 +1097,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportRemoveRequest](the_plaid_api/models/asset_report_remove_request.py) \| [AssetReportRemoveRequestDict](the_plaid_api/models/asset_report_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1079,7 +1147,7 @@ Versioning note: In API version 2017-03-08, the schema of the `numbers` object r
 **Sync**
 
 ```python
-result = client.with_raw_response.auth_get(body)
+result = client.with_raw_response.auth_get(AuthGetRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AuthGetResponse
@@ -1090,7 +1158,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.auth_get(body)
+result = await async_client.with_raw_response.auth_get(AuthGetRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AuthGetResponse
@@ -1109,7 +1177,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AuthGetRequest](the_plaid_api/models/auth_get_request.py) \| [AuthGetRequestDict](the_plaid_api/models/auth_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1159,7 +1227,13 @@ This endpoint is currently in Early Availability; contact sales or your Plaid ac
 **Sync**
 
 ```python
-result = client.with_raw_response.auth_verify(body)
+result = client.with_raw_response.auth_verify(
+    AuthVerifyRequest(
+        numbers=AuthVerifyRequestNumbers(
+            ach=AuthVerifyNumbersAch(account="some example string", routing="some example string")
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AuthVerifyResponse
@@ -1170,7 +1244,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.auth_verify(body)
+result = await async_client.with_raw_response.auth_verify(
+    AuthVerifyRequest(
+        numbers=AuthVerifyRequestNumbers(
+            ach=AuthVerifyNumbersAch(account="some example string", routing="some example string")
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AuthVerifyResponse
@@ -1189,7 +1269,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AuthVerifyRequest](the_plaid_api/models/auth_verify_request.py) \| [AuthVerifyRequestDict](the_plaid_api/models/auth_verify_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1241,7 +1321,7 @@ Note that this endpoint can only be used with FBO accounts, when using Bank Tran
 **Sync**
 
 ```python
-result = client.with_raw_response.bank_transfer_balance_get(body)
+result = client.with_raw_response.bank_transfer_balance_get(BankTransferBalanceGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferBalanceGetResponse
@@ -1252,7 +1332,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.bank_transfer_balance_get(body)
+result = await async_client.with_raw_response.bank_transfer_balance_get(BankTransferBalanceGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferBalanceGetResponse
@@ -1271,7 +1351,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferBalanceGetRequest](the_plaid_api/models/bank_transfer_balance_get_request.py) \| [BankTransferBalanceGetRequestDict](the_plaid_api/models/bank_transfer_balance_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1319,7 +1399,9 @@ Use the `/bank_transfer/cancel` endpoint to cancel a bank transfer.  A transfer 
 **Sync**
 
 ```python
-result = client.with_raw_response.bank_transfer_cancel(body)
+result = client.with_raw_response.bank_transfer_cancel(
+    BankTransferCancelRequest(bank_transfer_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferCancelResponse
@@ -1330,7 +1412,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.bank_transfer_cancel(body)
+result = await async_client.with_raw_response.bank_transfer_cancel(
+    BankTransferCancelRequest(bank_transfer_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferCancelResponse
@@ -1349,7 +1433,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferCancelRequest](the_plaid_api/models/bank_transfer_cancel_request.py) \| [BankTransferCancelRequestDict](the_plaid_api/models/bank_transfer_cancel_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1397,7 +1481,19 @@ Use the `/bank_transfer/create` endpoint to initiate a new bank transfer.
 **Sync**
 
 ```python
-result = client.with_raw_response.bank_transfer_create(body)
+result = client.with_raw_response.bank_transfer_create(
+    BankTransferCreateRequest(
+        idempotency_key="some example string",
+        access_token="some example string",
+        account_id="some example string",
+        type_=BankTransferType.DEBIT,
+        network=BankTransferNetwork.ACH,
+        amount="some example string",
+        iso_currency_code="some example string",
+        description="some example string",
+        user=BankTransferUser(legal_name="some example string"),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferCreateResponse
@@ -1408,7 +1504,19 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.bank_transfer_create(body)
+result = await async_client.with_raw_response.bank_transfer_create(
+    BankTransferCreateRequest(
+        idempotency_key="some example string",
+        access_token="some example string",
+        account_id="some example string",
+        type_=BankTransferType.DEBIT,
+        network=BankTransferNetwork.ACH,
+        amount="some example string",
+        iso_currency_code="some example string",
+        description="some example string",
+        user=BankTransferUser(legal_name="some example string"),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferCreateResponse
@@ -1427,7 +1535,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferCreateRequest](the_plaid_api/models/bank_transfer_create_request.py) \| [BankTransferCreateRequestDict](the_plaid_api/models/bank_transfer_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1475,7 +1583,7 @@ Use the `/bank_transfer/event/list` endpoint to get a list of Plaid-initiated AC
 **Sync**
 
 ```python
-result = client.with_raw_response.bank_transfer_event_list(body)
+result = client.with_raw_response.bank_transfer_event_list(BankTransferEventListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferEventListResponse
@@ -1486,7 +1594,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.bank_transfer_event_list(body)
+result = await async_client.with_raw_response.bank_transfer_event_list(BankTransferEventListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferEventListResponse
@@ -1505,7 +1613,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferEventListRequest](the_plaid_api/models/bank_transfer_event_list_request.py) \| [BankTransferEventListRequestDict](the_plaid_api/models/bank_transfer_event_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1553,7 +1661,7 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.bank_transfer_event_sync(body)
+result = client.with_raw_response.bank_transfer_event_sync(BankTransferEventSyncRequest(after_id=1))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferEventSyncResponse
@@ -1564,7 +1672,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.bank_transfer_event_sync(body)
+result = await async_client.with_raw_response.bank_transfer_event_sync(BankTransferEventSyncRequest(after_id=1))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferEventSyncResponse
@@ -1583,7 +1691,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferEventSyncRequest](the_plaid_api/models/bank_transfer_event_sync_request.py) \| [BankTransferEventSyncRequestDict](the_plaid_api/models/bank_transfer_event_sync_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1631,7 +1739,7 @@ The `/bank_transfer/get` fetches information about the bank transfer correspondi
 **Sync**
 
 ```python
-result = client.with_raw_response.bank_transfer_get(body)
+result = client.with_raw_response.bank_transfer_get(BankTransferGetRequest(bank_transfer_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferGetResponse
@@ -1642,7 +1750,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.bank_transfer_get(body)
+result = await async_client.with_raw_response.bank_transfer_get(
+    BankTransferGetRequest(bank_transfer_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferGetResponse
@@ -1661,7 +1771,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferGetRequest](the_plaid_api/models/bank_transfer_get_request.py) \| [BankTransferGetRequestDict](the_plaid_api/models/bank_transfer_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1709,7 +1819,7 @@ Use the `/bank_transfer/list` endpoint to see a list of all your bank transfers 
 **Sync**
 
 ```python
-result = client.with_raw_response.bank_transfer_list(body)
+result = client.with_raw_response.bank_transfer_list(BankTransferListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferListResponse
@@ -1720,7 +1830,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.bank_transfer_list(body)
+result = await async_client.with_raw_response.bank_transfer_list(BankTransferListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferListResponse
@@ -1739,7 +1849,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferListRequest](the_plaid_api/models/bank_transfer_list_request.py) \| [BankTransferListRequestDict](the_plaid_api/models/bank_transfer_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1787,7 +1897,11 @@ As an alternative to adding Items via Link, you can also use the `/bank_transfer
 **Sync**
 
 ```python
-result = client.with_raw_response.bank_transfer_migrate_account(body)
+result = client.with_raw_response.bank_transfer_migrate_account(
+    BankTransferMigrateAccountRequest(
+        account_number="some example string", routing_number="some example string", account_type="some example string"
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferMigrateAccountResponse
@@ -1798,7 +1912,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.bank_transfer_migrate_account(body)
+result = await async_client.with_raw_response.bank_transfer_migrate_account(
+    BankTransferMigrateAccountRequest(
+        account_number="some example string", routing_number="some example string", account_type="some example string"
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferMigrateAccountResponse
@@ -1817,7 +1935,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferMigrateAccountRequest](the_plaid_api/models/bank_transfer_migrate_account_request.py) \| [BankTransferMigrateAccountRequestDict](the_plaid_api/models/bank_transfer_migrate_account_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1865,7 +1983,7 @@ The `/bank_transfer/sweep/get` endpoint fetches information about the sweep corr
 **Sync**
 
 ```python
-result = client.with_raw_response.bank_transfer_sweep_get(body)
+result = client.with_raw_response.bank_transfer_sweep_get(BankTransferSweepGetRequest(sweep_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferSweepGetResponse
@@ -1876,7 +1994,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.bank_transfer_sweep_get(body)
+result = await async_client.with_raw_response.bank_transfer_sweep_get(
+    BankTransferSweepGetRequest(sweep_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferSweepGetResponse
@@ -1895,7 +2015,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferSweepGetRequest](the_plaid_api/models/bank_transfer_sweep_get_request.py) \| [BankTransferSweepGetRequestDict](the_plaid_api/models/bank_transfer_sweep_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -1943,7 +2063,7 @@ The `/bank_transfer/sweep/list` endpoint fetches information about the sweeps ma
 **Sync**
 
 ```python
-result = client.with_raw_response.bank_transfer_sweep_list(body)
+result = client.with_raw_response.bank_transfer_sweep_list(BankTransferSweepListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferSweepListResponse
@@ -1954,7 +2074,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.bank_transfer_sweep_list(body)
+result = await async_client.with_raw_response.bank_transfer_sweep_list(BankTransferSweepListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BankTransferSweepListResponse
@@ -1973,7 +2093,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BankTransferSweepListRequest](the_plaid_api/models/bank_transfer_sweep_list_request.py) \| [BankTransferSweepListRequestDict](the_plaid_api/models/bank_transfer_sweep_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2021,7 +2141,7 @@ Use `/beacon/account_risk/v1/evaluate` to get risk insights for a linked account
 **Sync**
 
 ```python
-result = client.with_raw_response.beacon_account_risk_evaluate(body)
+result = client.with_raw_response.beacon_account_risk_evaluate(BeaconAccountRiskEvaluateRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconAccountRiskEvaluateResponse
@@ -2032,7 +2152,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.beacon_account_risk_evaluate(body)
+result = await async_client.with_raw_response.beacon_account_risk_evaluate(BeaconAccountRiskEvaluateRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconAccountRiskEvaluateResponse
@@ -2051,7 +2171,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconAccountRiskEvaluateRequest](the_plaid_api/models/beacon_account_risk_evaluate_request.py) \| [BeaconAccountRiskEvaluateRequestDict](the_plaid_api/models/beacon_account_risk_evaluate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2105,7 +2225,9 @@ The `analysis` field in the response indicates which fields matched between `bea
 **Sync**
 
 ```python
-result = client.with_raw_response.beacon_duplicate_get(body)
+result = client.with_raw_response.beacon_duplicate_get(
+    BeaconDuplicateGetRequest(beacon_duplicate_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconDuplicateGetResponse
@@ -2116,7 +2238,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.beacon_duplicate_get(body)
+result = await async_client.with_raw_response.beacon_duplicate_get(
+    BeaconDuplicateGetRequest(beacon_duplicate_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconDuplicateGetResponse
@@ -2135,7 +2259,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconDuplicateGetRequest](the_plaid_api/models/beacon_duplicate_get_request.py) \| [BeaconDuplicateGetRequestDict](the_plaid_api/models/beacon_duplicate_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2183,7 +2307,11 @@ Create a fraud report for a given Beacon User.
 **Sync**
 
 ```python
-result = client.with_raw_response.beacon_report_create(body)
+result = client.with_raw_response.beacon_report_create(
+    BeaconReportCreateRequest(
+        beacon_user_id="some example string", type_=BeaconReportCreateType.FIRST_PARTY, fraud_date=date(2024, 1, 15)
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconReportCreateResponse
@@ -2194,7 +2322,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.beacon_report_create(body)
+result = await async_client.with_raw_response.beacon_report_create(
+    BeaconReportCreateRequest(
+        beacon_user_id="some example string", type_=BeaconReportCreateType.FIRST_PARTY, fraud_date=date(2024, 1, 15)
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconReportCreateResponse
@@ -2213,7 +2345,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconReportCreateRequest](the_plaid_api/models/beacon_report_create_request.py) \| [BeaconReportCreateRequestDict](the_plaid_api/models/beacon_report_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2261,7 +2393,7 @@ Returns a Beacon Report for a given Beacon Report ID.
 **Sync**
 
 ```python
-result = client.with_raw_response.beacon_report_get(body)
+result = client.with_raw_response.beacon_report_get(BeaconReportGetRequest(beacon_report_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconReportGetResponse
@@ -2272,7 +2404,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.beacon_report_get(body)
+result = await async_client.with_raw_response.beacon_report_get(
+    BeaconReportGetRequest(beacon_report_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconReportGetResponse
@@ -2291,7 +2425,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconReportGetRequest](the_plaid_api/models/beacon_report_get_request.py) \| [BeaconReportGetRequestDict](the_plaid_api/models/beacon_report_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2339,7 +2473,7 @@ Use the `/beacon/report/list` endpoint to view all Beacon Reports you created fo
 **Sync**
 
 ```python
-result = client.with_raw_response.beacon_report_list(body)
+result = client.with_raw_response.beacon_report_list(BeaconReportListRequest(beacon_user_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconReportListResponse
@@ -2350,7 +2484,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.beacon_report_list(body)
+result = await async_client.with_raw_response.beacon_report_list(
+    BeaconReportListRequest(beacon_user_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconReportListResponse
@@ -2369,7 +2505,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconReportListRequest](the_plaid_api/models/beacon_report_list_request.py) \| [BeaconReportListRequestDict](the_plaid_api/models/beacon_report_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2417,7 +2553,9 @@ Returns a Beacon Report Syndication for a given Beacon Report Syndication id.
 **Sync**
 
 ```python
-result = client.with_raw_response.beacon_report_syndication_get(body)
+result = client.with_raw_response.beacon_report_syndication_get(
+    BeaconReportSyndicationGetRequest(beacon_report_syndication_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconReportSyndicationGetResponse
@@ -2428,7 +2566,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.beacon_report_syndication_get(body)
+result = await async_client.with_raw_response.beacon_report_syndication_get(
+    BeaconReportSyndicationGetRequest(beacon_report_syndication_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconReportSyndicationGetResponse
@@ -2447,7 +2587,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconReportSyndicationGetRequest](the_plaid_api/models/beacon_report_syndication_get_request.py) \| [BeaconReportSyndicationGetRequestDict](the_plaid_api/models/beacon_report_syndication_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2495,7 +2635,9 @@ Use the `/beacon/report_syndication/list` endpoint to view all Beacon Reports th
 **Sync**
 
 ```python
-result = client.with_raw_response.beacon_report_syndication_list(body)
+result = client.with_raw_response.beacon_report_syndication_list(
+    BeaconReportSyndicationListRequest(beacon_user_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconReportSyndicationListResponse
@@ -2506,7 +2648,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.beacon_report_syndication_list(body)
+result = await async_client.with_raw_response.beacon_report_syndication_list(
+    BeaconReportSyndicationListRequest(beacon_user_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconReportSyndicationListResponse
@@ -2525,7 +2669,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconReportSyndicationListRequest](the_plaid_api/models/beacon_report_syndication_list_request.py) \| [BeaconReportSyndicationListRequestDict](the_plaid_api/models/beacon_report_syndication_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2573,7 +2717,9 @@ Get Account Insights for all Accounts linked to this Beacon User. The insights f
 **Sync**
 
 ```python
-result = client.with_raw_response.beacon_user_account_insights_get(body)
+result = client.with_raw_response.beacon_user_account_insights_get(
+    BeaconUserAccountInsightsGetRequest(beacon_user_id="some example string", access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconUserAccountInsightsGetResponse
@@ -2584,7 +2730,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.beacon_user_account_insights_get(body)
+result = await async_client.with_raw_response.beacon_user_account_insights_get(
+    BeaconUserAccountInsightsGetRequest(beacon_user_id="some example string", access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconUserAccountInsightsGetResponse
@@ -2603,7 +2751,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconUserAccountInsightsGetRequest](the_plaid_api/models/beacon_user_account_insights_get_request.py) \| [BeaconUserAccountInsightsGetRequestDict](the_plaid_api/models/beacon_user_account_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2659,7 +2807,15 @@ When you submit a new user to `/beacon/user/create`, several checks are performe
 **Sync**
 
 ```python
-result = client.with_raw_response.beacon_user_create(body)
+result = client.with_raw_response.beacon_user_create(
+    BeaconUserCreateRequest(
+        program_id="some example string",
+        client_user_id="some example string",
+        user=BeaconUserRequestData(
+            name=BeaconUserName(given_name="some example string", family_name="some example string")
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconUserCreateResponse
@@ -2670,7 +2826,15 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.beacon_user_create(body)
+result = await async_client.with_raw_response.beacon_user_create(
+    BeaconUserCreateRequest(
+        program_id="some example string",
+        client_user_id="some example string",
+        user=BeaconUserRequestData(
+            name=BeaconUserName(given_name="some example string", family_name="some example string")
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconUserCreateResponse
@@ -2689,7 +2853,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconUserCreateRequest](the_plaid_api/models/beacon_user_create_request.py) \| [BeaconUserCreateRequestDict](the_plaid_api/models/beacon_user_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2739,7 +2903,7 @@ The Beacon User is returned with all of their associated information and a `stat
 **Sync**
 
 ```python
-result = client.with_raw_response.beacon_user_get(body)
+result = client.with_raw_response.beacon_user_get(BeaconUserGetRequest(beacon_user_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconUserGetResponse
@@ -2750,7 +2914,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.beacon_user_get(body)
+result = await async_client.with_raw_response.beacon_user_get(
+    BeaconUserGetRequest(beacon_user_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconUserGetResponse
@@ -2769,7 +2935,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconUserGetRequest](the_plaid_api/models/beacon_user_get_request.py) \| [BeaconUserGetRequestDict](the_plaid_api/models/beacon_user_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2817,7 +2983,9 @@ List all changes to the Beacon User in reverse-chronological order.
 **Sync**
 
 ```python
-result = client.with_raw_response.beacon_user_history_list(body)
+result = client.with_raw_response.beacon_user_history_list(
+    BeaconUserHistoryListRequest(beacon_user_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconUserHistoryListResponse
@@ -2828,7 +2996,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.beacon_user_history_list(body)
+result = await async_client.with_raw_response.beacon_user_history_list(
+    BeaconUserHistoryListRequest(beacon_user_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconUserHistoryListResponse
@@ -2847,7 +3017,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconUserHistoryListRequest](the_plaid_api/models/beacon_user_history_list_request.py) \| [BeaconUserHistoryListRequestDict](the_plaid_api/models/beacon_user_history_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2906,7 +3076,9 @@ If these conditions are not met, the request will be rejected with an error expl
 **Sync**
 
 ```python
-result = client.with_raw_response.beacon_user_review(body)
+result = client.with_raw_response.beacon_user_review(
+    BeaconUserReviewRequest(beacon_user_id="some example string", status=BeaconUserStatus.REJECTED)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconUserGetResponse
@@ -2917,7 +3089,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.beacon_user_review(body)
+result = await async_client.with_raw_response.beacon_user_review(
+    BeaconUserReviewRequest(beacon_user_id="some example string", status=BeaconUserStatus.REJECTED)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconUserGetResponse
@@ -2936,7 +3110,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconUserReviewRequest](the_plaid_api/models/beacon_user_review_request.py) \| [BeaconUserReviewRequestDict](the_plaid_api/models/beacon_user_review_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -2994,7 +3168,7 @@ Plaid maintains a version history for each Beacon User, so the Beacon User's ide
 **Sync**
 
 ```python
-result = client.with_raw_response.beacon_user_update(body)
+result = client.with_raw_response.beacon_user_update(BeaconUserUpdateRequest(beacon_user_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconUserUpdateResponse
@@ -3005,7 +3179,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.beacon_user_update(body)
+result = await async_client.with_raw_response.beacon_user_update(
+    BeaconUserUpdateRequest(beacon_user_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BeaconUserUpdateResponse
@@ -3024,7 +3200,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BeaconUserUpdateRequest](the_plaid_api/models/beacon_user_update_request.py) \| [BeaconUserUpdateRequestDict](the_plaid_api/models/beacon_user_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3080,7 +3256,9 @@ This endpoint enables clients to assess repayment risk and make data-driven deci
 **Sync**
 
 ```python
-result = client.with_raw_response.beta_ewa_report_v1_get(body)
+result = client.with_raw_response.beta_ewa_report_v1_get(
+    BetaEwaReportV1GetRequest(access_token="access-sandbox-71e02f71-0960-4a27-abd2-5631e04f2175")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BetaEwaReportV1GetResponse
@@ -3091,7 +3269,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.beta_ewa_report_v1_get(body)
+result = await async_client.with_raw_response.beta_ewa_report_v1_get(
+    BetaEwaReportV1GetRequest(access_token="access-sandbox-71e02f71-0960-4a27-abd2-5631e04f2175")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BetaEwaReportV1GetResponse
@@ -3110,7 +3290,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BetaEwaReportV1GetRequest](the_plaid_api/models/beta_ewa_report_v1_get_request.py) \| [BetaEwaReportV1GetRequestDict](the_plaid_api/models/beta_ewa_report_v1_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3158,7 +3338,34 @@ The `/beta/partner/customer/v1/create` endpoint creates a new end customer recor
 **Sync**
 
 ```python
-result = client.with_raw_response.beta_partner_customer_v1_create(body)
+result = client.with_raw_response.beta_partner_customer_v1_create(
+    BetaPartnerCustomerV1CreateRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        company_name="Plaid",
+        products=[Products.AUTH, Products.IDENTITY],
+        create_link_customization=True,
+        legal_entity_name="Plaid",
+        website="plaid.com",
+        application_name="Plaid",
+        technical_contact=PartnerEndCustomerTechnicalContact(
+            given_name="Alice", family_name="Smith", email="alice.smith@example.com"
+        ),
+        billing_contact=PartnerEndCustomerBillingContact(
+            given_name="Bob", family_name="Jones", email="bob.jones@example.com"
+        ),
+        customer_support_info=PartnerEndCustomerCustomerSupportInfo(
+            email="support@example.com",
+            phone_number="1234567890",
+            contact_url="example.com/contact",
+            link_update_url="example.com/update",
+        ),
+        address=PartnerEndCustomerAddress(
+            city="New York", street="123 Main St", region="NY", postal_code="12345", country_code="US"
+        ),
+        redirect_uris=["http://localhost/oauth.html", "https://www.example.com/oauth.html"],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BetaPartnerCustomerV1CreateResponse
@@ -3169,7 +3376,34 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.beta_partner_customer_v1_create(body)
+result = await async_client.with_raw_response.beta_partner_customer_v1_create(
+    BetaPartnerCustomerV1CreateRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        company_name="Plaid",
+        products=[Products.AUTH, Products.IDENTITY],
+        create_link_customization=True,
+        legal_entity_name="Plaid",
+        website="plaid.com",
+        application_name="Plaid",
+        technical_contact=PartnerEndCustomerTechnicalContact(
+            given_name="Alice", family_name="Smith", email="alice.smith@example.com"
+        ),
+        billing_contact=PartnerEndCustomerBillingContact(
+            given_name="Bob", family_name="Jones", email="bob.jones@example.com"
+        ),
+        customer_support_info=PartnerEndCustomerCustomerSupportInfo(
+            email="support@example.com",
+            phone_number="1234567890",
+            contact_url="example.com/contact",
+            link_update_url="example.com/update",
+        ),
+        address=PartnerEndCustomerAddress(
+            city="New York", street="123 Main St", region="NY", postal_code="12345", country_code="US"
+        ),
+        redirect_uris=["http://localhost/oauth.html", "https://www.example.com/oauth.html"],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BetaPartnerCustomerV1CreateResponse
@@ -3188,7 +3422,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BetaPartnerCustomerV1CreateRequest](the_plaid_api/models/beta_partner_customer_v1_create_request.py) \| [BetaPartnerCustomerV1CreateRequestDict](the_plaid_api/models/beta_partner_customer_v1_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3236,7 +3470,14 @@ The `/beta/partner/customer/v1/enable` endpoint is used by reseller partners to 
 **Sync**
 
 ```python
-result = client.with_raw_response.beta_partner_customer_v1_enable(body)
+result = client.with_raw_response.beta_partner_customer_v1_enable(
+    BetaPartnerCustomerV1EnableRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        end_customer_client_id="634758733ebb4f00134b85ea",
+        products=[Products.AUTH],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BetaPartnerCustomerV1EnableResponse
@@ -3247,7 +3488,14 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.beta_partner_customer_v1_enable(body)
+result = await async_client.with_raw_response.beta_partner_customer_v1_enable(
+    BetaPartnerCustomerV1EnableRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        end_customer_client_id="634758733ebb4f00134b85ea",
+        products=[Products.AUTH],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BetaPartnerCustomerV1EnableResponse
@@ -3266,7 +3514,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BetaPartnerCustomerV1EnableRequest](the_plaid_api/models/beta_partner_customer_v1_enable_request.py) \| [BetaPartnerCustomerV1EnableRequestDict](the_plaid_api/models/beta_partner_customer_v1_enable_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3314,7 +3562,13 @@ The `/beta/partner/customer/v1/get` endpoint is used by reseller partners to ret
 **Sync**
 
 ```python
-result = client.with_raw_response.beta_partner_customer_v1_get(body)
+result = client.with_raw_response.beta_partner_customer_v1_get(
+    BetaPartnerCustomerV1GetRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        end_customer_client_id="634758733ebb4f00134b85ea",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BetaPartnerCustomerV1GetResponse
@@ -3325,7 +3579,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.beta_partner_customer_v1_get(body)
+result = await async_client.with_raw_response.beta_partner_customer_v1_get(
+    BetaPartnerCustomerV1GetRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        end_customer_client_id="634758733ebb4f00134b85ea",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BetaPartnerCustomerV1GetResponse
@@ -3344,7 +3604,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BetaPartnerCustomerV1GetRequest](the_plaid_api/models/beta_partner_customer_v1_get_request.py) \| [BetaPartnerCustomerV1GetRequestDict](the_plaid_api/models/beta_partner_customer_v1_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3392,7 +3652,25 @@ The `/beta/partner/customer/v1/update` endpoint updates an existing end customer
 **Sync**
 
 ```python
-result = client.with_raw_response.beta_partner_customer_v1_update(body)
+result = client.with_raw_response.beta_partner_customer_v1_update(
+    BetaPartnerCustomerV1UpdateRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        end_customer_client_id="634758733ebb4f00134b85ea",
+        bank_addendum_acceptance=PartnerEndCustomerBankAddendumAcceptance(
+            customer_accepted=True,
+            customer_ip_address="127.0.0.1",
+            customer_agreement_timestamp=datetime(2025, 1, 1, 1, 0, 0, tzinfo=timezone.utc),
+        ),
+        questionnaires=PartnerEndCustomerQuestionnaires(
+            cra=PartnerEndCustomerCraquestionnaire(
+                purposes=PartnerEndCustomerCrapurposes(),
+                is_third_party_involved=True,
+                is_technical_service_provider_involved=True,
+            ),
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BetaPartnerCustomerV1UpdateResponse
@@ -3403,7 +3681,25 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.beta_partner_customer_v1_update(body)
+result = await async_client.with_raw_response.beta_partner_customer_v1_update(
+    BetaPartnerCustomerV1UpdateRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        end_customer_client_id="634758733ebb4f00134b85ea",
+        bank_addendum_acceptance=PartnerEndCustomerBankAddendumAcceptance(
+            customer_accepted=True,
+            customer_ip_address="127.0.0.1",
+            customer_agreement_timestamp=datetime(2025, 1, 1, 1, 0, 0, tzinfo=timezone.utc),
+        ),
+        questionnaires=PartnerEndCustomerQuestionnaires(
+            cra=PartnerEndCustomerCraquestionnaire(
+                purposes=PartnerEndCustomerCrapurposes(),
+                is_third_party_involved=True,
+                is_technical_service_provider_involved=True,
+            ),
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BetaPartnerCustomerV1UpdateResponse
@@ -3422,7 +3718,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BetaPartnerCustomerV1UpdateRequest](the_plaid_api/models/beta_partner_customer_v1_update_request.py) \| [BetaPartnerCustomerV1UpdateRequestDict](the_plaid_api/models/beta_partner_customer_v1_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3470,7 +3766,9 @@ Create a new business verification to check a business's identity and risk profi
 **Sync**
 
 ```python
-result = client.with_raw_response.business_verification_create(body)
+result = client.with_raw_response.business_verification_create(
+    BusinessVerificationCreateRequest(client_user_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BusinessVerificationCreateResponse
@@ -3481,7 +3779,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.business_verification_create(body)
+result = await async_client.with_raw_response.business_verification_create(
+    BusinessVerificationCreateRequest(client_user_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BusinessVerificationCreateResponse
@@ -3500,7 +3800,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BusinessVerificationCreateRequest](the_plaid_api/models/business_verification_create_request.py) \| [BusinessVerificationCreateRequestDict](the_plaid_api/models/business_verification_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3548,7 +3848,9 @@ Retrieve the current state of a specific business verification.
 **Sync**
 
 ```python
-result = client.with_raw_response.business_verification_get(body)
+result = client.with_raw_response.business_verification_get(
+    BusinessVerificationGetRequest(business_verification_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BusinessVerificationGetResponse
@@ -3559,7 +3861,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.business_verification_get(body)
+result = await async_client.with_raw_response.business_verification_get(
+    BusinessVerificationGetRequest(business_verification_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type BusinessVerificationGetResponse
@@ -3578,7 +3882,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[BusinessVerificationGetRequest](the_plaid_api/models/business_verification_get_request.py) \| [BusinessVerificationGetRequestDict](the_plaid_api/models/business_verification_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3629,7 +3933,9 @@ Note that data isn't likely to be immediately available to `/cashflow_report/get
 **Sync**
 
 ```python
-result = client.with_raw_response.cashflow_report_get(body)
+result = client.with_raw_response.cashflow_report_get(
+    CashflowReportGetRequest(access_token="some example string", days_requested=1)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CashflowReportGetResponse
@@ -3640,7 +3946,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cashflow_report_get(body)
+result = await async_client.with_raw_response.cashflow_report_get(
+    CashflowReportGetRequest(access_token="some example string", days_requested=1)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CashflowReportGetResponse
@@ -3659,7 +3967,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CashflowReportGetRequest](the_plaid_api/models/cashflow_report_get_request.py) \| [CashflowReportGetRequestDict](the_plaid_api/models/cashflow_report_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3707,7 +4015,9 @@ The `/cashflow_report/insights/get` endpoint retrieves insights data associated 
 **Sync**
 
 ```python
-result = client.with_raw_response.cashflow_report_insights_get(body)
+result = client.with_raw_response.cashflow_report_insights_get(
+    CashflowReportInsightsGetRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CashflowReportInsightsGetResponse
@@ -3718,7 +4028,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cashflow_report_insights_get(body)
+result = await async_client.with_raw_response.cashflow_report_insights_get(
+    CashflowReportInsightsGetRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CashflowReportInsightsGetResponse
@@ -3737,7 +4049,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CashflowReportInsightsGetRequest](the_plaid_api/models/cashflow_report_insights_get_request.py) \| [CashflowReportInsightsGetRequestDict](the_plaid_api/models/cashflow_report_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3791,7 +4103,9 @@ As this endpoint triggers a synchronous request for fresh data, latency may be h
 **Sync**
 
 ```python
-result = client.with_raw_response.cashflow_report_refresh(body)
+result = client.with_raw_response.cashflow_report_refresh(
+    CashflowReportRefreshRequest(access_token="some example string", days_requested=1)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CashflowReportRefreshResponse
@@ -3802,7 +4116,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cashflow_report_refresh(body)
+result = await async_client.with_raw_response.cashflow_report_refresh(
+    CashflowReportRefreshRequest(access_token="some example string", days_requested=1)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CashflowReportRefreshResponse
@@ -3821,7 +4137,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CashflowReportRefreshRequest](the_plaid_api/models/cashflow_report_refresh_request.py) \| [CashflowReportRefreshRequestDict](the_plaid_api/models/cashflow_report_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3872,7 +4188,9 @@ Note that data isn't likely to be immediately available to `/cashflow_report/tra
 **Sync**
 
 ```python
-result = client.with_raw_response.cashflow_report_transactions_get(body)
+result = client.with_raw_response.cashflow_report_transactions_get(
+    CashflowReportTransactionsGetRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CashflowReportTransactionsGetResponse
@@ -3883,7 +4201,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cashflow_report_transactions_get(body)
+result = await async_client.with_raw_response.cashflow_report_transactions_get(
+    CashflowReportTransactionsGetRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CashflowReportTransactionsGetResponse
@@ -3902,7 +4222,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CashflowReportTransactionsGetRequest](the_plaid_api/models/cashflow_report_transactions_get_request.py) \| [CashflowReportTransactionsGetRequestDict](the_plaid_api/models/cashflow_report_transactions_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -3952,7 +4272,7 @@ All implementations are recommended to https://plaid.com/docs/transactions/pfc-m
 **Sync**
 
 ```python
-result = client.with_raw_response.categories_get(body)
+result = client.with_raw_response.categories_get({})
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CategoriesGetResponse
@@ -3963,7 +4283,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.categories_get(body)
+result = await async_client.with_raw_response.categories_get({})
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CategoriesGetResponse
@@ -3982,7 +4302,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>Any</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4030,7 +4350,7 @@ List a historical log of Item consent events. Consent logs are only available fo
 **Sync**
 
 ```python
-result = client.with_raw_response.consent_events_get(body)
+result = client.with_raw_response.consent_events_get(ConsentEventsGetRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ConsentEventsGetResponse
@@ -4041,7 +4361,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.consent_events_get(body)
+result = await async_client.with_raw_response.consent_events_get(
+    ConsentEventsGetRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ConsentEventsGetResponse
@@ -4060,7 +4382,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ConsentEventsGetRequest](the_plaid_api/models/consent_events_get_request.py) \| [ConsentEventsGetRequestDict](the_plaid_api/models/consent_events_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4110,7 +4432,7 @@ Response is PDF binary data. The `request_id` is returned in the `Plaid-Request-
 **Sync**
 
 ```python
-result = client.with_raw_response.consumer_report_pdf_get(body)
+result = client.with_raw_response.consumer_report_pdf_get(ConsumerReportPdfgetRequest(user_token="some example string"))
 match result:
     case Success():
         ...  # 2xx, no content
@@ -4121,7 +4443,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.consumer_report_pdf_get(body)
+result = await async_client.with_raw_response.consumer_report_pdf_get(
+    ConsumerReportPdfgetRequest(user_token="some example string")
+)
 match result:
     case Success():
         ...  # 2xx, no content
@@ -4140,7 +4464,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ConsumerReportPdfgetRequest](the_plaid_api/models/consumer_report_pdfget_request.py) \| [ConsumerReportPdfgetRequestDict](the_plaid_api/models/consumer_report_pdfget_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4188,7 +4512,7 @@ This endpoint allows you to retrieve the Base Report for your user, allowing you
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_check_report_base_report_get(body)
+result = client.with_raw_response.cra_check_report_base_report_get(CraCheckReportBaseReportGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraCheckReportBaseReportGetResponse
@@ -4199,7 +4523,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_check_report_base_report_get(body)
+result = await async_client.with_raw_response.cra_check_report_base_report_get(CraCheckReportBaseReportGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraCheckReportBaseReportGetResponse
@@ -4218,7 +4542,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportBaseReportGetRequest](the_plaid_api/models/cra_check_report_base_report_get_request.py) \| [CraCheckReportBaseReportGetRequestDict](the_plaid_api/models/cra_check_report_base_report_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4266,7 +4590,7 @@ This endpoint allows you to retrieve the Cashflow Insights report for your user.
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_check_report_cashflow_insights_get(body)
+result = client.with_raw_response.cra_check_report_cashflow_insights_get(CraCheckReportCashflowInsightsGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraCheckReportCashflowInsightsGetResponse
@@ -4277,7 +4601,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_check_report_cashflow_insights_get(body)
+result = await async_client.with_raw_response.cra_check_report_cashflow_insights_get(
+    CraCheckReportCashflowInsightsGetRequest()
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraCheckReportCashflowInsightsGetResponse
@@ -4296,7 +4622,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportCashflowInsightsGetRequest](the_plaid_api/models/cra_check_report_cashflow_insights_get_request.py) \| [CraCheckReportCashflowInsightsGetRequestDict](the_plaid_api/models/cra_check_report_cashflow_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4344,7 +4670,13 @@ Use `/cra/check_report/create` to refresh data in an existing report. A Consumer
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_check_report_create(body)
+result = client.with_raw_response.cra_check_report_create(
+    CraCheckReportCreateRequest(
+        webhook="some example string",
+        days_requested=1,
+        consumer_report_permissible_purpose=ConsumerReportPermissiblePurpose.ACCOUNT_REVIEW_CREDIT,
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraCheckReportCreateResponse
@@ -4355,7 +4687,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_check_report_create(body)
+result = await async_client.with_raw_response.cra_check_report_create(
+    CraCheckReportCreateRequest(
+        webhook="some example string",
+        days_requested=1,
+        consumer_report_permissible_purpose=ConsumerReportPermissiblePurpose.ACCOUNT_REVIEW_CREDIT,
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraCheckReportCreateResponse
@@ -4374,7 +4712,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportCreateRequest](the_plaid_api/models/cra_check_report_create_request.py) \| [CraCheckReportCreateRequestDict](the_plaid_api/models/cra_check_report_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4424,7 +4762,7 @@ NOTE: The following schema was updated in April 2026 to reflect the response whe
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_check_report_income_insights_get(body)
+result = client.with_raw_response.cra_check_report_income_insights_get(CraCheckReportIncomeInsightsGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraCheckReportIncomeInsightsGetResponse
@@ -4435,7 +4773,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_check_report_income_insights_get(body)
+result = await async_client.with_raw_response.cra_check_report_income_insights_get(
+    CraCheckReportIncomeInsightsGetRequest()
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraCheckReportIncomeInsightsGetResponse
@@ -4454,7 +4794,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportIncomeInsightsGetRequest](the_plaid_api/models/cra_check_report_income_insights_get_request.py) \| [CraCheckReportIncomeInsightsGetRequestDict](the_plaid_api/models/cra_check_report_income_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4502,7 +4842,7 @@ This endpoint allows you to retrieve the LendScore report for your user. You sho
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_check_report_lend_score_get(body)
+result = client.with_raw_response.cra_check_report_lend_score_get(CraCheckReportLendScoreGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraCheckReportLendScoreGetResponse
@@ -4513,7 +4853,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_check_report_lend_score_get(body)
+result = await async_client.with_raw_response.cra_check_report_lend_score_get(CraCheckReportLendScoreGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraCheckReportLendScoreGetResponse
@@ -4532,7 +4872,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportLendScoreGetRequest](the_plaid_api/models/cra_check_report_lend_score_get_request.py) \| [CraCheckReportLendScoreGetRequestDict](the_plaid_api/models/cra_check_report_lend_score_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4580,7 +4920,7 @@ This endpoint allows you to retrieve the Network Insights report for your user. 
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_check_report_network_insights_get(body)
+result = client.with_raw_response.cra_check_report_network_insights_get(CraCheckReportNetworkInsightsGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraCheckReportNetworkInsightsGetResponse
@@ -4591,7 +4931,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_check_report_network_insights_get(body)
+result = await async_client.with_raw_response.cra_check_report_network_insights_get(
+    CraCheckReportNetworkInsightsGetRequest()
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraCheckReportNetworkInsightsGetResponse
@@ -4610,7 +4952,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportNetworkInsightsGetRequest](the_plaid_api/models/cra_check_report_network_insights_get_request.py) \| [CraCheckReportNetworkInsightsGetRequestDict](the_plaid_api/models/cra_check_report_network_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4658,7 +5000,7 @@ This endpoint allows you to retrieve the Partner Insights report for your user. 
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_check_report_partner_insights_get(body)
+result = client.with_raw_response.cra_check_report_partner_insights_get(CraCheckReportPartnerInsightsGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraCheckReportPartnerInsightsGetResponse
@@ -4669,7 +5011,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_check_report_partner_insights_get(body)
+result = await async_client.with_raw_response.cra_check_report_partner_insights_get(
+    CraCheckReportPartnerInsightsGetRequest()
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraCheckReportPartnerInsightsGetResponse
@@ -4688,7 +5032,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportPartnerInsightsGetRequest](the_plaid_api/models/cra_check_report_partner_insights_get_request.py) \| [CraCheckReportPartnerInsightsGetRequestDict](the_plaid_api/models/cra_check_report_partner_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4736,7 +5080,7 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_check_report_pdf_get(body)
+result = client.with_raw_response.cra_check_report_pdf_get(CraCheckReportPdfgetRequest())
 match result:
     case Success():
         ...  # 2xx, no content
@@ -4747,7 +5091,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_check_report_pdf_get(body)
+result = await async_client.with_raw_response.cra_check_report_pdf_get(CraCheckReportPdfgetRequest())
 match result:
     case Success():
         ...  # 2xx, no content
@@ -4766,7 +5110,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportPdfgetRequest](the_plaid_api/models/cra_check_report_pdfget_request.py) \| [CraCheckReportPdfgetRequestDict](the_plaid_api/models/cra_check_report_pdfget_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4818,7 +5162,9 @@ If the most recent consumer report for the user doesn't have sufficient data to 
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_check_report_verification_get(body)
+result = client.with_raw_response.cra_check_report_verification_get(
+    CraCheckReportVerificationGetRequest(reports_requested=[CraCheckReportVerificationGetReportType.VOA])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraCheckReportVerificationGetResponse
@@ -4829,7 +5175,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_check_report_verification_get(body)
+result = await async_client.with_raw_response.cra_check_report_verification_get(
+    CraCheckReportVerificationGetRequest(reports_requested=[CraCheckReportVerificationGetReportType.VOA])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraCheckReportVerificationGetResponse
@@ -4848,7 +5196,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportVerificationGetRequest](the_plaid_api/models/cra_check_report_verification_get_request.py) \| [CraCheckReportVerificationGetRequestDict](the_plaid_api/models/cra_check_report_verification_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4898,7 +5246,7 @@ The response to `/cra/check_report/verification/pdf/get` is the PDF binary data.
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_check_report_verification_pdf_get(body)
+result = client.with_raw_response.cra_check_report_verification_pdf_get(CraCheckReportVerificationPdfGetRequest())
 match result:
     case Success():
         ...  # 2xx, no content
@@ -4909,7 +5257,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_check_report_verification_pdf_get(body)
+result = await async_client.with_raw_response.cra_check_report_verification_pdf_get(
+    CraCheckReportVerificationPdfGetRequest()
+)
 match result:
     case Success():
         ...  # 2xx, no content
@@ -4928,7 +5278,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCheckReportVerificationPdfGetRequest](the_plaid_api/models/cra_check_report_verification_pdf_get_request.py) \| [CraCheckReportVerificationPdfGetRequestDict](the_plaid_api/models/cra_check_report_verification_pdf_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -4976,7 +5326,16 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_credit_profile_report_get(body)
+result = client.with_raw_response.cra_credit_profile_report_get(
+    CraCreditProfileReportGetRequest(
+        user_id="some example string",
+        consumer_report_permissible_purpose=ConsumerReportPermissiblePurpose.ACCOUNT_REVIEW_CREDIT,
+        client_report_id="some example string",
+        report_type=CraCreditProfileReportType.QUALIFY,
+        inquiry_type=CraCreditProfileInquiryType.SOFT_INQUIRY,
+        version=CraCreditProfileReportVersion.V1,
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraCreditProfileReportGetResponse
@@ -4987,7 +5346,16 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_credit_profile_report_get(body)
+result = await async_client.with_raw_response.cra_credit_profile_report_get(
+    CraCreditProfileReportGetRequest(
+        user_id="some example string",
+        consumer_report_permissible_purpose=ConsumerReportPermissiblePurpose.ACCOUNT_REVIEW_CREDIT,
+        client_report_id="some example string",
+        report_type=CraCreditProfileReportType.QUALIFY,
+        inquiry_type=CraCreditProfileInquiryType.SOFT_INQUIRY,
+        version=CraCreditProfileReportVersion.V1,
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraCreditProfileReportGetResponse
@@ -5006,7 +5374,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraCreditProfileReportGetRequest](the_plaid_api/models/cra_credit_profile_report_get_request.py) \| [CraCreditProfileReportGetRequestDict](the_plaid_api/models/cra_credit_profile_report_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5054,7 +5422,18 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_loans_applications_register(body)
+result = client.with_raw_response.cra_loans_applications_register(
+    CraLoansApplicationsRegisterRequest(
+        applications=[
+            CraLoanApplication(
+                user_token="some example string",
+                application_id="some example string",
+                type_=CraLoanType.PERSONAL,
+                decision=CraLoanApplicationDecision.APPROVED,
+            ),
+        ],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraLoansApplicationsRegisterResponse
@@ -5065,7 +5444,18 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_loans_applications_register(body)
+result = await async_client.with_raw_response.cra_loans_applications_register(
+    CraLoansApplicationsRegisterRequest(
+        applications=[
+            CraLoanApplication(
+                user_token="some example string",
+                application_id="some example string",
+                type_=CraLoanType.PERSONAL,
+                decision=CraLoanApplicationDecision.APPROVED,
+            ),
+        ],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraLoansApplicationsRegisterResponse
@@ -5084,7 +5474,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraLoansApplicationsRegisterRequest](the_plaid_api/models/cra_loans_applications_register_request.py) \| [CraLoansApplicationsRegisterRequestDict](the_plaid_api/models/cra_loans_applications_register_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5132,7 +5522,20 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_loans_register(body)
+result = client.with_raw_response.cra_loans_register(
+    CraloansRegisterRequest(
+        loans=[
+            CraLoanRegister(
+                user_token="some example string",
+                loan_id="some example string",
+                type_=CraLoanType.PERSONAL,
+                payment_schedule=CraLoanPaymentSchedule.DAILY,
+                opened_date=date(2024, 1, 15),
+                opened_with_status=CraLoanOpenedStatus(status=CraLoanStatus.APPROVED, date=date(2024, 1, 15)),
+            ),
+        ],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraLoansRegisterResponse
@@ -5143,7 +5546,20 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_loans_register(body)
+result = await async_client.with_raw_response.cra_loans_register(
+    CraloansRegisterRequest(
+        loans=[
+            CraLoanRegister(
+                user_token="some example string",
+                loan_id="some example string",
+                type_=CraLoanType.PERSONAL,
+                payment_schedule=CraLoanPaymentSchedule.DAILY,
+                opened_date=date(2024, 1, 15),
+                opened_with_status=CraLoanOpenedStatus(status=CraLoanStatus.APPROVED, date=date(2024, 1, 15)),
+            ),
+        ],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraLoansRegisterResponse
@@ -5162,7 +5578,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraloansRegisterRequest](the_plaid_api/models/craloans_register_request.py) \| [CraloansRegisterRequestDict](the_plaid_api/models/craloans_register_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5210,7 +5626,16 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_loans_unregister(body)
+result = client.with_raw_response.cra_loans_unregister(
+    CraLoansUnregisterRequest(
+        loans=[
+            CraLoanUnregister(
+                loan_id="some example string",
+                closed_with_status=CraLoanClosedStatus(status=CraLoanStatus.APPROVED, date=date(2024, 1, 15)),
+            ),
+        ],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraLoanUnregisterResponse
@@ -5221,7 +5646,16 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_loans_unregister(body)
+result = await async_client.with_raw_response.cra_loans_unregister(
+    CraLoansUnregisterRequest(
+        loans=[
+            CraLoanUnregister(
+                loan_id="some example string",
+                closed_with_status=CraLoanClosedStatus(status=CraLoanStatus.APPROVED, date=date(2024, 1, 15)),
+            ),
+        ],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraLoanUnregisterResponse
@@ -5240,7 +5674,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraLoansUnregisterRequest](the_plaid_api/models/cra_loans_unregister_request.py) \| [CraLoansUnregisterRequestDict](the_plaid_api/models/cra_loans_unregister_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5288,7 +5722,7 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_loans_update(body)
+result = client.with_raw_response.cra_loans_update(CraLoansUpdateRequest(loans=[CraLoanUpdate()]))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraLoansUpdateResponse
@@ -5299,7 +5733,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_loans_update(body)
+result = await async_client.with_raw_response.cra_loans_update(CraLoansUpdateRequest(loans=[CraLoanUpdate()]))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraLoansUpdateResponse
@@ -5318,7 +5752,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraLoansUpdateRequest](the_plaid_api/models/cra_loans_update_request.py) \| [CraLoansUpdateRequestDict](the_plaid_api/models/cra_loans_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5366,7 +5800,11 @@ This endpoint allows you to retrieve a Cash Flow Updates report by passing in th
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_monitoring_insights_get(body)
+result = client.with_raw_response.cra_monitoring_insights_get(
+    CraMonitoringInsightsGetRequest(
+        consumer_report_permissible_purpose=MonitoringConsumerReportPermissiblePurpose.ACCOUNT_REVIEW_CREDIT
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraMonitoringInsightsGetResponse
@@ -5377,7 +5815,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_monitoring_insights_get(body)
+result = await async_client.with_raw_response.cra_monitoring_insights_get(
+    CraMonitoringInsightsGetRequest(
+        consumer_report_permissible_purpose=MonitoringConsumerReportPermissiblePurpose.ACCOUNT_REVIEW_CREDIT
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraMonitoringInsightsGetResponse
@@ -5396,7 +5838,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraMonitoringInsightsGetRequest](the_plaid_api/models/cra_monitoring_insights_get_request.py) \| [CraMonitoringInsightsGetRequestDict](the_plaid_api/models/cra_monitoring_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5444,7 +5886,9 @@ This endpoint allows you to subscribe to insights for a user's linked CRA Item, 
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_monitoring_insights_subscribe(body)
+result = client.with_raw_response.cra_monitoring_insights_subscribe(
+    CraMonitoringInsightsSubscribeRequest(webhook="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraMonitoringInsightsSubscribeResponse
@@ -5455,7 +5899,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_monitoring_insights_subscribe(body)
+result = await async_client.with_raw_response.cra_monitoring_insights_subscribe(
+    CraMonitoringInsightsSubscribeRequest(webhook="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraMonitoringInsightsSubscribeResponse
@@ -5474,7 +5920,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraMonitoringInsightsSubscribeRequest](the_plaid_api/models/cra_monitoring_insights_subscribe_request.py) \| [CraMonitoringInsightsSubscribeRequestDict](the_plaid_api/models/cra_monitoring_insights_subscribe_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5522,7 +5968,9 @@ This endpoint allows you to unsubscribe from previously subscribed Monitoring In
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_monitoring_insights_unsubscribe(body)
+result = client.with_raw_response.cra_monitoring_insights_unsubscribe(
+    CraMonitoringInsightsUnsubscribeRequest(subscription_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraMonitoringInsightsUnsubscribeResponse
@@ -5533,7 +5981,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_monitoring_insights_unsubscribe(body)
+result = await async_client.with_raw_response.cra_monitoring_insights_unsubscribe(
+    CraMonitoringInsightsUnsubscribeRequest(subscription_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraMonitoringInsightsUnsubscribeResponse
@@ -5552,7 +6002,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraMonitoringInsightsUnsubscribeRequest](the_plaid_api/models/cra_monitoring_insights_unsubscribe_request.py) \| [CraMonitoringInsightsUnsubscribeRequestDict](the_plaid_api/models/cra_monitoring_insights_unsubscribe_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5600,7 +6050,9 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_partner_insights_get(body)
+result = client.with_raw_response.cra_partner_insights_get(
+    CraPartnerInsightsGetRequest(user_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraPartnerInsightsGetResponse
@@ -5611,7 +6063,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_partner_insights_get(body)
+result = await async_client.with_raw_response.cra_partner_insights_get(
+    CraPartnerInsightsGetRequest(user_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraPartnerInsightsGetResponse
@@ -5630,7 +6084,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraPartnerInsightsGetRequest](the_plaid_api/models/cra_partner_insights_get_request.py) \| [CraPartnerInsightsGetRequestDict](the_plaid_api/models/cra_partner_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5678,7 +6132,14 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.cra_report_get(body)
+result = client.with_raw_response.cra_report_get(
+    CraReportGetRequest(
+        user_id="some example string",
+        products=[CraReportGetRequestProduct(product=Products.ASSETS, version="some example string")],
+        decision_stage=CraReportDecisionStage.PREQUALIFICATION,
+        consumer_report_permissible_purpose=ConsumerReportPermissiblePurpose.ACCOUNT_REVIEW_CREDIT,
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraReportGetResponse
@@ -5689,7 +6150,14 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.cra_report_get(body)
+result = await async_client.with_raw_response.cra_report_get(
+    CraReportGetRequest(
+        user_id="some example string",
+        products=[CraReportGetRequestProduct(product=Products.ASSETS, version="some example string")],
+        decision_stage=CraReportDecisionStage.PREQUALIFICATION,
+        consumer_report_permissible_purpose=ConsumerReportPermissiblePurpose.ACCOUNT_REVIEW_CREDIT,
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CraReportGetResponse
@@ -5708,7 +6176,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CraReportGetRequest](the_plaid_api/models/cra_report_get_request.py) \| [CraReportGetRequestDict](the_plaid_api/models/cra_report_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5758,7 +6226,9 @@ The `/payment_initiation/payment/token/create` endpoint is used to create a `pay
 **Sync**
 
 ```python
-result = client.with_raw_response.create_payment_token(body)
+result = client.with_raw_response.create_payment_token(
+    PaymentInitiationPaymentTokenCreateRequest(payment_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationPaymentTokenCreateResponse
@@ -5769,7 +6239,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.create_payment_token(body)
+result = await async_client.with_raw_response.create_payment_token(
+    PaymentInitiationPaymentTokenCreateRequest(payment_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationPaymentTokenCreateResponse
@@ -5788,7 +6260,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationPaymentTokenCreateRequest](the_plaid_api/models/payment_initiation_payment_token_create_request.py) \| [PaymentInitiationPaymentTokenCreateRequestDict](the_plaid_api/models/payment_initiation_payment_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5836,7 +6308,9 @@ The `/credit/asset_report/freddie_mac/get` endpoint retrieves the Asset Report i
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_asset_report_freddie_mac_get(body)
+result = client.with_raw_response.credit_asset_report_freddie_mac_get(
+    AssetReportFreddieGetRequest(audit_copy_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportFreddieGetResponse
@@ -5847,7 +6321,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_asset_report_freddie_mac_get(body)
+result = await async_client.with_raw_response.credit_asset_report_freddie_mac_get(
+    AssetReportFreddieGetRequest(audit_copy_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportFreddieGetResponse
@@ -5866,7 +6342,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[AssetReportFreddieGetRequest](the_plaid_api/models/asset_report_freddie_get_request.py) \| [AssetReportFreddieGetRequestDict](the_plaid_api/models/asset_report_freddie_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5916,7 +6392,9 @@ Use the `/credit/audit_copy_token/create` endpoint to create an `audit_copy_toke
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_audit_copy_token_create(body)
+result = client.with_raw_response.credit_audit_copy_token_create(
+    CreditAuditCopyTokenCreateRequest(report_tokens=["some example string"])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditAuditCopyTokenCreateResponse
@@ -5927,7 +6405,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_audit_copy_token_create(body)
+result = await async_client.with_raw_response.credit_audit_copy_token_create(
+    CreditAuditCopyTokenCreateRequest(report_tokens=["some example string"])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditAuditCopyTokenCreateResponse
@@ -5946,7 +6426,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditAuditCopyTokenCreateRequest](the_plaid_api/models/credit_audit_copy_token_create_request.py) \| [CreditAuditCopyTokenCreateRequestDict](the_plaid_api/models/credit_audit_copy_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -5994,7 +6474,9 @@ The `/credit/audit_copy_token/update` endpoint updates an existing Audit Copy To
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_audit_copy_token_update(body)
+result = client.with_raw_response.credit_audit_copy_token_update(
+    CreditAuditCopyTokenUpdateRequest(audit_copy_token="some example string", report_tokens=["some example string"])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditAuditCopyTokenUpdateResponse
@@ -6005,7 +6487,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_audit_copy_token_update(body)
+result = await async_client.with_raw_response.credit_audit_copy_token_update(
+    CreditAuditCopyTokenUpdateRequest(audit_copy_token="some example string", report_tokens=["some example string"])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditAuditCopyTokenUpdateResponse
@@ -6024,7 +6508,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditAuditCopyTokenUpdateRequest](the_plaid_api/models/credit_audit_copy_token_update_request.py) \| [CreditAuditCopyTokenUpdateRequestDict](the_plaid_api/models/credit_audit_copy_token_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6072,7 +6556,9 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_bank_employment_get(body)
+result = client.with_raw_response.credit_bank_employment_get(
+    CreditBankEmploymentGetRequest(user_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditBankEmploymentGetResponse
@@ -6083,7 +6569,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_bank_employment_get(body)
+result = await async_client.with_raw_response.credit_bank_employment_get(
+    CreditBankEmploymentGetRequest(user_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditBankEmploymentGetResponse
@@ -6102,7 +6590,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditBankEmploymentGetRequest](the_plaid_api/models/credit_bank_employment_get_request.py) \| [CreditBankEmploymentGetRequestDict](the_plaid_api/models/credit_bank_employment_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6150,7 +6638,7 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_bank_income_get(body)
+result = client.with_raw_response.credit_bank_income_get(CreditBankIncomeGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditBankIncomeGetResponse
@@ -6161,7 +6649,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_bank_income_get(body)
+result = await async_client.with_raw_response.credit_bank_income_get(CreditBankIncomeGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditBankIncomeGetResponse
@@ -6180,7 +6668,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditBankIncomeGetRequest](the_plaid_api/models/credit_bank_income_get_request.py) \| [CreditBankIncomeGetRequestDict](the_plaid_api/models/credit_bank_income_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6228,7 +6716,9 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_bank_income_pdf_get(body)
+result = client.with_raw_response.credit_bank_income_pdf_get(
+    CreditBankIncomePdfgetRequest(user_token="some example string")
+)
 match result:
     case Success():
         ...  # 2xx, no content
@@ -6239,7 +6729,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_bank_income_pdf_get(body)
+result = await async_client.with_raw_response.credit_bank_income_pdf_get(
+    CreditBankIncomePdfgetRequest(user_token="some example string")
+)
 match result:
     case Success():
         ...  # 2xx, no content
@@ -6258,7 +6750,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditBankIncomePdfgetRequest](the_plaid_api/models/credit_bank_income_pdfget_request.py) \| [CreditBankIncomePdfgetRequestDict](the_plaid_api/models/credit_bank_income_pdfget_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6306,7 +6798,9 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_bank_income_refresh(body)
+result = client.with_raw_response.credit_bank_income_refresh(
+    CreditBankIncomeRefreshRequest(user_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditBankIncomeRefreshResponse
@@ -6317,7 +6811,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_bank_income_refresh(body)
+result = await async_client.with_raw_response.credit_bank_income_refresh(
+    CreditBankIncomeRefreshRequest(user_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditBankIncomeRefreshResponse
@@ -6336,7 +6832,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditBankIncomeRefreshRequest](the_plaid_api/models/credit_bank_income_refresh_request.py) \| [CreditBankIncomeRefreshRequestDict](the_plaid_api/models/credit_bank_income_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6386,7 +6882,9 @@ If a user is subscribed, on significant changes to the user's income profile, yo
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_bank_income_webhook_update(body)
+result = client.with_raw_response.credit_bank_income_webhook_update(
+    CreditBankIncomeWebhookUpdateRequest(user_token="some example string", enable_webhooks=True)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditBankIncomeWebhookUpdateResponse
@@ -6397,7 +6895,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_bank_income_webhook_update(body)
+result = await async_client.with_raw_response.credit_bank_income_webhook_update(
+    CreditBankIncomeWebhookUpdateRequest(user_token="some example string", enable_webhooks=True)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditBankIncomeWebhookUpdateResponse
@@ -6416,7 +6916,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditBankIncomeWebhookUpdateRequest](the_plaid_api/models/credit_bank_income_webhook_update_request.py) \| [CreditBankIncomeWebhookUpdateRequestDict](the_plaid_api/models/credit_bank_income_webhook_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6464,7 +6964,9 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_bank_statements_uploads_get(body)
+result = client.with_raw_response.credit_bank_statements_uploads_get(
+    CreditBankStatementsUploadsGetRequest(user_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditBankStatementsUploadsGetResponse
@@ -6475,7 +6977,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_bank_statements_uploads_get(body)
+result = await async_client.with_raw_response.credit_bank_statements_uploads_get(
+    CreditBankStatementsUploadsGetRequest(user_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditBankStatementsUploadsGetResponse
@@ -6494,7 +6998,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditBankStatementsUploadsGetRequest](the_plaid_api/models/credit_bank_statements_uploads_get_request.py) \| [CreditBankStatementsUploadsGetRequestDict](the_plaid_api/models/credit_bank_statements_uploads_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6542,7 +7046,7 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_employment_get(body)
+result = client.with_raw_response.credit_employment_get(CreditEmploymentGetRequest(user_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditEmploymentGetResponse
@@ -6553,7 +7057,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_employment_get(body)
+result = await async_client.with_raw_response.credit_employment_get(
+    CreditEmploymentGetRequest(user_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditEmploymentGetResponse
@@ -6572,7 +7078,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditEmploymentGetRequest](the_plaid_api/models/credit_employment_get_request.py) \| [CreditEmploymentGetRequestDict](the_plaid_api/models/credit_employment_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6620,7 +7126,9 @@ The `/credit/freddie_mac/reports/get` endpoint retrieves the Verification of Ass
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_freddie_mac_reports_get(body)
+result = client.with_raw_response.credit_freddie_mac_reports_get(
+    CreditFreddieMacReportsGetRequest(audit_copy_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditFreddieMacReportsGetResponse
@@ -6631,7 +7139,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_freddie_mac_reports_get(body)
+result = await async_client.with_raw_response.credit_freddie_mac_reports_get(
+    CreditFreddieMacReportsGetRequest(audit_copy_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditFreddieMacReportsGetResponse
@@ -6650,7 +7160,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditFreddieMacReportsGetRequest](the_plaid_api/models/credit_freddie_mac_reports_get_request.py) \| [CreditFreddieMacReportsGetRequestDict](the_plaid_api/models/credit_freddie_mac_reports_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6698,7 +7208,7 @@ This endpoint gets payroll income information for a specific user, either as a r
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_payroll_income_get(body)
+result = client.with_raw_response.credit_payroll_income_get(CreditPayrollIncomeGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditPayrollIncomeGetResponse
@@ -6709,7 +7219,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_payroll_income_get(body)
+result = await async_client.with_raw_response.credit_payroll_income_get(CreditPayrollIncomeGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditPayrollIncomeGetResponse
@@ -6728,7 +7238,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditPayrollIncomeGetRequest](the_plaid_api/models/credit_payroll_income_get_request.py) \| [CreditPayrollIncomeGetRequestDict](the_plaid_api/models/credit_payroll_income_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6776,7 +7286,11 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_payroll_income_parsing_config_update(body)
+result = client.with_raw_response.credit_payroll_income_parsing_config_update(
+    CreditPayrollIncomeParsingConfigUpdateRequest(
+        user_token="some example string", parsing_config=[IncomeVerificationDocParsingConfig.OCR]
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditPayrollIncomeParsingConfigUpdateResponse
@@ -6787,7 +7301,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_payroll_income_parsing_config_update(body)
+result = await async_client.with_raw_response.credit_payroll_income_parsing_config_update(
+    CreditPayrollIncomeParsingConfigUpdateRequest(
+        user_token="some example string", parsing_config=[IncomeVerificationDocParsingConfig.OCR]
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditPayrollIncomeParsingConfigUpdateResponse
@@ -6806,7 +7324,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditPayrollIncomeParsingConfigUpdateRequest](the_plaid_api/models/credit_payroll_income_parsing_config_update_request.py) \| [CreditPayrollIncomeParsingConfigUpdateRequestDict](the_plaid_api/models/credit_payroll_income_parsing_config_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6858,7 +7376,7 @@ When testing in Sandbox, you can control the results by providing special test v
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_payroll_income_precheck(body)
+result = client.with_raw_response.credit_payroll_income_precheck(CreditPayrollIncomePrecheckRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditPayrollIncomePrecheckResponse
@@ -6869,7 +7387,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_payroll_income_precheck(body)
+result = await async_client.with_raw_response.credit_payroll_income_precheck(CreditPayrollIncomePrecheckRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditPayrollIncomePrecheckResponse
@@ -6888,7 +7406,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditPayrollIncomePrecheckRequest](the_plaid_api/models/credit_payroll_income_precheck_request.py) \| [CreditPayrollIncomePrecheckRequestDict](the_plaid_api/models/credit_payroll_income_precheck_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -6936,7 +7454,9 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_payroll_income_refresh(body)
+result = client.with_raw_response.credit_payroll_income_refresh(
+    CreditPayrollIncomeRefreshRequest(user_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditPayrollIncomeRefreshResponse
@@ -6947,7 +7467,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_payroll_income_refresh(body)
+result = await async_client.with_raw_response.credit_payroll_income_refresh(
+    CreditPayrollIncomeRefreshRequest(user_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditPayrollIncomeRefreshResponse
@@ -6966,7 +7488,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditPayrollIncomeRefreshRequest](the_plaid_api/models/credit_payroll_income_refresh_request.py) \| [CreditPayrollIncomeRefreshRequestDict](the_plaid_api/models/credit_payroll_income_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7018,7 +7540,7 @@ To trigger risk signal generation for an Item, call `/link/token/create` with `p
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_payroll_income_risk_signals_get(body)
+result = client.with_raw_response.credit_payroll_income_risk_signals_get(CreditPayrollIncomeRiskSignalsGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditPayrollIncomeRiskSignalsGetResponse
@@ -7029,7 +7551,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_payroll_income_risk_signals_get(body)
+result = await async_client.with_raw_response.credit_payroll_income_risk_signals_get(
+    CreditPayrollIncomeRiskSignalsGetRequest()
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditPayrollIncomeRiskSignalsGetResponse
@@ -7048,7 +7572,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditPayrollIncomeRiskSignalsGetRequest](the_plaid_api/models/credit_payroll_income_risk_signals_get_request.py) \| [CreditPayrollIncomeRiskSignalsGetRequestDict](the_plaid_api/models/credit_payroll_income_risk_signals_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7098,7 +7622,9 @@ To grant a third party access to an Asset Report, use the `/credit/relay/create`
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_relay_create(body)
+result = client.with_raw_response.credit_relay_create(
+    CreditRelayCreateRequest(report_tokens=["some example string"], secondary_client_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditRelayCreateResponse
@@ -7109,7 +7635,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_relay_create(body)
+result = await async_client.with_raw_response.credit_relay_create(
+    CreditRelayCreateRequest(report_tokens=["some example string"], secondary_client_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditRelayCreateResponse
@@ -7128,7 +7656,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditRelayCreateRequest](the_plaid_api/models/credit_relay_create_request.py) \| [CreditRelayCreateRequestDict](the_plaid_api/models/credit_relay_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7176,7 +7704,9 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_relay_get(body)
+result = client.with_raw_response.credit_relay_get(
+    CreditRelayGetRequest(relay_token="some example string", report_type=ReportType.ASSET)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportGetResponse
@@ -7187,7 +7717,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_relay_get(body)
+result = await async_client.with_raw_response.credit_relay_get(
+    CreditRelayGetRequest(relay_token="some example string", report_type=ReportType.ASSET)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type AssetReportGetResponse
@@ -7206,7 +7738,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditRelayGetRequest](the_plaid_api/models/credit_relay_get_request.py) \| [CreditRelayGetRequestDict](the_plaid_api/models/credit_relay_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7260,7 +7792,9 @@ The response to `/credit/relay/pdf/get` is the PDF binary data. The `request_id`
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_relay_pdf_get(body)
+result = client.with_raw_response.credit_relay_pdf_get(
+    CreditRelayPdfgetRequest(relay_token="some example string", report_type=ReportType.ASSET)
+)
 match result:
     case Success():
         ...  # 2xx, no content
@@ -7271,7 +7805,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_relay_pdf_get(body)
+result = await async_client.with_raw_response.credit_relay_pdf_get(
+    CreditRelayPdfgetRequest(relay_token="some example string", report_type=ReportType.ASSET)
+)
 match result:
     case Success():
         ...  # 2xx, no content
@@ -7290,7 +7826,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditRelayPdfgetRequest](the_plaid_api/models/credit_relay_pdfget_request.py) \| [CreditRelayPdfgetRequestDict](the_plaid_api/models/credit_relay_pdfget_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7338,7 +7874,9 @@ The `/credit/relay/refresh` endpoint allows third parties to refresh a report th
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_relay_refresh(body)
+result = client.with_raw_response.credit_relay_refresh(
+    CreditRelayRefreshRequest(relay_token="some example string", report_type=ReportType.ASSET)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditRelayRefreshResponse
@@ -7349,7 +7887,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_relay_refresh(body)
+result = await async_client.with_raw_response.credit_relay_refresh(
+    CreditRelayRefreshRequest(relay_token="some example string", report_type=ReportType.ASSET)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditRelayRefreshResponse
@@ -7368,7 +7908,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditRelayRefreshRequest](the_plaid_api/models/credit_relay_refresh_request.py) \| [CreditRelayRefreshRequestDict](the_plaid_api/models/credit_relay_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7416,7 +7956,7 @@ The `/credit/relay/remove` endpoint allows you to invalidate a `relay_token`. Th
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_relay_remove(body)
+result = client.with_raw_response.credit_relay_remove(CreditRelayRemoveRequest(relay_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditRelayRemoveResponse
@@ -7427,7 +7967,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_relay_remove(body)
+result = await async_client.with_raw_response.credit_relay_remove(
+    CreditRelayRemoveRequest(relay_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditRelayRemoveResponse
@@ -7446,7 +7988,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditRelayRemoveRequest](the_plaid_api/models/credit_relay_remove_request.py) \| [CreditRelayRemoveRequestDict](the_plaid_api/models/credit_relay_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7494,7 +8036,9 @@ The `/credit/audit_copy_token/remove` endpoint allows you to remove an Audit Cop
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_report_audit_copy_remove(body)
+result = client.with_raw_response.credit_report_audit_copy_remove(
+    CreditAuditCopyTokenRemoveRequest(audit_copy_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditAuditCopyTokenRemoveResponse
@@ -7505,7 +8049,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_report_audit_copy_remove(body)
+result = await async_client.with_raw_response.credit_report_audit_copy_remove(
+    CreditAuditCopyTokenRemoveRequest(audit_copy_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditAuditCopyTokenRemoveResponse
@@ -7524,7 +8070,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditAuditCopyTokenRemoveRequest](the_plaid_api/models/credit_audit_copy_token_remove_request.py) \| [CreditAuditCopyTokenRemoveRequestDict](the_plaid_api/models/credit_audit_copy_token_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7574,7 +8120,7 @@ These results include details about the Item that was created and some product r
 **Sync**
 
 ```python
-result = client.with_raw_response.credit_sessions_get(body)
+result = client.with_raw_response.credit_sessions_get(CreditSessionsGetRequest(user_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditSessionsGetResponse
@@ -7585,7 +8131,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.credit_sessions_get(body)
+result = await async_client.with_raw_response.credit_sessions_get(
+    CreditSessionsGetRequest(user_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type CreditSessionsGetResponse
@@ -7604,7 +8152,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[CreditSessionsGetRequest](the_plaid_api/models/credit_sessions_get_request.py) \| [CreditSessionsGetRequestDict](the_plaid_api/models/credit_sessions_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7652,7 +8200,7 @@ The `/dashboard_user/get` endpoint provides details (such as email address) abou
 **Sync**
 
 ```python
-result = client.with_raw_response.dashboard_user_get(body)
+result = client.with_raw_response.dashboard_user_get(DashboardUserGetRequest(dashboard_user_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type DashboardUserGetResponse
@@ -7663,7 +8211,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.dashboard_user_get(body)
+result = await async_client.with_raw_response.dashboard_user_get(
+    DashboardUserGetRequest(dashboard_user_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type DashboardUserGetResponse
@@ -7682,7 +8232,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[DashboardUserGetRequest](the_plaid_api/models/dashboard_user_get_request.py) \| [DashboardUserGetRequestDict](the_plaid_api/models/dashboard_user_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7730,7 +8280,7 @@ The `/dashboard_user/list` endpoint provides details (such as email address) abo
 **Sync**
 
 ```python
-result = client.with_raw_response.dashboard_user_list(body)
+result = client.with_raw_response.dashboard_user_list(DashboardUserListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type DashboardUserListResponse
@@ -7741,7 +8291,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.dashboard_user_list(body)
+result = await async_client.with_raw_response.dashboard_user_list(DashboardUserListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type DashboardUserListResponse
@@ -7760,7 +8310,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[DashboardUserListRequest](the_plaid_api/models/dashboard_user_list_request.py) \| [DashboardUserListRequestDict](the_plaid_api/models/dashboard_user_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7810,7 +8360,9 @@ The data in the employer database is currently limited. As the Deposit Switch an
 **Sync**
 
 ```python
-result = client.with_raw_response.employers_search(body)
+result = client.with_raw_response.employers_search(
+    EmployersSearchRequest(query="some example string", products=["some example string"])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type EmployersSearchResponse
@@ -7821,7 +8373,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.employers_search(body)
+result = await async_client.with_raw_response.employers_search(
+    EmployersSearchRequest(query="some example string", products=["some example string"])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type EmployersSearchResponse
@@ -7840,7 +8394,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[EmployersSearchRequest](the_plaid_api/models/employers_search_request.py) \| [EmployersSearchRequestDict](the_plaid_api/models/employers_search_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7890,7 +8444,9 @@ This endpoint has been deprecated; new integrations should use `/credit/employme
 **Sync**
 
 ```python
-result = client.with_raw_response.employment_verification_get(body)
+result = client.with_raw_response.employment_verification_get(
+    EmploymentVerificationGetRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type EmploymentVerificationGetResponse
@@ -7901,7 +8457,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.employment_verification_get(body)
+result = await async_client.with_raw_response.employment_verification_get(
+    EmploymentVerificationGetRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type EmploymentVerificationGetResponse
@@ -7920,7 +8478,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[EmploymentVerificationGetRequest](the_plaid_api/models/employment_verification_get_request.py) \| [EmploymentVerificationGetRequestDict](the_plaid_api/models/employment_verification_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -7968,7 +8526,7 @@ Returns a consent grant by its identifier
 **Sync**
 
 ```python
-result = client.with_raw_response.fdx_consents_get(consent_id)
+result = client.with_raw_response.fdx_consents_get("some example string")
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type FdxconsentGrant
@@ -7979,7 +8537,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.fdx_consents_get(consent_id)
+result = await async_client.with_raw_response.fdx_consents_get("some example string")
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type FdxconsentGrant
@@ -7998,7 +8556,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>consent_id</code> | <code>str</code> | Consent Grant Identifier. Uniquely identifies the consent grant |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8046,7 +8604,7 @@ Returns zero or more consent grants associated with the given data provider cust
 **Sync**
 
 ```python
-result = client.with_raw_response.fdx_consents_list(customer_id)
+result = client.with_raw_response.fdx_consents_list("some example string")
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type GetConsentsResponse
@@ -8057,7 +8615,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.fdx_consents_list(customer_id)
+result = await async_client.with_raw_response.fdx_consents_list("some example string")
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type GetConsentsResponse
@@ -8077,7 +8635,7 @@ match result:
 | --- | --- | --- |
 | <code>customer_id</code> | <code>str</code> | Data provider customer identifier whose consent grants to return. |
 | <code>status</code> | <code>[FdxConsentGrantStatusOrStr](the_plaid_api/models/enums/fdx_consent_grant_status.py) \| None</code> | Optional filter restricting results to a single consent grant status. One of `ACTIVE`, `REVOKED`, `EXPIRED`.<br>**Default**: <code>None</code> |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8125,7 +8683,7 @@ Returns the revocation history of a consent grant
 **Sync**
 
 ```python
-result = client.with_raw_response.fdx_consents_revocation_get(consent_id)
+result = client.with_raw_response.fdx_consents_revocation_get("some example string")
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type FdxconsentRevocations
@@ -8136,7 +8694,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.fdx_consents_revocation_get(consent_id)
+result = await async_client.with_raw_response.fdx_consents_revocation_get("some example string")
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type FdxconsentRevocations
@@ -8155,7 +8713,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>consent_id</code> | <code>str</code> | Consent Grant Identifier. Uniquely identifies the consent grant |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8203,7 +8761,10 @@ Appends a REVOKED status record to the named consent grant
 **Sync**
 
 ```python
-result = client.with_raw_response.fdx_consents_revoke(consent_id, body)
+result = client.with_raw_response.fdx_consents_revoke(
+    "some example string",
+    FdxconsentRevocation(initiator=PartyType.DATA_ACCESS_PLATFORM, reason=FdxUpdateReason.BUSINESS_RULE),
+)
 match result:
     case Success():
         ...  # 2xx, no content
@@ -8214,7 +8775,10 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.fdx_consents_revoke(consent_id, body)
+result = await async_client.with_raw_response.fdx_consents_revoke(
+    "some example string",
+    FdxconsentRevocation(initiator=PartyType.DATA_ACCESS_PLATFORM, reason=FdxUpdateReason.BUSINESS_RULE),
+)
 match result:
     case Success():
         ...  # 2xx, no content
@@ -8234,7 +8798,7 @@ match result:
 | --- | --- | --- |
 | <code>consent_id</code> | <code>str</code> | Consent Grant Identifier. Uniquely identifies the consent grant |
 | <code>body</code> | <code>[FdxconsentRevocation](the_plaid_api/models/fdxconsent_revocation.py) \| [FdxconsentRevocationDict](the_plaid_api/models/fdxconsent_revocation.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8282,7 +8846,15 @@ A generic webhook receiver endpoint for FDX Event Notifications
 **Sync**
 
 ```python
-result = client.with_raw_response.fdx_notifications(body)
+result = client.with_raw_response.fdx_notifications(
+    FdxNotificationEntity(
+        notification_id="some example string",
+        type_=NotificationType.ACCOUNT_TAKEOVER,
+        sent_on=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc),
+        category=NotificationCategory.SECURITY,
+        notification_payload=NotificationPayloadEntity(),
+    ),
+)
 match result:
     case Success():
         ...  # 2xx, no content
@@ -8293,7 +8865,15 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.fdx_notifications(body)
+result = await async_client.with_raw_response.fdx_notifications(
+    FdxNotificationEntity(
+        notification_id="some example string",
+        type_=NotificationType.ACCOUNT_TAKEOVER,
+        sent_on=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc),
+        category=NotificationCategory.SECURITY,
+        notification_payload=NotificationPayloadEntity(),
+    ),
+)
 match result:
     case Success():
         ...  # 2xx, no content
@@ -8312,7 +8892,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[FdxNotificationEntity](the_plaid_api/models/fdx_notification_entity.py) \| [FdxNotificationEntityDict](the_plaid_api/models/fdx_notification_entity.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8360,7 +8940,7 @@ Get a specific recipient
 **Sync**
 
 ```python
-result = client.with_raw_response.get_recipient(recipient_id)
+result = client.with_raw_response.get_recipient("some example string")
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type FdxrecipientMetadata
@@ -8371,7 +8951,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.get_recipient(recipient_id)
+result = await async_client.with_raw_response.get_recipient("some example string")
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type FdxrecipientMetadata
@@ -8391,7 +8971,7 @@ match result:
 | --- | --- | --- |
 | <code>recipient_id</code> | <code>str</code> | Recipient Identifier. Uniquely identifies the recipient |
 | <code>oauth_state_id</code> | <code>str \| None</code> | The value that is passed into the OAuth URI 'state' query parameter.<br>**Default**: <code>None</code> |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8468,7 +9048,7 @@ match result:
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8516,7 +9096,9 @@ Use `/identity/documents/uploads/get` to retrieve identity details when using [I
 **Sync**
 
 ```python
-result = client.with_raw_response.identity_documents_uploads_get(body)
+result = client.with_raw_response.identity_documents_uploads_get(
+    IdentityDocumentsUploadsGetRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IdentityDocumentsUploadsGetResponse
@@ -8527,7 +9109,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.identity_documents_uploads_get(body)
+result = await async_client.with_raw_response.identity_documents_uploads_get(
+    IdentityDocumentsUploadsGetRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IdentityDocumentsUploadsGetResponse
@@ -8546,7 +9130,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IdentityDocumentsUploadsGetRequest](the_plaid_api/models/identity_documents_uploads_get_request.py) \| [IdentityDocumentsUploadsGetRequestDict](the_plaid_api/models/identity_documents_uploads_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8596,7 +9180,7 @@ Note: In API versions 2018-05-22 and earlier, the `owners` object is not returne
 **Sync**
 
 ```python
-result = client.with_raw_response.identity_get(body)
+result = client.with_raw_response.identity_get(IdentityGetRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IdentityGetResponse
@@ -8607,7 +9191,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.identity_get(body)
+result = await async_client.with_raw_response.identity_get(IdentityGetRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IdentityGetResponse
@@ -8626,7 +9210,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IdentityGetRequest](the_plaid_api/models/identity_get_request.py) \| [IdentityGetRequestDict](the_plaid_api/models/identity_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8676,7 +9260,7 @@ Fields within the `balances` object will always be null when retrieved by `/iden
 **Sync**
 
 ```python
-result = client.with_raw_response.identity_match(body)
+result = client.with_raw_response.identity_match(IdentityMatchRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IdentityMatchResponse
@@ -8687,7 +9271,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.identity_match(body)
+result = await async_client.with_raw_response.identity_match(IdentityMatchRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IdentityMatchResponse
@@ -8706,7 +9290,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IdentityMatchRequest](the_plaid_api/models/identity_match_request.py) \| [IdentityMatchRequestDict](the_plaid_api/models/identity_match_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8758,7 +9342,7 @@ As this endpoint triggers a synchronous request for fresh data, latency may be h
 **Sync**
 
 ```python
-result = client.with_raw_response.identity_refresh(body)
+result = client.with_raw_response.identity_refresh(IdentityRefreshRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IdentityRefreshResponse
@@ -8769,7 +9353,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.identity_refresh(body)
+result = await async_client.with_raw_response.identity_refresh(
+    IdentityRefreshRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IdentityRefreshResponse
@@ -8788,7 +9374,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IdentityRefreshRequest](the_plaid_api/models/identity_refresh_request.py) \| [IdentityRefreshRequestDict](the_plaid_api/models/identity_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8836,7 +9422,9 @@ Try to autofill an Identity Verification based on the provided phone number, dat
 **Sync**
 
 ```python
-result = client.with_raw_response.identity_verification_autofill_create(body)
+result = client.with_raw_response.identity_verification_autofill_create(
+    IdentityVerificationAutofillCreateRequest(identity_verification_id="flwses_42cF1MNo42r9Xj")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IdentityVerificationAutofillCreateResponse
@@ -8847,7 +9435,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.identity_verification_autofill_create(body)
+result = await async_client.with_raw_response.identity_verification_autofill_create(
+    IdentityVerificationAutofillCreateRequest(identity_verification_id="flwses_42cF1MNo42r9Xj")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IdentityVerificationAutofillCreateResponse
@@ -8866,7 +9456,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IdentityVerificationAutofillCreateRequest](the_plaid_api/models/identity_verification_autofill_create_request.py) \| [IdentityVerificationAutofillCreateRequestDict](the_plaid_api/models/identity_verification_autofill_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8919,7 +9509,9 @@ If `user_id` is not provided, you can also use this endpoint to supply informati
 **Sync**
 
 ```python
-result = client.with_raw_response.identity_verification_create(body)
+result = client.with_raw_response.identity_verification_create(
+    IdentityVerificationCreateRequest(is_shareable=True, template_id="some example string", gave_consent=True)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IdentityVerificationCreateResponse
@@ -8930,7 +9522,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.identity_verification_create(body)
+result = await async_client.with_raw_response.identity_verification_create(
+    IdentityVerificationCreateRequest(is_shareable=True, template_id="some example string", gave_consent=True)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IdentityVerificationCreateResponse
@@ -8949,7 +9543,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IdentityVerificationCreateRequest](the_plaid_api/models/identity_verification_create_request.py) \| [IdentityVerificationCreateRequestDict](the_plaid_api/models/identity_verification_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -8997,7 +9591,9 @@ Retrieve a previously created Identity Verification.
 **Sync**
 
 ```python
-result = client.with_raw_response.identity_verification_get(body)
+result = client.with_raw_response.identity_verification_get(
+    IdentityVerificationGetRequest(identity_verification_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IdentityVerificationGetResponse
@@ -9008,7 +9604,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.identity_verification_get(body)
+result = await async_client.with_raw_response.identity_verification_get(
+    IdentityVerificationGetRequest(identity_verification_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IdentityVerificationGetResponse
@@ -9027,7 +9625,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IdentityVerificationGetRequest](the_plaid_api/models/identity_verification_get_request.py) \| [IdentityVerificationGetRequestDict](the_plaid_api/models/identity_verification_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9075,7 +9673,9 @@ Filter and list Identity Verifications created by your account
 **Sync**
 
 ```python
-result = client.with_raw_response.identity_verification_list(body)
+result = client.with_raw_response.identity_verification_list(
+    IdentityVerificationListRequest(template_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IdentityVerificationListResponse
@@ -9086,7 +9686,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.identity_verification_list(body)
+result = await async_client.with_raw_response.identity_verification_list(
+    IdentityVerificationListRequest(template_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IdentityVerificationListResponse
@@ -9105,7 +9707,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IdentityVerificationListRequest](the_plaid_api/models/identity_verification_list_request.py) \| [IdentityVerificationListRequestDict](the_plaid_api/models/identity_verification_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9153,7 +9755,11 @@ Allow a customer to retry their Identity Verification
 **Sync**
 
 ```python
-result = client.with_raw_response.identity_verification_retry(body)
+result = client.with_raw_response.identity_verification_retry(
+    IdentityVerificationRetryRequest(
+        client_user_id="some example string", template_id="some example string", strategy=Strategy.RESET
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IdentityVerificationRetryResponse
@@ -9164,7 +9770,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.identity_verification_retry(body)
+result = await async_client.with_raw_response.identity_verification_retry(
+    IdentityVerificationRetryRequest(
+        client_user_id="some example string", template_id="some example string", strategy=Strategy.RESET
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IdentityVerificationRetryResponse
@@ -9183,7 +9793,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IdentityVerificationRetryRequest](the_plaid_api/models/identity_verification_retry_request.py) \| [IdentityVerificationRetryRequestDict](the_plaid_api/models/identity_verification_retry_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9231,7 +9841,9 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.income_verification_create(body)
+result = client.with_raw_response.income_verification_create(
+    IncomeVerificationCreateRequest(webhook="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IncomeVerificationCreateResponse
@@ -9242,7 +9854,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.income_verification_create(body)
+result = await async_client.with_raw_response.income_verification_create(
+    IncomeVerificationCreateRequest(webhook="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IncomeVerificationCreateResponse
@@ -9261,7 +9875,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IncomeVerificationCreateRequest](the_plaid_api/models/income_verification_create_request.py) \| [IncomeVerificationCreateRequestDict](the_plaid_api/models/income_verification_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9316,7 +9930,7 @@ The `request_id` is returned in the `Plaid-Request-ID` header.
 **Sync**
 
 ```python
-result = client.with_raw_response.income_verification_documents_download(body)
+result = client.with_raw_response.income_verification_documents_download(IncomeVerificationDocumentsDownloadRequest())
 match result:
     case Success():
         ...  # 2xx, no content
@@ -9327,7 +9941,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.income_verification_documents_download(body)
+result = await async_client.with_raw_response.income_verification_documents_download(
+    IncomeVerificationDocumentsDownloadRequest()
+)
 match result:
     case Success():
         ...  # 2xx, no content
@@ -9346,7 +9962,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IncomeVerificationDocumentsDownloadRequest](the_plaid_api/models/income_verification_documents_download_request.py) \| [IncomeVerificationDocumentsDownloadRequestDict](the_plaid_api/models/income_verification_documents_download_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9396,7 +10012,7 @@ This endpoint has been deprecated; new integrations should use `/credit/payroll_
 **Sync**
 
 ```python
-result = client.with_raw_response.income_verification_paystubs_get(body)
+result = client.with_raw_response.income_verification_paystubs_get(IncomeVerificationPaystubsGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IncomeVerificationPaystubsGetResponse
@@ -9407,7 +10023,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.income_verification_paystubs_get(body)
+result = await async_client.with_raw_response.income_verification_paystubs_get(IncomeVerificationPaystubsGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IncomeVerificationPaystubsGetResponse
@@ -9426,7 +10042,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IncomeVerificationPaystubsGetRequest](the_plaid_api/models/income_verification_paystubs_get_request.py) \| [IncomeVerificationPaystubsGetRequestDict](the_plaid_api/models/income_verification_paystubs_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9478,7 +10094,7 @@ This endpoint has been deprecated; new integrations should use `/credit/payroll_
 **Sync**
 
 ```python
-result = client.with_raw_response.income_verification_precheck(body)
+result = client.with_raw_response.income_verification_precheck(IncomeVerificationPrecheckRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IncomeVerificationPrecheckResponse
@@ -9489,7 +10105,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.income_verification_precheck(body)
+result = await async_client.with_raw_response.income_verification_precheck(IncomeVerificationPrecheckRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IncomeVerificationPrecheckResponse
@@ -9508,7 +10124,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IncomeVerificationPrecheckRequest](the_plaid_api/models/income_verification_precheck_request.py) \| [IncomeVerificationPrecheckRequestDict](the_plaid_api/models/income_verification_precheck_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9558,7 +10174,7 @@ This endpoint has been deprecated; new integrations should use `/credit/payroll_
 **Sync**
 
 ```python
-result = client.with_raw_response.income_verification_taxforms_get(body)
+result = client.with_raw_response.income_verification_taxforms_get(IncomeVerificationTaxformsGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IncomeVerificationTaxformsGetResponse
@@ -9569,7 +10185,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.income_verification_taxforms_get(body)
+result = await async_client.with_raw_response.income_verification_taxforms_get(IncomeVerificationTaxformsGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IncomeVerificationTaxformsGetResponse
@@ -9588,7 +10204,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IncomeVerificationTaxformsGetRequest](the_plaid_api/models/income_verification_taxforms_get_request.py) \| [IncomeVerificationTaxformsGetRequestDict](the_plaid_api/models/income_verification_taxforms_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9638,7 +10254,9 @@ If there is no overlap between an institution's enabled products and a client's 
 **Sync**
 
 ```python
-result = client.with_raw_response.institutions_get(body)
+result = client.with_raw_response.institutions_get(
+    InstitutionsGetRequest(count=1, offset=1, country_codes=[CountryCode.US])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type InstitutionsGetResponse
@@ -9649,7 +10267,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.institutions_get(body)
+result = await async_client.with_raw_response.institutions_get(
+    InstitutionsGetRequest(count=1, offset=1, country_codes=[CountryCode.US])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type InstitutionsGetResponse
@@ -9668,7 +10288,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[InstitutionsGetRequest](the_plaid_api/models/institutions_get_request.py) \| [InstitutionsGetRequestDict](the_plaid_api/models/institutions_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9718,7 +10338,9 @@ Versioning note: API versions 2019-05-29 and earlier allow use of the `public_ke
 **Sync**
 
 ```python
-result = client.with_raw_response.institutions_get_by_id(body)
+result = client.with_raw_response.institutions_get_by_id(
+    InstitutionsGetByIdRequest(institution_id="some example string", country_codes=[CountryCode.US])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type InstitutionsGetByIdResponse
@@ -9729,7 +10351,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.institutions_get_by_id(body)
+result = await async_client.with_raw_response.institutions_get_by_id(
+    InstitutionsGetByIdRequest(institution_id="some example string", country_codes=[CountryCode.US])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type InstitutionsGetByIdResponse
@@ -9748,7 +10372,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[InstitutionsGetByIdRequest](the_plaid_api/models/institutions_get_by_id_request.py) \| [InstitutionsGetByIdRequestDict](the_plaid_api/models/institutions_get_by_id_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9798,7 +10422,9 @@ Versioning note: API versions 2019-05-29 and earlier allow use of the `public_ke
 **Sync**
 
 ```python
-result = client.with_raw_response.institutions_search(body)
+result = client.with_raw_response.institutions_search(
+    InstitutionsSearchRequest(query="some example string", country_codes=[CountryCode.US])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type InstitutionsSearchResponse
@@ -9809,7 +10435,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.institutions_search(body)
+result = await async_client.with_raw_response.institutions_search(
+    InstitutionsSearchRequest(query="some example string", country_codes=[CountryCode.US])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type InstitutionsSearchResponse
@@ -9828,7 +10456,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[InstitutionsSearchRequest](the_plaid_api/models/institutions_search_request.py) \| [InstitutionsSearchRequestDict](the_plaid_api/models/institutions_search_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9876,7 +10504,7 @@ The `/investments/auth/get` endpoint allows developers to receive user-authorize
 **Sync**
 
 ```python
-result = client.with_raw_response.investments_auth_get(body)
+result = client.with_raw_response.investments_auth_get(InvestmentsAuthGetRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type InvestmentsAuthGetResponse
@@ -9887,7 +10515,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.investments_auth_get(body)
+result = await async_client.with_raw_response.investments_auth_get(
+    InvestmentsAuthGetRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type InvestmentsAuthGetResponse
@@ -9906,7 +10536,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[InvestmentsAuthGetRequest](the_plaid_api/models/investments_auth_get_request.py) \| [InvestmentsAuthGetRequestDict](the_plaid_api/models/investments_auth_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -9954,7 +10584,9 @@ The `/investments/holdings/get` endpoint allows developers to receive user-autho
 **Sync**
 
 ```python
-result = client.with_raw_response.investments_holdings_get(body)
+result = client.with_raw_response.investments_holdings_get(
+    InvestmentsHoldingsGetRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type InvestmentsHoldingsGetResponse
@@ -9965,7 +10597,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.investments_holdings_get(body)
+result = await async_client.with_raw_response.investments_holdings_get(
+    InvestmentsHoldingsGetRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type InvestmentsHoldingsGetResponse
@@ -9984,7 +10618,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[InvestmentsHoldingsGetRequest](the_plaid_api/models/investments_holdings_get_request.py) \| [InvestmentsHoldingsGetRequestDict](the_plaid_api/models/investments_holdings_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10036,7 +10670,7 @@ As this endpoint triggers a synchronous request for fresh data, latency may be h
 **Sync**
 
 ```python
-result = client.with_raw_response.investments_refresh(body)
+result = client.with_raw_response.investments_refresh(InvestmentsRefreshRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type InvestmentsRefreshResponse
@@ -10047,7 +10681,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.investments_refresh(body)
+result = await async_client.with_raw_response.investments_refresh(
+    InvestmentsRefreshRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type InvestmentsRefreshResponse
@@ -10066,7 +10702,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[InvestmentsRefreshRequest](the_plaid_api/models/investments_refresh_request.py) \| [InvestmentsRefreshRequestDict](the_plaid_api/models/investments_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10122,7 +10758,11 @@ Data returned by the asynchronous investments extraction flow (when `async_updat
 **Sync**
 
 ```python
-result = client.with_raw_response.investments_transactions_get(body)
+result = client.with_raw_response.investments_transactions_get(
+    InvestmentsTransactionsGetRequest(
+        access_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15)
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type InvestmentsTransactionsGetResponse
@@ -10133,7 +10773,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.investments_transactions_get(body)
+result = await async_client.with_raw_response.investments_transactions_get(
+    InvestmentsTransactionsGetRequest(
+        access_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15)
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type InvestmentsTransactionsGetResponse
@@ -10152,7 +10796,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[InvestmentsTransactionsGetRequest](the_plaid_api/models/investments_transactions_get_request.py) \| [InvestmentsTransactionsGetRequestDict](the_plaid_api/models/investments_transactions_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10200,7 +10844,7 @@ Retrieve detailed information about a specific `Issue`. This endpoint returns a 
 **Sync**
 
 ```python
-result = client.with_raw_response.issues_get(body)
+result = client.with_raw_response.issues_get(IssuesGetRequest(issue_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IssuesGetResponse
@@ -10211,7 +10855,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.issues_get(body)
+result = await async_client.with_raw_response.issues_get(IssuesGetRequest(issue_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IssuesGetResponse
@@ -10230,7 +10874,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IssuesGetRequest](the_plaid_api/models/issues_get_request.py) \| [IssuesGetRequestDict](the_plaid_api/models/issues_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10278,7 +10922,7 @@ Search for an issue associated with one of the following identifiers:  `item_id`
 **Sync**
 
 ```python
-result = client.with_raw_response.issues_search(body)
+result = client.with_raw_response.issues_search(IssuesSearchRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IssuesSearchResponse
@@ -10289,7 +10933,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.issues_search(body)
+result = await async_client.with_raw_response.issues_search(IssuesSearchRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IssuesSearchResponse
@@ -10308,7 +10952,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IssuesSearchRequest](the_plaid_api/models/issues_search_request.py) \| [IssuesSearchRequestDict](the_plaid_api/models/issues_search_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10356,7 +11000,9 @@ Allows a user to subscribe to updates on a specific `Issue` using a POST method.
 **Sync**
 
 ```python
-result = client.with_raw_response.issues_subscribe(body)
+result = client.with_raw_response.issues_subscribe(
+    IssuesSubscribeRequest(issue_id="some example string", webhook="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IssuesSubscribeResponse
@@ -10367,7 +11013,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.issues_subscribe(body)
+result = await async_client.with_raw_response.issues_subscribe(
+    IssuesSubscribeRequest(issue_id="some example string", webhook="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type IssuesSubscribeResponse
@@ -10386,7 +11034,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[IssuesSubscribeRequest](the_plaid_api/models/issues_subscribe_request.py) \| [IssuesSubscribeRequestDict](the_plaid_api/models/issues_subscribe_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10436,7 +11084,9 @@ You can use the `/item/access_token/invalidate` endpoint to rotate the `access_t
 **Sync**
 
 ```python
-result = client.with_raw_response.item_access_token_invalidate(body)
+result = client.with_raw_response.item_access_token_invalidate(
+    ItemAccessTokenInvalidateRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemAccessTokenInvalidateResponse
@@ -10447,7 +11097,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.item_access_token_invalidate(body)
+result = await async_client.with_raw_response.item_access_token_invalidate(
+    ItemAccessTokenInvalidateRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemAccessTokenInvalidateResponse
@@ -10466,7 +11118,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemAccessTokenInvalidateRequest](the_plaid_api/models/item_access_token_invalidate_request.py) \| [ItemAccessTokenInvalidateRequestDict](the_plaid_api/models/item_access_token_invalidate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10514,7 +11166,7 @@ List a historical log of user consent events
 **Sync**
 
 ```python
-result = client.with_raw_response.item_activity_list(body)
+result = client.with_raw_response.item_activity_list(ItemActivityListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemActivityListResponse
@@ -10525,7 +11177,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.item_activity_list(body)
+result = await async_client.with_raw_response.item_activity_list(ItemActivityListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemActivityListResponse
@@ -10544,7 +11196,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemActivityListRequest](the_plaid_api/models/item_activity_list_request.py) \| [ItemActivityListRequestDict](the_plaid_api/models/item_activity_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10592,7 +11244,7 @@ List a user's connected applications
 **Sync**
 
 ```python
-result = client.with_raw_response.item_application_list(body)
+result = client.with_raw_response.item_application_list(ItemApplicationListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemApplicationListResponse
@@ -10603,7 +11255,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.item_application_list(body)
+result = await async_client.with_raw_response.item_application_list(ItemApplicationListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemApplicationListResponse
@@ -10622,7 +11274,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemApplicationListRequest](the_plaid_api/models/item_application_list_request.py) \| [ItemApplicationListRequestDict](the_plaid_api/models/item_application_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10670,7 +11322,14 @@ Enable consumers to update product access on selected accounts for an applicatio
 **Sync**
 
 ```python
-result = client.with_raw_response.item_application_scopes_update(body)
+result = client.with_raw_response.item_application_scopes_update(
+    ItemApplicationScopesUpdateRequest(
+        access_token="some example string",
+        application_id="some example string",
+        scopes=Scopes(),
+        context=ScopesContext.ENROLLMENT,
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemApplicationScopesUpdateResponse
@@ -10681,7 +11340,14 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.item_application_scopes_update(body)
+result = await async_client.with_raw_response.item_application_scopes_update(
+    ItemApplicationScopesUpdateRequest(
+        access_token="some example string",
+        application_id="some example string",
+        scopes=Scopes(),
+        context=ScopesContext.ENROLLMENT,
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemApplicationScopesUpdateResponse
@@ -10700,7 +11366,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemApplicationScopesUpdateRequest](the_plaid_api/models/item_application_scopes_update_request.py) \| [ItemApplicationScopesUpdateRequestDict](the_plaid_api/models/item_application_scopes_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10752,7 +11418,9 @@ This endpoint should be called in real time as the User is unlinking an Applicat
 **Sync**
 
 ```python
-result = client.with_raw_response.item_application_unlink(body)
+result = client.with_raw_response.item_application_unlink(
+    ItemApplicationUnlinkRequest(access_token="some example string", application_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemApplicationUnlinkResponse
@@ -10763,7 +11431,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.item_application_unlink(body)
+result = await async_client.with_raw_response.item_application_unlink(
+    ItemApplicationUnlinkRequest(access_token="some example string", application_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemApplicationUnlinkResponse
@@ -10782,7 +11452,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemApplicationUnlinkRequest](the_plaid_api/models/item_application_unlink_request.py) \| [ItemApplicationUnlinkRequestDict](the_plaid_api/models/item_application_unlink_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10836,7 +11506,9 @@ The `/item/public_token/create` endpoint is **not** used to create your initial 
 **Sync**
 
 ```python
-result = client.with_raw_response.item_create_public_token(body)
+result = client.with_raw_response.item_create_public_token(
+    ItemPublicTokenCreateRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemPublicTokenCreateResponse
@@ -10847,7 +11519,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.item_create_public_token(body)
+result = await async_client.with_raw_response.item_create_public_token(
+    ItemPublicTokenCreateRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemPublicTokenCreateResponse
@@ -10866,7 +11540,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemPublicTokenCreateRequest](the_plaid_api/models/item_public_token_create_request.py) \| [ItemPublicTokenCreateRequestDict](the_plaid_api/models/item_public_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10914,7 +11588,7 @@ Returns information about the status of an Item.
 **Sync**
 
 ```python
-result = client.with_raw_response.item_get(body)
+result = client.with_raw_response.item_get(ItemGetRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemGetResponse
@@ -10925,7 +11599,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.item_get(body)
+result = await async_client.with_raw_response.item_get(ItemGetRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemGetResponse
@@ -10944,7 +11618,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemGetRequest](the_plaid_api/models/item_get_request.py) \| [ItemGetRequestDict](the_plaid_api/models/item_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -10994,7 +11668,12 @@ Upon creating an Item via `/item/import`, Plaid will automatically begin an extr
 **Sync**
 
 ```python
-result = client.with_raw_response.item_import(body)
+result = client.with_raw_response.item_import(
+    ItemImportRequest(
+        products=[Products.ASSETS],
+        user_auth=ItemImportRequestUserAuth(user_id="some example string", auth_token="some example string"),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemImportResponse
@@ -11005,7 +11684,12 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.item_import(body)
+result = await async_client.with_raw_response.item_import(
+    ItemImportRequest(
+        products=[Products.ASSETS],
+        user_auth=ItemImportRequestUserAuth(user_id="some example string", auth_token="some example string"),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemImportResponse
@@ -11024,7 +11708,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemImportRequest](the_plaid_api/models/item_import_request.py) \| [ItemImportRequestDict](the_plaid_api/models/item_import_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11074,7 +11758,11 @@ The `/item/products/terminate` endpoint allows you to terminate an Item. Once te
 **Sync**
 
 ```python
-result = client.with_raw_response.item_products_terminate(body)
+result = client.with_raw_response.item_products_terminate(
+    ItemProductsTerminateRequest(
+        access_token="some example string", reason_code=ProductsTerminateReasonCode.FRAUD_FIRST_PARTY
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemProductsTerminateResponse
@@ -11085,7 +11773,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.item_products_terminate(body)
+result = await async_client.with_raw_response.item_products_terminate(
+    ItemProductsTerminateRequest(
+        access_token="some example string", reason_code=ProductsTerminateReasonCode.FRAUD_FIRST_PARTY
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemProductsTerminateResponse
@@ -11104,7 +11796,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemProductsTerminateRequest](the_plaid_api/models/item_products_terminate_request.py) \| [ItemProductsTerminateRequestDict](the_plaid_api/models/item_products_terminate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11154,7 +11846,9 @@ The response also includes an `item_id` that should be stored with the `access_t
 **Sync**
 
 ```python
-result = client.with_raw_response.item_public_token_exchange(body)
+result = client.with_raw_response.item_public_token_exchange(
+    ItemPublicTokenExchangeRequest(public_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemPublicTokenExchangeResponse
@@ -11165,7 +11859,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.item_public_token_exchange(body)
+result = await async_client.with_raw_response.item_public_token_exchange(
+    ItemPublicTokenExchangeRequest(public_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemPublicTokenExchangeResponse
@@ -11184,7 +11880,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemPublicTokenExchangeRequest](the_plaid_api/models/item_public_token_exchange_request.py) \| [ItemPublicTokenExchangeRequestDict](the_plaid_api/models/item_public_token_exchange_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11242,7 +11938,7 @@ API versions 2019-05-29 and earlier return a `removed` boolean as part of the re
 **Sync**
 
 ```python
-result = client.with_raw_response.item_remove(body)
+result = client.with_raw_response.item_remove(ItemRemoveRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemRemoveResponse
@@ -11253,7 +11949,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.item_remove(body)
+result = await async_client.with_raw_response.item_remove(ItemRemoveRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemRemoveResponse
@@ -11272,7 +11968,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemRemoveRequest](the_plaid_api/models/item_remove_request.py) \| [ItemRemoveRequestDict](the_plaid_api/models/item_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11320,7 +12016,7 @@ The POST `/item/webhook/update` allows you to update the webhook URL associated 
 **Sync**
 
 ```python
-result = client.with_raw_response.item_webhook_update(body)
+result = client.with_raw_response.item_webhook_update(ItemWebhookUpdateRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemWebhookUpdateResponse
@@ -11331,7 +12027,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.item_webhook_update(body)
+result = await async_client.with_raw_response.item_webhook_update(
+    ItemWebhookUpdateRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ItemWebhookUpdateResponse
@@ -11350,7 +12048,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ItemWebhookUpdateRequest](the_plaid_api/models/item_webhook_update_request.py) \| [ItemWebhookUpdateRequestDict](the_plaid_api/models/item_webhook_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11400,7 +12098,7 @@ The types of information returned by Liabilities can include balances and due da
 **Sync**
 
 ```python
-result = client.with_raw_response.liabilities_get(body)
+result = client.with_raw_response.liabilities_get(LiabilitiesGetRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type LiabilitiesGetResponse
@@ -11411,7 +12109,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.liabilities_get(body)
+result = await async_client.with_raw_response.liabilities_get(LiabilitiesGetRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type LiabilitiesGetResponse
@@ -11430,7 +12128,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[LiabilitiesGetRequest](the_plaid_api/models/liabilities_get_request.py) \| [LiabilitiesGetRequestDict](the_plaid_api/models/liabilities_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11478,7 +12176,7 @@ Use the `/link_delivery/create` endpoint to create a Hosted Link session.
 **Sync**
 
 ```python
-result = client.with_raw_response.link_delivery_create(body)
+result = client.with_raw_response.link_delivery_create(LinkDeliveryCreateRequest(link_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type LinkDeliveryCreateResponse
@@ -11489,7 +12187,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.link_delivery_create(body)
+result = await async_client.with_raw_response.link_delivery_create(
+    LinkDeliveryCreateRequest(link_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type LinkDeliveryCreateResponse
@@ -11508,7 +12208,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[LinkDeliveryCreateRequest](the_plaid_api/models/link_delivery_create_request.py) \| [LinkDeliveryCreateRequestDict](the_plaid_api/models/link_delivery_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11556,7 +12256,9 @@ Use the `/link_delivery/get` endpoint to get the status of a Hosted Link session
 **Sync**
 
 ```python
-result = client.with_raw_response.link_delivery_get(body)
+result = client.with_raw_response.link_delivery_get(
+    LinkDeliveryGetRequest(link_delivery_session_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type LinkDeliveryGetResponse
@@ -11567,7 +12269,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.link_delivery_get(body)
+result = await async_client.with_raw_response.link_delivery_get(
+    LinkDeliveryGetRequest(link_delivery_session_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type LinkDeliveryGetResponse
@@ -11586,7 +12290,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[LinkDeliveryGetRequest](the_plaid_api/models/link_delivery_get_request.py) \| [LinkDeliveryGetRequestDict](the_plaid_api/models/link_delivery_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11635,7 +12339,9 @@ The `link_correlation_id` is ephemeral and expires in a brief period, after whic
 **Sync**
 
 ```python
-result = client.with_raw_response.link_oauth_correlation_id_exchange(body)
+result = client.with_raw_response.link_oauth_correlation_id_exchange(
+    LinkOauthCorrelationIdExchangeRequest(link_correlation_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type LinkOauthCorrelationIdExchangeResponse
@@ -11646,7 +12352,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.link_oauth_correlation_id_exchange(body)
+result = await async_client.with_raw_response.link_oauth_correlation_id_exchange(
+    LinkOauthCorrelationIdExchangeRequest(link_correlation_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type LinkOauthCorrelationIdExchangeResponse
@@ -11665,7 +12373,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[LinkOauthCorrelationIdExchangeRequest](the_plaid_api/models/link_oauth_correlation_id_exchange_request.py) \| [LinkOauthCorrelationIdExchangeRequestDict](the_plaid_api/models/link_oauth_correlation_id_exchange_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11715,7 +12423,11 @@ A `link_token` generated by `/link/token/create` is also used to initialize othe
 **Sync**
 
 ```python
-result = client.with_raw_response.link_token_create(body)
+result = client.with_raw_response.link_token_create(
+    LinkTokenCreateRequest(
+        client_name="some example string", language="some example string", country_codes=[CountryCode.US]
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type LinkTokenCreateResponse
@@ -11726,7 +12438,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.link_token_create(body)
+result = await async_client.with_raw_response.link_token_create(
+    LinkTokenCreateRequest(
+        client_name="some example string", language="some example string", country_codes=[CountryCode.US]
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type LinkTokenCreateResponse
@@ -11745,7 +12461,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[LinkTokenCreateRequest](the_plaid_api/models/link_token_create_request.py) \| [LinkTokenCreateRequestDict](the_plaid_api/models/link_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11795,7 +12511,7 @@ By default, this endpoint will only return complete event data for Hosted Link s
 **Sync**
 
 ```python
-result = client.with_raw_response.link_token_get(body)
+result = client.with_raw_response.link_token_get(LinkTokenGetRequest(link_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type LinkTokenGetResponse
@@ -11806,7 +12522,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.link_token_get(body)
+result = await async_client.with_raw_response.link_token_get(LinkTokenGetRequest(link_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type LinkTokenGetResponse
@@ -11825,7 +12541,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[LinkTokenGetRequest](the_plaid_api/models/link_token_get_request.py) \| [LinkTokenGetRequestDict](the_plaid_api/models/link_token_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11877,7 +12593,9 @@ For instructions on performing a frontend eligibility check, see the [Layer docu
 **Sync**
 
 ```python
-result = client.with_raw_response.network_status_get(body)
+result = client.with_raw_response.network_status_get(
+    NetworkStatusGetRequest(user=NetworkStatusGetUser(phone_number="some example string"))
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type NetworkStatusGetResponse
@@ -11888,7 +12606,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.network_status_get(body)
+result = await async_client.with_raw_response.network_status_get(
+    NetworkStatusGetRequest(user=NetworkStatusGetUser(phone_number="some example string"))
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type NetworkStatusGetResponse
@@ -11907,7 +12627,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[NetworkStatusGetRequest](the_plaid_api/models/network_status_get_request.py) \| [NetworkStatusGetRequestDict](the_plaid_api/models/network_status_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -11957,7 +12677,7 @@ Note: This endpoint supports `Content-Type: application/x-www-form-urlencoded` a
 **Sync**
 
 ```python
-result = client.with_raw_response.oauth_introspect(body)
+result = client.with_raw_response.oauth_introspect(OauthIntrospectRequest(token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type OauthIntrospectResponse
@@ -11968,7 +12688,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.oauth_introspect(body)
+result = await async_client.with_raw_response.oauth_introspect(OauthIntrospectRequest(token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type OauthIntrospectResponse
@@ -11987,7 +12707,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[OauthIntrospectRequest](the_plaid_api/models/oauth_introspect_request.py) \| [OauthIntrospectRequestDict](the_plaid_api/models/oauth_introspect_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12037,7 +12757,7 @@ Note: This endpoint supports `Content-Type: application/x-www-form-urlencoded` a
 **Sync**
 
 ```python
-result = client.with_raw_response.oauth_revoke(body)
+result = client.with_raw_response.oauth_revoke(OauthRevokeRequest(token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type OauthRevokeResponse
@@ -12048,7 +12768,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.oauth_revoke(body)
+result = await async_client.with_raw_response.oauth_revoke(OauthRevokeRequest(token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type OauthRevokeResponse
@@ -12067,7 +12787,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[OauthRevokeRequest](the_plaid_api/models/oauth_revoke_request.py) \| [OauthRevokeRequestDict](the_plaid_api/models/oauth_revoke_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12115,7 +12835,7 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.oauth_token(body)
+result = client.with_raw_response.oauth_token(OauthTokenRequest(grant_type=OauthGrantType.REFRESH_TOKEN))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type OauthTokenResponse
@@ -12126,7 +12846,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.oauth_token(body)
+result = await async_client.with_raw_response.oauth_token(OauthTokenRequest(grant_type=OauthGrantType.REFRESH_TOKEN))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type OauthTokenResponse
@@ -12145,7 +12865,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[OauthTokenRequest](the_plaid_api/models/oauth_token_request.py) \| [OauthTokenRequestDict](the_plaid_api/models/oauth_token_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12193,7 +12913,36 @@ The `/partner/customer/create` endpoint is used by reseller partners to create e
 **Sync**
 
 ```python
-result = client.with_raw_response.partner_customer_create(body)
+result = client.with_raw_response.partner_customer_create(
+    PartnerCustomerCreateRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        company_name="Plaid",
+        is_diligence_attested=True,
+        products=[Products.AUTH, Products.IDENTITY],
+        create_link_customization=True,
+        legal_entity_name="Plaid",
+        website="plaid.com",
+        application_name="Plaid",
+        technical_contact=PartnerEndCustomerTechnicalContact(
+            given_name="Alice", family_name="Smith", email="alice.smith@example.com"
+        ),
+        billing_contact=PartnerEndCustomerBillingContact(
+            given_name="Bob", family_name="Jones", email="bob.jones@example.com"
+        ),
+        customer_support_info=PartnerEndCustomerCustomerSupportInfo(
+            email="support@example.com",
+            phone_number="1234567890",
+            contact_url="example.com/contact",
+            link_update_url="example.com/update",
+        ),
+        address=PartnerEndCustomerAddress(
+            city="New York", street="123 Main St", region="NY", postal_code="12345", country_code="US"
+        ),
+        is_bank_addendum_completed=True,
+        redirect_uris=["http://localhost/oauth.html", "https://www.example.com/oauth.html"],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PartnerCustomerCreateResponse
@@ -12204,7 +12953,36 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.partner_customer_create(body)
+result = await async_client.with_raw_response.partner_customer_create(
+    PartnerCustomerCreateRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        company_name="Plaid",
+        is_diligence_attested=True,
+        products=[Products.AUTH, Products.IDENTITY],
+        create_link_customization=True,
+        legal_entity_name="Plaid",
+        website="plaid.com",
+        application_name="Plaid",
+        technical_contact=PartnerEndCustomerTechnicalContact(
+            given_name="Alice", family_name="Smith", email="alice.smith@example.com"
+        ),
+        billing_contact=PartnerEndCustomerBillingContact(
+            given_name="Bob", family_name="Jones", email="bob.jones@example.com"
+        ),
+        customer_support_info=PartnerEndCustomerCustomerSupportInfo(
+            email="support@example.com",
+            phone_number="1234567890",
+            contact_url="example.com/contact",
+            link_update_url="example.com/update",
+        ),
+        address=PartnerEndCustomerAddress(
+            city="New York", street="123 Main St", region="NY", postal_code="12345", country_code="US"
+        ),
+        is_bank_addendum_completed=True,
+        redirect_uris=["http://localhost/oauth.html", "https://www.example.com/oauth.html"],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PartnerCustomerCreateResponse
@@ -12223,7 +13001,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PartnerCustomerCreateRequest](the_plaid_api/models/partner_customer_create_request.py) \| [PartnerCustomerCreateRequestDict](the_plaid_api/models/partner_customer_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12271,7 +13049,13 @@ The `/partner/customer/enable` endpoint is used by reseller partners to enable a
 **Sync**
 
 ```python
-result = client.with_raw_response.partner_customer_enable(body)
+result = client.with_raw_response.partner_customer_enable(
+    PartnerCustomerEnableRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        end_customer_client_id="7f57eb3d2a9j6480121fx361",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PartnerCustomerEnableResponse
@@ -12282,7 +13066,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.partner_customer_enable(body)
+result = await async_client.with_raw_response.partner_customer_enable(
+    PartnerCustomerEnableRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        end_customer_client_id="7f57eb3d2a9j6480121fx361",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PartnerCustomerEnableResponse
@@ -12301,7 +13091,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PartnerCustomerEnableRequest](the_plaid_api/models/partner_customer_enable_request.py) \| [PartnerCustomerEnableRequestDict](the_plaid_api/models/partner_customer_enable_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12349,7 +13139,13 @@ The `/partner/customer/get` endpoint is used by reseller partners to retrieve da
 **Sync**
 
 ```python
-result = client.with_raw_response.partner_customer_get(body)
+result = client.with_raw_response.partner_customer_get(
+    PartnerCustomerGetRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        end_customer_client_id="7f57eb3d2a9j6480121fx361",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PartnerCustomerGetResponse
@@ -12360,7 +13156,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.partner_customer_get(body)
+result = await async_client.with_raw_response.partner_customer_get(
+    PartnerCustomerGetRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        end_customer_client_id="7f57eb3d2a9j6480121fx361",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PartnerCustomerGetResponse
@@ -12379,7 +13181,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PartnerCustomerGetRequest](the_plaid_api/models/partner_customer_get_request.py) \| [PartnerCustomerGetRequestDict](the_plaid_api/models/partner_customer_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12427,7 +13229,13 @@ The `/partner/customer/oauth_institutions/get` endpoint is used by reseller part
 **Sync**
 
 ```python
-result = client.with_raw_response.partner_customer_oauth_institutions_get(body)
+result = client.with_raw_response.partner_customer_oauth_institutions_get(
+    PartnerCustomerOauthInstitutionsGetRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        end_customer_client_id="7f57eb3d2a9j6480121fx361",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PartnerCustomerOauthInstitutionsGetResponse
@@ -12438,7 +13246,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.partner_customer_oauth_institutions_get(body)
+result = await async_client.with_raw_response.partner_customer_oauth_institutions_get(
+    PartnerCustomerOauthInstitutionsGetRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        end_customer_client_id="7f57eb3d2a9j6480121fx361",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PartnerCustomerOauthInstitutionsGetResponse
@@ -12457,7 +13271,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PartnerCustomerOauthInstitutionsGetRequest](the_plaid_api/models/partner_customer_oauth_institutions_get_request.py) \| [PartnerCustomerOauthInstitutionsGetRequestDict](the_plaid_api/models/partner_customer_oauth_institutions_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12505,7 +13319,13 @@ The `/partner/customer/remove` endpoint is used by reseller partners to remove a
 **Sync**
 
 ```python
-result = client.with_raw_response.partner_customer_remove(body)
+result = client.with_raw_response.partner_customer_remove(
+    PartnerCustomerRemoveRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        end_customer_client_id="7f57eb3d2a9j6480121fx361",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PartnerCustomerRemoveResponse
@@ -12516,7 +13336,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.partner_customer_remove(body)
+result = await async_client.with_raw_response.partner_customer_remove(
+    PartnerCustomerRemoveRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        end_customer_client_id="7f57eb3d2a9j6480121fx361",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PartnerCustomerRemoveResponse
@@ -12535,7 +13361,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PartnerCustomerRemoveRequest](the_plaid_api/models/partner_customer_remove_request.py) \| [PartnerCustomerRemoveRequestDict](the_plaid_api/models/partner_customer_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12585,7 +13411,22 @@ Consents can be limited in time and scope, and have constraints that describe li
 **Sync**
 
 ```python
-result = client.with_raw_response.payment_initiation_consent_create(body)
+result = client.with_raw_response.payment_initiation_consent_create(
+    PaymentInitiationConsentCreateRequest(
+        recipient_id="some example string",
+        reference="some example string",
+        constraints=PaymentInitiationConsentConstraints(
+            max_payment_amount=PaymentAmount(currency=PaymentAmountCurrency.GBP, value=1.5),
+            periodic_amounts=[
+                PaymentConsentPeriodicAmount(
+                    amount=PaymentAmount(),
+                    interval=PaymentConsentPeriodicInterval.DAY,
+                    alignment=PaymentConsentPeriodicAlignment.CALENDAR,
+                ),
+            ],
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationConsentCreateResponse
@@ -12596,7 +13437,22 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.payment_initiation_consent_create(body)
+result = await async_client.with_raw_response.payment_initiation_consent_create(
+    PaymentInitiationConsentCreateRequest(
+        recipient_id="some example string",
+        reference="some example string",
+        constraints=PaymentInitiationConsentConstraints(
+            max_payment_amount=PaymentAmount(currency=PaymentAmountCurrency.GBP, value=1.5),
+            periodic_amounts=[
+                PaymentConsentPeriodicAmount(
+                    amount=PaymentAmount(),
+                    interval=PaymentConsentPeriodicInterval.DAY,
+                    alignment=PaymentConsentPeriodicAlignment.CALENDAR,
+                ),
+            ],
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationConsentCreateResponse
@@ -12615,7 +13471,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationConsentCreateRequest](the_plaid_api/models/payment_initiation_consent_create_request.py) \| [PaymentInitiationConsentCreateRequestDict](the_plaid_api/models/payment_initiation_consent_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12663,7 +13519,9 @@ The `/payment_initiation/consent/get` endpoint can be used to check the status o
 **Sync**
 
 ```python
-result = client.with_raw_response.payment_initiation_consent_get(body)
+result = client.with_raw_response.payment_initiation_consent_get(
+    PaymentInitiationConsentGetRequest(consent_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationConsentGetResponse
@@ -12674,7 +13532,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.payment_initiation_consent_get(body)
+result = await async_client.with_raw_response.payment_initiation_consent_get(
+    PaymentInitiationConsentGetRequest(consent_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationConsentGetResponse
@@ -12693,7 +13553,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationConsentGetRequest](the_plaid_api/models/payment_initiation_consent_get_request.py) \| [PaymentInitiationConsentGetRequestDict](the_plaid_api/models/payment_initiation_consent_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12741,7 +13601,13 @@ The `/payment_initiation/consent/payment/execute` endpoint can be used to execut
 **Sync**
 
 ```python
-result = client.with_raw_response.payment_initiation_consent_payment_execute(body)
+result = client.with_raw_response.payment_initiation_consent_payment_execute(
+    PaymentInitiationConsentPaymentExecuteRequest(
+        consent_id="some example string",
+        amount=PaymentAmount(currency=PaymentAmountCurrency.GBP, value=1.5),
+        idempotency_key="some example string",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationConsentPaymentExecuteResponse
@@ -12752,7 +13618,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.payment_initiation_consent_payment_execute(body)
+result = await async_client.with_raw_response.payment_initiation_consent_payment_execute(
+    PaymentInitiationConsentPaymentExecuteRequest(
+        consent_id="some example string",
+        amount=PaymentAmount(currency=PaymentAmountCurrency.GBP, value=1.5),
+        idempotency_key="some example string",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationConsentPaymentExecuteResponse
@@ -12771,7 +13643,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationConsentPaymentExecuteRequest](the_plaid_api/models/payment_initiation_consent_payment_execute_request.py) \| [PaymentInitiationConsentPaymentExecuteRequestDict](the_plaid_api/models/payment_initiation_consent_payment_execute_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12819,7 +13691,9 @@ The `/payment_initiation/consent/revoke` endpoint can be used to revoke the paym
 **Sync**
 
 ```python
-result = client.with_raw_response.payment_initiation_consent_revoke(body)
+result = client.with_raw_response.payment_initiation_consent_revoke(
+    PaymentInitiationConsentRevokeRequest(consent_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationConsentRevokeResponse
@@ -12830,7 +13704,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.payment_initiation_consent_revoke(body)
+result = await async_client.with_raw_response.payment_initiation_consent_revoke(
+    PaymentInitiationConsentRevokeRequest(consent_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationConsentRevokeResponse
@@ -12849,7 +13725,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationConsentRevokeRequest](the_plaid_api/models/payment_initiation_consent_revoke_request.py) \| [PaymentInitiationConsentRevokeRequestDict](the_plaid_api/models/payment_initiation_consent_revoke_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12899,7 +13775,13 @@ Standing orders (recurring payments) must be denominated in GBP and can only be 
 **Sync**
 
 ```python
-result = client.with_raw_response.payment_initiation_payment_create(body)
+result = client.with_raw_response.payment_initiation_payment_create(
+    PaymentInitiationPaymentCreateRequest(
+        recipient_id="some example string",
+        reference="some example string",
+        amount=PaymentAmount(currency=PaymentAmountCurrency.GBP, value=1.5),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationPaymentCreateResponse
@@ -12910,7 +13792,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.payment_initiation_payment_create(body)
+result = await async_client.with_raw_response.payment_initiation_payment_create(
+    PaymentInitiationPaymentCreateRequest(
+        recipient_id="some example string",
+        reference="some example string",
+        amount=PaymentAmount(currency=PaymentAmountCurrency.GBP, value=1.5),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationPaymentCreateResponse
@@ -12929,7 +13817,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationPaymentCreateRequest](the_plaid_api/models/payment_initiation_payment_create_request.py) \| [PaymentInitiationPaymentCreateRequestDict](the_plaid_api/models/payment_initiation_payment_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -12979,7 +13867,9 @@ Polling for status updates in Production is highly discouraged. Repeatedly calli
 **Sync**
 
 ```python
-result = client.with_raw_response.payment_initiation_payment_get(body)
+result = client.with_raw_response.payment_initiation_payment_get(
+    PaymentInitiationPaymentGetRequest(payment_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationPaymentGetResponse
@@ -12990,7 +13880,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.payment_initiation_payment_get(body)
+result = await async_client.with_raw_response.payment_initiation_payment_get(
+    PaymentInitiationPaymentGetRequest(payment_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationPaymentGetResponse
@@ -13009,7 +13901,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationPaymentGetRequest](the_plaid_api/models/payment_initiation_payment_get_request.py) \| [PaymentInitiationPaymentGetRequestDict](the_plaid_api/models/payment_initiation_payment_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13057,7 +13949,7 @@ The `/payment_initiation/payment/list` endpoint can be used to retrieve all crea
 **Sync**
 
 ```python
-result = client.with_raw_response.payment_initiation_payment_list(body)
+result = client.with_raw_response.payment_initiation_payment_list(PaymentInitiationPaymentListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationPaymentListResponse
@@ -13068,7 +13960,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.payment_initiation_payment_list(body)
+result = await async_client.with_raw_response.payment_initiation_payment_list(PaymentInitiationPaymentListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationPaymentListResponse
@@ -13087,7 +13979,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationPaymentListRequest](the_plaid_api/models/payment_initiation_payment_list_request.py) \| [PaymentInitiationPaymentListRequestDict](the_plaid_api/models/payment_initiation_payment_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13147,7 +14039,11 @@ the likelihood of refund being successful without human intervention.
 **Sync**
 
 ```python
-result = client.with_raw_response.payment_initiation_payment_reverse(body)
+result = client.with_raw_response.payment_initiation_payment_reverse(
+    PaymentInitiationPaymentReverseRequest(
+        payment_id="some example string", idempotency_key="some example string", reference="some example string"
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationPaymentReverseResponse
@@ -13158,7 +14054,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.payment_initiation_payment_reverse(body)
+result = await async_client.with_raw_response.payment_initiation_payment_reverse(
+    PaymentInitiationPaymentReverseRequest(
+        payment_id="some example string", idempotency_key="some example string", reference="some example string"
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationPaymentReverseResponse
@@ -13177,7 +14077,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationPaymentReverseRequest](the_plaid_api/models/payment_initiation_payment_reverse_request.py) \| [PaymentInitiationPaymentReverseRequestDict](the_plaid_api/models/payment_initiation_payment_reverse_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13229,7 +14129,9 @@ The endpoint is idempotent: if a developer has already made a request with the s
 **Sync**
 
 ```python
-result = client.with_raw_response.payment_initiation_recipient_create(body)
+result = client.with_raw_response.payment_initiation_recipient_create(
+    PaymentInitiationRecipientCreateRequest(name="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationRecipientCreateResponse
@@ -13240,7 +14142,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.payment_initiation_recipient_create(body)
+result = await async_client.with_raw_response.payment_initiation_recipient_create(
+    PaymentInitiationRecipientCreateRequest(name="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationRecipientCreateResponse
@@ -13259,7 +14163,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationRecipientCreateRequest](the_plaid_api/models/payment_initiation_recipient_create_request.py) \| [PaymentInitiationRecipientCreateRequestDict](the_plaid_api/models/payment_initiation_recipient_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13307,7 +14211,9 @@ Get details about a payment recipient you have previously created.
 **Sync**
 
 ```python
-result = client.with_raw_response.payment_initiation_recipient_get(body)
+result = client.with_raw_response.payment_initiation_recipient_get(
+    PaymentInitiationRecipientGetRequest(recipient_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationRecipientGetResponse
@@ -13318,7 +14224,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.payment_initiation_recipient_get(body)
+result = await async_client.with_raw_response.payment_initiation_recipient_get(
+    PaymentInitiationRecipientGetRequest(recipient_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationRecipientGetResponse
@@ -13337,7 +14245,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationRecipientGetRequest](the_plaid_api/models/payment_initiation_recipient_get_request.py) \| [PaymentInitiationRecipientGetRequestDict](the_plaid_api/models/payment_initiation_recipient_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13385,7 +14293,7 @@ The `/payment_initiation/recipient/list` endpoint lists the payment recipients t
 **Sync**
 
 ```python
-result = client.with_raw_response.payment_initiation_recipient_list(body)
+result = client.with_raw_response.payment_initiation_recipient_list(PaymentInitiationRecipientListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationRecipientListResponse
@@ -13396,7 +14304,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.payment_initiation_recipient_list(body)
+result = await async_client.with_raw_response.payment_initiation_recipient_list(PaymentInitiationRecipientListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentInitiationRecipientListResponse
@@ -13415,7 +14323,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentInitiationRecipientListRequest](the_plaid_api/models/payment_initiation_recipient_list_request.py) \| [PaymentInitiationRecipientListRequestDict](the_plaid_api/models/payment_initiation_recipient_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13465,7 +14373,7 @@ You can then use the `payment_profile_token` when creating transfers using `/tra
 **Sync**
 
 ```python
-result = client.with_raw_response.payment_profile_create(body)
+result = client.with_raw_response.payment_profile_create(PaymentProfileCreateRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentProfileCreateResponse
@@ -13476,7 +14384,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.payment_profile_create(body)
+result = await async_client.with_raw_response.payment_profile_create(PaymentProfileCreateRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentProfileCreateResponse
@@ -13495,7 +14403,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentProfileCreateRequest](the_plaid_api/models/payment_profile_create_request.py) \| [PaymentProfileCreateRequestDict](the_plaid_api/models/payment_profile_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13543,7 +14451,9 @@ Use `/payment_profile/get` endpoint to get the status of a given Payment Profile
 **Sync**
 
 ```python
-result = client.with_raw_response.payment_profile_get(body)
+result = client.with_raw_response.payment_profile_get(
+    PaymentProfileGetRequest(payment_profile_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentProfileGetResponse
@@ -13554,7 +14464,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.payment_profile_get(body)
+result = await async_client.with_raw_response.payment_profile_get(
+    PaymentProfileGetRequest(payment_profile_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentProfileGetResponse
@@ -13573,7 +14485,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentProfileGetRequest](the_plaid_api/models/payment_profile_get_request.py) \| [PaymentProfileGetRequestDict](the_plaid_api/models/payment_profile_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13621,7 +14533,9 @@ Use the `/payment_profile/remove` endpoint to remove a given Payment Profile. On
 **Sync**
 
 ```python
-result = client.with_raw_response.payment_profile_remove(body)
+result = client.with_raw_response.payment_profile_remove(
+    PaymentProfileRemoveRequest(payment_profile_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentProfileRemoveResponse
@@ -13632,7 +14546,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.payment_profile_remove(body)
+result = await async_client.with_raw_response.payment_profile_remove(
+    PaymentProfileRemoveRequest(payment_profile_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type PaymentProfileRemoveResponse
@@ -13651,7 +14567,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[PaymentProfileRemoveRequest](the_plaid_api/models/payment_profile_remove_request.py) \| [PaymentProfileRemoveRequestDict](the_plaid_api/models/payment_profile_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13701,7 +14617,9 @@ This endpoint retrieves cached information, rather than extracting fresh informa
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_account_get(body)
+result = client.with_raw_response.processor_account_get(
+    ProcessorAccountGetRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorAccountGetResponse
@@ -13712,7 +14630,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_account_get(body)
+result = await async_client.with_raw_response.processor_account_get(
+    ProcessorAccountGetRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorAccountGetResponse
@@ -13731,7 +14651,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorAccountGetRequest](the_plaid_api/models/processor_account_get_request.py) \| [ProcessorAccountGetRequestDict](the_plaid_api/models/processor_account_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13779,7 +14699,9 @@ Used to create a token suitable for sending to Apex to enable Plaid-Apex integra
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_apex_processor_token_create(body)
+result = client.with_raw_response.processor_apex_processor_token_create(
+    ProcessorApexProcessorTokenCreateRequest(access_token="some example string", account_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorTokenCreateResponse
@@ -13790,7 +14712,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_apex_processor_token_create(body)
+result = await async_client.with_raw_response.processor_apex_processor_token_create(
+    ProcessorApexProcessorTokenCreateRequest(access_token="some example string", account_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorTokenCreateResponse
@@ -13809,7 +14733,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorApexProcessorTokenCreateRequest](the_plaid_api/models/processor_apex_processor_token_create_request.py) \| [ProcessorApexProcessorTokenCreateRequestDict](the_plaid_api/models/processor_apex_processor_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13859,7 +14783,7 @@ Versioning note: API versions 2019-05-29 and earlier use a different schema for 
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_auth_get(body)
+result = client.with_raw_response.processor_auth_get(ProcessorAuthGetRequest(processor_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorAuthGetResponse
@@ -13870,7 +14794,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_auth_get(body)
+result = await async_client.with_raw_response.processor_auth_get(
+    ProcessorAuthGetRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorAuthGetResponse
@@ -13889,7 +14815,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorAuthGetRequest](the_plaid_api/models/processor_auth_get_request.py) \| [ProcessorAuthGetRequestDict](the_plaid_api/models/processor_auth_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -13937,7 +14863,9 @@ The `/processor/balance/get` endpoint returns the real-time balance for each of 
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_balance_get(body)
+result = client.with_raw_response.processor_balance_get(
+    ProcessorBalanceGetRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorBalanceGetResponse
@@ -13948,7 +14876,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_balance_get(body)
+result = await async_client.with_raw_response.processor_balance_get(
+    ProcessorBalanceGetRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorBalanceGetResponse
@@ -13967,7 +14897,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorBalanceGetRequest](the_plaid_api/models/processor_balance_get_request.py) \| [ProcessorBalanceGetRequestDict](the_plaid_api/models/processor_balance_get_request.py)</code> | The `/processor/balance/get` endpoint returns the real-time balance for the account associated with a given `processor_token`.<br><br>The current balance is the total amount of funds in the account. The available balance is the current balance less any outstanding holds or debits that have not yet posted to the account.<br><br>Note that not all institutions calculate the available balance. In the event that available balance is unavailable from the institution, Plaid will return an available balance value of `null`. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14015,7 +14945,18 @@ Use the `/processor/bank_transfer/create` endpoint to initiate a new bank transf
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_bank_transfer_create(body)
+result = client.with_raw_response.processor_bank_transfer_create(
+    ProcessorBankTransferCreateRequest(
+        idempotency_key="some example string",
+        processor_token="some example string",
+        type_=BankTransferType.DEBIT,
+        network=BankTransferNetwork.ACH,
+        amount="some example string",
+        iso_currency_code="some example string",
+        description="some example string",
+        user=BankTransferUser(legal_name="some example string"),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorBankTransferCreateResponse
@@ -14026,7 +14967,18 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_bank_transfer_create(body)
+result = await async_client.with_raw_response.processor_bank_transfer_create(
+    ProcessorBankTransferCreateRequest(
+        idempotency_key="some example string",
+        processor_token="some example string",
+        type_=BankTransferType.DEBIT,
+        network=BankTransferNetwork.ACH,
+        amount="some example string",
+        iso_currency_code="some example string",
+        description="some example string",
+        user=BankTransferUser(legal_name="some example string"),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorBankTransferCreateResponse
@@ -14045,7 +14997,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorBankTransferCreateRequest](the_plaid_api/models/processor_bank_transfer_create_request.py) \| [ProcessorBankTransferCreateRequestDict](the_plaid_api/models/processor_bank_transfer_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14093,7 +15045,9 @@ The `/processor/identity/get` endpoint allows you to retrieve various account ho
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_identity_get(body)
+result = client.with_raw_response.processor_identity_get(
+    ProcessorIdentityGetRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorIdentityGetResponse
@@ -14104,7 +15058,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_identity_get(body)
+result = await async_client.with_raw_response.processor_identity_get(
+    ProcessorIdentityGetRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorIdentityGetResponse
@@ -14123,7 +15079,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorIdentityGetRequest](the_plaid_api/models/processor_identity_get_request.py) \| [ProcessorIdentityGetRequestDict](the_plaid_api/models/processor_identity_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14173,7 +15129,9 @@ Fields within the `balances` object will always be null when retrieved by `/proc
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_identity_match(body)
+result = client.with_raw_response.processor_identity_match(
+    ProcessorIdentityMatchRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorIdentityMatchResponse
@@ -14184,7 +15142,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_identity_match(body)
+result = await async_client.with_raw_response.processor_identity_match(
+    ProcessorIdentityMatchRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorIdentityMatchResponse
@@ -14203,7 +15163,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorIdentityMatchRequest](the_plaid_api/models/processor_identity_match_request.py) \| [ProcessorIdentityMatchRequestDict](the_plaid_api/models/processor_identity_match_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14254,7 +15214,9 @@ To receive Investments Auth webhooks for a processor token, set its webhook URL 
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_investments_auth_get(body)
+result = client.with_raw_response.processor_investments_auth_get(
+    ProcessorInvestmentsAuthGetRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorInvestmentsAuthGetResponse
@@ -14265,7 +15227,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_investments_auth_get(body)
+result = await async_client.with_raw_response.processor_investments_auth_get(
+    ProcessorInvestmentsAuthGetRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorInvestmentsAuthGetResponse
@@ -14284,7 +15248,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorInvestmentsAuthGetRequest](the_plaid_api/models/processor_investments_auth_get_request.py) \| [ProcessorInvestmentsAuthGetRequestDict](the_plaid_api/models/processor_investments_auth_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14332,7 +15296,9 @@ This endpoint returns the stock position data of the account associated with a g
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_investments_holdings_get(body)
+result = client.with_raw_response.processor_investments_holdings_get(
+    ProcessorInvestmentsHoldingsGetRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorInvestmentsHoldingsGetResponse
@@ -14343,7 +15309,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_investments_holdings_get(body)
+result = await async_client.with_raw_response.processor_investments_holdings_get(
+    ProcessorInvestmentsHoldingsGetRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorInvestmentsHoldingsGetResponse
@@ -14362,7 +15330,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorInvestmentsHoldingsGetRequest](the_plaid_api/models/processor_investments_holdings_get_request.py) \| [ProcessorInvestmentsHoldingsGetRequestDict](the_plaid_api/models/processor_investments_holdings_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14420,7 +15388,11 @@ To receive Investments Transactions webhooks for a processor token, set its webh
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_investments_transactions_get(body)
+result = client.with_raw_response.processor_investments_transactions_get(
+    ProcessorInvestmentsTransactionsGetRequest(
+        processor_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15)
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorInvestmentsTransactionsGetResponse
@@ -14431,7 +15403,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_investments_transactions_get(body)
+result = await async_client.with_raw_response.processor_investments_transactions_get(
+    ProcessorInvestmentsTransactionsGetRequest(
+        processor_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15)
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorInvestmentsTransactionsGetResponse
@@ -14450,7 +15426,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorInvestmentsTransactionsGetRequest](the_plaid_api/models/processor_investments_transactions_get_request.py) \| [ProcessorInvestmentsTransactionsGetRequestDict](the_plaid_api/models/processor_investments_transactions_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14502,7 +15478,9 @@ Note: This request may take some time to complete if `liabilities` was not speci
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_liabilities_get(body)
+result = client.with_raw_response.processor_liabilities_get(
+    ProcessorLiabilitiesGetRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorLiabilitiesGetResponse
@@ -14513,7 +15491,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_liabilities_get(body)
+result = await async_client.with_raw_response.processor_liabilities_get(
+    ProcessorLiabilitiesGetRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorLiabilitiesGetResponse
@@ -14532,7 +15512,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorLiabilitiesGetRequest](the_plaid_api/models/processor_liabilities_get_request.py) \| [ProcessorLiabilitiesGetRequestDict](the_plaid_api/models/processor_liabilities_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14584,7 +15564,11 @@ If using a Balance-only ruleset, this endpoint will not impact scores (Balance d
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_signal_decision_report(body)
+result = client.with_raw_response.processor_signal_decision_report(
+    ProcessorSignalDecisionReportRequest(
+        processor_token="some example string", client_transaction_id="some example string", initiated=True
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorSignalDecisionReportResponse
@@ -14595,7 +15579,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_signal_decision_report(body)
+result = await async_client.with_raw_response.processor_signal_decision_report(
+    ProcessorSignalDecisionReportRequest(
+        processor_token="some example string", client_transaction_id="some example string", initiated=True
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorSignalDecisionReportResponse
@@ -14614,7 +15602,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorSignalDecisionReportRequest](the_plaid_api/models/processor_signal_decision_report_request.py) \| [ProcessorSignalDecisionReportRequestDict](the_plaid_api/models/processor_signal_decision_report_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14666,7 +15654,11 @@ Note: This request may have higher latency if Signal Transaction Scores is being
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_signal_evaluate(body)
+result = client.with_raw_response.processor_signal_evaluate(
+    ProcessorSignalEvaluateRequest(
+        processor_token="some example string", client_transaction_id="some example string", amount=1.5
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorSignalEvaluateResponse
@@ -14677,7 +15669,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_signal_evaluate(body)
+result = await async_client.with_raw_response.processor_signal_evaluate(
+    ProcessorSignalEvaluateRequest(
+        processor_token="some example string", client_transaction_id="some example string", amount=1.5
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorSignalEvaluateResponse
@@ -14696,7 +15692,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorSignalEvaluateRequest](the_plaid_api/models/processor_signal_evaluate_request.py) \| [ProcessorSignalEvaluateRequestDict](the_plaid_api/models/processor_signal_evaluate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14746,7 +15742,9 @@ If this endpoint is called with a processor token that is already initialized wi
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_signal_prepare(body)
+result = client.with_raw_response.processor_signal_prepare(
+    ProcessorSignalPrepareRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorSignalPrepareResponse
@@ -14757,7 +15755,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_signal_prepare(body)
+result = await async_client.with_raw_response.processor_signal_prepare(
+    ProcessorSignalPrepareRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorSignalPrepareResponse
@@ -14776,7 +15776,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorSignalPrepareRequest](the_plaid_api/models/processor_signal_prepare_request.py) \| [ProcessorSignalPrepareRequestDict](the_plaid_api/models/processor_signal_prepare_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14826,7 +15826,13 @@ If you are using the [Plaid Transfer product](https://plaid.com/docs/transfer) t
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_signal_return_report(body)
+result = client.with_raw_response.processor_signal_return_report(
+    ProcessorSignalReturnReportRequest(
+        processor_token="some example string",
+        client_transaction_id="some example string",
+        return_code="some example string",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorSignalReturnReportResponse
@@ -14837,7 +15843,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_signal_return_report(body)
+result = await async_client.with_raw_response.processor_signal_return_report(
+    ProcessorSignalReturnReportRequest(
+        processor_token="some example string",
+        client_transaction_id="some example string",
+        return_code="some example string",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorSignalReturnReportResponse
@@ -14856,7 +15868,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorSignalReturnReportRequest](the_plaid_api/models/processor_signal_return_report_request.py) \| [ProcessorSignalReturnReportRequestDict](the_plaid_api/models/processor_signal_return_report_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14908,7 +15920,9 @@ To revoke a bank account token, the entire underlying access token must be revok
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_stripe_bank_account_token_create(body)
+result = client.with_raw_response.processor_stripe_bank_account_token_create(
+    ProcessorStripeBankAccountTokenCreateRequest(access_token="some example string", account_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorStripeBankAccountTokenCreateResponse
@@ -14919,7 +15933,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_stripe_bank_account_token_create(body)
+result = await async_client.with_raw_response.processor_stripe_bank_account_token_create(
+    ProcessorStripeBankAccountTokenCreateRequest(access_token="some example string", account_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorStripeBankAccountTokenCreateResponse
@@ -14938,7 +15954,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorStripeBankAccountTokenCreateRequest](the_plaid_api/models/processor_stripe_bank_account_token_create_request.py) \| [ProcessorStripeBankAccountTokenCreateRequestDict](the_plaid_api/models/processor_stripe_bank_account_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -14986,7 +16002,11 @@ Used to create a token suitable for sending to one of Plaid's partners to enable
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_token_create(body)
+result = client.with_raw_response.processor_token_create(
+    ProcessorTokenCreateRequest(
+        access_token="some example string", account_id="some example string", processor=Processor.DWOLLA
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorTokenCreateResponse
@@ -14997,7 +16017,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_token_create(body)
+result = await async_client.with_raw_response.processor_token_create(
+    ProcessorTokenCreateRequest(
+        access_token="some example string", account_id="some example string", processor=Processor.DWOLLA
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorTokenCreateResponse
@@ -15016,7 +16040,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorTokenCreateRequest](the_plaid_api/models/processor_token_create_request.py) \| [ProcessorTokenCreateRequestDict](the_plaid_api/models/processor_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15064,7 +16088,9 @@ Used to get a processor token's product permissions. The `products` field will b
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_token_permissions_get(body)
+result = client.with_raw_response.processor_token_permissions_get(
+    ProcessorTokenPermissionsGetRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorTokenPermissionsGetResponse
@@ -15075,7 +16101,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_token_permissions_get(body)
+result = await async_client.with_raw_response.processor_token_permissions_get(
+    ProcessorTokenPermissionsGetRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorTokenPermissionsGetResponse
@@ -15094,7 +16122,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorTokenPermissionsGetRequest](the_plaid_api/models/processor_token_permissions_get_request.py) \| [ProcessorTokenPermissionsGetRequestDict](the_plaid_api/models/processor_token_permissions_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15142,7 +16170,9 @@ Used to control a processor's access to products on the given processor token. B
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_token_permissions_set(body)
+result = client.with_raw_response.processor_token_permissions_set(
+    ProcessorTokenPermissionsSetRequest(processor_token="some example string", products=[Products.ASSETS])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorTokenPermissionsSetResponse
@@ -15153,7 +16183,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_token_permissions_set(body)
+result = await async_client.with_raw_response.processor_token_permissions_set(
+    ProcessorTokenPermissionsSetRequest(processor_token="some example string", products=[Products.ASSETS])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorTokenPermissionsSetResponse
@@ -15172,7 +16204,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorTokenPermissionsSetRequest](the_plaid_api/models/processor_token_permissions_set_request.py) \| [ProcessorTokenPermissionsSetRequestDict](the_plaid_api/models/processor_token_permissions_set_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15220,7 +16252,9 @@ This endpoint allows you, the processor, to update the webhook URL associated wi
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_token_webhook_update(body)
+result = client.with_raw_response.processor_token_webhook_update(
+    ProcessorTokenWebhookUpdateRequest(processor_token="some example string", webhook="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorTokenWebhookUpdateResponse
@@ -15231,7 +16265,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_token_webhook_update(body)
+result = await async_client.with_raw_response.processor_token_webhook_update(
+    ProcessorTokenWebhookUpdateRequest(processor_token="some example string", webhook="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorTokenWebhookUpdateResponse
@@ -15250,7 +16286,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorTokenWebhookUpdateRequest](the_plaid_api/models/processor_token_webhook_update_request.py) \| [ProcessorTokenWebhookUpdateRequestDict](the_plaid_api/models/processor_token_webhook_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15308,7 +16344,11 @@ To receive Transactions webhooks for a processor token, set its webhook URL via 
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_transactions_get(body)
+result = client.with_raw_response.processor_transactions_get(
+    ProcessorTransactionsGetRequest(
+        processor_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15)
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorTransactionsGetResponse
@@ -15319,7 +16359,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_transactions_get(body)
+result = await async_client.with_raw_response.processor_transactions_get(
+    ProcessorTransactionsGetRequest(
+        processor_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15)
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorTransactionsGetResponse
@@ -15338,7 +16382,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorTransactionsGetRequest](the_plaid_api/models/processor_transactions_get_request.py) \| [ProcessorTransactionsGetRequestDict](the_plaid_api/models/processor_transactions_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15394,7 +16438,9 @@ To receive Transactions webhooks for a processor token, set its webhook URL via 
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_transactions_recurring_get(body)
+result = client.with_raw_response.processor_transactions_recurring_get(
+    ProcessorTransactionsRecurringGetRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorTransactionsRecurringGetResponse
@@ -15405,7 +16451,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_transactions_recurring_get(body)
+result = await async_client.with_raw_response.processor_transactions_recurring_get(
+    ProcessorTransactionsRecurringGetRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorTransactionsRecurringGetResponse
@@ -15424,7 +16472,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorTransactionsRecurringGetRequest](the_plaid_api/models/processor_transactions_recurring_get_request.py) \| [ProcessorTransactionsRecurringGetRequestDict](the_plaid_api/models/processor_transactions_recurring_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15476,7 +16524,9 @@ As this endpoint triggers a synchronous request for fresh data, latency may be h
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_transactions_refresh(body)
+result = client.with_raw_response.processor_transactions_refresh(
+    ProcessorTransactionsRefreshRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorTransactionsRefreshResponse
@@ -15487,7 +16537,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_transactions_refresh(body)
+result = await async_client.with_raw_response.processor_transactions_refresh(
+    ProcessorTransactionsRefreshRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorTransactionsRefreshResponse
@@ -15506,7 +16558,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorTransactionsRefreshRequest](the_plaid_api/models/processor_transactions_refresh_request.py) \| [ProcessorTransactionsRefreshRequestDict](the_plaid_api/models/processor_transactions_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15568,7 +16620,9 @@ To receive Transactions webhooks for a processor token, set its webhook URL via 
 **Sync**
 
 ```python
-result = client.with_raw_response.processor_transactions_sync(body)
+result = client.with_raw_response.processor_transactions_sync(
+    ProcessorTransactionsSyncRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorTransactionsSyncResponse
@@ -15579,7 +16633,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.processor_transactions_sync(body)
+result = await async_client.with_raw_response.processor_transactions_sync(
+    ProcessorTransactionsSyncRequest(processor_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProcessorTransactionsSyncResponse
@@ -15598,7 +16654,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProcessorTransactionsSyncRequest](the_plaid_api/models/processor_transactions_sync_request.py) \| [ProcessorTransactionsSyncRequestDict](the_plaid_api/models/processor_transactions_sync_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15646,7 +16702,9 @@ The `/profile/network_status/get` endpoint can be used to check whether Plaid ha
 **Sync**
 
 ```python
-result = client.with_raw_response.profile_network_status_get(body)
+result = client.with_raw_response.profile_network_status_get(
+    ProfileNetworkStatusGetRequest(user=NetworkStatusGetUser(phone_number="some example string"))
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProfileNetworkStatusGetResponse
@@ -15657,7 +16715,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.profile_network_status_get(body)
+result = await async_client.with_raw_response.profile_network_status_get(
+    ProfileNetworkStatusGetRequest(user=NetworkStatusGetUser(phone_number="some example string"))
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProfileNetworkStatusGetResponse
@@ -15676,7 +16736,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProfileNetworkStatusGetRequest](the_plaid_api/models/profile_network_status_get_request.py) \| [ProfileNetworkStatusGetRequestDict](the_plaid_api/models/profile_network_status_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15726,7 +16786,9 @@ The endpoint returns HTTP 400 with `error_type` = `INVALID_REQUEST` and `error_c
 **Sync**
 
 ```python
-result = client.with_raw_response.protect_compute(body)
+result = client.with_raw_response.protect_compute(
+    ProtectComputeRequest(model="some example string", user=ProtectUser())
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProtectComputeResponse
@@ -15737,7 +16799,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.protect_compute(body)
+result = await async_client.with_raw_response.protect_compute(
+    ProtectComputeRequest(model="some example string", user=ProtectUser())
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProtectComputeResponse
@@ -15756,7 +16820,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProtectComputeRequest](the_plaid_api/models/protect_compute_request.py) \| [ProtectComputeRequestDict](the_plaid_api/models/protect_compute_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15804,7 +16868,7 @@ Get information about a user event including Trust Index score and fraud attribu
 **Sync**
 
 ```python
-result = client.with_raw_response.protect_event_get(body)
+result = client.with_raw_response.protect_event_get(ProtectEventGetRequest(event_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProtectEventGetResponse
@@ -15815,7 +16879,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.protect_event_get(body)
+result = await async_client.with_raw_response.protect_event_get(ProtectEventGetRequest(event_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProtectEventGetResponse
@@ -15834,7 +16898,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProtectEventGetRequest](the_plaid_api/models/protect_event_get_request.py) \| [ProtectEventGetRequestDict](the_plaid_api/models/protect_event_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15882,7 +16946,9 @@ Send a new event to enrich user data and optionally get a Trust Index score for 
 **Sync**
 
 ```python
-result = client.with_raw_response.protect_event_send(body)
+result = client.with_raw_response.protect_event_send(
+    ProtectEventSendRequest(event=ProtectEvent(timestamp=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc)))
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProtectEventSendResponse
@@ -15893,7 +16959,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.protect_event_send(body)
+result = await async_client.with_raw_response.protect_event_send(
+    ProtectEventSendRequest(event=ProtectEvent(timestamp=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc)))
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProtectEventSendResponse
@@ -15912,7 +16980,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProtectEventSendRequest](the_plaid_api/models/protect_event_send_request.py) \| [ProtectEventSendRequestDict](the_plaid_api/models/protect_event_send_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -15965,7 +17033,13 @@ Each report must include `user_id`, or an `incident_event` with at least one sup
 **Sync**
 
 ```python
-result = client.with_raw_response.protect_report_create(body)
+result = client.with_raw_response.protect_report_create(
+    ProtectReportCreateRequest(
+        report_confidence=ProtectReportConfidence.CONFIRMED,
+        report_type=ProtectReportType.USER_ACCOUNT_TAKEOVER,
+        report_source=ProtectReportSource.INTERNAL_REVIEW,
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProtectReportCreateResponse
@@ -15976,7 +17050,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.protect_report_create(body)
+result = await async_client.with_raw_response.protect_report_create(
+    ProtectReportCreateRequest(
+        report_confidence=ProtectReportConfidence.CONFIRMED,
+        report_type=ProtectReportType.USER_ACCOUNT_TAKEOVER,
+        report_source=ProtectReportSource.INTERNAL_REVIEW,
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProtectReportCreateResponse
@@ -15995,7 +17075,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProtectReportCreateRequest](the_plaid_api/models/protect_report_create_request.py) \| [ProtectReportCreateRequestDict](the_plaid_api/models/protect_report_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16043,7 +17123,7 @@ Use this endpoint to get basic information about a user as it relates to their f
 **Sync**
 
 ```python
-result = client.with_raw_response.protect_user_insights_get(body)
+result = client.with_raw_response.protect_user_insights_get(ProtectUserInsightsGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProtectUserInsightsGetResponse
@@ -16054,7 +17134,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.protect_user_insights_get(body)
+result = await async_client.with_raw_response.protect_user_insights_get(ProtectUserInsightsGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type ProtectUserInsightsGetResponse
@@ -16073,7 +17153,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[ProtectUserInsightsGetRequest](the_plaid_api/models/protect_user_insights_get_request.py) \| [ProtectUserInsightsGetRequestDict](the_plaid_api/models/protect_user_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16121,7 +17201,12 @@ Use the `/sandbox/bank_income/fire_webhook` endpoint to manually trigger a Bank 
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_bank_income_fire_webhook(body)
+result = client.with_raw_response.sandbox_bank_income_fire_webhook(
+    SandboxBankIncomeFireWebhookRequest(
+        webhook_code=SandboxBankIncomeWebhookFireRequestWebhookCode.BANK_INCOME_REFRESH_UPDATE,
+        webhook_fields=SandboxBankIncomeWebhookFireRequestWebhookFields(user_id="some example string"),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxBankIncomeFireWebhookResponse
@@ -16132,7 +17217,12 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_bank_income_fire_webhook(body)
+result = await async_client.with_raw_response.sandbox_bank_income_fire_webhook(
+    SandboxBankIncomeFireWebhookRequest(
+        webhook_code=SandboxBankIncomeWebhookFireRequestWebhookCode.BANK_INCOME_REFRESH_UPDATE,
+        webhook_fields=SandboxBankIncomeWebhookFireRequestWebhookFields(user_id="some example string"),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxBankIncomeFireWebhookResponse
@@ -16151,7 +17241,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxBankIncomeFireWebhookRequest](the_plaid_api/models/sandbox_bank_income_fire_webhook_request.py) \| [SandboxBankIncomeFireWebhookRequestDict](the_plaid_api/models/sandbox_bank_income_fire_webhook_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16199,7 +17289,9 @@ Use the `/sandbox/bank_transfer/fire_webhook` endpoint to manually trigger a Ban
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_bank_transfer_fire_webhook(body)
+result = client.with_raw_response.sandbox_bank_transfer_fire_webhook(
+    SandboxBankTransferFireWebhookRequest(webhook="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxBankTransferFireWebhookResponse
@@ -16210,7 +17302,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_bank_transfer_fire_webhook(body)
+result = await async_client.with_raw_response.sandbox_bank_transfer_fire_webhook(
+    SandboxBankTransferFireWebhookRequest(webhook="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxBankTransferFireWebhookResponse
@@ -16229,7 +17323,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxBankTransferFireWebhookRequest](the_plaid_api/models/sandbox_bank_transfer_fire_webhook_request.py) \| [SandboxBankTransferFireWebhookRequestDict](the_plaid_api/models/sandbox_bank_transfer_fire_webhook_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16277,7 +17371,9 @@ Use the `/sandbox/bank_transfer/simulate` endpoint to simulate a bank transfer e
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_bank_transfer_simulate(body)
+result = client.with_raw_response.sandbox_bank_transfer_simulate(
+    SandboxBankTransferSimulateRequest(bank_transfer_id="some example string", event_type="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxBankTransferSimulateResponse
@@ -16288,7 +17384,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_bank_transfer_simulate(body)
+result = await async_client.with_raw_response.sandbox_bank_transfer_simulate(
+    SandboxBankTransferSimulateRequest(bank_transfer_id="some example string", event_type="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxBankTransferSimulateResponse
@@ -16307,7 +17405,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxBankTransferSimulateRequest](the_plaid_api/models/sandbox_bank_transfer_simulate_request.py) \| [SandboxBankTransferSimulateRequestDict](the_plaid_api/models/sandbox_bank_transfer_simulate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16355,7 +17453,7 @@ Use the `/sandbox/cra/cashflow_updates/update` endpoint to manually trigger an u
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_cra_cashflow_updates_update(body)
+result = client.with_raw_response.sandbox_cra_cashflow_updates_update(SandboxCraCashflowUpdatesUpdateRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxCraCashflowUpdatesUpdateResponse
@@ -16366,7 +17464,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_cra_cashflow_updates_update(body)
+result = await async_client.with_raw_response.sandbox_cra_cashflow_updates_update(
+    SandboxCraCashflowUpdatesUpdateRequest()
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxCraCashflowUpdatesUpdateResponse
@@ -16385,7 +17485,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxCraCashflowUpdatesUpdateRequest](the_plaid_api/models/sandbox_cra_cashflow_updates_update_request.py) \| [SandboxCraCashflowUpdatesUpdateRequestDict](the_plaid_api/models/sandbox_cra_cashflow_updates_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16435,7 +17535,9 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_fdx_consent_seed(body)
+result = client.with_raw_response.sandbox_fdx_consent_seed(
+    SandboxFdxConsentSeedRequest(customer_id="some example string", application_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxFdxConsentSeedResponse
@@ -16446,7 +17548,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_fdx_consent_seed(body)
+result = await async_client.with_raw_response.sandbox_fdx_consent_seed(
+    SandboxFdxConsentSeedRequest(customer_id="some example string", application_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxFdxConsentSeedResponse
@@ -16465,7 +17569,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxFdxConsentSeedRequest](the_plaid_api/models/sandbox_fdx_consent_seed_request.py) \| [SandboxFdxConsentSeedRequestDict](the_plaid_api/models/sandbox_fdx_consent_seed_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16513,7 +17617,13 @@ Use the `/sandbox/income/fire_webhook` endpoint to manually trigger a Payroll or
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_income_fire_webhook(body)
+result = client.with_raw_response.sandbox_income_fire_webhook(
+    SandboxIncomeFireWebhookRequest(
+        item_id="some example string",
+        webhook="some example string",
+        webhook_code=SandboxIncomeWebhookFireRequestWebhookCode.INCOME_VERIFICATION,
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxIncomeFireWebhookResponse
@@ -16524,7 +17634,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_income_fire_webhook(body)
+result = await async_client.with_raw_response.sandbox_income_fire_webhook(
+    SandboxIncomeFireWebhookRequest(
+        item_id="some example string",
+        webhook="some example string",
+        webhook_code=SandboxIncomeWebhookFireRequestWebhookCode.INCOME_VERIFICATION,
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxIncomeFireWebhookResponse
@@ -16543,7 +17659,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxIncomeFireWebhookRequest](the_plaid_api/models/sandbox_income_fire_webhook_request.py) \| [SandboxIncomeFireWebhookRequestDict](the_plaid_api/models/sandbox_income_fire_webhook_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16593,7 +17709,9 @@ The `access_token` must belong to a Permissions Manager Item created via `/item/
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_item_application_seed(body)
+result = client.with_raw_response.sandbox_item_application_seed(
+    SandboxItemApplicationSeedRequest(access_token="some example string", application_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxItemApplicationSeedResponse
@@ -16604,7 +17722,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_item_application_seed(body)
+result = await async_client.with_raw_response.sandbox_item_application_seed(
+    SandboxItemApplicationSeedRequest(access_token="some example string", application_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxItemApplicationSeedResponse
@@ -16623,7 +17743,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxItemApplicationSeedRequest](the_plaid_api/models/sandbox_item_application_seed_request.py) \| [SandboxItemApplicationSeedRequestDict](the_plaid_api/models/sandbox_item_application_seed_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16695,7 +17815,9 @@ Note that this endpoint is provided for developer ease-of-use and is not require
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_item_fire_webhook(body)
+result = client.with_raw_response.sandbox_item_fire_webhook(
+    SandboxItemFireWebhookRequest(access_token="some example string", webhook_code=WebhookCode.DEFAULT_UPDATE)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxItemFireWebhookResponse
@@ -16706,7 +17828,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_item_fire_webhook(body)
+result = await async_client.with_raw_response.sandbox_item_fire_webhook(
+    SandboxItemFireWebhookRequest(access_token="some example string", webhook_code=WebhookCode.DEFAULT_UPDATE)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxItemFireWebhookResponse
@@ -16725,7 +17849,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxItemFireWebhookRequest](the_plaid_api/models/sandbox_item_fire_webhook_request.py) \| [SandboxItemFireWebhookRequestDict](the_plaid_api/models/sandbox_item_fire_webhook_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16774,7 +17898,9 @@ In the Sandbox, Items will transition to an `ITEM_LOGIN_REQUIRED` error state au
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_item_reset_login(body)
+result = client.with_raw_response.sandbox_item_reset_login(
+    SandboxItemResetLoginRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxItemResetLoginResponse
@@ -16785,7 +17911,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_item_reset_login(body)
+result = await async_client.with_raw_response.sandbox_item_reset_login(
+    SandboxItemResetLoginRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxItemResetLoginResponse
@@ -16804,7 +17932,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxItemResetLoginRequest](the_plaid_api/models/sandbox_item_reset_login_request.py) \| [SandboxItemResetLoginRequestDict](the_plaid_api/models/sandbox_item_reset_login_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16854,7 +17982,13 @@ For more information on testing Automated Micro-deposits in Sandbox, see [Auth f
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_item_set_verification_status(body)
+result = client.with_raw_response.sandbox_item_set_verification_status(
+    SandboxItemSetVerificationStatusRequest(
+        access_token="some example string",
+        account_id="some example string",
+        verification_status=VerificationStatus1.AUTOMATICALLY_VERIFIED,
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxItemSetVerificationStatusResponse
@@ -16865,7 +17999,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_item_set_verification_status(body)
+result = await async_client.with_raw_response.sandbox_item_set_verification_status(
+    SandboxItemSetVerificationStatusRequest(
+        access_token="some example string",
+        account_id="some example string",
+        verification_status=VerificationStatus1.AUTOMATICALLY_VERIFIED,
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxItemSetVerificationStatusResponse
@@ -16884,7 +18024,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxItemSetVerificationStatusRequest](the_plaid_api/models/sandbox_item_set_verification_status_request.py) \| [SandboxItemSetVerificationStatusRequestDict](the_plaid_api/models/sandbox_item_set_verification_status_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -16932,7 +18072,9 @@ Save the selected accounts when connecting to the Platypus OAuth institution
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_oauth_select_accounts(body)
+result = client.with_raw_response.sandbox_oauth_select_accounts(
+    SandboxOauthSelectAccountsRequest(oauth_state_id="some example string", accounts=["some example string"])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type Any
@@ -16943,7 +18085,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_oauth_select_accounts(body)
+result = await async_client.with_raw_response.sandbox_oauth_select_accounts(
+    SandboxOauthSelectAccountsRequest(oauth_state_id="some example string", accounts=["some example string"])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type Any
@@ -16962,7 +18106,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxOauthSelectAccountsRequest](the_plaid_api/models/sandbox_oauth_select_accounts_request.py) \| [SandboxOauthSelectAccountsRequestDict](the_plaid_api/models/sandbox_oauth_select_accounts_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17014,7 +18158,9 @@ After calling `/sandbox/payment_profile/reset_login`, calls to the `/transfer/au
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_payment_profile_reset_login(body)
+result = client.with_raw_response.sandbox_payment_profile_reset_login(
+    SandboxPaymentProfileResetLoginRequest(payment_profile_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxPaymentProfileResetLoginResponse
@@ -17025,7 +18171,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_payment_profile_reset_login(body)
+result = await async_client.with_raw_response.sandbox_payment_profile_reset_login(
+    SandboxPaymentProfileResetLoginRequest(payment_profile_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxPaymentProfileResetLoginResponse
@@ -17044,7 +18192,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxPaymentProfileResetLoginRequest](the_plaid_api/models/sandbox_payment_profile_reset_login_request.py) \| [SandboxPaymentProfileResetLoginRequestDict](the_plaid_api/models/sandbox_payment_profile_reset_login_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17092,7 +18240,11 @@ Use the `/sandbox/payment/simulate` endpoint to simulate various payment events 
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_payment_simulate(body)
+result = client.with_raw_response.sandbox_payment_simulate(
+    SandboxPaymentSimulateRequest(
+        payment_id="some example string", webhook="some example string", status="some example string"
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxPaymentSimulateResponse
@@ -17103,7 +18255,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_payment_simulate(body)
+result = await async_client.with_raw_response.sandbox_payment_simulate(
+    SandboxPaymentSimulateRequest(
+        payment_id="some example string", webhook="some example string", status="some example string"
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxPaymentSimulateResponse
@@ -17122,7 +18278,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxPaymentSimulateRequest](the_plaid_api/models/sandbox_payment_simulate_request.py) \| [SandboxPaymentSimulateRequestDict](the_plaid_api/models/sandbox_payment_simulate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17170,7 +18326,9 @@ Use the `/sandbox/processor_token/create` endpoint to create a valid `processor_
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_processor_token_create(body)
+result = client.with_raw_response.sandbox_processor_token_create(
+    SandboxProcessorTokenCreateRequest(institution_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxProcessorTokenCreateResponse
@@ -17181,7 +18339,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_processor_token_create(body)
+result = await async_client.with_raw_response.sandbox_processor_token_create(
+    SandboxProcessorTokenCreateRequest(institution_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxProcessorTokenCreateResponse
@@ -17200,7 +18360,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxProcessorTokenCreateRequest](the_plaid_api/models/sandbox_processor_token_create_request.py) \| [SandboxProcessorTokenCreateRequestDict](the_plaid_api/models/sandbox_processor_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17248,7 +18408,9 @@ Use the `/sandbox/public_token/create` endpoint to create a valid `public_token`
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_public_token_create(body)
+result = client.with_raw_response.sandbox_public_token_create(
+    SandboxPublicTokenCreateRequest(institution_id="some example string", initial_products=[Products.ASSETS])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxPublicTokenCreateResponse
@@ -17259,7 +18421,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_public_token_create(body)
+result = await async_client.with_raw_response.sandbox_public_token_create(
+    SandboxPublicTokenCreateRequest(institution_id="some example string", initial_products=[Products.ASSETS])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxPublicTokenCreateResponse
@@ -17278,7 +18442,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxPublicTokenCreateRequest](the_plaid_api/models/sandbox_public_token_create_request.py) \| [SandboxPublicTokenCreateRequestDict](the_plaid_api/models/sandbox_public_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17330,7 +18494,19 @@ Custom transactions are only applied to the depository account. Support for per-
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_transactions_create(body)
+result = client.with_raw_response.sandbox_transactions_create(
+    SandboxTransactionsCreateRequest(
+        access_token="some example string",
+        transactions=[
+            CustomSandboxTransaction(
+                date_transacted=date(2024, 1, 15),
+                date_posted=date(2024, 1, 15),
+                amount=1.5,
+                description="some example string",
+            ),
+        ],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransactionsCreateResponse
@@ -17341,7 +18517,19 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_transactions_create(body)
+result = await async_client.with_raw_response.sandbox_transactions_create(
+    SandboxTransactionsCreateRequest(
+        access_token="some example string",
+        transactions=[
+            CustomSandboxTransaction(
+                date_transacted=date(2024, 1, 15),
+                date_posted=date(2024, 1, 15),
+                amount=1.5,
+                description="some example string",
+            ),
+        ],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransactionsCreateResponse
@@ -17360,7 +18548,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransactionsCreateRequest](the_plaid_api/models/sandbox_transactions_create_request.py) \| [SandboxTransactionsCreateRequestDict](the_plaid_api/models/sandbox_transactions_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17415,7 +18603,9 @@ Use the `/sandbox/transfer/fire_webhook` endpoint to manually trigger a `TRANSFE
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_transfer_fire_webhook(body)
+result = client.with_raw_response.sandbox_transfer_fire_webhook(
+    SandboxTransferFireWebhookRequest(webhook="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferFireWebhookResponse
@@ -17426,7 +18616,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_transfer_fire_webhook(body)
+result = await async_client.with_raw_response.sandbox_transfer_fire_webhook(
+    SandboxTransferFireWebhookRequest(webhook="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferFireWebhookResponse
@@ -17445,7 +18637,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferFireWebhookRequest](the_plaid_api/models/sandbox_transfer_fire_webhook_request.py) \| [SandboxTransferFireWebhookRequestDict](the_plaid_api/models/sandbox_transfer_fire_webhook_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17493,7 +18685,11 @@ Use the `/sandbox/transfer/ledger/deposit/simulate` endpoint to simulate a ledge
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_transfer_ledger_deposit_simulate(body)
+result = client.with_raw_response.sandbox_transfer_ledger_deposit_simulate(
+    SandboxTransferLedgerDepositSimulateRequest(
+        sweep_id="some example string", event_type=TransferLedgerSweepSimulateEventType.SWEEP_POSTED
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferLedgerDepositSimulateResponse
@@ -17504,7 +18700,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_transfer_ledger_deposit_simulate(body)
+result = await async_client.with_raw_response.sandbox_transfer_ledger_deposit_simulate(
+    SandboxTransferLedgerDepositSimulateRequest(
+        sweep_id="some example string", event_type=TransferLedgerSweepSimulateEventType.SWEEP_POSTED
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferLedgerDepositSimulateResponse
@@ -17523,7 +18723,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferLedgerDepositSimulateRequest](the_plaid_api/models/sandbox_transfer_ledger_deposit_simulate_request.py) \| [SandboxTransferLedgerDepositSimulateRequestDict](the_plaid_api/models/sandbox_transfer_ledger_deposit_simulate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17571,7 +18771,9 @@ Use the `/sandbox/transfer/ledger/simulate_available` endpoint to simulate conve
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_transfer_ledger_simulate_available(body)
+result = client.with_raw_response.sandbox_transfer_ledger_simulate_available(
+    SandboxTransferLedgerSimulateAvailableRequest()
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferLedgerSimulateAvailableResponse
@@ -17582,7 +18784,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_transfer_ledger_simulate_available(body)
+result = await async_client.with_raw_response.sandbox_transfer_ledger_simulate_available(
+    SandboxTransferLedgerSimulateAvailableRequest()
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferLedgerSimulateAvailableResponse
@@ -17601,7 +18805,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferLedgerSimulateAvailableRequest](the_plaid_api/models/sandbox_transfer_ledger_simulate_available_request.py) \| [SandboxTransferLedgerSimulateAvailableRequestDict](the_plaid_api/models/sandbox_transfer_ledger_simulate_available_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17649,7 +18853,11 @@ Use the `/sandbox/transfer/ledger/withdraw/simulate` endpoint to simulate a ledg
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_transfer_ledger_withdraw_simulate(body)
+result = client.with_raw_response.sandbox_transfer_ledger_withdraw_simulate(
+    SandboxTransferLedgerWithdrawSimulateRequest(
+        sweep_id="some example string", event_type=TransferLedgerSweepSimulateEventType.SWEEP_POSTED
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferLedgerWithdrawSimulateResponse
@@ -17660,7 +18868,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_transfer_ledger_withdraw_simulate(body)
+result = await async_client.with_raw_response.sandbox_transfer_ledger_withdraw_simulate(
+    SandboxTransferLedgerWithdrawSimulateRequest(
+        sweep_id="some example string", event_type=TransferLedgerSweepSimulateEventType.SWEEP_POSTED
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferLedgerWithdrawSimulateResponse
@@ -17679,7 +18891,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferLedgerWithdrawSimulateRequest](the_plaid_api/models/sandbox_transfer_ledger_withdraw_simulate_request.py) \| [SandboxTransferLedgerWithdrawSimulateRequestDict](the_plaid_api/models/sandbox_transfer_ledger_withdraw_simulate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17727,7 +18939,9 @@ Use the `/sandbox/transfer/refund/simulate` endpoint to simulate a refund event 
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_transfer_refund_simulate(body)
+result = client.with_raw_response.sandbox_transfer_refund_simulate(
+    SandboxTransferRefundSimulateRequest(refund_id="some example string", event_type="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferRefundSimulateResponse
@@ -17738,7 +18952,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_transfer_refund_simulate(body)
+result = await async_client.with_raw_response.sandbox_transfer_refund_simulate(
+    SandboxTransferRefundSimulateRequest(refund_id="some example string", event_type="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferRefundSimulateResponse
@@ -17757,7 +18973,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferRefundSimulateRequest](the_plaid_api/models/sandbox_transfer_refund_simulate_request.py) \| [SandboxTransferRefundSimulateRequestDict](the_plaid_api/models/sandbox_transfer_refund_simulate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17805,7 +19021,7 @@ Use the `/sandbox/transfer/repayment/simulate` endpoint to trigger the creation 
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_transfer_repayment_simulate(body)
+result = client.with_raw_response.sandbox_transfer_repayment_simulate(SandboxTransferRepaymentSimulateRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferRepaymentSimulateResponse
@@ -17816,7 +19032,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_transfer_repayment_simulate(body)
+result = await async_client.with_raw_response.sandbox_transfer_repayment_simulate(
+    SandboxTransferRepaymentSimulateRequest()
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferRepaymentSimulateResponse
@@ -17835,7 +19053,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferRepaymentSimulateRequest](the_plaid_api/models/sandbox_transfer_repayment_simulate_request.py) \| [SandboxTransferRepaymentSimulateRequestDict](the_plaid_api/models/sandbox_transfer_repayment_simulate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17883,7 +19101,9 @@ Use the `/sandbox/transfer/simulate` endpoint to simulate a transfer event in th
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_transfer_simulate(body)
+result = client.with_raw_response.sandbox_transfer_simulate(
+    SandboxTransferSimulateRequest(transfer_id="some example string", event_type="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferSimulateResponse
@@ -17894,7 +19114,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_transfer_simulate(body)
+result = await async_client.with_raw_response.sandbox_transfer_simulate(
+    SandboxTransferSimulateRequest(transfer_id="some example string", event_type="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferSimulateResponse
@@ -17913,7 +19135,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferSimulateRequest](the_plaid_api/models/sandbox_transfer_simulate_request.py) \| [SandboxTransferSimulateRequestDict](the_plaid_api/models/sandbox_transfer_simulate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -17961,7 +19183,7 @@ Use the `/sandbox/transfer/sweep/simulate` endpoint to create a sweep and associ
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_transfer_sweep_simulate(body)
+result = client.with_raw_response.sandbox_transfer_sweep_simulate(SandboxTransferSweepSimulateRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferSweepSimulateResponse
@@ -17972,7 +19194,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_transfer_sweep_simulate(body)
+result = await async_client.with_raw_response.sandbox_transfer_sweep_simulate(SandboxTransferSweepSimulateRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferSweepSimulateResponse
@@ -17991,7 +19213,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferSweepSimulateRequest](the_plaid_api/models/sandbox_transfer_sweep_simulate_request.py) \| [SandboxTransferSweepSimulateRequestDict](the_plaid_api/models/sandbox_transfer_sweep_simulate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18049,7 +19271,11 @@ For example, if the recurring transfer associated with this test clock originate
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_transfer_test_clock_advance(body)
+result = client.with_raw_response.sandbox_transfer_test_clock_advance(
+    SandboxTransferTestClockAdvanceRequest(
+        test_clock_id="some example string", new_virtual_time=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc)
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferTestClockAdvanceResponse
@@ -18060,7 +19286,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_transfer_test_clock_advance(body)
+result = await async_client.with_raw_response.sandbox_transfer_test_clock_advance(
+    SandboxTransferTestClockAdvanceRequest(
+        test_clock_id="some example string", new_virtual_time=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc)
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferTestClockAdvanceResponse
@@ -18079,7 +19309,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferTestClockAdvanceRequest](the_plaid_api/models/sandbox_transfer_test_clock_advance_request.py) \| [SandboxTransferTestClockAdvanceRequestDict](the_plaid_api/models/sandbox_transfer_test_clock_advance_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18131,7 +19361,7 @@ A test clock can be associated with up to 5 recurring transfers.
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_transfer_test_clock_create(body)
+result = client.with_raw_response.sandbox_transfer_test_clock_create(SandboxTransferTestClockCreateRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferTestClockCreateResponse
@@ -18142,7 +19372,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_transfer_test_clock_create(body)
+result = await async_client.with_raw_response.sandbox_transfer_test_clock_create(
+    SandboxTransferTestClockCreateRequest()
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferTestClockCreateResponse
@@ -18161,7 +19393,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferTestClockCreateRequest](the_plaid_api/models/sandbox_transfer_test_clock_create_request.py) \| [SandboxTransferTestClockCreateRequestDict](the_plaid_api/models/sandbox_transfer_test_clock_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18209,7 +19441,9 @@ Use the `/sandbox/transfer/test_clock/get` endpoint to get a `test_clock` in the
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_transfer_test_clock_get(body)
+result = client.with_raw_response.sandbox_transfer_test_clock_get(
+    SandboxTransferTestClockGetRequest(test_clock_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferTestClockGetResponse
@@ -18220,7 +19454,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_transfer_test_clock_get(body)
+result = await async_client.with_raw_response.sandbox_transfer_test_clock_get(
+    SandboxTransferTestClockGetRequest(test_clock_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferTestClockGetResponse
@@ -18239,7 +19475,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferTestClockGetRequest](the_plaid_api/models/sandbox_transfer_test_clock_get_request.py) \| [SandboxTransferTestClockGetRequestDict](the_plaid_api/models/sandbox_transfer_test_clock_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18287,7 +19523,7 @@ Use the `/sandbox/transfer/test_clock/list` endpoint to see a list of all your t
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_transfer_test_clock_list(body)
+result = client.with_raw_response.sandbox_transfer_test_clock_list(SandboxTransferTestClockListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferTestClockListResponse
@@ -18298,7 +19534,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_transfer_test_clock_list(body)
+result = await async_client.with_raw_response.sandbox_transfer_test_clock_list(SandboxTransferTestClockListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxTransferTestClockListResponse
@@ -18317,7 +19553,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxTransferTestClockListRequest](the_plaid_api/models/sandbox_transfer_test_clock_list_request.py) \| [SandboxTransferTestClockListRequestDict](the_plaid_api/models/sandbox_transfer_test_clock_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18366,7 +19602,7 @@ In the Sandbox, Items will transition to an `ITEM_LOGIN_REQUIRED` error state au
 **Sync**
 
 ```python
-result = client.with_raw_response.sandbox_user_reset_login(body)
+result = client.with_raw_response.sandbox_user_reset_login(SandboxUserResetLoginRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxUserResetLoginResponse
@@ -18377,7 +19613,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.sandbox_user_reset_login(body)
+result = await async_client.with_raw_response.sandbox_user_reset_login(SandboxUserResetLoginRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SandboxUserResetLoginResponse
@@ -18396,7 +19632,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SandboxUserResetLoginRequest](the_plaid_api/models/sandbox_user_reset_login_request.py) \| [SandboxUserResetLoginRequestDict](the_plaid_api/models/sandbox_user_reset_login_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18444,7 +19680,7 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.session_token_create(body)
+result = client.with_raw_response.session_token_create(SessionTokenCreateRequest(template_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SessionTokenCreateResponse
@@ -18455,7 +19691,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.session_token_create(body)
+result = await async_client.with_raw_response.session_token_create(
+    SessionTokenCreateRequest(template_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SessionTokenCreateResponse
@@ -18474,7 +19712,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SessionTokenCreateRequest](the_plaid_api/models/session_token_create_request.py) \| [SessionTokenCreateRequestDict](the_plaid_api/models/session_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18526,7 +19764,9 @@ If using a Balance-only ruleset, this endpoint will not impact scores (Balance d
 **Sync**
 
 ```python
-result = client.with_raw_response.signal_decision_report(body)
+result = client.with_raw_response.signal_decision_report(
+    SignalDecisionReportRequest(client_transaction_id="some example string", initiated=True)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SignalDecisionReportResponse
@@ -18537,7 +19777,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.signal_decision_report(body)
+result = await async_client.with_raw_response.signal_decision_report(
+    SignalDecisionReportRequest(client_transaction_id="some example string", initiated=True)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SignalDecisionReportResponse
@@ -18556,7 +19798,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SignalDecisionReportRequest](the_plaid_api/models/signal_decision_report_request.py) \| [SignalDecisionReportRequestDict](the_plaid_api/models/signal_decision_report_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18610,7 +19852,14 @@ Note: This request may have higher latency when using a Balance-only ruleset. Th
 **Sync**
 
 ```python
-result = client.with_raw_response.signal_evaluate(body)
+result = client.with_raw_response.signal_evaluate(
+    SignalEvaluateRequest(
+        access_token="some example string",
+        account_id="some example string",
+        client_transaction_id="some example string",
+        amount=1.5,
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SignalEvaluateResponse
@@ -18621,7 +19870,14 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.signal_evaluate(body)
+result = await async_client.with_raw_response.signal_evaluate(
+    SignalEvaluateRequest(
+        access_token="some example string",
+        account_id="some example string",
+        client_transaction_id="some example string",
+        amount=1.5,
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SignalEvaluateResponse
@@ -18640,7 +19896,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SignalEvaluateRequest](the_plaid_api/models/signal_evaluate_request.py) \| [SignalEvaluateRequestDict](the_plaid_api/models/signal_evaluate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18692,7 +19948,7 @@ If run on an Item that is already initialized with `signal`, this endpoint will 
 **Sync**
 
 ```python
-result = client.with_raw_response.signal_prepare(body)
+result = client.with_raw_response.signal_prepare(SignalPrepareRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SignalPrepareResponse
@@ -18703,7 +19959,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.signal_prepare(body)
+result = await async_client.with_raw_response.signal_prepare(SignalPrepareRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SignalPrepareResponse
@@ -18722,7 +19978,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SignalPrepareRequest](the_plaid_api/models/signal_prepare_request.py) \| [SignalPrepareRequestDict](the_plaid_api/models/signal_prepare_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18770,7 +20026,9 @@ Call the `/signal/return/report` endpoint to report a returned transaction that 
 **Sync**
 
 ```python
-result = client.with_raw_response.signal_return_report(body)
+result = client.with_raw_response.signal_return_report(
+    SignalReturnReportRequest(client_transaction_id="some example string", return_code="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SignalReturnReportResponse
@@ -18781,7 +20039,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.signal_return_report(body)
+result = await async_client.with_raw_response.signal_return_report(
+    SignalReturnReportRequest(client_transaction_id="some example string", return_code="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SignalReturnReportResponse
@@ -18800,7 +20060,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SignalReturnReportRequest](the_plaid_api/models/signal_return_report_request.py) \| [SignalReturnReportRequestDict](the_plaid_api/models/signal_return_report_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18848,7 +20108,14 @@ Use `/signal/schedule` to schedule a planned ACH transaction.
 **Sync**
 
 ```python
-result = client.with_raw_response.signal_schedule(body)
+result = client.with_raw_response.signal_schedule(
+    SignalScheduleRequest(
+        access_token="some example string",
+        account_id="some example string",
+        client_transaction_id="some example string",
+        amount=1.5,
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SignalScheduleResponse
@@ -18859,7 +20126,14 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.signal_schedule(body)
+result = await async_client.with_raw_response.signal_schedule(
+    SignalScheduleRequest(
+        access_token="some example string",
+        account_id="some example string",
+        client_transaction_id="some example string",
+        amount=1.5,
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type SignalScheduleResponse
@@ -18878,7 +20152,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[SignalScheduleRequest](the_plaid_api/models/signal_schedule_request.py) \| [SignalScheduleRequestDict](the_plaid_api/models/signal_schedule_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -18926,7 +20200,9 @@ The `/statements/download` endpoint retrieves a single statement PDF in binary f
 **Sync**
 
 ```python
-result = client.with_raw_response.statements_download(body)
+result = client.with_raw_response.statements_download(
+    StatementsDownloadRequest(access_token="some example string", statement_id="some example string")
+)
 match result:
     case Success():
         ...  # 2xx, no content
@@ -18937,7 +20213,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.statements_download(body)
+result = await async_client.with_raw_response.statements_download(
+    StatementsDownloadRequest(access_token="some example string", statement_id="some example string")
+)
 match result:
     case Success():
         ...  # 2xx, no content
@@ -18956,7 +20234,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[StatementsDownloadRequest](the_plaid_api/models/statements_download_request.py) \| [StatementsDownloadRequestDict](the_plaid_api/models/statements_download_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19004,7 +20282,7 @@ The `/statements/list` endpoint retrieves a list of all statements associated wi
 **Sync**
 
 ```python
-result = client.with_raw_response.statements_list(body)
+result = client.with_raw_response.statements_list(StatementsListRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type StatementsListResponse
@@ -19015,7 +20293,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.statements_list(body)
+result = await async_client.with_raw_response.statements_list(StatementsListRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type StatementsListResponse
@@ -19034,7 +20312,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[StatementsListRequest](the_plaid_api/models/statements_list_request.py) \| [StatementsListRequestDict](the_plaid_api/models/statements_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19082,7 +20360,11 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.statements_refresh(body)
+result = client.with_raw_response.statements_refresh(
+    StatementsRefreshRequest(
+        access_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15)
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type StatementsRefreshResponse
@@ -19093,7 +20375,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.statements_refresh(body)
+result = await async_client.with_raw_response.statements_refresh(
+    StatementsRefreshRequest(
+        access_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15)
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type StatementsRefreshResponse
@@ -19112,7 +20398,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[StatementsRefreshRequest](the_plaid_api/models/statements_refresh_request.py) \| [StatementsRefreshRequestDict](the_plaid_api/models/statements_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19162,7 +20448,19 @@ The product is currently in beta.
 **Sync**
 
 ```python
-result = client.with_raw_response.transactions_enhance(body)
+result = client.with_raw_response.transactions_enhance(
+    TransactionsEnhanceGetRequest(
+        account_type="some example string",
+        transactions=[
+            ClientProvidedRawTransaction(
+                id="some example string",
+                description="some example string",
+                amount=1.5,
+                iso_currency_code="some example string",
+            ),
+        ],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsEnhanceGetResponse
@@ -19173,7 +20471,19 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transactions_enhance(body)
+result = await async_client.with_raw_response.transactions_enhance(
+    TransactionsEnhanceGetRequest(
+        account_type="some example string",
+        transactions=[
+            ClientProvidedRawTransaction(
+                id="some example string",
+                description="some example string",
+                amount=1.5,
+                iso_currency_code="some example string",
+            ),
+        ],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsEnhanceGetResponse
@@ -19192,7 +20502,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsEnhanceGetRequest](the_plaid_api/models/transactions_enhance_get_request.py) \| [TransactionsEnhanceGetRequestDict](the_plaid_api/models/transactions_enhance_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19240,7 +20550,20 @@ The `/transactions/enrich` endpoint enriches raw transaction data generated by y
 **Sync**
 
 ```python
-result = client.with_raw_response.transactions_enrich(body)
+result = client.with_raw_response.transactions_enrich(
+    TransactionsEnrichRequest(
+        account_type="some example string",
+        transactions=[
+            ClientProvidedTransaction(
+                id="some example string",
+                description="some example string",
+                amount=1.5,
+                direction=EnrichTransactionDirection.INFLOW,
+                iso_currency_code="some example string",
+            ),
+        ],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsEnrichResponse
@@ -19251,7 +20574,20 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transactions_enrich(body)
+result = await async_client.with_raw_response.transactions_enrich(
+    TransactionsEnrichRequest(
+        account_type="some example string",
+        transactions=[
+            ClientProvidedTransaction(
+                id="some example string",
+                description="some example string",
+                amount=1.5,
+                direction=EnrichTransactionDirection.INFLOW,
+                iso_currency_code="some example string",
+            ),
+        ],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsEnrichResponse
@@ -19270,7 +20606,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsEnrichRequest](the_plaid_api/models/transactions_enrich_request.py) \| [TransactionsEnrichRequestDict](the_plaid_api/models/transactions_enrich_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19324,7 +20660,9 @@ Note that data may not be immediately available to `/transactions/get`. Plaid wi
 **Sync**
 
 ```python
-result = client.with_raw_response.transactions_get(body)
+result = client.with_raw_response.transactions_get(
+    TransactionsGetRequest(access_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15))
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsGetResponse
@@ -19335,7 +20673,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transactions_get(body)
+result = await async_client.with_raw_response.transactions_get(
+    TransactionsGetRequest(access_token="some example string", start_date=date(2024, 1, 15), end_date=date(2024, 1, 15))
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsGetResponse
@@ -19354,7 +20694,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsGetRequest](the_plaid_api/models/transactions_get_request.py) \| [TransactionsGetRequestDict](the_plaid_api/models/transactions_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19410,7 +20750,9 @@ After the initial call, you can call the `/transactions/recurring/get` endpoint 
 **Sync**
 
 ```python
-result = client.with_raw_response.transactions_recurring_get(body)
+result = client.with_raw_response.transactions_recurring_get(
+    TransactionsRecurringGetRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsRecurringGetResponse
@@ -19421,7 +20763,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transactions_recurring_get(body)
+result = await async_client.with_raw_response.transactions_recurring_get(
+    TransactionsRecurringGetRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsRecurringGetResponse
@@ -19440,7 +20784,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsRecurringGetRequest](the_plaid_api/models/transactions_recurring_get_request.py) \| [TransactionsRecurringGetRequestDict](the_plaid_api/models/transactions_recurring_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19496,7 +20840,7 @@ As this endpoint triggers a synchronous request for fresh data, latency may be h
 **Sync**
 
 ```python
-result = client.with_raw_response.transactions_refresh(body)
+result = client.with_raw_response.transactions_refresh(TransactionsRefreshRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsRefreshResponse
@@ -19507,7 +20851,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transactions_refresh(body)
+result = await async_client.with_raw_response.transactions_refresh(
+    TransactionsRefreshRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsRefreshResponse
@@ -19526,7 +20872,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsRefreshRequest](the_plaid_api/models/transactions_refresh_request.py) \| [TransactionsRefreshRequestDict](the_plaid_api/models/transactions_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19578,7 +20924,18 @@ The product is currently in beta. To request access, contact transactions-feedba
 **Sync**
 
 ```python
-result = client.with_raw_response.transactions_rules_create(body)
+result = client.with_raw_response.transactions_rules_create(
+    TransactionsRulesCreateRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        client_user_id="your-client-user-id",
+        pfc_primary_category="FOOD_AND_DRINK",
+        pfc_detailed_category="FOOD_AND_DRINK_FAST_FOOD",
+        rule_details=TransactionsRuleDetails(
+            field=TransactionsRuleField.MERCHANT_NAME, type_=TransactionsRuleType.SUBSTRING_MATCH, query="Burger Shack"
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsRulesCreateResponse
@@ -19589,7 +20946,18 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transactions_rules_create(body)
+result = await async_client.with_raw_response.transactions_rules_create(
+    TransactionsRulesCreateRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        client_user_id="your-client-user-id",
+        pfc_primary_category="FOOD_AND_DRINK",
+        pfc_detailed_category="FOOD_AND_DRINK_FAST_FOOD",
+        rule_details=TransactionsRuleDetails(
+            field=TransactionsRuleField.MERCHANT_NAME, type_=TransactionsRuleType.SUBSTRING_MATCH, query="Burger Shack"
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsRulesCreateResponse
@@ -19608,7 +20976,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsRulesCreateRequest](the_plaid_api/models/transactions_rules_create_request.py) \| [TransactionsRulesCreateRequestDict](the_plaid_api/models/transactions_rules_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19656,7 +21024,13 @@ The `/beta/transactions/rules/v1/list` returns a list of transaction rules creat
 **Sync**
 
 ```python
-result = client.with_raw_response.transactions_rules_list(body)
+result = client.with_raw_response.transactions_rules_list(
+    TransactionsRulesListRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        client_user_id="your-client-user-id",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsRulesListResponse
@@ -19667,7 +21041,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transactions_rules_list(body)
+result = await async_client.with_raw_response.transactions_rules_list(
+    TransactionsRulesListRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        client_user_id="your-client-user-id",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsRulesListResponse
@@ -19686,7 +21066,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsRulesListRequest](the_plaid_api/models/transactions_rules_list_request.py) \| [TransactionsRulesListRequestDict](the_plaid_api/models/transactions_rules_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19734,7 +21114,14 @@ The `/beta/transactions/rules/v1/remove` endpoint is used to remove a transactio
 **Sync**
 
 ```python
-result = client.with_raw_response.transactions_rules_remove(body)
+result = client.with_raw_response.transactions_rules_remove(
+    TransactionsRulesRemoveRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        client_user_id="your-client-user-id",
+        rule_id="eVBnVMp7zdTJLkRNr33Rs6zr7KNJqBF",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsRulesRemoveResponse
@@ -19745,7 +21132,14 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transactions_rules_remove(body)
+result = await async_client.with_raw_response.transactions_rules_remove(
+    TransactionsRulesRemoveRequest(
+        client_id="7f57eb3d2a9j6480121fx361",
+        secret="79g03eoofwl8240v776r2h667442119",
+        client_user_id="your-client-user-id",
+        rule_id="eVBnVMp7zdTJLkRNr33Rs6zr7KNJqBF",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsRulesRemoveResponse
@@ -19764,7 +21158,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsRulesRemoveRequest](the_plaid_api/models/transactions_rules_remove_request.py) \| [TransactionsRulesRemoveRequestDict](the_plaid_api/models/transactions_rules_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19824,7 +21218,7 @@ To be alerted when new transactions are available, listen for the https://plaid.
 **Sync**
 
 ```python
-result = client.with_raw_response.transactions_sync(body)
+result = client.with_raw_response.transactions_sync(TransactionsSyncRequest(access_token="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsSyncResponse
@@ -19835,7 +21229,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transactions_sync(body)
+result = await async_client.with_raw_response.transactions_sync(
+    TransactionsSyncRequest(access_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsSyncResponse
@@ -19854,7 +21250,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsSyncRequest](the_plaid_api/models/transactions_sync_request.py) \| [TransactionsSyncRequestDict](the_plaid_api/models/transactions_sync_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19904,7 +21300,9 @@ The product is currently in beta.
 **Sync**
 
 ```python
-result = client.with_raw_response.transactions_user_insights_get(body)
+result = client.with_raw_response.transactions_user_insights_get(
+    TransactionsUserInsightsGetRequest(client_user_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsUserInsightsGetResponse
@@ -19915,7 +21313,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transactions_user_insights_get(body)
+result = await async_client.with_raw_response.transactions_user_insights_get(
+    TransactionsUserInsightsGetRequest(client_user_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransactionsUserInsightsGetResponse
@@ -19934,7 +21334,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransactionsUserInsightsGetRequest](the_plaid_api/models/transactions_user_insights_get_request.py) \| [TransactionsUserInsightsGetRequestDict](the_plaid_api/models/transactions_user_insights_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -19982,7 +21382,9 @@ Use the `/transfer/authorization/cancel` endpoint to cancel a transfer authoriza
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_authorization_cancel(body)
+result = client.with_raw_response.transfer_authorization_cancel(
+    TransferAuthorizationCancelRequest(authorization_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferAuthorizationCancelResponse
@@ -19993,7 +21395,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_authorization_cancel(body)
+result = await async_client.with_raw_response.transfer_authorization_cancel(
+    TransferAuthorizationCancelRequest(authorization_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferAuthorizationCancelResponse
@@ -20012,7 +21416,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferAuthorizationCancelRequest](the_plaid_api/models/transfer_authorization_cancel_request.py) \| [TransferAuthorizationCancelRequestDict](the_plaid_api/models/transfer_authorization_cancel_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20082,7 +21486,16 @@ In Plaid's Sandbox environment the decisions will be returned as follows:
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_authorization_create(body)
+result = client.with_raw_response.transfer_authorization_create(
+    TransferAuthorizationCreateRequest(
+        access_token="some example string",
+        account_id="some example string",
+        type_=TransferType.DEBIT,
+        network=TransferNetwork.ACH,
+        amount="some example string",
+        user=TransferAuthorizationUserInRequest(legal_name="some example string"),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferAuthorizationCreateResponse
@@ -20093,7 +21506,16 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_authorization_create(body)
+result = await async_client.with_raw_response.transfer_authorization_create(
+    TransferAuthorizationCreateRequest(
+        access_token="some example string",
+        account_id="some example string",
+        type_=TransferType.DEBIT,
+        network=TransferNetwork.ACH,
+        amount="some example string",
+        user=TransferAuthorizationUserInRequest(legal_name="some example string"),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferAuthorizationCreateResponse
@@ -20112,7 +21534,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferAuthorizationCreateRequest](the_plaid_api/models/transfer_authorization_create_request.py) \| [TransferAuthorizationCreateRequestDict](the_plaid_api/models/transfer_authorization_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20160,7 +21582,7 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_balance_get(body)
+result = client.with_raw_response.transfer_balance_get(TransferBalanceGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferBalanceGetResponse
@@ -20171,7 +21593,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_balance_get(body)
+result = await async_client.with_raw_response.transfer_balance_get(TransferBalanceGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferBalanceGetResponse
@@ -20190,7 +21612,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferBalanceGetRequest](the_plaid_api/models/transfer_balance_get_request.py) \| [TransferBalanceGetRequestDict](the_plaid_api/models/transfer_balance_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20238,7 +21660,7 @@ Use the `/transfer/cancel` endpoint to cancel a transfer.  A transfer is eligibl
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_cancel(body)
+result = client.with_raw_response.transfer_cancel(TransferCancelRequest(transfer_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferCancelResponse
@@ -20249,7 +21671,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_cancel(body)
+result = await async_client.with_raw_response.transfer_cancel(TransferCancelRequest(transfer_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferCancelResponse
@@ -20268,7 +21690,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferCancelRequest](the_plaid_api/models/transfer_cancel_request.py) \| [TransferCancelRequestDict](the_plaid_api/models/transfer_cancel_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20316,7 +21738,9 @@ Use the `/transfer/capabilities/get` endpoint to determine the RTP eligibility i
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_capabilities_get(body)
+result = client.with_raw_response.transfer_capabilities_get(
+    TransferCapabilitiesGetRequest(access_token="some example string", account_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferCapabilitiesGetResponse
@@ -20327,7 +21751,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_capabilities_get(body)
+result = await async_client.with_raw_response.transfer_capabilities_get(
+    TransferCapabilitiesGetRequest(access_token="some example string", account_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferCapabilitiesGetResponse
@@ -20346,7 +21772,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferCapabilitiesGetRequest](the_plaid_api/models/transfer_capabilities_get_request.py) \| [TransferCapabilitiesGetRequestDict](the_plaid_api/models/transfer_capabilities_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20394,7 +21820,7 @@ Use the `/transfer/configuration/get` endpoint to view your transfer product con
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_configuration_get(body)
+result = client.with_raw_response.transfer_configuration_get(TransferConfigurationGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferConfigurationGetResponse
@@ -20405,7 +21831,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_configuration_get(body)
+result = await async_client.with_raw_response.transfer_configuration_get(TransferConfigurationGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferConfigurationGetResponse
@@ -20424,7 +21850,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferConfigurationGetRequest](the_plaid_api/models/transfer_configuration_get_request.py) \| [TransferConfigurationGetRequestDict](the_plaid_api/models/transfer_configuration_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20472,7 +21898,14 @@ Use the `/transfer/create` endpoint to initiate a new transfer. This endpoint is
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_create(body)
+result = client.with_raw_response.transfer_create(
+    TransferCreateRequest(
+        access_token="some example string",
+        account_id="some example string",
+        authorization_id="some example string",
+        description="some example string",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferCreateResponse
@@ -20483,7 +21916,14 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_create(body)
+result = await async_client.with_raw_response.transfer_create(
+    TransferCreateRequest(
+        access_token="some example string",
+        account_id="some example string",
+        authorization_id="some example string",
+        description="some example string",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferCreateResponse
@@ -20502,7 +21942,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferCreateRequest](the_plaid_api/models/transfer_create_request.py) \| [TransferCreateRequestDict](the_plaid_api/models/transfer_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20551,7 +21991,11 @@ You must provide the `client_id` in the `PLAID-CLIENT-ID` header and `secret` in
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_diligence_document_upload(body)
+result = client.with_raw_response.transfer_diligence_document_upload(
+    TransferDiligenceDocumentUploadRequest(
+        originator_client_id="some example string", file=Path("path/to/file.bin"), purpose=Purpose.DUE_DILIGENCE
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferDiligenceDocumentUploadResponse
@@ -20562,7 +22006,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_diligence_document_upload(body)
+result = await async_client.with_raw_response.transfer_diligence_document_upload(
+    TransferDiligenceDocumentUploadRequest(
+        originator_client_id="some example string", file=Path("path/to/file.bin"), purpose=Purpose.DUE_DILIGENCE
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferDiligenceDocumentUploadResponse
@@ -20581,7 +22029,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferDiligenceDocumentUploadRequest](the_plaid_api/models/transfer_diligence_document_upload_request.py) \| [TransferDiligenceDocumentUploadRequestDict](the_plaid_api/models/transfer_diligence_document_upload_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20629,7 +22077,27 @@ Use the `/transfer/diligence/submit` endpoint to submit transfer diligence on be
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_diligence_submit(body)
+result = client.with_raw_response.transfer_diligence_submit(
+    TransferDiligenceSubmitRequest(
+        originator_client_id="some example string",
+        originator_diligence=TransferOriginatorDiligence(
+            dba="some example string",
+            tax_id="some example string",
+            address=TransferOriginatorAddress(
+                city="some example string",
+                street="some example string",
+                region="some example string",
+                postal_code="some example string",
+                country_code="some example string",
+            ),
+            website="some example string",
+            naics_code="some example string",
+            funding_account=TransferFundingAccount(
+                access_token="some example string", account_id="some example string"
+            ),
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferDiligenceSubmitResponse
@@ -20640,7 +22108,27 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_diligence_submit(body)
+result = await async_client.with_raw_response.transfer_diligence_submit(
+    TransferDiligenceSubmitRequest(
+        originator_client_id="some example string",
+        originator_diligence=TransferOriginatorDiligence(
+            dba="some example string",
+            tax_id="some example string",
+            address=TransferOriginatorAddress(
+                city="some example string",
+                street="some example string",
+                region="some example string",
+                postal_code="some example string",
+                country_code="some example string",
+            ),
+            website="some example string",
+            naics_code="some example string",
+            funding_account=TransferFundingAccount(
+                access_token="some example string", account_id="some example string"
+            ),
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferDiligenceSubmitResponse
@@ -20659,7 +22147,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferDiligenceSubmitRequest](the_plaid_api/models/transfer_diligence_submit_request.py) \| [TransferDiligenceSubmitRequestDict](the_plaid_api/models/transfer_diligence_submit_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20707,7 +22195,7 @@ Use the `/transfer/event/list` endpoint to get a list of transfer events based o
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_event_list(body)
+result = client.with_raw_response.transfer_event_list(TransferEventListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferEventListResponse
@@ -20718,7 +22206,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_event_list(body)
+result = await async_client.with_raw_response.transfer_event_list(TransferEventListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferEventListResponse
@@ -20737,7 +22225,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferEventListRequest](the_plaid_api/models/transfer_event_list_request.py) \| [TransferEventListRequestDict](the_plaid_api/models/transfer_event_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20785,7 +22273,7 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_event_sync(body)
+result = client.with_raw_response.transfer_event_sync(TransferEventSyncRequest(after_id=1))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferEventSyncResponse
@@ -20796,7 +22284,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_event_sync(body)
+result = await async_client.with_raw_response.transfer_event_sync(TransferEventSyncRequest(after_id=1))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferEventSyncResponse
@@ -20815,7 +22303,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferEventSyncRequest](the_plaid_api/models/transfer_event_sync_request.py) \| [TransferEventSyncRequestDict](the_plaid_api/models/transfer_event_sync_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20863,7 +22351,7 @@ The `/transfer/get` endpoint fetches information about the transfer correspondin
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_get(body)
+result = client.with_raw_response.transfer_get(TransferGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferGetResponse
@@ -20874,7 +22362,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_get(body)
+result = await async_client.with_raw_response.transfer_get(TransferGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferGetResponse
@@ -20893,7 +22381,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferGetRequest](the_plaid_api/models/transfer_get_request.py) \| [TransferGetRequestDict](the_plaid_api/models/transfer_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -20941,7 +22429,14 @@ Use the `/transfer/intent/create` endpoint to generate a transfer intent object 
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_intent_create(body)
+result = client.with_raw_response.transfer_intent_create(
+    TransferIntentCreateRequest(
+        mode=TransferIntentCreateMode.PAYMENT,
+        amount="some example string",
+        description="some example string",
+        user=TransferUserInRequest(legal_name="some example string"),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferIntentCreateResponse
@@ -20952,7 +22447,14 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_intent_create(body)
+result = await async_client.with_raw_response.transfer_intent_create(
+    TransferIntentCreateRequest(
+        mode=TransferIntentCreateMode.PAYMENT,
+        amount="some example string",
+        description="some example string",
+        user=TransferUserInRequest(legal_name="some example string"),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferIntentCreateResponse
@@ -20971,7 +22473,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferIntentCreateRequest](the_plaid_api/models/transfer_intent_create_request.py) \| [TransferIntentCreateRequestDict](the_plaid_api/models/transfer_intent_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21019,7 +22521,9 @@ Use the `/transfer/intent/get` endpoint to retrieve more information about a tra
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_intent_get(body)
+result = client.with_raw_response.transfer_intent_get(
+    TransferIntentGetRequest(transfer_intent_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferIntentGetResponse
@@ -21030,7 +22534,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_intent_get(body)
+result = await async_client.with_raw_response.transfer_intent_get(
+    TransferIntentGetRequest(transfer_intent_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferIntentGetResponse
@@ -21049,7 +22555,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferIntentGetRequest](the_plaid_api/models/transfer_intent_get_request.py) \| [TransferIntentGetRequestDict](the_plaid_api/models/transfer_intent_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21097,7 +22603,11 @@ Use the `/transfer/ledger/deposit` endpoint to deposit funds into Plaid Ledger.
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_ledger_deposit(body)
+result = client.with_raw_response.transfer_ledger_deposit(
+    TransferLedgerDepositRequest(
+        amount="some example string", idempotency_key="some example string", network=TransferAchnetwork.ACH
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferLedgerDepositResponse
@@ -21108,7 +22618,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_ledger_deposit(body)
+result = await async_client.with_raw_response.transfer_ledger_deposit(
+    TransferLedgerDepositRequest(
+        amount="some example string", idempotency_key="some example string", network=TransferAchnetwork.ACH
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferLedgerDepositResponse
@@ -21127,7 +22641,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferLedgerDepositRequest](the_plaid_api/models/transfer_ledger_deposit_request.py) \| [TransferLedgerDepositRequestDict](the_plaid_api/models/transfer_ledger_deposit_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21175,7 +22689,14 @@ Use the `/transfer/ledger/distribute` endpoint to move available balance between
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_ledger_distribute(body)
+result = client.with_raw_response.transfer_ledger_distribute(
+    TransferLedgerDistributeRequest(
+        from_ledger_id="some example string",
+        to_ledger_id="some example string",
+        amount="some example string",
+        idempotency_key="some example string",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferLedgerDistributeResponse
@@ -21186,7 +22707,14 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_ledger_distribute(body)
+result = await async_client.with_raw_response.transfer_ledger_distribute(
+    TransferLedgerDistributeRequest(
+        from_ledger_id="some example string",
+        to_ledger_id="some example string",
+        amount="some example string",
+        idempotency_key="some example string",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferLedgerDistributeResponse
@@ -21205,7 +22733,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferLedgerDistributeRequest](the_plaid_api/models/transfer_ledger_distribute_request.py) \| [TransferLedgerDistributeRequestDict](the_plaid_api/models/transfer_ledger_distribute_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21253,7 +22781,7 @@ Use the `/transfer/ledger/event/list` endpoint to get a list of ledger events fo
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_ledger_event_list(body)
+result = client.with_raw_response.transfer_ledger_event_list(TransferLedgerEventListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferLedgerEventListResponse
@@ -21264,7 +22792,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_ledger_event_list(body)
+result = await async_client.with_raw_response.transfer_ledger_event_list(TransferLedgerEventListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferLedgerEventListResponse
@@ -21283,7 +22811,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferLedgerEventListRequest](the_plaid_api/models/transfer_ledger_event_list_request.py) \| [TransferLedgerEventListRequestDict](the_plaid_api/models/transfer_ledger_event_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21331,7 +22859,7 @@ Use the `/transfer/ledger/get` endpoint to view a balance on the ledger held wit
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_ledger_get(body)
+result = client.with_raw_response.transfer_ledger_get(TransferLedgerGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferLedgerGetResponse
@@ -21342,7 +22870,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_ledger_get(body)
+result = await async_client.with_raw_response.transfer_ledger_get(TransferLedgerGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferLedgerGetResponse
@@ -21361,7 +22889,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferLedgerGetRequest](the_plaid_api/models/transfer_ledger_get_request.py) \| [TransferLedgerGetRequestDict](the_plaid_api/models/transfer_ledger_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21409,7 +22937,11 @@ Use the `/transfer/ledger/withdraw` endpoint to withdraw funds from a Plaid Ledg
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_ledger_withdraw(body)
+result = client.with_raw_response.transfer_ledger_withdraw(
+    TransferLedgerWithdrawRequest(
+        amount="some example string", idempotency_key="some example string", network=TransferNetwork.ACH
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferLedgerWithdrawResponse
@@ -21420,7 +22952,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_ledger_withdraw(body)
+result = await async_client.with_raw_response.transfer_ledger_withdraw(
+    TransferLedgerWithdrawRequest(
+        amount="some example string", idempotency_key="some example string", network=TransferNetwork.ACH
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferLedgerWithdrawResponse
@@ -21439,7 +22975,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferLedgerWithdrawRequest](the_plaid_api/models/transfer_ledger_withdraw_request.py) \| [TransferLedgerWithdrawRequestDict](the_plaid_api/models/transfer_ledger_withdraw_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21487,7 +23023,7 @@ Use the `/transfer/list` endpoint to see a list of all your transfers and their 
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_list(body)
+result = client.with_raw_response.transfer_list(TransferListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferListResponse
@@ -21498,7 +23034,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_list(body)
+result = await async_client.with_raw_response.transfer_list(TransferListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferListResponse
@@ -21517,7 +23053,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferListRequest](the_plaid_api/models/transfer_list_request.py) \| [TransferListRequestDict](the_plaid_api/models/transfer_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21567,7 +23103,7 @@ In the Sandbox environment, this endpoint returns static placeholder values rath
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_metrics_get(body)
+result = client.with_raw_response.transfer_metrics_get(TransferMetricsGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferMetricsGetResponse
@@ -21578,7 +23114,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_metrics_get(body)
+result = await async_client.with_raw_response.transfer_metrics_get(TransferMetricsGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferMetricsGetResponse
@@ -21597,7 +23133,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferMetricsGetRequest](the_plaid_api/models/transfer_metrics_get_request.py) \| [TransferMetricsGetRequestDict](the_plaid_api/models/transfer_metrics_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21645,7 +23181,11 @@ As an alternative to adding Items via Link, you can also use the `/transfer/migr
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_migrate_account(body)
+result = client.with_raw_response.transfer_migrate_account(
+    TransferMigrateAccountRequest(
+        account_number="some example string", routing_number="some example string", account_type="some example string"
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferMigrateAccountResponse
@@ -21656,7 +23196,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_migrate_account(body)
+result = await async_client.with_raw_response.transfer_migrate_account(
+    TransferMigrateAccountRequest(
+        account_number="some example string", routing_number="some example string", account_type="some example string"
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferMigrateAccountResponse
@@ -21675,7 +23219,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferMigrateAccountRequest](the_plaid_api/models/transfer_migrate_account_request.py) \| [TransferMigrateAccountRequestDict](the_plaid_api/models/transfer_migrate_account_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21723,7 +23267,9 @@ Use the `/transfer/originator/create` endpoint to create a new originator and re
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_originator_create(body)
+result = client.with_raw_response.transfer_originator_create(
+    TransferOriginatorCreateRequest(company_name="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferOriginatorCreateResponse
@@ -21734,7 +23280,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_originator_create(body)
+result = await async_client.with_raw_response.transfer_originator_create(
+    TransferOriginatorCreateRequest(company_name="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferOriginatorCreateResponse
@@ -21753,7 +23301,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferOriginatorCreateRequest](the_plaid_api/models/transfer_originator_create_request.py) \| [TransferOriginatorCreateRequestDict](the_plaid_api/models/transfer_originator_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21801,7 +23349,14 @@ Use the `/transfer/originator/funding_account/create` endpoint to create a new f
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_originator_funding_account_create(body)
+result = client.with_raw_response.transfer_originator_funding_account_create(
+    TransferOriginatorFundingAccountCreateRequest(
+        originator_client_id="some example string",
+        funding_account=TransferFundingAccountWithDisplayName(
+            access_token="some example string", account_id="some example string"
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferOriginatorFundingAccountCreateResponse
@@ -21812,7 +23367,14 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_originator_funding_account_create(body)
+result = await async_client.with_raw_response.transfer_originator_funding_account_create(
+    TransferOriginatorFundingAccountCreateRequest(
+        originator_client_id="some example string",
+        funding_account=TransferFundingAccountWithDisplayName(
+            access_token="some example string", account_id="some example string"
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferOriginatorFundingAccountCreateResponse
@@ -21831,7 +23393,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferOriginatorFundingAccountCreateRequest](the_plaid_api/models/transfer_originator_funding_account_create_request.py) \| [TransferOriginatorFundingAccountCreateRequestDict](the_plaid_api/models/transfer_originator_funding_account_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21879,7 +23441,12 @@ Use the `/transfer/originator/funding_account/update` endpoint to update the fun
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_originator_funding_account_update(body)
+result = client.with_raw_response.transfer_originator_funding_account_update(
+    TransferOriginatorFundingAccountUpdateRequest(
+        originator_client_id="some example string",
+        funding_account=TransferFundingAccount(access_token="some example string", account_id="some example string"),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferOriginatorFundingAccountUpdateResponse
@@ -21890,7 +23457,12 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_originator_funding_account_update(body)
+result = await async_client.with_raw_response.transfer_originator_funding_account_update(
+    TransferOriginatorFundingAccountUpdateRequest(
+        originator_client_id="some example string",
+        funding_account=TransferFundingAccount(access_token="some example string", account_id="some example string"),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferOriginatorFundingAccountUpdateResponse
@@ -21909,7 +23481,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferOriginatorFundingAccountUpdateRequest](the_plaid_api/models/transfer_originator_funding_account_update_request.py) \| [TransferOriginatorFundingAccountUpdateRequestDict](the_plaid_api/models/transfer_originator_funding_account_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -21957,7 +23529,9 @@ The `/transfer/originator/get` endpoint gets status updates for an originator's 
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_originator_get(body)
+result = client.with_raw_response.transfer_originator_get(
+    TransferOriginatorGetRequest(originator_client_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferOriginatorGetResponse
@@ -21968,7 +23542,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_originator_get(body)
+result = await async_client.with_raw_response.transfer_originator_get(
+    TransferOriginatorGetRequest(originator_client_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferOriginatorGetResponse
@@ -21987,7 +23563,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferOriginatorGetRequest](the_plaid_api/models/transfer_originator_get_request.py) \| [TransferOriginatorGetRequestDict](the_plaid_api/models/transfer_originator_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22035,7 +23611,7 @@ The `/transfer/originator/list` endpoint gets status updates for all of your ori
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_originator_list(body)
+result = client.with_raw_response.transfer_originator_list(TransferOriginatorListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferOriginatorListResponse
@@ -22046,7 +23622,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_originator_list(body)
+result = await async_client.with_raw_response.transfer_originator_list(TransferOriginatorListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferOriginatorListResponse
@@ -22065,7 +23641,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferOriginatorListRequest](the_plaid_api/models/transfer_originator_list_request.py) \| [TransferOriginatorListRequestDict](the_plaid_api/models/transfer_originator_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22113,7 +23689,17 @@ Use the `/transfer/platform/originator/create` endpoint to submit information ab
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_platform_originator_create(body)
+result = client.with_raw_response.transfer_platform_originator_create(
+    TransferPlatformOriginatorCreateRequest(
+        originator_client_id="some example string",
+        tos_acceptance_metadata=TosacceptanceMetadata(
+            agreement_accepted=True,
+            originator_ip_address="some example string",
+            agreement_accepted_at=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc),
+        ),
+        originator_reviewed_at=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferPlatformOriginatorCreateResponse
@@ -22124,7 +23710,17 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_platform_originator_create(body)
+result = await async_client.with_raw_response.transfer_platform_originator_create(
+    TransferPlatformOriginatorCreateRequest(
+        originator_client_id="some example string",
+        tos_acceptance_metadata=TosacceptanceMetadata(
+            agreement_accepted=True,
+            originator_ip_address="some example string",
+            agreement_accepted_at=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc),
+        ),
+        originator_reviewed_at=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferPlatformOriginatorCreateResponse
@@ -22143,7 +23739,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferPlatformOriginatorCreateRequest](the_plaid_api/models/transfer_platform_originator_create_request.py) \| [TransferPlatformOriginatorCreateRequestDict](the_plaid_api/models/transfer_platform_originator_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22191,7 +23787,9 @@ Use the `/transfer/platform/person/create` endpoint to create a person associate
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_platform_person_create(body)
+result = client.with_raw_response.transfer_platform_person_create(
+    TransferPlatformPersonCreateRequest(originator_client_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferPlatformPersonCreateResponse
@@ -22202,7 +23800,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_platform_person_create(body)
+result = await async_client.with_raw_response.transfer_platform_person_create(
+    TransferPlatformPersonCreateRequest(originator_client_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferPlatformPersonCreateResponse
@@ -22221,7 +23821,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferPlatformPersonCreateRequest](the_plaid_api/models/transfer_platform_person_create_request.py) \| [TransferPlatformPersonCreateRequestDict](the_plaid_api/models/transfer_platform_person_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22269,7 +23869,14 @@ Use the `/transfer/platform/requirement/submit` endpoint to submit additional on
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_platform_requirement_submit(body)
+result = client.with_raw_response.transfer_platform_requirement_submit(
+    TransferPlatformRequirementSubmitRequest(
+        originator_client_id="some example string",
+        requirement_submissions=[
+            RequirementSubmission(requirement_type="some example string", value="some example string")
+        ],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferPlatformRequirementSubmitResponse
@@ -22280,7 +23887,14 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_platform_requirement_submit(body)
+result = await async_client.with_raw_response.transfer_platform_requirement_submit(
+    TransferPlatformRequirementSubmitRequest(
+        originator_client_id="some example string",
+        requirement_submissions=[
+            RequirementSubmission(requirement_type="some example string", value="some example string")
+        ],
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferPlatformRequirementSubmitResponse
@@ -22299,7 +23913,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferPlatformRequirementSubmitRequest](the_plaid_api/models/transfer_platform_requirement_submit_request.py) \| [TransferPlatformRequirementSubmitRequestDict](the_plaid_api/models/transfer_platform_requirement_submit_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22347,7 +23961,9 @@ The `/transfer/questionnaire/create` endpoint generates a Plaid-hosted onboardin
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_questionnaire_create(body)
+result = client.with_raw_response.transfer_questionnaire_create(
+    TransferQuestionnaireCreateRequest(originator_client_id="some example string", redirect_uri="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferQuestionnaireCreateResponse
@@ -22358,7 +23974,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_questionnaire_create(body)
+result = await async_client.with_raw_response.transfer_questionnaire_create(
+    TransferQuestionnaireCreateRequest(originator_client_id="some example string", redirect_uri="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferQuestionnaireCreateResponse
@@ -22377,7 +23995,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferQuestionnaireCreateRequest](the_plaid_api/models/transfer_questionnaire_create_request.py) \| [TransferQuestionnaireCreateRequestDict](the_plaid_api/models/transfer_questionnaire_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22425,7 +24043,9 @@ Use the `/transfer/recurring/cancel` endpoint to cancel a recurring transfer.  A
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_recurring_cancel(body)
+result = client.with_raw_response.transfer_recurring_cancel(
+    TransferRecurringCancelRequest(recurring_transfer_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferRecurringCancelResponse
@@ -22436,7 +24056,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_recurring_cancel(body)
+result = await async_client.with_raw_response.transfer_recurring_cancel(
+    TransferRecurringCancelRequest(recurring_transfer_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferRecurringCancelResponse
@@ -22455,7 +24077,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferRecurringCancelRequest](the_plaid_api/models/transfer_recurring_cancel_request.py) \| [TransferRecurringCancelRequestDict](the_plaid_api/models/transfer_recurring_cancel_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22503,7 +24125,24 @@ Use the `/transfer/recurring/create` endpoint to initiate a new recurring transf
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_recurring_create(body)
+result = client.with_raw_response.transfer_recurring_create(
+    TransferRecurringCreateRequest(
+        access_token="some example string",
+        idempotency_key="some example string",
+        account_id="some example string",
+        type_=TransferType.DEBIT,
+        network=TransferRecurringNetwork.ACH,
+        amount="some example string",
+        description="some example string",
+        schedule=TransferRecurringSchedule(
+            interval_unit=TransferScheduleIntervalUnit.WEEK,
+            interval_count=1,
+            interval_execution_day=1,
+            start_date=date(2024, 1, 15),
+        ),
+        user=TransferUserInRequest(legal_name="some example string"),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferRecurringCreateResponse
@@ -22514,7 +24153,24 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_recurring_create(body)
+result = await async_client.with_raw_response.transfer_recurring_create(
+    TransferRecurringCreateRequest(
+        access_token="some example string",
+        idempotency_key="some example string",
+        account_id="some example string",
+        type_=TransferType.DEBIT,
+        network=TransferRecurringNetwork.ACH,
+        amount="some example string",
+        description="some example string",
+        schedule=TransferRecurringSchedule(
+            interval_unit=TransferScheduleIntervalUnit.WEEK,
+            interval_count=1,
+            interval_execution_day=1,
+            start_date=date(2024, 1, 15),
+        ),
+        user=TransferUserInRequest(legal_name="some example string"),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferRecurringCreateResponse
@@ -22533,7 +24189,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferRecurringCreateRequest](the_plaid_api/models/transfer_recurring_create_request.py) \| [TransferRecurringCreateRequestDict](the_plaid_api/models/transfer_recurring_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22581,7 +24237,9 @@ The `/transfer/recurring/get` fetches information about the recurring transfer c
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_recurring_get(body)
+result = client.with_raw_response.transfer_recurring_get(
+    TransferRecurringGetRequest(recurring_transfer_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferRecurringGetResponse
@@ -22592,7 +24250,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_recurring_get(body)
+result = await async_client.with_raw_response.transfer_recurring_get(
+    TransferRecurringGetRequest(recurring_transfer_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferRecurringGetResponse
@@ -22611,7 +24271,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferRecurringGetRequest](the_plaid_api/models/transfer_recurring_get_request.py) \| [TransferRecurringGetRequestDict](the_plaid_api/models/transfer_recurring_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22659,7 +24319,7 @@ Use the `/transfer/recurring/list` endpoint to see a list of all your recurring 
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_recurring_list(body)
+result = client.with_raw_response.transfer_recurring_list(TransferRecurringListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferRecurringListResponse
@@ -22670,7 +24330,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_recurring_list(body)
+result = await async_client.with_raw_response.transfer_recurring_list(TransferRecurringListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferRecurringListResponse
@@ -22689,7 +24349,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferRecurringListRequest](the_plaid_api/models/transfer_recurring_list_request.py) \| [TransferRecurringListRequestDict](the_plaid_api/models/transfer_recurring_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22737,7 +24397,7 @@ Use the `/transfer/refund/cancel` endpoint to cancel a refund.  A refund is elig
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_refund_cancel(body)
+result = client.with_raw_response.transfer_refund_cancel(TransferRefundCancelRequest(refund_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferRefundCancelResponse
@@ -22748,7 +24408,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_refund_cancel(body)
+result = await async_client.with_raw_response.transfer_refund_cancel(
+    TransferRefundCancelRequest(refund_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferRefundCancelResponse
@@ -22767,7 +24429,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferRefundCancelRequest](the_plaid_api/models/transfer_refund_cancel_request.py) \| [TransferRefundCancelRequestDict](the_plaid_api/models/transfer_refund_cancel_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22819,7 +24481,11 @@ A refund can still be issued even if the Item's `access_token` is no longer vali
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_refund_create(body)
+result = client.with_raw_response.transfer_refund_create(
+    TransferRefundCreateRequest(
+        transfer_id="some example string", amount="some example string", idempotency_key="some example string"
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferRefundCreateResponse
@@ -22830,7 +24496,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_refund_create(body)
+result = await async_client.with_raw_response.transfer_refund_create(
+    TransferRefundCreateRequest(
+        transfer_id="some example string", amount="some example string", idempotency_key="some example string"
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferRefundCreateResponse
@@ -22849,7 +24519,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferRefundCreateRequest](the_plaid_api/models/transfer_refund_create_request.py) \| [TransferRefundCreateRequestDict](the_plaid_api/models/transfer_refund_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22897,7 +24567,7 @@ The `/transfer/refund/get` endpoint fetches information about the refund corresp
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_refund_get(body)
+result = client.with_raw_response.transfer_refund_get(TransferRefundGetRequest(refund_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferRefundGetResponse
@@ -22908,7 +24578,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_refund_get(body)
+result = await async_client.with_raw_response.transfer_refund_get(
+    TransferRefundGetRequest(refund_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferRefundGetResponse
@@ -22927,7 +24599,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferRefundGetRequest](the_plaid_api/models/transfer_refund_get_request.py) \| [TransferRefundGetRequestDict](the_plaid_api/models/transfer_refund_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -22975,7 +24647,7 @@ The `/transfer/repayment/list` endpoint fetches repayments matching the given fi
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_repayment_list(body)
+result = client.with_raw_response.transfer_repayment_list(TransferRepaymentListRequest(count=1))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferRepaymentListResponse
@@ -22986,7 +24658,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_repayment_list(body)
+result = await async_client.with_raw_response.transfer_repayment_list(TransferRepaymentListRequest(count=1))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferRepaymentListResponse
@@ -23005,7 +24677,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferRepaymentListRequest](the_plaid_api/models/transfer_repayment_list_request.py) \| [TransferRepaymentListRequestDict](the_plaid_api/models/transfer_repayment_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23053,7 +24725,9 @@ The `/transfer/repayment/return/list` endpoint retrieves the set of returns that
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_repayment_return_list(body)
+result = client.with_raw_response.transfer_repayment_return_list(
+    TransferRepaymentReturnListRequest(repayment_id="d4bfce70-2470-4298-ae87-5e9b3e18bfaf", count=1)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferRepaymentReturnListResponse
@@ -23064,7 +24738,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_repayment_return_list(body)
+result = await async_client.with_raw_response.transfer_repayment_return_list(
+    TransferRepaymentReturnListRequest(repayment_id="d4bfce70-2470-4298-ae87-5e9b3e18bfaf", count=1)
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferRepaymentReturnListResponse
@@ -23083,7 +24759,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferRepaymentReturnListRequest](the_plaid_api/models/transfer_repayment_return_list_request.py) \| [TransferRepaymentReturnListRequestDict](the_plaid_api/models/transfer_repayment_return_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23133,7 +24809,11 @@ Recovery can be reported in full or in parts; the sum of recovered amounts acros
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_return_recover(body)
+result = client.with_raw_response.transfer_return_recover(
+    TransferReturnRecoverRequest(
+        transfer_id="some example string", amount="some example string", idempotency_key="some example string"
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferReturnRecoverResponse
@@ -23144,7 +24824,11 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_return_recover(body)
+result = await async_client.with_raw_response.transfer_return_recover(
+    TransferReturnRecoverRequest(
+        transfer_id="some example string", amount="some example string", idempotency_key="some example string"
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferReturnRecoverResponse
@@ -23163,7 +24847,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferReturnRecoverRequest](the_plaid_api/models/transfer_return_recover_request.py) \| [TransferReturnRecoverRequestDict](the_plaid_api/models/transfer_return_recover_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23211,7 +24895,7 @@ The `/transfer/sweep/get` endpoint fetches a sweep corresponding to the given `s
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_sweep_get(body)
+result = client.with_raw_response.transfer_sweep_get(TransferSweepGetRequest(sweep_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferSweepGetResponse
@@ -23222,7 +24906,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_sweep_get(body)
+result = await async_client.with_raw_response.transfer_sweep_get(
+    TransferSweepGetRequest(sweep_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferSweepGetResponse
@@ -23241,7 +24927,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferSweepGetRequest](the_plaid_api/models/transfer_sweep_get_request.py) \| [TransferSweepGetRequestDict](the_plaid_api/models/transfer_sweep_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23289,7 +24975,7 @@ The `/transfer/sweep/list` endpoint fetches sweeps matching the given filters.
 **Sync**
 
 ```python
-result = client.with_raw_response.transfer_sweep_list(body)
+result = client.with_raw_response.transfer_sweep_list(TransferSweepListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferSweepListResponse
@@ -23300,7 +24986,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.transfer_sweep_list(body)
+result = await async_client.with_raw_response.transfer_sweep_list(TransferSweepListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type TransferSweepListResponse
@@ -23319,7 +25005,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[TransferSweepListRequest](the_plaid_api/models/transfer_sweep_list_request.py) \| [TransferSweepListRequestDict](the_plaid_api/models/transfer_sweep_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23367,7 +25053,14 @@ This endpoint allows sending client-specific events related to Layer sessions fo
 **Sync**
 
 ```python
-result = client.with_raw_response.user_account_session_event_send(body)
+result = client.with_raw_response.user_account_session_event_send(
+    UserAccountSessionEventSendRequest(
+        link_session_id="some example string",
+        event=UserAccountSessionEvent(
+            name="some example string", timestamp=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc)
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserAccountSessionEventSendResponse
@@ -23378,7 +25071,14 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.user_account_session_event_send(body)
+result = await async_client.with_raw_response.user_account_session_event_send(
+    UserAccountSessionEventSendRequest(
+        link_session_id="some example string",
+        event=UserAccountSessionEvent(
+            name="some example string", timestamp=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc)
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserAccountSessionEventSendResponse
@@ -23397,7 +25097,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserAccountSessionEventSendRequest](the_plaid_api/models/user_account_session_event_send_request.py) \| [UserAccountSessionEventSendRequestDict](the_plaid_api/models/user_account_session_event_send_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23445,7 +25145,9 @@ This endpoint returns user permissioned account data, including identity and Ite
 **Sync**
 
 ```python
-result = client.with_raw_response.user_account_session_get(body)
+result = client.with_raw_response.user_account_session_get(
+    UserAccountSessionGetRequest(public_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserAccountSessionGetResponse
@@ -23456,7 +25158,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.user_account_session_get(body)
+result = await async_client.with_raw_response.user_account_session_get(
+    UserAccountSessionGetRequest(public_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserAccountSessionGetResponse
@@ -23475,7 +25179,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserAccountSessionGetRequest](the_plaid_api/models/user_account_session_get_request.py) \| [UserAccountSessionGetRequestDict](the_plaid_api/models/user_account_session_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23533,7 +25237,7 @@ Plaid will normalize identity fields before storing them and utilize the same id
 **Sync**
 
 ```python
-result = client.with_raw_response.user_create(body)
+result = client.with_raw_response.user_create(UserCreateRequest(client_user_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserCreateResponse
@@ -23544,7 +25248,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.user_create(body)
+result = await async_client.with_raw_response.user_create(UserCreateRequest(client_user_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserCreateResponse
@@ -23564,7 +25268,7 @@ match result:
 | --- | --- | --- |
 | <code>body</code> | <code>[UserCreateRequest](the_plaid_api/models/user_create_request.py) \| [UserCreateRequestDict](the_plaid_api/models/user_create_request.py)</code> | The request body. |
 | <code>plaid_new_user_api_enabled</code> | <code>bool \| None</code> | The HTTP header used in API requests to determine which set of User APIs to invoke: the legacy CRA version or the new User API version.<br>**Default**: <code>False</code> |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23617,7 +25321,9 @@ This endpoint is distinct from `/transactions/refresh`, which triggers a refresh
 **Sync**
 
 ```python
-result = client.with_raw_response.user_financial_data_refresh(body)
+result = client.with_raw_response.user_financial_data_refresh(
+    UserFinancialDataRefreshRequest(user_id="usr_8c3ZbDBYjaqUXZ")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserFinancialDataRefreshResponse
@@ -23628,7 +25334,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.user_financial_data_refresh(body)
+result = await async_client.with_raw_response.user_financial_data_refresh(
+    UserFinancialDataRefreshRequest(user_id="usr_8c3ZbDBYjaqUXZ")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserFinancialDataRefreshResponse
@@ -23647,7 +25355,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserFinancialDataRefreshRequest](the_plaid_api/models/user_financial_data_refresh_request.py) \| [UserFinancialDataRefreshRequestDict](the_plaid_api/models/user_financial_data_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23695,7 +25403,7 @@ Get user details using a `user_id`. This endpoint only supports users that were 
 **Sync**
 
 ```python
-result = client.with_raw_response.user_get(body)
+result = client.with_raw_response.user_get(UserGetRequest(user_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserGetResponse
@@ -23706,7 +25414,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.user_get(body)
+result = await async_client.with_raw_response.user_get(UserGetRequest(user_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserGetResponse
@@ -23726,7 +25434,7 @@ match result:
 | --- | --- | --- |
 | <code>body</code> | <code>[UserGetRequest](the_plaid_api/models/user_get_request.py) \| [UserGetRequestDict](the_plaid_api/models/user_get_request.py)</code> | The request body. |
 | <code>plaid_new_user_api_enabled</code> | <code>bool \| None</code> | The HTTP header used in API requests to determine which set of User APIs to invoke: the legacy CRA version or the new User API version.<br>**Default**: <code>False</code> |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23774,7 +25482,7 @@ This endpoint allows customers to explicitly purge identity/PII data provided to
 **Sync**
 
 ```python
-result = client.with_raw_response.user_identity_remove(body)
+result = client.with_raw_response.user_identity_remove(UserIdentityRemoveRequest(user_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserIdentityRemoveResponse
@@ -23785,7 +25493,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.user_identity_remove(body)
+result = await async_client.with_raw_response.user_identity_remove(
+    UserIdentityRemoveRequest(user_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserIdentityRemoveResponse
@@ -23805,7 +25515,7 @@ match result:
 | --- | --- | --- |
 | <code>body</code> | <code>[UserIdentityRemoveRequest](the_plaid_api/models/user_identity_remove_request.py) \| [UserIdentityRemoveRequestDict](the_plaid_api/models/user_identity_remove_request.py)</code> | The request body. |
 | <code>plaid_new_user_api_enabled</code> | <code>bool \| None</code> | The HTTP header used in API requests to determine which set of User APIs to invoke: the legacy CRA version or the new User API version.<br>**Default**: <code>False</code> |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23853,7 +25563,9 @@ Associates Items to the target user. If an Item is already associated to another
 **Sync**
 
 ```python
-result = client.with_raw_response.user_items_associate(body)
+result = client.with_raw_response.user_items_associate(
+    UserItemsAssociateRequest(user_id="some example string", item_ids=["some example string"])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserItemsAssociateResponse
@@ -23864,7 +25576,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.user_items_associate(body)
+result = await async_client.with_raw_response.user_items_associate(
+    UserItemsAssociateRequest(user_id="some example string", item_ids=["some example string"])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserItemsAssociateResponse
@@ -23883,7 +25597,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserItemsAssociateRequest](the_plaid_api/models/user_items_associate_request.py) \| [UserItemsAssociateRequestDict](the_plaid_api/models/user_items_associate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -23931,7 +25645,7 @@ Returns Items associated with a `user_id`, along with their corresponding status
 **Sync**
 
 ```python
-result = client.with_raw_response.user_items_get(body)
+result = client.with_raw_response.user_items_get(UserItemsGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserItemsGetResponse
@@ -23942,7 +25656,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.user_items_get(body)
+result = await async_client.with_raw_response.user_items_get(UserItemsGetRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserItemsGetResponse
@@ -23961,7 +25675,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserItemsGetRequest](the_plaid_api/models/user_items_get_request.py) \| [UserItemsGetRequestDict](the_plaid_api/models/user_items_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24010,7 +25724,7 @@ This endpoint is not intended to remove all data for a user, as it will only rem
 **Sync**
 
 ```python
-result = client.with_raw_response.user_items_remove(body)
+result = client.with_raw_response.user_items_remove(UserItemsRemoveRequest(item_ids=["some example string"]))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserItemsRemoveResponse
@@ -24021,7 +25735,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.user_items_remove(body)
+result = await async_client.with_raw_response.user_items_remove(
+    UserItemsRemoveRequest(item_ids=["some example string"])
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserItemsRemoveResponse
@@ -24040,7 +25756,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserItemsRemoveRequest](the_plaid_api/models/user_items_remove_request.py) \| [UserItemsRemoveRequestDict](the_plaid_api/models/user_items_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24088,7 +25804,13 @@ Terminates user-based recurring subscription bundles or products (Financial Mana
 **Sync**
 
 ```python
-result = client.with_raw_response.user_products_terminate(body)
+result = client.with_raw_response.user_products_terminate(
+    UserProductsTerminateRequest(
+        user_id="usr_8c3ZbDBYjaqUXZ",
+        reason_code=ProductsTerminateReasonCode.CONSUMER_ACCOUNT_CLOSED,
+        reason_note="User closed account with client.",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserProductsTerminateResponse
@@ -24099,7 +25821,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.user_products_terminate(body)
+result = await async_client.with_raw_response.user_products_terminate(
+    UserProductsTerminateRequest(
+        user_id="usr_8c3ZbDBYjaqUXZ",
+        reason_code=ProductsTerminateReasonCode.CONSUMER_ACCOUNT_CLOSED,
+        reason_note="User closed account with client.",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserProductsTerminateResponse
@@ -24118,7 +25846,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserProductsTerminateRequest](the_plaid_api/models/user_products_terminate_request.py) \| [UserProductsTerminateRequestDict](the_plaid_api/models/user_products_terminate_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24166,7 +25894,7 @@ match result:
 **Sync**
 
 ```python
-result = client.with_raw_response.user_remove(body)
+result = client.with_raw_response.user_remove(UserRemoveRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserRemoveResponse
@@ -24177,7 +25905,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.user_remove(body)
+result = await async_client.with_raw_response.user_remove(UserRemoveRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserRemoveResponse
@@ -24197,7 +25925,7 @@ match result:
 | --- | --- | --- |
 | <code>body</code> | <code>[UserRemoveRequest](the_plaid_api/models/user_remove_request.py) \| [UserRemoveRequestDict](the_plaid_api/models/user_remove_request.py)</code> | The request body. |
 | <code>plaid_new_user_api_enabled</code> | <code>bool \| None</code> | The HTTP header used in API requests to determine which set of User APIs to invoke: the legacy CRA version or the new User API version.<br>**Default**: <code>False</code> |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24247,7 +25975,9 @@ Ensure you store the `third_party_user_token` along with the `user_token` and `t
 **Sync**
 
 ```python
-result = client.with_raw_response.user_third_party_token_create(body)
+result = client.with_raw_response.user_third_party_token_create(
+    UserThirdPartyTokenCreateRequest(third_party_client_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserThirdPartyTokenCreateResponse
@@ -24258,7 +25988,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.user_third_party_token_create(body)
+result = await async_client.with_raw_response.user_third_party_token_create(
+    UserThirdPartyTokenCreateRequest(third_party_client_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserThirdPartyTokenCreateResponse
@@ -24277,7 +26009,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserThirdPartyTokenCreateRequest](the_plaid_api/models/user_third_party_token_create_request.py) \| [UserThirdPartyTokenCreateRequestDict](the_plaid_api/models/user_third_party_token_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24327,7 +26059,9 @@ Any subsequent calls to retrieve information using the same third-party user tok
 **Sync**
 
 ```python
-result = client.with_raw_response.user_third_party_token_remove(body)
+result = client.with_raw_response.user_third_party_token_remove(
+    UserThirdPartyTokenRemoveRequest(third_party_user_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserThirdPartyTokenRemoveResponse
@@ -24338,7 +26072,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.user_third_party_token_remove(body)
+result = await async_client.with_raw_response.user_third_party_token_remove(
+    UserThirdPartyTokenRemoveRequest(third_party_user_token="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserThirdPartyTokenRemoveResponse
@@ -24357,7 +26093,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserThirdPartyTokenRemoveRequest](the_plaid_api/models/user_third_party_token_remove_request.py) \| [UserThirdPartyTokenRemoveRequestDict](the_plaid_api/models/user_third_party_token_remove_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24410,7 +26146,9 @@ This endpoint is distinct from `/transactions/refresh`, which triggers a refresh
 **Sync**
 
 ```python
-result = client.with_raw_response.user_transactions_refresh(body)
+result = client.with_raw_response.user_transactions_refresh(
+    UserTransactionsRefreshRequest(user_id="usr_8c3ZbDBYjaqUXZ")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserTransactionsRefreshResponse
@@ -24421,7 +26159,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.user_transactions_refresh(body)
+result = await async_client.with_raw_response.user_transactions_refresh(
+    UserTransactionsRefreshRequest(user_id="usr_8c3ZbDBYjaqUXZ")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserTransactionsRefreshResponse
@@ -24440,7 +26180,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[UserTransactionsRefreshRequest](the_plaid_api/models/user_transactions_refresh_request.py) \| [UserTransactionsRefreshRequestDict](the_plaid_api/models/user_transactions_refresh_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24490,7 +26230,7 @@ Identity updates use merge semantics: provided fields overwrite existing ones; o
 **Sync**
 
 ```python
-result = client.with_raw_response.user_update(body)
+result = client.with_raw_response.user_update(UserUpdateRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserUpdateResponse
@@ -24501,7 +26241,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.user_update(body)
+result = await async_client.with_raw_response.user_update(UserUpdateRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type UserUpdateResponse
@@ -24521,7 +26261,7 @@ match result:
 | --- | --- | --- |
 | <code>body</code> | <code>[UserUpdateRequest](the_plaid_api/models/user_update_request.py) \| [UserUpdateRequestDict](the_plaid_api/models/user_update_request.py)</code> | The request body. |
 | <code>plaid_new_user_api_enabled</code> | <code>bool \| None</code> | The HTTP header used in API requests to determine which set of User APIs to invoke: the legacy CRA version or the new User API version.<br>**Default**: <code>False</code> |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24569,7 +26309,7 @@ Create an e-wallet. The response is the newly created e-wallet object.
 **Sync**
 
 ```python
-result = client.with_raw_response.wallet_create(body)
+result = client.with_raw_response.wallet_create(WalletCreateRequest(iso_currency_code=IsoCurrencyCode.GBP))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WalletCreateResponse
@@ -24580,7 +26320,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.wallet_create(body)
+result = await async_client.with_raw_response.wallet_create(WalletCreateRequest(iso_currency_code=IsoCurrencyCode.GBP))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WalletCreateResponse
@@ -24599,7 +26339,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WalletCreateRequest](the_plaid_api/models/wallet_create_request.py) \| [WalletCreateRequestDict](the_plaid_api/models/wallet_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24647,7 +26387,7 @@ Fetch an e-wallet. The response includes the current balance.
 **Sync**
 
 ```python
-result = client.with_raw_response.wallet_get(body)
+result = client.with_raw_response.wallet_get(WalletGetRequest(wallet_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WalletGetResponse
@@ -24658,7 +26398,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.wallet_get(body)
+result = await async_client.with_raw_response.wallet_get(WalletGetRequest(wallet_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WalletGetResponse
@@ -24677,7 +26417,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WalletGetRequest](the_plaid_api/models/wallet_get_request.py) \| [WalletGetRequestDict](the_plaid_api/models/wallet_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24725,7 +26465,7 @@ This endpoint lists all e-wallets in descending order of creation.
 **Sync**
 
 ```python
-result = client.with_raw_response.wallet_list(body)
+result = client.with_raw_response.wallet_list(WalletListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WalletListResponse
@@ -24736,7 +26476,7 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.wallet_list(body)
+result = await async_client.with_raw_response.wallet_list(WalletListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WalletListResponse
@@ -24755,7 +26495,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WalletListRequest](the_plaid_api/models/wallet_list_request.py) \| [WalletListRequestDict](the_plaid_api/models/wallet_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24805,7 +26545,17 @@ Transactions will settle in seconds to several days, depending on the underlying
 **Sync**
 
 ```python
-result = client.with_raw_response.wallet_transaction_execute(body)
+result = client.with_raw_response.wallet_transaction_execute(
+    WalletTransactionExecuteRequest(
+        idempotency_key="some example string",
+        wallet_id="some example string",
+        counterparty=WalletTransactionCounterparty(
+            name="some example string", numbers=WalletTransactionCounterpartyNumbers()
+        ),
+        amount=WalletTransactionAmount(iso_currency_code=IsoCurrencyCode.GBP, value=1.5),
+        reference="some example string",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WalletTransactionExecuteResponse
@@ -24816,7 +26566,17 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.wallet_transaction_execute(body)
+result = await async_client.with_raw_response.wallet_transaction_execute(
+    WalletTransactionExecuteRequest(
+        idempotency_key="some example string",
+        wallet_id="some example string",
+        counterparty=WalletTransactionCounterparty(
+            name="some example string", numbers=WalletTransactionCounterpartyNumbers()
+        ),
+        amount=WalletTransactionAmount(iso_currency_code=IsoCurrencyCode.GBP, value=1.5),
+        reference="some example string",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WalletTransactionExecuteResponse
@@ -24835,7 +26595,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WalletTransactionExecuteRequest](the_plaid_api/models/wallet_transaction_execute_request.py) \| [WalletTransactionExecuteRequestDict](the_plaid_api/models/wallet_transaction_execute_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24883,7 +26643,9 @@ Fetch a specific e-wallet transaction
 **Sync**
 
 ```python
-result = client.with_raw_response.wallet_transaction_get(body)
+result = client.with_raw_response.wallet_transaction_get(
+    WalletTransactionGetRequest(transaction_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WalletTransactionGetResponse
@@ -24894,7 +26656,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.wallet_transaction_get(body)
+result = await async_client.with_raw_response.wallet_transaction_get(
+    WalletTransactionGetRequest(transaction_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WalletTransactionGetResponse
@@ -24913,7 +26677,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WalletTransactionGetRequest](the_plaid_api/models/wallet_transaction_get_request.py) \| [WalletTransactionGetRequestDict](the_plaid_api/models/wallet_transaction_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -24961,7 +26725,7 @@ This endpoint lists the latest transactions of the specified e-wallet. Transacti
 **Sync**
 
 ```python
-result = client.with_raw_response.wallet_transaction_list(body)
+result = client.with_raw_response.wallet_transaction_list(WalletTransactionListRequest(wallet_id="some example string"))
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WalletTransactionListResponse
@@ -24972,7 +26736,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.wallet_transaction_list(body)
+result = await async_client.with_raw_response.wallet_transaction_list(
+    WalletTransactionListRequest(wallet_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WalletTransactionListResponse
@@ -24991,7 +26757,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WalletTransactionListRequest](the_plaid_api/models/wallet_transaction_list_request.py) \| [WalletTransactionListRequestDict](the_plaid_api/models/wallet_transaction_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -25039,7 +26805,13 @@ Create a new entity watchlist screening to check your customer against watchlist
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_entity_create(body)
+result = client.with_raw_response.watchlist_screening_entity_create(
+    WatchlistScreeningEntityCreateRequest(
+        search_terms=EntityWatchlistSearchTerms(
+            entity_watchlist_program_id="some example string", legal_name="some example string"
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityCreateResponse
@@ -25050,7 +26822,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_entity_create(body)
+result = await async_client.with_raw_response.watchlist_screening_entity_create(
+    WatchlistScreeningEntityCreateRequest(
+        search_terms=EntityWatchlistSearchTerms(
+            entity_watchlist_program_id="some example string", legal_name="some example string"
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityCreateResponse
@@ -25069,7 +26847,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityCreateRequest](the_plaid_api/models/watchlist_screening_entity_create_request.py) \| [WatchlistScreeningEntityCreateRequestDict](the_plaid_api/models/watchlist_screening_entity_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -25117,7 +26895,9 @@ Retrieve an entity watchlist screening.
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_entity_get(body)
+result = client.with_raw_response.watchlist_screening_entity_get(
+    WatchlistScreeningEntityGetRequest(entity_watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityGetResponse
@@ -25128,7 +26908,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_entity_get(body)
+result = await async_client.with_raw_response.watchlist_screening_entity_get(
+    WatchlistScreeningEntityGetRequest(entity_watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityGetResponse
@@ -25147,7 +26929,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityGetRequest](the_plaid_api/models/watchlist_screening_entity_get_request.py) \| [WatchlistScreeningEntityGetRequestDict](the_plaid_api/models/watchlist_screening_entity_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -25195,7 +26977,9 @@ List all changes to the entity watchlist screening in reverse-chronological orde
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_entity_history_list(body)
+result = client.with_raw_response.watchlist_screening_entity_history_list(
+    WatchlistScreeningEntityHistoryListRequest(entity_watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityHistoryListResponse
@@ -25206,7 +26990,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_entity_history_list(body)
+result = await async_client.with_raw_response.watchlist_screening_entity_history_list(
+    WatchlistScreeningEntityHistoryListRequest(entity_watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityHistoryListResponse
@@ -25225,7 +27011,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityHistoryListRequest](the_plaid_api/models/watchlist_screening_entity_history_list_request.py) \| [WatchlistScreeningEntityHistoryListRequestDict](the_plaid_api/models/watchlist_screening_entity_history_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -25273,7 +27059,9 @@ List all hits for the entity watchlist screening.
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_entity_hit_list(body)
+result = client.with_raw_response.watchlist_screening_entity_hit_list(
+    WatchlistScreeningEntityHitListRequest(entity_watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityHitListResponse
@@ -25284,7 +27072,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_entity_hit_list(body)
+result = await async_client.with_raw_response.watchlist_screening_entity_hit_list(
+    WatchlistScreeningEntityHitListRequest(entity_watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityHitListResponse
@@ -25303,7 +27093,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityHitListRequest](the_plaid_api/models/watchlist_screening_entity_hit_list_request.py) \| [WatchlistScreeningEntityHitListRequestDict](the_plaid_api/models/watchlist_screening_entity_hit_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -25351,7 +27141,9 @@ List all entity screenings.
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_entity_list(body)
+result = client.with_raw_response.watchlist_screening_entity_list(
+    WatchlistScreeningEntityListRequest(entity_watchlist_program_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityListResponse
@@ -25362,7 +27154,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_entity_list(body)
+result = await async_client.with_raw_response.watchlist_screening_entity_list(
+    WatchlistScreeningEntityListRequest(entity_watchlist_program_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityListResponse
@@ -25381,7 +27175,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityListRequest](the_plaid_api/models/watchlist_screening_entity_list_request.py) \| [WatchlistScreeningEntityListRequestDict](the_plaid_api/models/watchlist_screening_entity_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -25429,7 +27223,9 @@ Get an entity watchlist screening program
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_entity_program_get(body)
+result = client.with_raw_response.watchlist_screening_entity_program_get(
+    WatchlistScreeningEntityProgramGetRequest(entity_watchlist_program_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityProgramGetResponse
@@ -25440,7 +27236,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_entity_program_get(body)
+result = await async_client.with_raw_response.watchlist_screening_entity_program_get(
+    WatchlistScreeningEntityProgramGetRequest(entity_watchlist_program_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityProgramGetResponse
@@ -25459,7 +27257,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityProgramGetRequest](the_plaid_api/models/watchlist_screening_entity_program_get_request.py) \| [WatchlistScreeningEntityProgramGetRequestDict](the_plaid_api/models/watchlist_screening_entity_program_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -25507,7 +27305,7 @@ List all entity watchlist screening programs
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_entity_program_list(body)
+result = client.with_raw_response.watchlist_screening_entity_program_list(WatchlistScreeningEntityProgramListRequest())
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityProgramListResponse
@@ -25518,7 +27316,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_entity_program_list(body)
+result = await async_client.with_raw_response.watchlist_screening_entity_program_list(
+    WatchlistScreeningEntityProgramListRequest()
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityProgramListResponse
@@ -25537,7 +27337,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityProgramListRequest](the_plaid_api/models/watchlist_screening_entity_program_list_request.py) \| [WatchlistScreeningEntityProgramListRequestDict](the_plaid_api/models/watchlist_screening_entity_program_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -25585,7 +27385,13 @@ Create a review for an entity watchlist screening. Reviews are compliance report
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_entity_review_create(body)
+result = client.with_raw_response.watchlist_screening_entity_review_create(
+    WatchlistScreeningEntityReviewCreateRequest(
+        confirmed_hits=["some example string"],
+        dismissed_hits=["some example string"],
+        entity_watchlist_screening_id="some example string",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityReviewCreateResponse
@@ -25596,7 +27402,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_entity_review_create(body)
+result = await async_client.with_raw_response.watchlist_screening_entity_review_create(
+    WatchlistScreeningEntityReviewCreateRequest(
+        confirmed_hits=["some example string"],
+        dismissed_hits=["some example string"],
+        entity_watchlist_screening_id="some example string",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityReviewCreateResponse
@@ -25615,7 +27427,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityReviewCreateRequest](the_plaid_api/models/watchlist_screening_entity_review_create_request.py) \| [WatchlistScreeningEntityReviewCreateRequestDict](the_plaid_api/models/watchlist_screening_entity_review_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -25663,7 +27475,9 @@ List all reviews for a particular entity watchlist screening. Reviews are compli
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_entity_review_list(body)
+result = client.with_raw_response.watchlist_screening_entity_review_list(
+    WatchlistScreeningEntityReviewListRequest(entity_watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityReviewListResponse
@@ -25674,7 +27488,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_entity_review_list(body)
+result = await async_client.with_raw_response.watchlist_screening_entity_review_list(
+    WatchlistScreeningEntityReviewListRequest(entity_watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityReviewListResponse
@@ -25693,7 +27509,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityReviewListRequest](the_plaid_api/models/watchlist_screening_entity_review_list_request.py) \| [WatchlistScreeningEntityReviewListRequestDict](the_plaid_api/models/watchlist_screening_entity_review_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -25741,7 +27557,9 @@ Update an entity watchlist screening.
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_entity_update(body)
+result = client.with_raw_response.watchlist_screening_entity_update(
+    WatchlistScreeningEntityUpdateRequest(entity_watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityUpdateResponse
@@ -25752,7 +27570,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_entity_update(body)
+result = await async_client.with_raw_response.watchlist_screening_entity_update(
+    WatchlistScreeningEntityUpdateRequest(entity_watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningEntityUpdateResponse
@@ -25771,7 +27591,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningEntityUpdateRequest](the_plaid_api/models/watchlist_screening_entity_update_request.py) \| [WatchlistScreeningEntityUpdateRequestDict](the_plaid_api/models/watchlist_screening_entity_update_request.py)</code> | The entity screening was successfully updated. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -25819,7 +27639,13 @@ Create a new Watchlist Screening to check your customer against watchlists defin
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_individual_create(body)
+result = client.with_raw_response.watchlist_screening_individual_create(
+    WatchlistScreeningIndividualCreateRequest(
+        search_terms=WatchlistScreeningRequestSearchTerms(
+            watchlist_program_id="some example string", legal_name="some example string"
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualCreateResponse
@@ -25830,7 +27656,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_individual_create(body)
+result = await async_client.with_raw_response.watchlist_screening_individual_create(
+    WatchlistScreeningIndividualCreateRequest(
+        search_terms=WatchlistScreeningRequestSearchTerms(
+            watchlist_program_id="some example string", legal_name="some example string"
+        ),
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualCreateResponse
@@ -25849,7 +27681,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualCreateRequest](the_plaid_api/models/watchlist_screening_individual_create_request.py) \| [WatchlistScreeningIndividualCreateRequestDict](the_plaid_api/models/watchlist_screening_individual_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -25897,7 +27729,9 @@ Retrieve a previously created individual watchlist screening
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_individual_get(body)
+result = client.with_raw_response.watchlist_screening_individual_get(
+    WatchlistScreeningIndividualGetRequest(watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualGetResponse
@@ -25908,7 +27742,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_individual_get(body)
+result = await async_client.with_raw_response.watchlist_screening_individual_get(
+    WatchlistScreeningIndividualGetRequest(watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualGetResponse
@@ -25927,7 +27763,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualGetRequest](the_plaid_api/models/watchlist_screening_individual_get_request.py) \| [WatchlistScreeningIndividualGetRequestDict](the_plaid_api/models/watchlist_screening_individual_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -25975,7 +27811,9 @@ List all changes to the individual watchlist screening in reverse-chronological 
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_individual_history_list(body)
+result = client.with_raw_response.watchlist_screening_individual_history_list(
+    WatchlistScreeningIndividualHistoryListRequest(watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualHistoryListResponse
@@ -25986,7 +27824,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_individual_history_list(body)
+result = await async_client.with_raw_response.watchlist_screening_individual_history_list(
+    WatchlistScreeningIndividualHistoryListRequest(watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualHistoryListResponse
@@ -26005,7 +27845,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualHistoryListRequest](the_plaid_api/models/watchlist_screening_individual_history_list_request.py) \| [WatchlistScreeningIndividualHistoryListRequestDict](the_plaid_api/models/watchlist_screening_individual_history_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -26053,7 +27893,9 @@ List all hits found by Plaid for a particular individual watchlist screening.
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_individual_hit_list(body)
+result = client.with_raw_response.watchlist_screening_individual_hit_list(
+    WatchlistScreeningIndividualHitListRequest(watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualHitListResponse
@@ -26064,7 +27906,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_individual_hit_list(body)
+result = await async_client.with_raw_response.watchlist_screening_individual_hit_list(
+    WatchlistScreeningIndividualHitListRequest(watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualHitListResponse
@@ -26083,7 +27927,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualHitListRequest](the_plaid_api/models/watchlist_screening_individual_hit_list_request.py) \| [WatchlistScreeningIndividualHitListRequestDict](the_plaid_api/models/watchlist_screening_individual_hit_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -26131,7 +27975,9 @@ List previously created watchlist screenings for individuals
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_individual_list(body)
+result = client.with_raw_response.watchlist_screening_individual_list(
+    WatchlistScreeningIndividualListRequest(watchlist_program_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualListResponse
@@ -26142,7 +27988,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_individual_list(body)
+result = await async_client.with_raw_response.watchlist_screening_individual_list(
+    WatchlistScreeningIndividualListRequest(watchlist_program_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualListResponse
@@ -26161,7 +28009,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualListRequest](the_plaid_api/models/watchlist_screening_individual_list_request.py) \| [WatchlistScreeningIndividualListRequestDict](the_plaid_api/models/watchlist_screening_individual_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -26209,7 +28057,9 @@ Get an individual watchlist screening program
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_individual_program_get(body)
+result = client.with_raw_response.watchlist_screening_individual_program_get(
+    WatchlistScreeningIndividualProgramGetRequest(watchlist_program_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualProgramGetResponse
@@ -26220,7 +28070,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_individual_program_get(body)
+result = await async_client.with_raw_response.watchlist_screening_individual_program_get(
+    WatchlistScreeningIndividualProgramGetRequest(watchlist_program_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualProgramGetResponse
@@ -26239,7 +28091,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualProgramGetRequest](the_plaid_api/models/watchlist_screening_individual_program_get_request.py) \| [WatchlistScreeningIndividualProgramGetRequestDict](the_plaid_api/models/watchlist_screening_individual_program_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -26287,7 +28139,9 @@ List all individual watchlist screening programs
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_individual_program_list(body)
+result = client.with_raw_response.watchlist_screening_individual_program_list(
+    WatchlistScreeningIndividualProgramListRequest()
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualProgramListResponse
@@ -26298,7 +28152,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_individual_program_list(body)
+result = await async_client.with_raw_response.watchlist_screening_individual_program_list(
+    WatchlistScreeningIndividualProgramListRequest()
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualProgramListResponse
@@ -26317,7 +28173,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualProgramListRequest](the_plaid_api/models/watchlist_screening_individual_program_list_request.py) \| [WatchlistScreeningIndividualProgramListRequestDict](the_plaid_api/models/watchlist_screening_individual_program_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -26365,7 +28221,13 @@ Create a review for the individual watchlist screening. Reviews are compliance r
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_individual_review_create(body)
+result = client.with_raw_response.watchlist_screening_individual_review_create(
+    WatchlistScreeningIndividualReviewCreateRequest(
+        confirmed_hits=["some example string"],
+        dismissed_hits=["some example string"],
+        watchlist_screening_id="some example string",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualReviewCreateResponse
@@ -26376,7 +28238,13 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_individual_review_create(body)
+result = await async_client.with_raw_response.watchlist_screening_individual_review_create(
+    WatchlistScreeningIndividualReviewCreateRequest(
+        confirmed_hits=["some example string"],
+        dismissed_hits=["some example string"],
+        watchlist_screening_id="some example string",
+    ),
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualReviewCreateResponse
@@ -26395,7 +28263,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualReviewCreateRequest](the_plaid_api/models/watchlist_screening_individual_review_create_request.py) \| [WatchlistScreeningIndividualReviewCreateRequestDict](the_plaid_api/models/watchlist_screening_individual_review_create_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -26443,7 +28311,9 @@ List all reviews for the individual watchlist screening.
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_individual_review_list(body)
+result = client.with_raw_response.watchlist_screening_individual_review_list(
+    WatchlistScreeningIndividualReviewListRequest(watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualReviewListResponse
@@ -26454,7 +28324,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_individual_review_list(body)
+result = await async_client.with_raw_response.watchlist_screening_individual_review_list(
+    WatchlistScreeningIndividualReviewListRequest(watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualReviewListResponse
@@ -26473,7 +28345,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualReviewListRequest](the_plaid_api/models/watchlist_screening_individual_review_list_request.py) \| [WatchlistScreeningIndividualReviewListRequestDict](the_plaid_api/models/watchlist_screening_individual_review_list_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -26521,7 +28393,9 @@ Update a specific individual watchlist screening. This endpoint can be used to a
 **Sync**
 
 ```python
-result = client.with_raw_response.watchlist_screening_individual_update(body)
+result = client.with_raw_response.watchlist_screening_individual_update(
+    WatchlistScreeningIndividualUpdateRequest(watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualUpdateResponse
@@ -26532,7 +28406,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.watchlist_screening_individual_update(body)
+result = await async_client.with_raw_response.watchlist_screening_individual_update(
+    WatchlistScreeningIndividualUpdateRequest(watchlist_screening_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WatchlistScreeningIndividualUpdateResponse
@@ -26551,7 +28427,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WatchlistScreeningIndividualUpdateRequest](the_plaid_api/models/watchlist_screening_individual_update_request.py) \| [WatchlistScreeningIndividualUpdateRequestDict](the_plaid_api/models/watchlist_screening_individual_update_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>
@@ -26601,7 +28477,9 @@ The `/webhook_verification_key/get` endpoint provides a JSON Web Key (JWK) that 
 **Sync**
 
 ```python
-result = client.with_raw_response.webhook_verification_key_get(body)
+result = client.with_raw_response.webhook_verification_key_get(
+    WebhookVerificationKeyGetRequest(key_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WebhookVerificationKeyGetResponse
@@ -26612,7 +28490,9 @@ match result:
 **Async**
 
 ```python
-result = await async_client.with_raw_response.webhook_verification_key_get(body)
+result = await async_client.with_raw_response.webhook_verification_key_get(
+    WebhookVerificationKeyGetRequest(key_id="some example string")
+)
 match result:
     case Success(payload=payload):
         ...  # TODO: Handle 'payload' of type WebhookVerificationKeyGetResponse
@@ -26631,7 +28511,7 @@ match result:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>body</code> | <code>[WebhookVerificationKeyGetRequest](the_plaid_api/models/webhook_verification_key_get_request.py) \| [WebhookVerificationKeyGetRequestDict](the_plaid_api/models/webhook_verification_key_get_request.py)</code> | The request body. |
-| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout or extra headers. |
+| <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
 </dl>

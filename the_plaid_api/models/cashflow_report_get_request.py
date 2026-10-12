@@ -23,7 +23,7 @@ class CashflowReportGetRequest(SdkBaseModel):
     days_requested: int
     """Number of days to retrieve transactions data for (1 to 730)"""
 
-    count: Optional[int] = UNSET
+    count: int = 100
     """Number of transactions to fetch per call"""
 
     cursor: Optional[str] = UNSET
@@ -40,4 +40,4 @@ class CashflowReportGetRequestDict(TypedDict):
     days_requested: int
     count: NotRequired[int]
     cursor: NotRequired[str]
-    options: NotRequired[CashflowReportGetRequestOptions | CashflowReportGetRequestOptionsDict]
+    options: NotRequired[CashflowReportGetRequestOptionsDict]

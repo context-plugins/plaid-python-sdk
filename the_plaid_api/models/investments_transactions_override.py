@@ -50,4 +50,4 @@ class InvestmentsTransactionsOverrideDict(TypedDict):
     fees: NotRequired[float]
     type_: str
     currency: str
-    security: NotRequired[SecurityOverride | SecurityOverrideDict]
+    security: NotRequired[SecurityOverrideDict]

@@ -22,6 +22,6 @@ class AssetReportFreddieGetResponse(SdkBaseModel):
 
 
 class AssetReportFreddieGetResponseDict(TypedDict):
-    deal: AssetReportFreddie | AssetReportFreddieDict
+    deal: AssetReportFreddieDict
     request_id: str
     schema_version: float

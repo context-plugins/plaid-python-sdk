@@ -10,7 +10,7 @@ class LinkTokenCreateRequestIdentityVerification(SdkBaseModel):
 
     template_id: str
     consent: Optional[bool] = UNSET
-    gave_consent: Optional[bool] = UNSET
+    gave_consent: bool = False
     """A flag specifying whether the end user has already agreed to a privacy policy specifying that their data will be
     shared with Plaid for verification purposes.
 

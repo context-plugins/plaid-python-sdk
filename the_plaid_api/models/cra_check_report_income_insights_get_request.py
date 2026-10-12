@@ -53,6 +53,6 @@ class CraCheckReportIncomeInsightsGetRequestDict(TypedDict):
     user_token: NotRequired[str]
     third_party_user_token: NotRequired[str]
     user_id: NotRequired[str]
-    options: NotRequired[CraCheckReportIncomeInsightsGetOptions | CraCheckReportIncomeInsightsGetOptionsDict | None]
+    options: NotRequired[CraCheckReportIncomeInsightsGetOptionsDict | None]
     report_id: NotRequired[str]
     consumer_report_permissible_purpose: NotRequired[CraCheckReportPermissiblePurposeOrStr]

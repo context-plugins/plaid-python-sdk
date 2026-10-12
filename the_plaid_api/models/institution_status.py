@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
+from ..core import UNSET, OptionalNullable, SdkBaseModel
 from .health_incident import HealthIncident, HealthIncidentDict
 from .product_status import ProductStatus, ProductStatusDict
 
@@ -58,17 +58,17 @@ class InstitutionStatus(SdkBaseModel):
     Investments requests, Liabilities requests, Transactions updates, Investments updates, Liabilities updates, and Item
     logins each have their own status object."""
 
-    health_incidents: Optional[list[HealthIncident | None]] = UNSET
+    health_incidents: OptionalNullable[list[HealthIncident]] = UNSET
     """Details of recent health incidents associated with the institution."""
 
 
 class InstitutionStatusDict(TypedDict):
-    item_logins: NotRequired[ProductStatus | ProductStatusDict | None]
-    transactions_updates: NotRequired[ProductStatus | ProductStatusDict | None]
-    auth: NotRequired[ProductStatus | ProductStatusDict | None]
-    identity: NotRequired[ProductStatus | ProductStatusDict | None]
-    investments_updates: NotRequired[ProductStatus | ProductStatusDict | None]
-    liabilities_updates: NotRequired[ProductStatus | ProductStatusDict | None]
-    liabilities: NotRequired[ProductStatus | ProductStatusDict | None]
-    investments: NotRequired[ProductStatus | ProductStatusDict | None]
-    health_incidents: NotRequired[list[HealthIncident | HealthIncidentDict | None]]
+    item_logins: NotRequired[ProductStatusDict | None]
+    transactions_updates: NotRequired[ProductStatusDict | None]
+    auth: NotRequired[ProductStatusDict | None]
+    identity: NotRequired[ProductStatusDict | None]
+    investments_updates: NotRequired[ProductStatusDict | None]
+    liabilities_updates: NotRequired[ProductStatusDict | None]
+    liabilities: NotRequired[ProductStatusDict | None]
+    investments: NotRequired[ProductStatusDict | None]
+    health_incidents: NotRequired[list[HealthIncidentDict] | None]

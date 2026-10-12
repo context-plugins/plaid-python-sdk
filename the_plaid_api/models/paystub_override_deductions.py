@@ -19,5 +19,5 @@ class PaystubOverrideDeductions(SdkBaseModel):
 
 
 class PaystubOverrideDeductionsDict(TypedDict):
-    breakdown: NotRequired[list[PaystubOverrideDeductionsBreakdown | PaystubOverrideDeductionsBreakdownDict]]
-    total: NotRequired[PaystubOverrideDeductionsTotal | PaystubOverrideDeductionsTotalDict]
+    breakdown: NotRequired[list[PaystubOverrideDeductionsBreakdownDict]]
+    total: NotRequired[PaystubOverrideDeductionsTotalDict]

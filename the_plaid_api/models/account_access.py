@@ -14,7 +14,7 @@ class AccountAccess(SdkBaseModel):
     """The unique account identifier for this account. This value must match that returned by the data access API for
     this account."""
 
-    authorized: OptionalNullable[bool] = UNSET
+    authorized: bool | None = True
     """Allow the application to see this account (and associated details, including balance) in the list of accounts. If
     unset, defaults to ``true``."""
 
@@ -25,4 +25,4 @@ class AccountAccess(SdkBaseModel):
 class AccountAccessDict(TypedDict):
     unique_id: str
     authorized: NotRequired[bool | None]
-    account_product_access: NotRequired[AccountProductAccessNullable | AccountProductAccessNullableDict | None]
+    account_product_access: NotRequired[AccountProductAccessNullableDict | None]

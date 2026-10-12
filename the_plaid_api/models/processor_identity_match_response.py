@@ -18,5 +18,5 @@ class ProcessorIdentityMatchResponse(SdkBaseModel):
 
 
 class ProcessorIdentityMatchResponseDict(TypedDict):
-    account: AccountIdentityMatchScore | AccountIdentityMatchScoreDict
+    account: AccountIdentityMatchScoreDict
     request_id: str

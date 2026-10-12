@@ -21,6 +21,6 @@ class ProcessorAccountGetResponse(SdkBaseModel):
 
 
 class ProcessorAccountGetResponseDict(TypedDict):
-    account: Account | AccountDict
+    account: AccountDict
     institution_id: str
     request_id: str

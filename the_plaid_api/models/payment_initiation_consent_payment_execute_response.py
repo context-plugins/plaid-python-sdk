@@ -87,4 +87,4 @@ class PaymentInitiationConsentPaymentExecuteResponseDict(TypedDict):
     payment_id: str
     status: PaymentInitiationPaymentStatusOrStr
     request_id: str
-    error: NotRequired[Error | ErrorDict | None]
+    error: NotRequired[ErrorDict | None]

@@ -26,7 +26,7 @@ class BankTransferSweepListRequest(SdkBaseModel):
     end_time: OptionalNullable[RFC3339DateTime] = UNSET
     """The end ``created`` datetime of sweeps to return (RFC 3339 format)."""
 
-    count: OptionalNullable[int] = UNSET
+    count: int | None = 25
     """The maximum number of sweeps to return."""
 
 

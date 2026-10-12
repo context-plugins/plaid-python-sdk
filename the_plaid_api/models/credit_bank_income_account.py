@@ -1,11 +1,10 @@
 from __future__ import annotations
 
-from typing import Literal
-
 from pydantic import Field
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import TypedDict
 
 from ..core import SdkBaseModel
+from .enums.credit_bank_income_account_type import CreditBankIncomeAccountTypeOrStr
 from .enums.depository_account_subtype import DepositoryAccountSubtypeOrStr
 from .owner import Owner, OwnerDict
 
@@ -30,7 +29,7 @@ class CreditBankIncomeAccount(SdkBaseModel):
     """Valid account subtypes for depository accounts. For a list containing descriptions of each subtype, see `Account
     schemas <https://plaid.com/docs/api/accounts/#StandaloneAccountType-depository>`__."""
 
-    type_: Literal["depository"] = Field(default="depository", alias="type")
+    type_: CreditBankIncomeAccountTypeOrStr = Field(alias="type")
     """The account type. This will always be ``depository``."""
 
     owners: list[Owner]
@@ -44,5 +43,5 @@ class CreditBankIncomeAccountDict(TypedDict):
     name: str
     official_name: str | None
     subtype: DepositoryAccountSubtypeOrStr
-    type_: NotRequired[Literal["depository"]]
-    owners: list[Owner | OwnerDict]
+    type_: CreditBankIncomeAccountTypeOrStr
+    owners: list[OwnerDict]

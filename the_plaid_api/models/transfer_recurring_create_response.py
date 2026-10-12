@@ -47,9 +47,7 @@ class TransferRecurringCreateResponse(SdkBaseModel):
 
 
 class TransferRecurringCreateResponseDict(TypedDict):
-    recurring_transfer: NotRequired[RecurringTransferNullable | RecurringTransferNullableDict | None]
+    recurring_transfer: NotRequired[RecurringTransferNullableDict | None]
     decision: TransferAuthorizationDecisionOrStr
-    decision_rationale: NotRequired[
-        TransferAuthorizationDecisionRationale | TransferAuthorizationDecisionRationaleDict | None
-    ]
+    decision_rationale: NotRequired[TransferAuthorizationDecisionRationaleDict | None]
     request_id: str

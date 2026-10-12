@@ -44,6 +44,6 @@ class CraCheckReportNetworkInsightsGetRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     user_id: NotRequired[str]
-    options: NotRequired[CraCheckReportNetworkInsightsGetOptions | CraCheckReportNetworkInsightsGetOptionsDict | None]
+    options: NotRequired[CraCheckReportNetworkInsightsGetOptionsDict | None]
     third_party_user_token: NotRequired[str]
     user_token: NotRequired[str]

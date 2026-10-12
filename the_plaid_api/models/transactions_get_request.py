@@ -32,7 +32,7 @@ class TransactionsGetRequest(SdkBaseModel):
 
 class TransactionsGetRequestDict(TypedDict):
     client_id: NotRequired[str]
-    options: NotRequired[TransactionsGetRequestOptions | TransactionsGetRequestOptionsDict]
+    options: NotRequired[TransactionsGetRequestOptionsDict]
     access_token: str
     secret: NotRequired[str]
     start_date: Date

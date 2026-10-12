@@ -23,7 +23,7 @@ class Credit1099Payer(SdkBaseModel):
 
 
 class Credit1099PayerDict(TypedDict):
-    address: NotRequired[CreditPayStubAddress | CreditPayStubAddressDict]
+    address: NotRequired[CreditPayStubAddressDict]
     name: NotRequired[str | None]
     tin: NotRequired[str | None]
     telephone_number: NotRequired[str | None]

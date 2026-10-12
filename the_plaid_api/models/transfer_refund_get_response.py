@@ -18,5 +18,5 @@ class TransferRefundGetResponse(SdkBaseModel):
 
 
 class TransferRefundGetResponseDict(TypedDict):
-    refund: TransferRefund | TransferRefundDict
+    refund: TransferRefundDict
     request_id: str

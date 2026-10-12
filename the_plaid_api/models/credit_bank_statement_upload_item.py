@@ -24,6 +24,6 @@ class CreditBankStatementUploadItem(SdkBaseModel):
 
 class CreditBankStatementUploadItemDict(TypedDict):
     item_id: str
-    bank_statements: list[CreditBankStatementUploadObject | CreditBankStatementUploadObjectDict]
-    status: PayrollItemStatus | PayrollItemStatusDict | None
+    bank_statements: list[CreditBankStatementUploadObjectDict]
+    status: PayrollItemStatusDict | None
     updated_at: RFC3339DateTime | None

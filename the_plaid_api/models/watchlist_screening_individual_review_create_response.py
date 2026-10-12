@@ -38,5 +38,5 @@ class WatchlistScreeningIndividualReviewCreateResponseDict(TypedDict):
     confirmed_hits: list[str]
     dismissed_hits: list[str]
     comment: str | None
-    audit_trail: WatchlistScreeningAuditTrail | WatchlistScreeningAuditTrailDict
+    audit_trail: WatchlistScreeningAuditTrailDict
     request_id: str

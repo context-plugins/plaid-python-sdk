@@ -39,7 +39,7 @@ class LinkSessionSuccessMetadata(SdkBaseModel):
 
 
 class LinkSessionSuccessMetadataDict(TypedDict):
-    institution: NotRequired[LinkSessionSuccessMetadataInstitution | LinkSessionSuccessMetadataInstitutionDict | None]
-    accounts: NotRequired[list[LinkSessionSuccessMetadataAccount | LinkSessionSuccessMetadataAccountDict]]
+    institution: NotRequired[LinkSessionSuccessMetadataInstitutionDict | None]
+    accounts: NotRequired[list[LinkSessionSuccessMetadataAccountDict]]
     link_session_id: NotRequired[str]
     transfer_status: NotRequired[LinkSessionSuccessMetadataTransferStatusOrStr | None]

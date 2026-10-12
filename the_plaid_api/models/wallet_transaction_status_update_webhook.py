@@ -99,5 +99,5 @@ class WalletTransactionStatusUpdateWebhookDict(TypedDict):
     old_status: WalletTransactionStatusOrStr
     failure_reason: NotRequired[WalletTransactionFailureReasonOrStr | None]
     timestamp: RFC3339DateTime
-    error: NotRequired[Error | ErrorDict | None]
+    error: NotRequired[ErrorDict | None]
     environment: WebhookEnvironmentValuesOrStr

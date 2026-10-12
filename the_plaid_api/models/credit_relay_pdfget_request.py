@@ -1,10 +1,9 @@
 from __future__ import annotations
 
-from typing import Literal
-
 from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Optional, SdkBaseModel
+from .enums.report_type import ReportTypeOrStr
 
 
 class CreditRelayPdfgetRequest(SdkBaseModel):
@@ -21,7 +20,7 @@ class CreditRelayPdfgetRequest(SdkBaseModel):
     relay_token: str
     """The ``relay_token`` granting access to the report you would like to get."""
 
-    report_type: Literal["asset"] = "asset"
+    report_type: ReportTypeOrStr
     """The report type. It can be ``asset``. Income report types are not yet supported."""
 
 
@@ -29,4 +28,4 @@ class CreditRelayPdfgetRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     relay_token: str
-    report_type: NotRequired[Literal["asset"]]
+    report_type: ReportTypeOrStr

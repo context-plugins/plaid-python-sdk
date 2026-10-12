@@ -43,7 +43,7 @@ class DocumentRiskSignalDict(TypedDict):
     type_: str | None
     field: str | None
     has_fraud_risk: bool | None
-    institution_metadata: DocumentRiskSignalInstitutionMetadata | DocumentRiskSignalInstitutionMetadataDict | None
+    institution_metadata: DocumentRiskSignalInstitutionMetadataDict | None
     expected_value: str | None
     actual_value: str | None
     signal_description: str | None

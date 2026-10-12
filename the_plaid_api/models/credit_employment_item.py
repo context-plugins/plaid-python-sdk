@@ -19,5 +19,5 @@ class CreditEmploymentItem(SdkBaseModel):
 
 class CreditEmploymentItemDict(TypedDict):
     item_id: str
-    employments: list[CreditEmploymentVerification | CreditEmploymentVerificationDict]
+    employments: list[CreditEmploymentVerificationDict]
     employment_report_token: NotRequired[str]

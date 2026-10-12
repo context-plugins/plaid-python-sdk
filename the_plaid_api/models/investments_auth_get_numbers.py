@@ -17,6 +17,6 @@ class InvestmentsAuthGetNumbers(SdkBaseModel):
 
 
 class InvestmentsAuthGetNumbersDict(TypedDict):
-    acats: NotRequired[list[NumbersAcats | NumbersAcatsDict]]
-    aton: NotRequired[list[NumbersAton | NumbersAtonDict]]
-    retirement_401k: NotRequired[list[NumbersRetirement401K | NumbersRetirement401KDict]]
+    acats: NotRequired[list[NumbersAcatsDict]]
+    aton: NotRequired[list[NumbersAtonDict]]
+    retirement_401k: NotRequired[list[NumbersRetirement401KDict]]

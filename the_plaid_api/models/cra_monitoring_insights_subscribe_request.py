@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, Optional, SdkBaseModel
+from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
 from .enums.credit_bank_income_category import CreditBankIncomeCategoryOrStr
 
 
@@ -29,7 +29,7 @@ class CraMonitoringInsightsSubscribeRequest(SdkBaseModel):
     """URL to which Plaid will send Cash Flow Updates webhooks, for example when the requested Cash Flow Updates report
     is ready."""
 
-    income_categories: Optional[list[CreditBankIncomeCategoryOrStr | None]] = UNSET
+    income_categories: OptionalNullable[list[CreditBankIncomeCategoryOrStr]] = UNSET
     """Income categories to include in Cash Flow Updates. If empty or ``null``, this field will default to including all
     possible categories."""
 
@@ -45,5 +45,5 @@ class CraMonitoringInsightsSubscribeRequestDict(TypedDict):
     user_id: NotRequired[str]
     item_id: NotRequired[str]
     webhook: str
-    income_categories: NotRequired[list[CreditBankIncomeCategoryOrStr | None]]
+    income_categories: NotRequired[list[CreditBankIncomeCategoryOrStr] | None]
     user_token: NotRequired[str]

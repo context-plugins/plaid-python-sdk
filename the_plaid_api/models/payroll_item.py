@@ -20,7 +20,7 @@ class PayrollItem(SdkBaseModel):
     institution_name: str
     """The name of the institution associated with the Item."""
 
-    accounts: list[PayrollIncomeAccountData]
+    accounts: list[PayrollIncomeAccountData | None]
     payroll_income: list[PayrollIncomeObject]
     status: PayrollItemStatus | None
     """Details about the status of the payroll item."""
@@ -34,7 +34,7 @@ class PayrollItemDict(TypedDict):
     item_id: str
     institution_id: str
     institution_name: str
-    accounts: list[PayrollIncomeAccountData | PayrollIncomeAccountDataDict]
-    payroll_income: list[PayrollIncomeObject | PayrollIncomeObjectDict]
-    status: PayrollItemStatus | PayrollItemStatusDict | None
+    accounts: list[PayrollIncomeAccountDataDict | None]
+    payroll_income: list[PayrollIncomeObjectDict]
+    status: PayrollItemStatusDict | None
     updated_at: RFC3339DateTime | None

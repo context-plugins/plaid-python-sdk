@@ -21,6 +21,6 @@ class WatchlistScreeningIndividualReviewListResponse(SdkBaseModel):
 
 
 class WatchlistScreeningIndividualReviewListResponseDict(TypedDict):
-    watchlist_screening_reviews: list[WatchlistScreeningReview | WatchlistScreeningReviewDict]
+    watchlist_screening_reviews: list[WatchlistScreeningReviewDict]
     next_cursor: str | None
     request_id: str

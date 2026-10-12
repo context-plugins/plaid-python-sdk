@@ -19,4 +19,4 @@ class ConsentEventsGetResponse(SdkBaseModel):
 
 class ConsentEventsGetResponseDict(TypedDict):
     request_id: str
-    consent_events: list[ConsentEvent | ConsentEventDict]
+    consent_events: list[ConsentEventDict]

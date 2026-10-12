@@ -22,6 +22,6 @@ class PaymentInitiationRecipientListResponse(SdkBaseModel):
 
 
 class PaymentInitiationRecipientListResponseDict(TypedDict):
-    recipients: list[PaymentInitiationRecipient | PaymentInitiationRecipientDict]
+    recipients: list[PaymentInitiationRecipientDict]
     request_id: str
     next_cursor: NotRequired[str]

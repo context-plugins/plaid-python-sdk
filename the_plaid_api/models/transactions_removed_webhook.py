@@ -42,7 +42,7 @@ class TransactionsRemovedWebhook(SdkBaseModel):
 class TransactionsRemovedWebhookDict(TypedDict):
     webhook_type: str
     webhook_code: str
-    error: NotRequired[Error | ErrorDict | None]
+    error: NotRequired[ErrorDict | None]
     removed_transactions: list[str]
     item_id: str
     environment: WebhookEnvironmentValuesOrStr

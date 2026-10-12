@@ -32,5 +32,5 @@ class TransactionsEnrichRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     account_type: str
-    transactions: list[ClientProvidedTransaction | ClientProvidedTransactionDict]
-    options: NotRequired[TransactionsEnrichRequestOptions | TransactionsEnrichRequestOptionsDict]
+    transactions: list[ClientProvidedTransactionDict]
+    options: NotRequired[TransactionsEnrichRequestOptionsDict]

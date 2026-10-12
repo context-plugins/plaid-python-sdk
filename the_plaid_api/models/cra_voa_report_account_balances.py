@@ -85,7 +85,7 @@ class CraVoaReportAccountBalancesDict(TypedDict):
     current: float | None
     iso_currency_code: str | None
     unofficial_currency_code: str | None
-    historical_balances: list[CraVoaReportAccountHistoricalBalance | CraVoaReportAccountHistoricalBalanceDict]
+    historical_balances: list[CraVoaReportAccountHistoricalBalanceDict]
     average_balance_30_days: float | None
     average_balance_60_days: float | None
     nsf_overdraft_transactions_count: float

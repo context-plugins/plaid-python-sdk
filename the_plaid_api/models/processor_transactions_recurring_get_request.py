@@ -33,4 +33,4 @@ class ProcessorTransactionsRecurringGetRequestDict(TypedDict):
     client_id: NotRequired[str]
     processor_token: str
     secret: NotRequired[str]
-    options: NotRequired[TransactionsRecurringGetRequestOptions | TransactionsRecurringGetRequestOptionsDict]
+    options: NotRequired[TransactionsRecurringGetRequestOptionsDict]

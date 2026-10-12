@@ -22,4 +22,4 @@ class Taxform(SdkBaseModel):
 class TaxformDict(TypedDict):
     doc_id: NotRequired[str]
     document_type: str
-    w2: NotRequired[W2 | W2Dict]
+    w2: NotRequired[W2Dict]

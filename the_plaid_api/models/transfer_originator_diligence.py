@@ -43,11 +43,9 @@ class TransferOriginatorDiligence(SdkBaseModel):
 class TransferOriginatorDiligenceDict(TypedDict):
     dba: str
     tax_id: str
-    credit_usage_configuration: NotRequired[
-        TransferCreditUsageConfiguration | TransferCreditUsageConfigurationDict | None
-    ]
-    debit_usage_configuration: NotRequired[TransferDebitUsageConfiguration | TransferDebitUsageConfigurationDict | None]
-    address: TransferOriginatorAddress | TransferOriginatorAddressDict
+    credit_usage_configuration: NotRequired[TransferCreditUsageConfigurationDict | None]
+    debit_usage_configuration: NotRequired[TransferDebitUsageConfigurationDict | None]
+    address: TransferOriginatorAddressDict
     website: str
     naics_code: str
-    funding_account: TransferFundingAccount | TransferFundingAccountDict
+    funding_account: TransferFundingAccountDict

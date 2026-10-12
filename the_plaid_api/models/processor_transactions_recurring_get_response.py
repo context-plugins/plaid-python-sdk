@@ -36,8 +36,8 @@ class ProcessorTransactionsRecurringGetResponse(SdkBaseModel):
 
 
 class ProcessorTransactionsRecurringGetResponseDict(TypedDict):
-    inflow_streams: list[TransactionStream | TransactionStreamDict]
-    outflow_streams: list[TransactionStream | TransactionStreamDict]
+    inflow_streams: list[TransactionStreamDict]
+    outflow_streams: list[TransactionStreamDict]
     updated_datetime: RFC3339DateTime
     personal_finance_category_version: NotRequired[PersonalFinanceCategoryVersionOrStr]
     request_id: str

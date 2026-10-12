@@ -45,10 +45,10 @@ class BeaconUserUpdateRequestData(SdkBaseModel):
 
 class BeaconUserUpdateRequestDataDict(TypedDict):
     date_of_birth: NotRequired[Date]
-    name: NotRequired[BeaconUserNameNullable | BeaconUserNameNullableDict | None]
-    address: NotRequired[BeaconUserRequestAddressNullable | BeaconUserRequestAddressNullableDict | None]
+    name: NotRequired[BeaconUserNameNullableDict | None]
+    address: NotRequired[BeaconUserRequestAddressNullableDict | None]
     email_address: NotRequired[EmailStr]
     phone_number: NotRequired[str | None]
-    id_number: NotRequired[BeaconUserIdnumber | BeaconUserIdnumberDict | None]
+    id_number: NotRequired[BeaconUserIdnumberDict | None]
     ip_address: NotRequired[str | None]
-    depository_accounts: NotRequired[list[BeaconUserRequestDepositoryAccount | BeaconUserRequestDepositoryAccountDict]]
+    depository_accounts: NotRequired[list[BeaconUserRequestDepositoryAccountDict]]

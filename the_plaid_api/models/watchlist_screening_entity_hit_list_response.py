@@ -21,6 +21,6 @@ class WatchlistScreeningEntityHitListResponse(SdkBaseModel):
 
 
 class WatchlistScreeningEntityHitListResponseDict(TypedDict):
-    entity_watchlist_screening_hits: list[EntityWatchlistScreeningHit | EntityWatchlistScreeningHitDict]
+    entity_watchlist_screening_hits: list[EntityWatchlistScreeningHitDict]
     next_cursor: str | None
     request_id: str

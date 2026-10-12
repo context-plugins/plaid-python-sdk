@@ -56,4 +56,4 @@ class TransactionCounterpartyDict(TypedDict):
     website: str | None
     logo_url: str | None
     confidence_level: NotRequired[str | None]
-    account_numbers: NotRequired[CounterpartyNumbers | CounterpartyNumbersDict | None]
+    account_numbers: NotRequired[CounterpartyNumbersDict | None]

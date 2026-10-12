@@ -35,14 +35,14 @@ class ClientUserIdentity(SdkBaseModel):
     addresses: Optional[list[ClientUserIdentityAddress]] = UNSET
     """The user's addresses."""
 
-    id_numbers: OptionalNullable[list[UserIdnumber]] = UNSET
+    id_numbers: Optional[list[UserIdnumber | None]] = UNSET
     """The user's ID numbers."""
 
 
 class ClientUserIdentityDict(TypedDict):
-    name: NotRequired[ClientUserIdentityName | ClientUserIdentityNameDict | None]
+    name: NotRequired[ClientUserIdentityNameDict | None]
     date_of_birth: NotRequired[Date | None]
-    emails: NotRequired[list[ClientUserIdentityEmail | ClientUserIdentityEmailDict]]
-    phone_numbers: NotRequired[list[ClientUserIdentityPhoneNumber | ClientUserIdentityPhoneNumberDict]]
-    addresses: NotRequired[list[ClientUserIdentityAddress | ClientUserIdentityAddressDict]]
-    id_numbers: NotRequired[list[UserIdnumber | UserIdnumberDict] | None]
+    emails: NotRequired[list[ClientUserIdentityEmailDict]]
+    phone_numbers: NotRequired[list[ClientUserIdentityPhoneNumberDict]]
+    addresses: NotRequired[list[ClientUserIdentityAddressDict]]
+    id_numbers: NotRequired[list[UserIdnumberDict | None]]

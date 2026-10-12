@@ -24,7 +24,7 @@ class Employee(SdkBaseModel):
 
 
 class EmployeeDict(TypedDict):
-    address: PaystubAddress | PaystubAddressDict
+    address: PaystubAddressDict
     name: str | None
     marital_status: NotRequired[str | None]
-    taxpayer_id: NotRequired[TaxpayerId | TaxpayerIdDict]
+    taxpayer_id: NotRequired[TaxpayerIdDict]

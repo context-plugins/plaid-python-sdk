@@ -74,7 +74,7 @@ class BankTransferCreateRequest(SdkBaseModel):
     custom_tag: OptionalNullable[str] = UNSET
     """An arbitrary string provided by the client for storage with the bank transfer. May be up to 100 characters."""
 
-    metadata: Optional[dict[str, str | None]] = UNSET
+    metadata: OptionalNullable[dict[str, str]] = UNSET
     """The Metadata object is a mapping of client-provided string fields to any string value. The following limitations
     apply: The JSON values must be Strings (no nested JSON objects allowed) Only ASCII characters may be used Maximum of
     50 key/value pairs Maximum key length of 40 characters Maximum value length of 500 characters"""
@@ -96,7 +96,7 @@ class BankTransferCreateRequestDict(TypedDict):
     iso_currency_code: str
     description: str
     ach_class: NotRequired[AchclassOrStr]
-    user: BankTransferUser | BankTransferUserDict
+    user: BankTransferUserDict
     custom_tag: NotRequired[str | None]
-    metadata: NotRequired[dict[str, str | None]]
+    metadata: NotRequired[dict[str, str] | None]
     origination_account_id: NotRequired[str | None]

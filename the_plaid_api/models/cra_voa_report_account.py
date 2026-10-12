@@ -85,15 +85,15 @@ class CraVoaReportAccount(SdkBaseModel):
 
 class CraVoaReportAccountDict(TypedDict):
     account_id: str
-    balances: CraVoaReportAccountBalances | CraVoaReportAccountBalancesDict
-    consumer_disputes: list[ConsumerDispute | ConsumerDisputeDict]
+    balances: CraVoaReportAccountBalancesDict
+    consumer_disputes: list[ConsumerDisputeDict]
     mask: str | None
     name: str
     official_name: str | None
     type_: AccountTypeOrStr
     subtype: AccountSubtypeOrStr | None
     days_available: float
-    transactions_insights: CraVoaReportTransactionsInsights | CraVoaReportTransactionsInsightsDict
-    owners: list[Owner | OwnerDict]
+    transactions_insights: CraVoaReportTransactionsInsightsDict
+    owners: list[OwnerDict]
     ownership_type: OwnershipTypeOrStr | None
-    investments: NotRequired[BaseReportInvestments | BaseReportInvestmentsDict | None]
+    investments: NotRequired[BaseReportInvestmentsDict | None]

@@ -24,7 +24,7 @@ class FixedIncome(SdkBaseModel):
 
 
 class FixedIncomeDict(TypedDict):
-    yield_rate: YieldRate | YieldRateDict | None
+    yield_rate: YieldRateDict | None
     maturity_date: Date | None
     issue_date: Date | None
     face_value: float | None

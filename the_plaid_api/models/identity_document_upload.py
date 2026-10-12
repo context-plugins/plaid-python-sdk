@@ -26,5 +26,5 @@ class IdentityDocumentUpload(SdkBaseModel):
 
 class IdentityDocumentUploadDict(TypedDict):
     document_id: NotRequired[str]
-    metadata: NotRequired[IdentityDocumentUploadMetadata | IdentityDocumentUploadMetadataDict]
-    risk_insights: NotRequired[IdentityDocumentUploadRiskInsights | IdentityDocumentUploadRiskInsightsDict]
+    metadata: NotRequired[IdentityDocumentUploadMetadataDict]
+    risk_insights: NotRequired[IdentityDocumentUploadRiskInsightsDict]

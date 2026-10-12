@@ -41,4 +41,4 @@ class UserGetResponseDict(TypedDict):
     client_user_id: str | None
     created_at: RFC3339DateTime
     updated_at: NotRequired[RFC3339DateTime]
-    identity: NotRequired[ClientUserIdentity | ClientUserIdentityDict | None]
+    identity: NotRequired[ClientUserIdentityDict | None]

@@ -18,5 +18,5 @@ class EmployersSearchResponse(SdkBaseModel):
 
 
 class EmployersSearchResponseDict(TypedDict):
-    employers: list[Employer | EmployerDict]
+    employers: list[EmployerDict]
     request_id: str

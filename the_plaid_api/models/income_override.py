@@ -18,5 +18,5 @@ class IncomeOverride(SdkBaseModel):
 
 
 class IncomeOverrideDict(TypedDict):
-    paystubs: NotRequired[list[PaystubOverride | PaystubOverrideDict]]
-    w2s: NotRequired[list[W2Override | W2OverrideDict]]
+    paystubs: NotRequired[list[PaystubOverrideDict]]
+    w2s: NotRequired[list[W2OverrideDict]]

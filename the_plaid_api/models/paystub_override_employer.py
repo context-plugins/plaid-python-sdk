@@ -18,4 +18,4 @@ class PaystubOverrideEmployer(SdkBaseModel):
 
 class PaystubOverrideEmployerDict(TypedDict):
     name: NotRequired[str | None]
-    address: NotRequired[PaystubOverrideEmployerAddress | PaystubOverrideEmployerAddressDict]
+    address: NotRequired[PaystubOverrideEmployerAddressDict]

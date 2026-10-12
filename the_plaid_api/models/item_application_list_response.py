@@ -19,4 +19,4 @@ class ItemApplicationListResponse(SdkBaseModel):
 
 class ItemApplicationListResponseDict(TypedDict):
     request_id: NotRequired[str]
-    applications: list[ConnectedApplication | ConnectedApplicationDict]
+    applications: list[ConnectedApplicationDict]

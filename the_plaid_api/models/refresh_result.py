@@ -27,4 +27,4 @@ class RefreshResult(SdkBaseModel):
 class RefreshResultDict(TypedDict):
     item_id: NotRequired[str]
     product: NotRequired[str]
-    error: NotRequired[Error | ErrorDict | None]
+    error: NotRequired[ErrorDict | None]

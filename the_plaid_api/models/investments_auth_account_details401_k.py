@@ -26,7 +26,5 @@ class InvestmentsAuthAccountDetails401K(SdkBaseModel):
 
 class InvestmentsAuthAccountDetails401KDict(TypedDict):
     account_id: NotRequired[str]
-    fee_details: NotRequired[InvestmentsAuth401KFeeDetails | InvestmentsAuth401KFeeDetailsDict]
-    contribution_details: NotRequired[
-        InvestmentsAuth401KContributionDetails | InvestmentsAuth401KContributionDetailsDict
-    ]
+    fee_details: NotRequired[InvestmentsAuth401KFeeDetailsDict]
+    contribution_details: NotRequired[InvestmentsAuth401KContributionDetailsDict]

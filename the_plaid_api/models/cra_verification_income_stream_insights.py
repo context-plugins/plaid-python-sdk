@@ -37,8 +37,8 @@ class CraVerificationIncomeStreamInsights(SdkBaseModel):
 
 
 class CraVerificationIncomeStreamInsightsDict(TypedDict):
-    income_category: CraVerificationIncomeCategory | CraVerificationIncomeCategoryDict
+    income_category: CraVerificationIncomeCategoryDict
     pay_frequency: CraVerificationIncomePayFrequencyOrStr
-    income_provider: CraVerificationIncomeProvider | CraVerificationIncomeProviderDict | None
+    income_provider: CraVerificationIncomeProviderDict | None
     status: CraVerificationIncomeStatusOrStr
-    next_payment: CraVerificationIncomeNextPayment | CraVerificationIncomeNextPaymentDict | None
+    next_payment: CraVerificationIncomeNextPaymentDict | None

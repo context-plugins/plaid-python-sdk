@@ -33,7 +33,7 @@ class BusinessSearchTerms(SdkBaseModel):
 class BusinessSearchTermsDict(TypedDict):
     name: str | None
     alternative_names: list[str]
-    address: ResponseBusinessAddress | ResponseBusinessAddressDict
+    address: ResponseBusinessAddressDict
     website: str | None
     phone_number: str | None
     email_address: EmailStr | None

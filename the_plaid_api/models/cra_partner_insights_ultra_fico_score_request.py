@@ -1,17 +1,16 @@
 from __future__ import annotations
 
-from typing import Literal
-
 from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Optional, SdkBaseModel
 from .cra_partner_insights_base_fico_score import CraPartnerInsightsBaseFicoScore, CraPartnerInsightsBaseFicoScoreDict
+from .enums.cra_partner_insights_ultra_fico_score_version import CraPartnerInsightsUltraFicoScoreVersionOrStr
 
 
 class CraPartnerInsightsUltraFicoScoreRequest(SdkBaseModel):
     """Configuration required to generate a single UltraFICO® score."""
 
-    ultrafico_score_version: Literal["1.0"] = "1.0"
+    ultrafico_score_version: CraPartnerInsightsUltraFicoScoreVersionOrStr
     """The version of the UltraFICO® score."""
 
     fico_scoring_request_id: Optional[str] = UNSET
@@ -26,7 +25,7 @@ class CraPartnerInsightsUltraFicoScoreRequest(SdkBaseModel):
 
 
 class CraPartnerInsightsUltraFicoScoreRequestDict(TypedDict):
-    ultrafico_score_version: NotRequired[Literal["1.0"]]
+    ultrafico_score_version: CraPartnerInsightsUltraFicoScoreVersionOrStr
     fico_scoring_request_id: NotRequired[str]
     request_correlation_id: NotRequired[str]
-    base_fico_score: CraPartnerInsightsBaseFicoScore | CraPartnerInsightsBaseFicoScoreDict
+    base_fico_score: CraPartnerInsightsBaseFicoScoreDict

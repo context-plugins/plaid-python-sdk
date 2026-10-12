@@ -39,4 +39,4 @@ class LinkSessionBankIncomeResult(SdkBaseModel):
 class LinkSessionBankIncomeResultDict(TypedDict):
     status: CreditSessionBankIncomeStatusOrStr
     item_id: str
-    institution: LinkSessionSuccessMetadataInstitution | LinkSessionSuccessMetadataInstitutionDict | None
+    institution: LinkSessionSuccessMetadataInstitutionDict | None

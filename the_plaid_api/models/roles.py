@@ -15,4 +15,4 @@ class Roles(SdkBaseModel):
 
 
 class RolesDict(TypedDict):
-    role: Role | RoleDict
+    role: RoleDict

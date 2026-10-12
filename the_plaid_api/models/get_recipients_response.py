@@ -13,4 +13,4 @@ class GetRecipientsResponse(SdkBaseModel):
 
 
 class GetRecipientsResponseDict(TypedDict):
-    recipients: list[ExtendedRecipientMetadata | ExtendedRecipientMetadataDict]
+    recipients: list[ExtendedRecipientMetadataDict]

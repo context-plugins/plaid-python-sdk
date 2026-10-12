@@ -26,5 +26,5 @@ class LinkSessionExitDeprecated(SdkBaseModel):
 
 
 class LinkSessionExitDeprecatedDict(TypedDict):
-    error: Error | ErrorDict | None
-    metadata: LinkSessionExitMetadata | LinkSessionExitMetadataDict | None
+    error: ErrorDict | None
+    metadata: LinkSessionExitMetadataDict | None

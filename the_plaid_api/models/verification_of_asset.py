@@ -23,6 +23,6 @@ class VerificationOfAsset(SdkBaseModel):
 
 
 class VerificationOfAssetDict(TypedDict):
-    reporting_information: ReportingInformation | ReportingInformationDict
-    service_product_fulfillment: ServiceProductFulfillment | ServiceProductFulfillmentDict
-    verification_of_asset_response: VerificationOfAssetResponse | VerificationOfAssetResponseDict
+    reporting_information: ReportingInformationDict
+    service_product_fulfillment: ServiceProductFulfillmentDict
+    verification_of_asset_response: VerificationOfAssetResponseDict

@@ -19,7 +19,7 @@ class CashflowReportRefreshRequest(SdkBaseModel):
     """Your Plaid API ``secret``. The ``secret`` is required and may be provided either in the ``PLAID-SECRET`` header
     or as part of a request body."""
 
-    days_requested: int
+    days_requested: int = 365
     """Number of days to retrieve transactions data for (1 to 730)"""
 
 

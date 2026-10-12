@@ -32,4 +32,4 @@ class ProcessorBalanceGetRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     processor_token: str
-    options: NotRequired[ProcessorBalanceGetRequestOptions | ProcessorBalanceGetRequestOptionsDict]
+    options: NotRequired[ProcessorBalanceGetRequestOptionsDict]

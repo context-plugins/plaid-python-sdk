@@ -16,5 +16,5 @@ class TransferOriginatorListResponse(SdkBaseModel):
 
 
 class TransferOriginatorListResponseDict(TypedDict):
-    originators: list[Originator | OriginatorDict]
+    originators: list[OriginatorDict]
     request_id: str

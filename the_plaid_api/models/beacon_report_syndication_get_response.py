@@ -44,6 +44,6 @@ class BeaconReportSyndicationGetResponse(SdkBaseModel):
 class BeaconReportSyndicationGetResponseDict(TypedDict):
     id: str
     beacon_user_id: str
-    report: BeaconReportSyndicationOriginalReport | BeaconReportSyndicationOriginalReportDict
-    analysis: BeaconReportSyndicationAnalysis | BeaconReportSyndicationAnalysisDict
+    report: BeaconReportSyndicationOriginalReportDict
+    analysis: BeaconReportSyndicationAnalysisDict
     request_id: str

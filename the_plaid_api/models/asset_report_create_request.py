@@ -38,4 +38,4 @@ class AssetReportCreateRequestDict(TypedDict):
     secret: NotRequired[str]
     access_tokens: NotRequired[list[str]]
     days_requested: int
-    options: NotRequired[AssetReportCreateRequestOptions | AssetReportCreateRequestOptionsDict]
+    options: NotRequired[AssetReportCreateRequestOptionsDict]

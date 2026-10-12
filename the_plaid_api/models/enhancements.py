@@ -72,7 +72,7 @@ class EnhancementsDict(TypedDict):
     payment_channel: TransactionPaymentChannelOrStr
     category_id: str | None
     category: list[str]
-    location: TransactionLocation | TransactionLocationDict
-    personal_finance_category: NotRequired[PersonalFinanceCategory | PersonalFinanceCategoryDict | None]
+    location: TransactionLocationDict
+    personal_finance_category: NotRequired[PersonalFinanceCategoryDict | None]
     personal_finance_category_icon_url: NotRequired[str]
-    counterparties: NotRequired[list[Counterparty | CounterpartyDict]]
+    counterparties: NotRequired[list[CounterpartyDict]]

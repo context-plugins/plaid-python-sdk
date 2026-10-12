@@ -38,4 +38,4 @@ class InstitutionsGetByIdRequestDict(TypedDict):
     secret: NotRequired[str]
     institution_id: str
     country_codes: list[CountryCodeOrStr]
-    options: NotRequired[InstitutionsGetByIdRequestOptions | InstitutionsGetByIdRequestOptionsDict]
+    options: NotRequired[InstitutionsGetByIdRequestOptionsDict]

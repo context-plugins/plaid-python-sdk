@@ -55,10 +55,10 @@ class TransactionsSyncResponse(SdkBaseModel):
 
 class TransactionsSyncResponseDict(TypedDict):
     transactions_update_status: TransactionsUpdateStatusOrStr
-    accounts: list[Account | AccountDict]
-    added: list[Transaction | TransactionDict]
-    modified: list[Transaction | TransactionDict]
-    removed: list[RemovedTransaction | RemovedTransactionDict]
+    accounts: list[AccountDict]
+    added: list[TransactionDict]
+    modified: list[TransactionDict]
+    removed: list[RemovedTransactionDict]
     next_cursor: str
     has_more: bool
     request_id: str

@@ -22,6 +22,6 @@ class ItemGetResponse(SdkBaseModel):
 
 
 class ItemGetResponseDict(TypedDict):
-    item: ItemWithConsentFields | ItemWithConsentFieldsDict
-    status: NotRequired[ItemStatusNullable | ItemStatusNullableDict | None]
+    item: ItemWithConsentFieldsDict
+    status: NotRequired[ItemStatusNullableDict | None]
     request_id: str

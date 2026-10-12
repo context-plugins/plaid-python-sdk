@@ -41,4 +41,4 @@ class StatementsAccountDict(TypedDict):
     account_official_name: str
     account_subtype: str
     account_type: str
-    statements: list[StatementsStatement | StatementsStatementDict]
+    statements: list[StatementsStatementDict]

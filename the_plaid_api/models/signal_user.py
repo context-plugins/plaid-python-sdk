@@ -28,7 +28,7 @@ class SignalUser(SdkBaseModel):
 
 
 class SignalUserDict(TypedDict):
-    name: NotRequired[SignalPersonName | SignalPersonNameDict | None]
+    name: NotRequired[SignalPersonNameDict | None]
     phone_number: NotRequired[str | None]
     email_address: NotRequired[str | None]
-    address: NotRequired[SignalAddressData | SignalAddressDataDict | None]
+    address: NotRequired[SignalAddressDataDict | None]

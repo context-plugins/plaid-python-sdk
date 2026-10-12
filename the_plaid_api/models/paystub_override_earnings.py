@@ -16,5 +16,5 @@ class PaystubOverrideEarnings(SdkBaseModel):
 
 
 class PaystubOverrideEarningsDict(TypedDict):
-    breakdown: NotRequired[list[PaystubOverrideEarningsBreakdown | PaystubOverrideEarningsBreakdownDict]]
-    total: NotRequired[PaystubOverrideEarningsTotal | PaystubOverrideEarningsTotalDict]
+    breakdown: NotRequired[list[PaystubOverrideEarningsBreakdownDict]]
+    total: NotRequired[PaystubOverrideEarningsTotalDict]

@@ -15,4 +15,4 @@ class Individual(SdkBaseModel):
 
 
 class IndividualDict(TypedDict):
-    name: Name | NameDict
+    name: NameDict

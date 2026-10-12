@@ -22,6 +22,6 @@ class IdentityDocumentsUploadsGetResponse(SdkBaseModel):
 
 
 class IdentityDocumentsUploadsGetResponseDict(TypedDict):
-    accounts: list[AccountIdentityDocumentUpload | AccountIdentityDocumentUploadDict]
-    item: Item | ItemDict
+    accounts: list[AccountIdentityDocumentUploadDict]
+    item: ItemDict
     request_id: str

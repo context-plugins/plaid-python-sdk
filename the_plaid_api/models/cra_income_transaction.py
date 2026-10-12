@@ -59,4 +59,4 @@ class CraIncomeTransactionDict(TypedDict):
     original_description: str
     iso_currency_code: str | None
     unofficial_currency_code: str | None
-    outlier: CraIncomeTransactionOutlier | CraIncomeTransactionOutlierDict
+    outlier: CraIncomeTransactionOutlierDict

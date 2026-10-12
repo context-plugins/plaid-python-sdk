@@ -18,5 +18,5 @@ class CounterpartyInsights(SdkBaseModel):
 
 
 class CounterpartyInsightsDict(TypedDict):
-    financial_institution_insights: NotRequired[list[FinancialInstitutionInsights | FinancialInstitutionInsightsDict]]
-    merchant_insights: NotRequired[list[MerchantInsights | MerchantInsightsDict]]
+    financial_institution_insights: NotRequired[list[FinancialInstitutionInsightsDict]]
+    merchant_insights: NotRequired[list[MerchantInsightsDict]]

@@ -17,5 +17,5 @@ class RecurringTransactions(SdkBaseModel):
 
 
 class RecurringTransactionsDict(TypedDict):
-    inflow_streams: list[RecurringInsightsStream | RecurringInsightsStreamDict]
-    outflow_streams: list[RecurringInsightsStream | RecurringInsightsStreamDict]
+    inflow_streams: list[RecurringInsightsStreamDict]
+    outflow_streams: list[RecurringInsightsStreamDict]

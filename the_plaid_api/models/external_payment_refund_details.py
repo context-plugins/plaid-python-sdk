@@ -23,4 +23,4 @@ class ExternalPaymentRefundDetails(SdkBaseModel):
 class ExternalPaymentRefundDetailsDict(TypedDict):
     name: str
     iban: str | None
-    bacs: RecipientBacsnullable | RecipientBacsnullableDict | None
+    bacs: RecipientBacsnullableDict | None

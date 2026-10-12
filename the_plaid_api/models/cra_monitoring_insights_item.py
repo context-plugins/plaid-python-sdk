@@ -39,6 +39,6 @@ class CraMonitoringInsightsItemDict(TypedDict):
     item_id: str
     institution_id: str
     institution_name: str
-    status: MonitoringInsightsItemStatus | MonitoringInsightsItemStatusDict
-    insights: MonitoringInsights | MonitoringInsightsDict | None
-    accounts: NotRequired[list[BaseReportAccount | BaseReportAccountDict]]
+    status: MonitoringInsightsItemStatusDict
+    insights: MonitoringInsightsDict | None
+    accounts: NotRequired[list[BaseReportAccountDict]]

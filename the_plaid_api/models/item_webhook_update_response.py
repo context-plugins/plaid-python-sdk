@@ -18,5 +18,5 @@ class ItemWebhookUpdateResponse(SdkBaseModel):
 
 
 class ItemWebhookUpdateResponseDict(TypedDict):
-    item: Item | ItemDict
+    item: ItemDict
     request_id: str

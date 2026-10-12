@@ -29,7 +29,7 @@ class BeaconDuplicateGetResponse(SdkBaseModel):
 
 class BeaconDuplicateGetResponseDict(TypedDict):
     id: str
-    beacon_user1: BeaconUserRevision | BeaconUserRevisionDict
-    beacon_user2: BeaconUserRevision | BeaconUserRevisionDict
-    analysis: BeaconMatchSummaryAnalysis | BeaconMatchSummaryAnalysisDict
+    beacon_user1: BeaconUserRevisionDict
+    beacon_user2: BeaconUserRevisionDict
+    analysis: BeaconMatchSummaryAnalysisDict
     request_id: str

@@ -20,5 +20,5 @@ class AssetTransaction(SdkBaseModel):
 
 
 class AssetTransactionDict(TypedDict):
-    asset_transaction_detail: AssetTransactionDetail | AssetTransactionDetailDict
-    asset_transaction_descripton: list[AssetTransactionDescription | AssetTransactionDescriptionDict]
+    asset_transaction_detail: AssetTransactionDetailDict
+    asset_transaction_descripton: list[AssetTransactionDescriptionDict]

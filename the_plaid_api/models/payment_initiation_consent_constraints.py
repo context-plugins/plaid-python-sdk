@@ -23,6 +23,6 @@ class PaymentInitiationConsentConstraints(SdkBaseModel):
 
 
 class PaymentInitiationConsentConstraintsDict(TypedDict):
-    valid_date_time: NotRequired[PaymentConsentValidDateTime | PaymentConsentValidDateTimeDict | None]
-    max_payment_amount: PaymentAmount | PaymentAmountDict
-    periodic_amounts: list[PaymentConsentPeriodicAmount | PaymentConsentPeriodicAmountDict]
+    valid_date_time: NotRequired[PaymentConsentValidDateTimeDict | None]
+    max_payment_amount: PaymentAmountDict
+    periodic_amounts: list[PaymentConsentPeriodicAmountDict]

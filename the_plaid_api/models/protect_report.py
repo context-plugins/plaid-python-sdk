@@ -109,11 +109,11 @@ class ProtectReport(SdkBaseModel):
 
 class ProtectReportDict(TypedDict):
     report_id: str
-    incident_event: ProtectIncidentEventResponse | ProtectIncidentEventResponseDict | None
+    incident_event: ProtectIncidentEventResponseDict | None
     report_confidence: ProtectReportConfidenceOrStr
     report_type: ProtectReportTypeOrStr
     report_source: ProtectReportSourceOrStr
-    bank_account: ProtectBankAccount | ProtectBankAccountDict | None
+    bank_account: ProtectBankAccountDict | None
     ach_return_code: str | None
     notes: str | None
     created_at: RFC3339DateTime

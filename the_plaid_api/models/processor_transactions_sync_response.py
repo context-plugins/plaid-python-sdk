@@ -52,10 +52,10 @@ class ProcessorTransactionsSyncResponse(SdkBaseModel):
 
 class ProcessorTransactionsSyncResponseDict(TypedDict):
     transactions_update_status: TransactionsUpdateStatusOrStr
-    account: AccountNullable | AccountNullableDict | None
-    added: list[Transaction | TransactionDict]
-    modified: list[Transaction | TransactionDict]
-    removed: list[RemovedTransaction | RemovedTransactionDict]
+    account: AccountNullableDict | None
+    added: list[TransactionDict]
+    modified: list[TransactionDict]
+    removed: list[RemovedTransactionDict]
     next_cursor: str
     has_more: bool
     request_id: str

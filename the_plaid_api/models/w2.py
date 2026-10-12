@@ -74,8 +74,8 @@ class W2(SdkBaseModel):
 
 
 class W2Dict(TypedDict):
-    employer: NotRequired[PaystubEmployer | PaystubEmployerDict]
-    employee: NotRequired[Employee | EmployeeDict]
+    employer: NotRequired[PaystubEmployerDict]
+    employee: NotRequired[EmployeeDict]
     tax_year: NotRequired[str | None]
     employer_id_number: NotRequired[str | None]
     wages_tips_other_comp: NotRequired[str | None]
@@ -89,9 +89,9 @@ class W2Dict(TypedDict):
     box_9: NotRequired[str | None]
     dependent_care_benefits: NotRequired[str | None]
     nonqualified_plans: NotRequired[str | None]
-    box_12: NotRequired[list[W2Box12 | W2Box12Dict]]
+    box_12: NotRequired[list[W2Box12Dict]]
     statutory_employee: NotRequired[str | None]
     retirement_plan: NotRequired[str | None]
     third_party_sick_pay: NotRequired[str | None]
     other: NotRequired[str | None]
-    state_and_local_wages: NotRequired[list[W2StateAndLocalWages | W2StateAndLocalWagesDict]]
+    state_and_local_wages: NotRequired[list[W2StateAndLocalWagesDict]]

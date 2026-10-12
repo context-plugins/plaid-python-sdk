@@ -28,4 +28,4 @@ class TransferAuthorizationUserInRequestDict(TypedDict):
     legal_name: str
     phone_number: NotRequired[str]
     email_address: NotRequired[str]
-    address: NotRequired[TransferUserAddressInRequest | TransferUserAddressInRequestDict]
+    address: NotRequired[TransferUserAddressInRequestDict]

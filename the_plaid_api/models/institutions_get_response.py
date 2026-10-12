@@ -21,6 +21,6 @@ class InstitutionsGetResponse(SdkBaseModel):
 
 
 class InstitutionsGetResponseDict(TypedDict):
-    institutions: list[Institution | InstitutionDict]
+    institutions: list[InstitutionDict]
     total: int
     request_id: str

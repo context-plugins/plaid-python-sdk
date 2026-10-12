@@ -15,4 +15,4 @@ class CreditFreddieMacLoans(SdkBaseModel):
 
 
 class CreditFreddieMacLoansDict(TypedDict):
-    loan: CreditFreddieMacLoan | CreditFreddieMacLoanDict
+    loan: CreditFreddieMacLoanDict

@@ -23,6 +23,6 @@ class AccountsGetResponse(SdkBaseModel):
 
 
 class AccountsGetResponseDict(TypedDict):
-    accounts: list[Account | AccountDict]
-    item: Item | ItemDict
+    accounts: list[AccountDict]
+    item: ItemDict
     request_id: str

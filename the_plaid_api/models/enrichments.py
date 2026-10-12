@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
+from ..core import UNSET, OptionalNullable, SdkBaseModel
 from .counterparty import Counterparty, CounterpartyDict
 from .enums.transaction_payment_channel import TransactionPaymentChannelOrStr
 from .personal_finance_category import PersonalFinanceCategory, PersonalFinanceCategoryDict
@@ -28,7 +28,7 @@ class Enrichments(SdkBaseModel):
 
     We recommend using the ``personal_finance_category`` for transaction categorization to obtain the best results."""
 
-    legacy_category: Optional[list[str | None]] = UNSET
+    legacy_category: OptionalNullable[list[str]] = UNSET
     """A hierarchical array of the legacy categories to which this transaction belongs. For a full list of legacy
     categories, see https://plaid.com/docs/api/products/transactions/#categoriesget.
 
@@ -77,15 +77,15 @@ class Enrichments(SdkBaseModel):
 
 class EnrichmentsDict(TypedDict):
     check_number: NotRequired[str | None]
-    counterparties: list[Counterparty | CounterpartyDict]
+    counterparties: list[CounterpartyDict]
     entity_id: NotRequired[str | None]
     legacy_category_id: NotRequired[str | None]
-    legacy_category: NotRequired[list[str | None]]
-    location: TransactionLocation | TransactionLocationDict
+    legacy_category: NotRequired[list[str] | None]
+    location: TransactionLocationDict
     logo_url: str | None
     merchant_name: str | None
     payment_channel: TransactionPaymentChannelOrStr
     phone_number: str | None
-    personal_finance_category: PersonalFinanceCategory | PersonalFinanceCategoryDict | None
+    personal_finance_category: PersonalFinanceCategoryDict | None
     personal_finance_category_icon_url: str
     website: str | None

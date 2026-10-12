@@ -33,5 +33,5 @@ class PrismFirstDetectDict(TypedDict):
     model_version: NotRequired[str]
     score: int | None
     reason_codes: NotRequired[list[str]]
-    metadata: NotRequired[PrismCashScoreMetadata | PrismCashScoreMetadataDict]
+    metadata: NotRequired[PrismCashScoreMetadataDict]
     error_reason: NotRequired[str]

@@ -53,7 +53,7 @@ class SessionTokenCreateRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     template_id: str
-    user: NotRequired[SessionTokenCreateRequestUser | SessionTokenCreateRequestUserDict]
+    user: NotRequired[SessionTokenCreateRequestUserDict]
     redirect_uri: NotRequired[str]
     android_package_name: NotRequired[str]
     webhook: NotRequired[str]

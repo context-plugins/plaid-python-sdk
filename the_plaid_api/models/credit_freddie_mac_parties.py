@@ -15,4 +15,4 @@ class CreditFreddieMacParties(SdkBaseModel):
 
 
 class CreditFreddieMacPartiesDict(TypedDict):
-    party: list[CreditFreddieMacParty | CreditFreddieMacPartyDict]
+    party: list[CreditFreddieMacPartyDict]

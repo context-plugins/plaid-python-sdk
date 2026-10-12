@@ -17,6 +17,4 @@ class TransferMetricsGetReturnRates(SdkBaseModel):
 
 
 class TransferMetricsGetReturnRatesDict(TypedDict):
-    last_60d: NotRequired[
-        TransferMetricsGetReturnRatesOverInterval | TransferMetricsGetReturnRatesOverIntervalDict | None
-    ]
+    last_60d: NotRequired[TransferMetricsGetReturnRatesOverIntervalDict | None]

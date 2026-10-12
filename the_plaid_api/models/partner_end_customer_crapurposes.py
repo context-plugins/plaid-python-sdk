@@ -44,13 +44,11 @@ class PartnerEndCustomerCrapurposes(SdkBaseModel):
 
 
 class PartnerEndCustomerCrapurposesDict(TypedDict):
-    written_instruction: NotRequired[PartnerEndCustomerCrauseCases | PartnerEndCustomerCrauseCasesDict]
-    extension_of_credit_or_account_review: NotRequired[
-        PartnerEndCustomerCrauseCases | PartnerEndCustomerCrauseCasesDict
-    ]
-    employment: NotRequired[PartnerEndCustomerCrauseCases | PartnerEndCustomerCrauseCasesDict]
-    insurance_underwriting: NotRequired[PartnerEndCustomerCrauseCases | PartnerEndCustomerCrauseCasesDict]
-    license_eligibility: NotRequired[PartnerEndCustomerCrauseCases | PartnerEndCustomerCrauseCasesDict]
-    risk_assessment: NotRequired[PartnerEndCustomerCrauseCases | PartnerEndCustomerCrauseCasesDict]
-    business_need_transaction: NotRequired[PartnerEndCustomerCrauseCases | PartnerEndCustomerCrauseCasesDict]
-    business_need_account_review: NotRequired[PartnerEndCustomerCrauseCases | PartnerEndCustomerCrauseCasesDict]
+    written_instruction: NotRequired[PartnerEndCustomerCrauseCasesDict]
+    extension_of_credit_or_account_review: NotRequired[PartnerEndCustomerCrauseCasesDict]
+    employment: NotRequired[PartnerEndCustomerCrauseCasesDict]
+    insurance_underwriting: NotRequired[PartnerEndCustomerCrauseCasesDict]
+    license_eligibility: NotRequired[PartnerEndCustomerCrauseCasesDict]
+    risk_assessment: NotRequired[PartnerEndCustomerCrauseCasesDict]
+    business_need_transaction: NotRequired[PartnerEndCustomerCrauseCasesDict]
+    business_need_account_review: NotRequired[PartnerEndCustomerCrauseCasesDict]

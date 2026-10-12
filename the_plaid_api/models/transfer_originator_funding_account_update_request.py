@@ -28,4 +28,4 @@ class TransferOriginatorFundingAccountUpdateRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     originator_client_id: str
-    funding_account: TransferFundingAccount | TransferFundingAccountDict
+    funding_account: TransferFundingAccountDict

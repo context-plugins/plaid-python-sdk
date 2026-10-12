@@ -30,4 +30,4 @@ class LinkUserDeliveryStatusWebhookDict(TypedDict):
     webhook_code: str
     link_delivery_session_id: str
     timestamp: str
-    link_delivery_metadata: LinkDeliveryMetadata | LinkDeliveryMetadataDict
+    link_delivery_metadata: LinkDeliveryMetadataDict

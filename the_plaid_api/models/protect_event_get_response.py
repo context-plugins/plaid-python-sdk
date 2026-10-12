@@ -32,6 +32,6 @@ class ProtectEventGetResponse(SdkBaseModel):
 class ProtectEventGetResponseDict(TypedDict):
     event_id: str
     timestamp: RFC3339DateTime
-    trust_index: NotRequired[TrustIndex | TrustIndexDict | None]
+    trust_index: NotRequired[TrustIndexDict | None]
     fraud_attributes: NotRequired[Any | None]
     request_id: str

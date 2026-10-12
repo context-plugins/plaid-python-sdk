@@ -29,5 +29,5 @@ class PrismExtendDict(TypedDict):
     model_version: str
     score: int | None
     reason_codes: NotRequired[list[str]]
-    metadata: NotRequired[PrismCashScoreMetadata | PrismCashScoreMetadataDict]
+    metadata: NotRequired[PrismCashScoreMetadataDict]
     error_reason: NotRequired[str]

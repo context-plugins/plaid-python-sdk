@@ -22,4 +22,4 @@ class UserFinancialDataRefreshResponse(SdkBaseModel):
 class UserFinancialDataRefreshResponseDict(TypedDict):
     request_id: NotRequired[str]
     user_id: NotRequired[str]
-    results: NotRequired[list[RefreshResult | RefreshResultDict]]
+    results: NotRequired[list[RefreshResultDict]]

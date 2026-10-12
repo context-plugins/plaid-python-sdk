@@ -21,4 +21,4 @@ class SelfieCheck(SdkBaseModel):
 
 class SelfieCheckDict(TypedDict):
     status: SelfieCheckStatusOrStr
-    selfies: list[SelfieCheckSelfie | SelfieCheckSelfieDict]
+    selfies: list[SelfieCheckSelfieDict]

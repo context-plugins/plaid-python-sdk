@@ -88,4 +88,4 @@ class SimulatedTransferSweepDict(TypedDict):
     trigger: NotRequired[SweepTriggerOrStr | None]
     description: NotRequired[str]
     network_trace_id: NotRequired[str | None]
-    failure_reason: NotRequired[SweepFailure | SweepFailureDict | None]
+    failure_reason: NotRequired[SweepFailureDict | None]

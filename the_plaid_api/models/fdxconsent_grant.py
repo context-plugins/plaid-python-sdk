@@ -40,5 +40,5 @@ class FdxconsentGrantDict(TypedDict):
     created_time: RFC3339DateTime
     updated_time: RFC3339DateTime
     expiration_time: NotRequired[RFC3339DateTime]
-    parties: list[PartyEntity | PartyEntityDict]
-    resources: NotRequired[list[FdxconsentGrantResource | FdxconsentGrantResourceDict]]
+    parties: list[PartyEntityDict]
+    resources: NotRequired[list[FdxconsentGrantResourceDict]]

@@ -25,6 +25,6 @@ class CreditFreddieMacReportsGetResponse(SdkBaseModel):
 
 
 class CreditFreddieMacReportsGetResponseDict(TypedDict):
-    deal: CreditFreddieMacVerificationOfAssetsDeal | CreditFreddieMacVerificationOfAssetsDealDict
+    deal: CreditFreddieMacVerificationOfAssetsDealDict
     request_id: str
     schema_version: float

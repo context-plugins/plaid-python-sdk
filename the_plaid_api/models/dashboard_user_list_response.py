@@ -21,6 +21,6 @@ class DashboardUserListResponse(SdkBaseModel):
 
 
 class DashboardUserListResponseDict(TypedDict):
-    dashboard_users: list[DashboardUser | DashboardUserDict]
+    dashboard_users: list[DashboardUserDict]
     next_cursor: str | None
     request_id: str

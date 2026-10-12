@@ -18,5 +18,5 @@ class InstitutionsSearchResponse(SdkBaseModel):
 
 
 class InstitutionsSearchResponseDict(TypedDict):
-    institutions: list[Institution | InstitutionDict]
+    institutions: list[InstitutionDict]
     request_id: str

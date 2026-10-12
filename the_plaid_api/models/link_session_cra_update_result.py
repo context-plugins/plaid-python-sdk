@@ -31,5 +31,5 @@ class LinkSessionCraUpdateResult(SdkBaseModel):
 
 class LinkSessionCraUpdateResultDict(TypedDict):
     item_id: str
-    accounts: list[LinkSessionSuccessMetadataAccount | LinkSessionSuccessMetadataAccountDict]
-    institution: LinkSessionSuccessMetadataInstitution | LinkSessionSuccessMetadataInstitutionDict | None
+    accounts: list[LinkSessionSuccessMetadataAccountDict]
+    institution: LinkSessionSuccessMetadataInstitutionDict | None

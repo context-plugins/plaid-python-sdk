@@ -35,7 +35,7 @@ class AssetReportTransaction(SdkBaseModel):
     original_description: str | None
     """The string returned by the financial institution to describe the transaction."""
 
-    category: Optional[list[str | None]] = UNSET
+    category: OptionalNullable[list[str]] = UNSET
     """A hierarchical array of the categories to which this transaction belongs. For a full list of categories, see
     https://plaid.com/docs/api/products/transactions/#categoriesget.
 
@@ -123,16 +123,16 @@ class AssetReportTransactionDict(TypedDict):
     iso_currency_code: str | None
     unofficial_currency_code: str | None
     original_description: str | None
-    category: NotRequired[list[str | None]]
+    category: NotRequired[list[str] | None]
     category_id: NotRequired[str | None]
-    credit_category: NotRequired[CreditCategory | CreditCategoryDict | None]
+    credit_category: NotRequired[CreditCategoryDict | None]
     check_number: NotRequired[str | None]
     date: Date
     date_transacted: NotRequired[str | None]
-    location: NotRequired[TransactionLocation | TransactionLocationDict]
+    location: NotRequired[TransactionLocationDict]
     name: NotRequired[str]
     merchant_name: NotRequired[str | None]
-    payment_meta: NotRequired[PaymentMeta | PaymentMetaDict]
+    payment_meta: NotRequired[PaymentMetaDict]
     pending: bool
     pending_transaction_id: NotRequired[str | None]
     account_owner: NotRequired[str | None]

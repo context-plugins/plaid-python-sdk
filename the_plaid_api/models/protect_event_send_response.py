@@ -27,6 +27,6 @@ class ProtectEventSendResponse(SdkBaseModel):
 
 class ProtectEventSendResponseDict(TypedDict):
     event_id: str
-    trust_index: NotRequired[TrustIndex | TrustIndexDict | None]
+    trust_index: NotRequired[TrustIndexDict | None]
     fraud_attributes: NotRequired[Any | None]
     request_id: str

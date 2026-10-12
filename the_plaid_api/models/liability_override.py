@@ -108,15 +108,15 @@ class LiabilityOverrideDict(TypedDict):
     principal: float
     nominal_apr: float
     interest_capitalization_grace_period_months: float
-    repayment_model: StudentLoanRepaymentModel | StudentLoanRepaymentModelDict
+    repayment_model: StudentLoanRepaymentModelDict
     expected_payoff_date: Date
     guarantor: str
     is_federal: bool
     loan_name: str
-    loan_status: StudentLoanStatus | StudentLoanStatusDict
+    loan_status: StudentLoanStatusDict
     payment_reference_number: str
-    pslf_status: Pslfstatus | PslfstatusDict
+    pslf_status: PslfstatusDict
     repayment_plan_description: str
     repayment_plan_type: str
     sequence_number: str
-    servicer_address: Address | AddressDict
+    servicer_address: AddressDict

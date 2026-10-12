@@ -2939,7 +2939,7 @@ from .wallet_transaction_status_update_webhook import (
     WalletTransactionStatusUpdateWebhookDict,
 )
 from .wallet_transactions_list_request import WalletTransactionsListRequest, WalletTransactionsListRequestDict
-from .warning import Warning, WarningDict
+from .warning_model import WarningModel, WarningModelDict
 from .watchlist_screening_audit_trail import WatchlistScreeningAuditTrail, WatchlistScreeningAuditTrailDict
 from .watchlist_screening_document import WatchlistScreeningDocument, WatchlistScreeningDocumentDict
 from .watchlist_screening_entity_create_request import (
@@ -6513,8 +6513,8 @@ __all__ = [
     "WalletTransactionStatusUpdateWebhookDict",
     "WalletTransactionsListRequest",
     "WalletTransactionsListRequestDict",
-    "Warning",
-    "WarningDict",
+    "WarningModel",
+    "WarningModelDict",
     "WatchlistScreeningAuditTrail",
     "WatchlistScreeningAuditTrailDict",
     "WatchlistScreeningDocument",

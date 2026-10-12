@@ -41,4 +41,4 @@ class VerificationExpiredWebhookDict(TypedDict):
     item_id: str
     account_id: str
     environment: WebhookEnvironmentValuesOrStr
-    error: NotRequired[Error | ErrorDict | None]
+    error: NotRequired[ErrorDict | None]

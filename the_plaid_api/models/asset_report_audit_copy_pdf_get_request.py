@@ -28,4 +28,4 @@ class AssetReportAuditCopyPdfGetRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     audit_copy_token: str
-    options: NotRequired[AssetReportPdfgetRequestOptions | AssetReportPdfgetRequestOptionsDict]
+    options: NotRequired[AssetReportPdfgetRequestOptionsDict]

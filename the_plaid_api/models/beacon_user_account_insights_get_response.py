@@ -30,5 +30,5 @@ class BeaconUserAccountInsightsGetResponseDict(TypedDict):
     beacon_user_id: str
     created_at: RFC3339DateTime
     updated_at: RFC3339DateTime
-    bank_account_insights: BeaconBankAccounts | BeaconBankAccountsDict
+    bank_account_insights: BeaconBankAccountsDict
     request_id: str

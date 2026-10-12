@@ -16,5 +16,5 @@ class TransferRepaymentListResponse(SdkBaseModel):
 
 
 class TransferRepaymentListResponseDict(TypedDict):
-    repayments: list[TransferRepayment | TransferRepaymentDict]
+    repayments: list[TransferRepaymentDict]
     request_id: str

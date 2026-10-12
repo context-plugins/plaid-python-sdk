@@ -16,4 +16,4 @@ class TrustedDeviceData(SdkBaseModel):
 
 class TrustedDeviceDataDict(TypedDict):
     trust_level: NotRequired[int]
-    device_id: NotRequired[DeviceId | DeviceIdDict]
+    device_id: NotRequired[DeviceIdDict]

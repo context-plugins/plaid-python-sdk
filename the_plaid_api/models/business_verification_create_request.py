@@ -32,8 +32,6 @@ class BusinessVerificationCreateRequest(SdkBaseModel):
 
 class BusinessVerificationCreateRequestDict(TypedDict):
     client_user_id: str
-    business: NotRequired[
-        BusinessVerificationCreateRequestBusiness | BusinessVerificationCreateRequestBusinessDict | None
-    ]
+    business: NotRequired[BusinessVerificationCreateRequestBusinessDict | None]
     client_id: NotRequired[str]
     secret: NotRequired[str]

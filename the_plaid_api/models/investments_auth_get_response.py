@@ -51,12 +51,12 @@ class InvestmentsAuthGetResponse(SdkBaseModel):
 
 
 class InvestmentsAuthGetResponseDict(TypedDict):
-    accounts: list[InvestmentAccount | InvestmentAccountDict]
-    holdings: list[Holding | HoldingDict]
-    securities: list[Security | SecurityDict]
-    owners: list[InvestmentsAuthOwner | InvestmentsAuthOwnerDict]
-    numbers: InvestmentsAuthGetNumbers | InvestmentsAuthGetNumbersDict
-    data_sources: InvestmentsAuthDataSources | InvestmentsAuthDataSourcesDict
-    account_details_401k: NotRequired[list[InvestmentsAuthAccountDetails401K | InvestmentsAuthAccountDetails401KDict]]
-    item: Item | ItemDict
+    accounts: list[InvestmentAccountDict]
+    holdings: list[HoldingDict]
+    securities: list[SecurityDict]
+    owners: list[InvestmentsAuthOwnerDict]
+    numbers: InvestmentsAuthGetNumbersDict
+    data_sources: InvestmentsAuthDataSourcesDict
+    account_details_401k: NotRequired[list[InvestmentsAuthAccountDetails401KDict]]
+    item: ItemDict
     request_id: str

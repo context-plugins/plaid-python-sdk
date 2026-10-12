@@ -111,5 +111,5 @@ class RecurringTransferNullableDict(TypedDict):
     iso_currency_code: str
     description: str
     transfer_ids: list[str]
-    user: TransferUserInResponse | TransferUserInResponseDict
-    schedule: TransferRecurringSchedule | TransferRecurringScheduleDict
+    user: TransferUserInResponseDict
+    schedule: TransferRecurringScheduleDict

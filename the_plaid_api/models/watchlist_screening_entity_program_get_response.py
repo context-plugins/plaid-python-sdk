@@ -64,6 +64,6 @@ class WatchlistScreeningEntityProgramGetResponseDict(TypedDict):
     lists_enabled: list[EntityWatchlistCodeOrStr]
     name: str
     name_sensitivity: ProgramNameSensitivityOrStr
-    audit_trail: WatchlistScreeningAuditTrail | WatchlistScreeningAuditTrailDict
+    audit_trail: WatchlistScreeningAuditTrailDict
     is_archived: bool
     request_id: str

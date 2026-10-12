@@ -18,5 +18,5 @@ class ProcessorIdentityGetResponse(SdkBaseModel):
 
 
 class ProcessorIdentityGetResponseDict(TypedDict):
-    account: AccountIdentity | AccountIdentityDict
+    account: AccountIdentityDict
     request_id: str

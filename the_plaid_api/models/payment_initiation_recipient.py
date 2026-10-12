@@ -30,6 +30,6 @@ class PaymentInitiationRecipient(SdkBaseModel):
 class PaymentInitiationRecipientDict(TypedDict):
     recipient_id: str
     name: str
-    address: NotRequired[PaymentInitiationAddress | PaymentInitiationAddressDict | None]
+    address: NotRequired[PaymentInitiationAddressDict | None]
     iban: NotRequired[str | None]
-    bacs: NotRequired[RecipientBacsnullable | RecipientBacsnullableDict | None]
+    bacs: NotRequired[RecipientBacsnullableDict | None]

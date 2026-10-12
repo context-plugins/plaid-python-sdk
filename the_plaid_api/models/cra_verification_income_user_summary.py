@@ -14,4 +14,4 @@ class CraVerificationIncomeUserSummary(SdkBaseModel):
 
 
 class CraVerificationIncomeUserSummaryDict(TypedDict):
-    income_metrics: list[CraVerificationIncomeMetrics | CraVerificationIncomeMetricsDict]
+    income_metrics: list[CraVerificationIncomeMetricsDict]

@@ -26,4 +26,4 @@ class LinkSessionPayrollIncomeResult(SdkBaseModel):
 class LinkSessionPayrollIncomeResultDict(TypedDict):
     num_paystubs_retrieved: int
     num_w2s_retrieved: int
-    institution: LinkSessionSuccessMetadataInstitution | LinkSessionSuccessMetadataInstitutionDict | None
+    institution: LinkSessionSuccessMetadataInstitutionDict | None

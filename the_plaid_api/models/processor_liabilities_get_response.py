@@ -22,6 +22,6 @@ class ProcessorLiabilitiesGetResponse(SdkBaseModel):
 
 
 class ProcessorLiabilitiesGetResponseDict(TypedDict):
-    account: Account | AccountDict
-    liabilities: LiabilitiesObject | LiabilitiesObjectDict
+    account: AccountDict
+    liabilities: LiabilitiesObjectDict
     request_id: str

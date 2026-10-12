@@ -24,4 +24,4 @@ class CraLoansUnregisterRequest(SdkBaseModel):
 class CraLoansUnregisterRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
-    loans: list[CraLoanUnregister | CraLoanUnregisterDict]
+    loans: list[CraLoanUnregisterDict]

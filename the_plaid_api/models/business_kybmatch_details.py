@@ -37,10 +37,10 @@ class BusinessKybmatchDetails(SdkBaseModel):
 
 
 class BusinessKybmatchDetailsDict(TypedDict):
-    names: list[ProviderBusinessName | ProviderBusinessNameDict]
+    names: list[ProviderBusinessNameDict]
     entity_type: BusinessEntityTypeOrStr | None
-    addresses: list[ProviderBusinessAddress | ProviderBusinessAddressDict]
-    phone_numbers: list[BusinessPhoneNumber | BusinessPhoneNumberDict]
-    email_addresses: list[BusinessEmailAddress | BusinessEmailAddressDict]
-    websites: list[BusinessWebsite | BusinessWebsiteDict]
+    addresses: list[ProviderBusinessAddressDict]
+    phone_numbers: list[BusinessPhoneNumberDict]
+    email_addresses: list[BusinessEmailAddressDict]
+    websites: list[BusinessWebsiteDict]
     formation_date: Date | None

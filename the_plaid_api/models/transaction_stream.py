@@ -18,7 +18,7 @@ class TransactionStream(SdkBaseModel):
     stream_id: str
     """A unique id for the stream"""
 
-    category: list[str | None]
+    category: list[str] | None
     """A hierarchical array of the categories to which this transaction belongs. See `Categories
     <https://plaid.com/docs/api/products/transactions/#categoriesget>`__.
 
@@ -108,7 +108,7 @@ class TransactionStream(SdkBaseModel):
 class TransactionStreamDict(TypedDict):
     account_id: str
     stream_id: str
-    category: list[str | None]
+    category: list[str] | None
     category_id: str | None
     description: str
     merchant_name: str | None
@@ -117,10 +117,10 @@ class TransactionStreamDict(TypedDict):
     predicted_next_date: NotRequired[Date | None]
     frequency: RecurringTransactionFrequencyOrStr
     transaction_ids: list[str]
-    average_amount: TransactionStreamAmount | TransactionStreamAmountDict
-    last_amount: TransactionStreamAmount | TransactionStreamAmountDict
+    average_amount: TransactionStreamAmountDict
+    last_amount: TransactionStreamAmountDict
     is_active: bool
     status: TransactionStreamStatusOrStr
-    personal_finance_category: NotRequired[PersonalFinanceCategory | PersonalFinanceCategoryDict | None]
+    personal_finance_category: NotRequired[PersonalFinanceCategoryDict | None]
     is_user_modified: bool
     last_user_modified_datetime: NotRequired[RFC3339DateTime]

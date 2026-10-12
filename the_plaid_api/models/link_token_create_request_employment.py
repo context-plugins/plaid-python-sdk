@@ -25,6 +25,4 @@ class LinkTokenCreateRequestEmployment(SdkBaseModel):
 
 class LinkTokenCreateRequestEmploymentDict(TypedDict):
     employment_source_types: NotRequired[list[EmploymentSourceTypeOrStr]]
-    bank_employment: NotRequired[
-        LinkTokenCreateRequestEmploymentBankIncome | LinkTokenCreateRequestEmploymentBankIncomeDict
-    ]
+    bank_employment: NotRequired[LinkTokenCreateRequestEmploymentBankIncomeDict]

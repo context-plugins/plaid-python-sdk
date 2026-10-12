@@ -14,4 +14,4 @@ class FdxconsentRevocations(SdkBaseModel):
 
 
 class FdxconsentRevocationsDict(TypedDict):
-    revocations: list[FdxconsentRevocationRecord | FdxconsentRevocationRecordDict]
+    revocations: list[FdxconsentRevocationRecordDict]

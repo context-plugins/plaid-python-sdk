@@ -19,5 +19,5 @@ class Service(SdkBaseModel):
 
 
 class ServiceDict(TypedDict):
-    verification_of_asset: VerificationOfAsset | VerificationOfAssetDict
-    statuses: Statuses | StatusesDict
+    verification_of_asset: VerificationOfAssetDict
+    statuses: StatusesDict

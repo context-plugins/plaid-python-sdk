@@ -23,7 +23,7 @@ class CashflowReportTransactionsGetRequest(SdkBaseModel):
     """Your Plaid API ``secret``. The ``secret`` is required and may be provided either in the ``PLAID-SECRET`` header
     or as part of a request body."""
 
-    count: Optional[int] = UNSET
+    count: int = 100
     """Number of transactions to fetch per call"""
 
     cursor: Optional[str] = UNSET
@@ -39,4 +39,4 @@ class CashflowReportTransactionsGetRequestDict(TypedDict):
     secret: NotRequired[str]
     count: NotRequired[int]
     cursor: NotRequired[str]
-    options: NotRequired[CashflowReportTransactionsGetRequestOptions | CashflowReportTransactionsGetRequestOptionsDict]
+    options: NotRequired[CashflowReportTransactionsGetRequestOptionsDict]

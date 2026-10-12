@@ -33,7 +33,7 @@ class BusinessVerificationCreateRequestBusiness(SdkBaseModel):
 class BusinessVerificationCreateRequestBusinessDict(TypedDict):
     name: NotRequired[str]
     alternative_name: NotRequired[str | None]
-    address: NotRequired[RequestBusinessAddress | RequestBusinessAddressDict]
+    address: NotRequired[RequestBusinessAddressDict]
     website: NotRequired[str]
     phone_number: NotRequired[str]
     email_address: NotRequired[EmailStr]

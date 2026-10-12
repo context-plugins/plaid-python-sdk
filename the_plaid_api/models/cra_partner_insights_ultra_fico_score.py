@@ -1,16 +1,15 @@
 from __future__ import annotations
 
-from typing import Literal
-
 from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
+from .enums.cra_partner_insights_ultra_fico_score_version import CraPartnerInsightsUltraFicoScoreVersionOrStr
 
 
 class CraPartnerInsightsUltraFicoScore(SdkBaseModel):
     """The calculated UltraFICO® score."""
 
-    ultrafico_score_version: Literal["1.0"] = "1.0"
+    ultrafico_score_version: CraPartnerInsightsUltraFicoScoreVersionOrStr
     """The version of the UltraFICO® score."""
 
     score: int
@@ -54,7 +53,7 @@ class CraPartnerInsightsUltraFicoScore(SdkBaseModel):
 
 
 class CraPartnerInsightsUltraFicoScoreDict(TypedDict):
-    ultrafico_score_version: NotRequired[Literal["1.0"]]
+    ultrafico_score_version: CraPartnerInsightsUltraFicoScoreVersionOrStr
     score: int
     negative_reason_codes: NotRequired[list[str]]
     positive_reason_codes: NotRequired[list[str]]

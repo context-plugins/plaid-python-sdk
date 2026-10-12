@@ -28,4 +28,4 @@ class AccountsBalanceGetRequestDict(TypedDict):
     access_token: str
     secret: NotRequired[str]
     client_id: NotRequired[str]
-    options: NotRequired[AccountsBalanceGetRequestOptions | AccountsBalanceGetRequestOptionsDict]
+    options: NotRequired[AccountsBalanceGetRequestOptionsDict]

@@ -43,4 +43,4 @@ class CategoryExpensesDict(TypedDict):
     amount: NotRequired[float | None]
     iso_currency_code: NotRequired[str | None]
     unofficial_currency_code: NotRequired[str | None]
-    monthly_average: NotRequired[MonthlyAverage | MonthlyAverageDict | None]
+    monthly_average: NotRequired[MonthlyAverageDict | None]

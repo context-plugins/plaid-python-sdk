@@ -39,9 +39,9 @@ class AssetReport(SdkBaseModel):
 
 class AssetReportDict(TypedDict):
     asset_report_id: str
-    insights: NotRequired[AccountInsights | AccountInsightsDict | None]
+    insights: NotRequired[AccountInsightsDict | None]
     client_report_id: str | None
     date_generated: RFC3339DateTime
     days_requested: float
-    user: AssetReportUser | AssetReportUserDict
-    items: list[AssetReportItem | AssetReportItemDict]
+    user: AssetReportUserDict
+    items: list[AssetReportItemDict]

@@ -179,5 +179,5 @@ class SecurityDict(TypedDict):
     industry: str | None
     cfi_code: str | None
     figi: str | None
-    option_contract: OptionContract | OptionContractDict | None
-    fixed_income: FixedIncome | FixedIncomeDict | None
+    option_contract: OptionContractDict | None
+    fixed_income: FixedIncomeDict | None

@@ -18,5 +18,5 @@ class InstitutionsGetByIdResponse(SdkBaseModel):
 
 
 class InstitutionsGetByIdResponseDict(TypedDict):
-    institution: Institution | InstitutionDict
+    institution: InstitutionDict
     request_id: str

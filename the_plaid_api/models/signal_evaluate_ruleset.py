@@ -33,5 +33,5 @@ class SignalEvaluateRuleset(SdkBaseModel):
 class SignalEvaluateRulesetDict(TypedDict):
     ruleset_key: NotRequired[str]
     result: RuleResultOrStr
-    triggered_rule_details: NotRequired[RuleDetails | RuleDetailsDict | None]
+    triggered_rule_details: NotRequired[RuleDetailsDict | None]
     outcome: NotRequired[str]

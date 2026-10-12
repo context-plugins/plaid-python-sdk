@@ -48,10 +48,10 @@ class BeaconUserData(SdkBaseModel):
 
 class BeaconUserDataDict(TypedDict):
     date_of_birth: Date
-    name: BeaconUserName | BeaconUserNameDict
-    address: BeaconUserAddress | BeaconUserAddressDict
+    name: BeaconUserNameDict
+    address: BeaconUserAddressDict
     email_address: EmailStr | None
     phone_number: str | None
-    id_number: BeaconUserIdnumber | BeaconUserIdnumberDict | None
+    id_number: BeaconUserIdnumberDict | None
     ip_address: str | None
-    depository_accounts: list[BeaconUserDepositoryAccount | BeaconUserDepositoryAccountDict]
+    depository_accounts: list[BeaconUserDepositoryAccountDict]

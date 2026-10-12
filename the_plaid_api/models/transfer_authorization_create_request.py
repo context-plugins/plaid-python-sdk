@@ -142,7 +142,7 @@ class TransferAuthorizationCreateRequest(SdkBaseModel):
     for automatic recurring payments where the end user is not actually initiating each individual transfer, it should
     be ``false``. This field is not currently used and is present to support planned future functionality."""
 
-    with_guarantee: OptionalNullable[bool] = UNSET
+    with_guarantee: bool | None = True
     """If set to ``false``, Plaid will not offer a ``guarantee_decision`` for this request (Guarantee customers only).
     This field is deprecated in favor of ``guarantee``."""
 
@@ -168,7 +168,7 @@ class TransferAuthorizationCreateRequest(SdkBaseModel):
     ruleset_key: OptionalNullable[str] = UNSET
     """The key of the Ruleset for the transaction. If not provided, Signal will use the ``default`` ruleset."""
 
-    custom_attributes: Optional[dict[str, str | None]] = UNSET
+    custom_attributes: OptionalNullable[dict[str, str]] = UNSET
     """A free-form map of client-supplied risk-relevant context for this authorization. Plaid may use these attributes
     to inform future versions of our risk models.
 
@@ -191,9 +191,9 @@ class TransferAuthorizationCreateRequestDict(TypedDict):
     network: TransferNetworkOrStr
     amount: str
     ach_class: NotRequired[AchclassOrStr]
-    wire_details: NotRequired[TransferWireDetails | TransferWireDetailsDict | None]
-    user: TransferAuthorizationUserInRequest | TransferAuthorizationUserInRequestDict
-    device: NotRequired[TransferAuthorizationDevice | TransferAuthorizationDeviceDict]
+    wire_details: NotRequired[TransferWireDetailsDict | None]
+    user: TransferAuthorizationUserInRequestDict
+    device: NotRequired[TransferAuthorizationDeviceDict]
     origination_account_id: NotRequired[str]
     iso_currency_code: NotRequired[str]
     idempotency_key: NotRequired[str | None]
@@ -205,4 +205,4 @@ class TransferAuthorizationCreateRequestDict(TypedDict):
     credit_funds_source: NotRequired[TransferCreditFundsSourceOrStr | None]
     test_clock_id: NotRequired[str | None]
     ruleset_key: NotRequired[str | None]
-    custom_attributes: NotRequired[dict[str, str | None]]
+    custom_attributes: NotRequired[dict[str, str] | None]

@@ -21,5 +21,5 @@ class TransactionsEnrichResponse(SdkBaseModel):
 
 
 class TransactionsEnrichResponseDict(TypedDict):
-    enriched_transactions: list[ClientProvidedEnrichedTransaction | ClientProvidedEnrichedTransactionDict]
+    enriched_transactions: list[ClientProvidedEnrichedTransactionDict]
     request_id: NotRequired[str]

@@ -45,6 +45,6 @@ class CraLoanRegisterDict(TypedDict):
     type_: CraLoanTypeOrStr
     payment_schedule: CraLoanPaymentScheduleOrStr
     opened_date: Date
-    opened_with_status: CraLoanOpenedStatus | CraLoanOpenedStatusDict
+    opened_with_status: CraLoanOpenedStatusDict
     loan_amount: NotRequired[float]
-    application: NotRequired[CraLoanRegisterApplication | CraLoanRegisterApplicationDict]
+    application: NotRequired[CraLoanRegisterApplicationDict]

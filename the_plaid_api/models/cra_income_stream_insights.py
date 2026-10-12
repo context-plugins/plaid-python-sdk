@@ -35,8 +35,8 @@ class CraIncomeStreamInsights(SdkBaseModel):
 
 
 class CraIncomeStreamInsightsDict(TypedDict):
-    income_category: CraIncomeCategory | CraIncomeCategoryDict
+    income_category: CraIncomeCategoryDict
     pay_frequency: CreditBankIncomePayFrequencyOrStr
-    income_provider: CraBankIncomeIncomeProvider | CraBankIncomeIncomeProviderDict | None
+    income_provider: CraBankIncomeIncomeProviderDict | None
     status: CraBankIncomeStatusOrStr
-    next_payment: CraIncomeNextPayment | CraIncomeNextPaymentDict | None
+    next_payment: CraIncomeNextPaymentDict | None

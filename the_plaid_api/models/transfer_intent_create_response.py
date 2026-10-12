@@ -18,5 +18,5 @@ class TransferIntentCreateResponse(SdkBaseModel):
 
 
 class TransferIntentCreateResponseDict(TypedDict):
-    transfer_intent: TransferIntentCreate | TransferIntentCreateDict
+    transfer_intent: TransferIntentCreateDict
     request_id: str

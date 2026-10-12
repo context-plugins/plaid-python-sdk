@@ -39,7 +39,7 @@ class ProcessorTokenWebhookUpdate(SdkBaseModel):
 class ProcessorTokenWebhookUpdateDict(TypedDict):
     webhook_type: str
     webhook_code: str
-    error: NotRequired[Error | ErrorDict | None]
+    error: NotRequired[ErrorDict | None]
     account_id: str
     new_webhook_url: str
     environment: WebhookEnvironmentValuesOrStr

@@ -15,4 +15,4 @@ class LoanIdentifiers(SdkBaseModel):
 
 
 class LoanIdentifiersDict(TypedDict):
-    loan_identifier: LoanIdentifier | LoanIdentifierDict
+    loan_identifier: LoanIdentifierDict

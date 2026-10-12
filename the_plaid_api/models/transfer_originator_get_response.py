@@ -18,5 +18,5 @@ class TransferOriginatorGetResponse(SdkBaseModel):
 
 
 class TransferOriginatorGetResponseDict(TypedDict):
-    originator: DetailedOriginator | DetailedOriginatorDict
+    originator: DetailedOriginatorDict
     request_id: str

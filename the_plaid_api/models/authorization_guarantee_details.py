@@ -32,4 +32,4 @@ class AuthorizationGuaranteeDetails(SdkBaseModel):
 
 class AuthorizationGuaranteeDetailsDict(TypedDict):
     outcome: TransferGuaranteeOutcomeOrStr
-    schedule: list[AuthorizationGuaranteeScheduleItem | AuthorizationGuaranteeScheduleItemDict]
+    schedule: list[AuthorizationGuaranteeScheduleItemDict]

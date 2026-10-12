@@ -26,5 +26,5 @@ class IdentityVerificationAutofillCreateResponse(SdkBaseModel):
 
 class IdentityVerificationAutofillCreateResponseDict(TypedDict):
     status: IdentityVerificationAutofillStatusOrStr
-    user: IdentityVerificationAutofillUserData | IdentityVerificationAutofillUserDataDict | None
+    user: IdentityVerificationAutofillUserDataDict | None
     request_id: str

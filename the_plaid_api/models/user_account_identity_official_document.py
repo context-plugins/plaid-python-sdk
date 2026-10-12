@@ -14,4 +14,4 @@ class UserAccountIdentityOfficialDocument(SdkBaseModel):
 
 
 class UserAccountIdentityOfficialDocumentDict(TypedDict):
-    ssn: NotRequired[UserAccountIdentityEditCounts | UserAccountIdentityEditCountsDict]
+    ssn: NotRequired[UserAccountIdentityEditCountsDict]

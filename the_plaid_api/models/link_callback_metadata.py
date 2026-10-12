@@ -43,5 +43,5 @@ class LinkCallbackMetadataDict(TypedDict):
     status: NotRequired[str]
     link_session_id: NotRequired[str]
     request_id: NotRequired[str]
-    institution: NotRequired[LinkDeliveryInstitution | LinkDeliveryInstitutionDict]
-    accounts: NotRequired[list[LinkDeliveryAccount | LinkDeliveryAccountDict]]
+    institution: NotRequired[LinkDeliveryInstitutionDict]
+    accounts: NotRequired[list[LinkDeliveryAccountDict]]

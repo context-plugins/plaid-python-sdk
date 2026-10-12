@@ -24,10 +24,10 @@ class BankTransferListRequest(SdkBaseModel):
     end_date: OptionalNullable[RFC3339DateTime] = UNSET
     """The end datetime of bank transfers to list. This should be in RFC 3339 format (i.e. ``2019-12-06T22:35:49Z``)"""
 
-    count: Optional[int] = UNSET
+    count: int = 25
     """The maximum number of bank transfers to return."""
 
-    offset: Optional[int] = UNSET
+    offset: int = 0
     """The number of bank transfers to skip before returning results."""
 
     origination_account_id: OptionalNullable[str] = UNSET

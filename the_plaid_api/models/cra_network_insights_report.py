@@ -29,4 +29,4 @@ class CraNetworkInsightsReportDict(TypedDict):
     report_id: str
     generated_time: RFC3339DateTime
     network_attributes: Any
-    items: list[CraNetworkInsightsItem | CraNetworkInsightsItemDict]
+    items: list[CraNetworkInsightsItemDict]

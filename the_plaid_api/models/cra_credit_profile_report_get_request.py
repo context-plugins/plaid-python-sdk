@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from typing import Literal
-
 from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Optional, SdkBaseModel
 from .enums.consumer_report_permissible_purpose import ConsumerReportPermissiblePurposeOrStr
 from .enums.cra_credit_profile_inquiry_type import CraCreditProfileInquiryTypeOrStr
+from .enums.cra_credit_profile_report_type import CraCreditProfileReportTypeOrStr
+from .enums.cra_credit_profile_report_version import CraCreditProfileReportVersionOrStr
 
 
 class CraCreditProfileReportGetRequest(SdkBaseModel):
@@ -59,13 +59,13 @@ class CraCreditProfileReportGetRequest(SdkBaseModel):
     client_report_id: str
     """Client-generated identifier, which can be used by lenders to track loan applications."""
 
-    report_type: Literal["QUALIFY"] = "QUALIFY"
+    report_type: CraCreditProfileReportTypeOrStr
     """The product type for the credit profile report request."""
 
     inquiry_type: CraCreditProfileInquiryTypeOrStr
     """The inquiry type of credit profile report."""
 
-    version: Literal["v1"] = "v1"
+    version: CraCreditProfileReportVersionOrStr
     """The version of the credit profile report to retrieve."""
 
 
@@ -75,6 +75,6 @@ class CraCreditProfileReportGetRequestDict(TypedDict):
     user_id: str
     consumer_report_permissible_purpose: ConsumerReportPermissiblePurposeOrStr
     client_report_id: str
-    report_type: NotRequired[Literal["QUALIFY"]]
+    report_type: CraCreditProfileReportTypeOrStr
     inquiry_type: CraCreditProfileInquiryTypeOrStr
-    version: NotRequired[Literal["v1"]]
+    version: CraCreditProfileReportVersionOrStr

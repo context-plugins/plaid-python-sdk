@@ -18,5 +18,5 @@ class TransactionsRulesCreateResponse(SdkBaseModel):
 
 
 class TransactionsRulesCreateResponseDict(TypedDict):
-    rule: TransactionsCategoryRule | TransactionsCategoryRuleDict
+    rule: TransactionsCategoryRuleDict
     request_id: str

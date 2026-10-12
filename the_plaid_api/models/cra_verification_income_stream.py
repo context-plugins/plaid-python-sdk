@@ -44,6 +44,6 @@ class CraVerificationIncomeStreamDict(TypedDict):
     start_date: Date
     end_date: Date
     description: str
-    insights: CraVerificationIncomeStreamInsights | CraVerificationIncomeStreamInsightsDict
-    income_metrics: CraVerificationIncomeMetrics | CraVerificationIncomeMetricsDict
-    transactions: list[CraVerificationIncomeTransaction | CraVerificationIncomeTransactionDict]
+    insights: CraVerificationIncomeStreamInsightsDict
+    income_metrics: CraVerificationIncomeMetricsDict
+    transactions: list[CraVerificationIncomeTransactionDict]

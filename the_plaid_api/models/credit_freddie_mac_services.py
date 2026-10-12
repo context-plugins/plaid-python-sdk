@@ -15,4 +15,4 @@ class CreditFreddieMacServices(SdkBaseModel):
 
 
 class CreditFreddieMacServicesDict(TypedDict):
-    service: CreditFreddieMacService | CreditFreddieMacServiceDict
+    service: CreditFreddieMacServiceDict

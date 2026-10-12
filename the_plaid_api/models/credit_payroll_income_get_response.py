@@ -27,6 +27,6 @@ class CreditPayrollIncomeGetResponse(SdkBaseModel):
 
 
 class CreditPayrollIncomeGetResponseDict(TypedDict):
-    items: list[PayrollItem | PayrollItemDict]
-    error: NotRequired[Error | ErrorDict | None]
+    items: list[PayrollItemDict]
+    error: NotRequired[ErrorDict | None]
     request_id: str

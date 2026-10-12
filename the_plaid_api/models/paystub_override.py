@@ -36,10 +36,10 @@ class PaystubOverride(SdkBaseModel):
 
 
 class PaystubOverrideDict(TypedDict):
-    employer: NotRequired[PaystubOverrideEmployer | PaystubOverrideEmployerDict]
-    employee: NotRequired[PaystubOverrideEmployee | PaystubOverrideEmployeeDict]
-    income_breakdown: NotRequired[list[IncomeBreakdown | IncomeBreakdownDict]]
-    net_pay: NotRequired[PaystubOverrideNetPay | PaystubOverrideNetPayDict]
-    deductions: NotRequired[PaystubOverrideDeductions | PaystubOverrideDeductionsDict]
-    earnings: NotRequired[PaystubOverrideEarnings | PaystubOverrideEarningsDict]
-    pay_period_details: NotRequired[PaystubOverridePayPeriodDetails | PaystubOverridePayPeriodDetailsDict]
+    employer: NotRequired[PaystubOverrideEmployerDict]
+    employee: NotRequired[PaystubOverrideEmployeeDict]
+    income_breakdown: NotRequired[list[IncomeBreakdownDict]]
+    net_pay: NotRequired[PaystubOverrideNetPayDict]
+    deductions: NotRequired[PaystubOverrideDeductionsDict]
+    earnings: NotRequired[PaystubOverrideEarningsDict]
+    pay_period_details: NotRequired[PaystubOverridePayPeriodDetailsDict]

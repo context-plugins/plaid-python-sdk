@@ -67,6 +67,6 @@ class PaymentInitiationConsentCreateRequestDict(TypedDict):
     reference: str
     scopes: NotRequired[list[PaymentInitiationConsentScopeOrStr]]
     type_: NotRequired[PaymentInitiationConsentTypeOrStr]
-    constraints: PaymentInitiationConsentConstraints | PaymentInitiationConsentConstraintsDict
-    options: NotRequired[ExternalPaymentInitiationConsentOptions | ExternalPaymentInitiationConsentOptionsDict | None]
-    payer_details: NotRequired[PaymentInitiationConsentPayerDetails | PaymentInitiationConsentPayerDetailsDict | None]
+    constraints: PaymentInitiationConsentConstraintsDict
+    options: NotRequired[ExternalPaymentInitiationConsentOptionsDict | None]
+    payer_details: NotRequired[PaymentInitiationConsentPayerDetailsDict | None]

@@ -143,13 +143,13 @@ class AccountIdentityDocumentUpload(SdkBaseModel):
     instead identity information is returned in the top level ``identity`` object. For more details, see `Plaid API
     versioning <https://plaid.com/docs/api/versioning/#version-2019-05-29>`__"""
 
-    documents: Optional[list[IdentityDocumentUpload | None]] = UNSET
+    documents: OptionalNullable[list[IdentityDocumentUpload]] = UNSET
     """Data about the documents that were uploaded as proof of account ownership."""
 
 
 class AccountIdentityDocumentUploadDict(TypedDict):
     account_id: str
-    balances: AccountBalance | AccountBalanceDict
+    balances: AccountBalanceDict
     mask: str | None
     name: str
     official_name: str | None
@@ -157,8 +157,8 @@ class AccountIdentityDocumentUploadDict(TypedDict):
     subtype: AccountSubtypeOrStr | None
     verification_status: NotRequired[VerificationStatus5OrStr]
     verification_name: NotRequired[str]
-    verification_insights: NotRequired[VerificationInsights | VerificationInsightsDict]
+    verification_insights: NotRequired[VerificationInsightsDict]
     persistent_account_id: NotRequired[str]
     holder_category: NotRequired[HolderCategoryOrStr | None]
-    owners: list[Owner | OwnerDict]
-    documents: NotRequired[list[IdentityDocumentUpload | IdentityDocumentUploadDict | None]]
+    owners: list[OwnerDict]
+    documents: NotRequired[list[IdentityDocumentUploadDict] | None]

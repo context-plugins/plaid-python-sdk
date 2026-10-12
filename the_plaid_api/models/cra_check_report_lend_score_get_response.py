@@ -23,6 +23,6 @@ class CraCheckReportLendScoreGetResponse(SdkBaseModel):
 
 
 class CraCheckReportLendScoreGetResponseDict(TypedDict):
-    report: CraLendScoreReport | CraLendScoreReportDict
+    report: CraLendScoreReportDict
     request_id: str
-    warnings: NotRequired[list[CraReportWarning | CraReportWarningDict]]
+    warnings: NotRequired[list[CraReportWarningDict]]

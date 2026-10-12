@@ -31,7 +31,7 @@ class CreditBankStatementUploadObject(SdkBaseModel):
 
 
 class CreditBankStatementUploadObjectDict(TypedDict):
-    transactions: list[CreditBankStatementUploadTransaction | CreditBankStatementUploadTransactionDict]
-    document_metadata: CreditDocumentMetadata | CreditDocumentMetadataDict
+    transactions: list[CreditBankStatementUploadTransactionDict]
+    document_metadata: CreditDocumentMetadataDict
     document_id: str | None
-    bank_accounts: list[CreditBankStatementUploadBankAccount | CreditBankStatementUploadBankAccountDict]
+    bank_accounts: list[CreditBankStatementUploadBankAccountDict]

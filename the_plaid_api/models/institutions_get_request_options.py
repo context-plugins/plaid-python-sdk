@@ -9,12 +9,12 @@ from .enums.products import ProductsOrStr
 class InstitutionsGetRequestOptions(SdkBaseModel):
     """An optional object to filter ``/institutions/get`` results."""
 
-    products: Optional[list[ProductsOrStr | None]] = UNSET
+    products: OptionalNullable[list[ProductsOrStr]] = UNSET
     """Filter the Institutions based on which products they support. Will only return institutions that support all
     listed products. When filtering based on ``auth``, an institution must support Instant Auth to match the criterion.
     To filter for Signal Transaction Scores support, use ``balance``. To filter for Transfer support, use ``auth``."""
 
-    routing_numbers: Optional[list[str | None]] = UNSET
+    routing_numbers: OptionalNullable[list[str]] = UNSET
     """Specify an array of routing numbers to filter institutions. The response will only return institutions that match
     all of the routing numbers in the array. Routing number records used for this matching are generally comprehensive;
     however, failure to match a given routing number to an institution does not necessarily mean that the institution is
@@ -36,17 +36,17 @@ class InstitutionsGetRequestOptions(SdkBaseModel):
     appropriate rights holders and adhere to any applicable usage guidelines. Plaid disclaims all express or implied
     warranties with respect to the logos."""
 
-    include_auth_metadata: Optional[bool] = UNSET
+    include_auth_metadata: bool = False
     """When ``true``, returns metadata related to the Auth product indicating which auth methods are supported."""
 
-    include_payment_initiation_metadata: Optional[bool] = UNSET
+    include_payment_initiation_metadata: bool = False
     """When ``true``, returns metadata related to the Payment Initiation product indicating which payment configurations
     are supported."""
 
 
 class InstitutionsGetRequestOptionsDict(TypedDict):
-    products: NotRequired[list[ProductsOrStr | None]]
-    routing_numbers: NotRequired[list[str | None]]
+    products: NotRequired[list[ProductsOrStr] | None]
+    routing_numbers: NotRequired[list[str] | None]
     oauth: NotRequired[bool | None]
     include_optional_metadata: NotRequired[bool]
     include_auth_metadata: NotRequired[bool]

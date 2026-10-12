@@ -18,5 +18,5 @@ class TransactionsRulesListResponse(SdkBaseModel):
 
 
 class TransactionsRulesListResponseDict(TypedDict):
-    rules: list[TransactionsCategoryRule | TransactionsCategoryRuleDict]
+    rules: list[TransactionsCategoryRuleDict]
     request_id: str

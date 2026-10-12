@@ -28,7 +28,7 @@ class WatchlistScreeningEntityCreateRequest(SdkBaseModel):
 
 
 class WatchlistScreeningEntityCreateRequestDict(TypedDict):
-    search_terms: EntityWatchlistSearchTerms | EntityWatchlistSearchTermsDict
+    search_terms: EntityWatchlistSearchTermsDict
     client_user_id: NotRequired[str]
     client_id: NotRequired[str]
     secret: NotRequired[str]

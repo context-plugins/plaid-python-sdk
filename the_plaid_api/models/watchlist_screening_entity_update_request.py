@@ -43,18 +43,16 @@ class WatchlistScreeningEntityUpdateRequest(SdkBaseModel):
     """Your Plaid API ``secret``. The ``secret`` is required and may be provided either in the ``PLAID-SECRET`` header
     or as part of a request body."""
 
-    reset_fields: Optional[list[WatchlistScreeningEntityUpdateRequestResettableFieldOrStr | None]] = UNSET
+    reset_fields: OptionalNullable[list[WatchlistScreeningEntityUpdateRequestResettableFieldOrStr]] = UNSET
     """A list of fields to reset back to null"""
 
 
 class WatchlistScreeningEntityUpdateRequestDict(TypedDict):
     entity_watchlist_screening_id: str
-    search_terms: NotRequired[
-        UpdateEntityScreeningRequestSearchTerms | UpdateEntityScreeningRequestSearchTermsDict | None
-    ]
+    search_terms: NotRequired[UpdateEntityScreeningRequestSearchTermsDict | None]
     assignee: NotRequired[str]
     status: NotRequired[WatchlistScreeningStatusOrStr]
     client_user_id: NotRequired[str]
     client_id: NotRequired[str]
     secret: NotRequired[str]
-    reset_fields: NotRequired[list[WatchlistScreeningEntityUpdateRequestResettableFieldOrStr | None]]
+    reset_fields: NotRequired[list[WatchlistScreeningEntityUpdateRequestResettableFieldOrStr] | None]

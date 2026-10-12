@@ -27,7 +27,7 @@ class CraVoaReportItem(SdkBaseModel):
 
 
 class CraVoaReportItemDict(TypedDict):
-    accounts: list[CraVoaReportAccount | CraVoaReportAccountDict]
+    accounts: list[CraVoaReportAccountDict]
     institution_name: str
     institution_id: str
     item_id: str

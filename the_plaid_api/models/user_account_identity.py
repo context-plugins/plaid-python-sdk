@@ -35,8 +35,8 @@ class UserAccountIdentity(SdkBaseModel):
 
 
 class UserAccountIdentityDict(TypedDict):
-    name: NotRequired[UserAccountIdentityName | UserAccountIdentityNameDict | None]
-    address: NotRequired[UserAccountIdentityAddress | UserAccountIdentityAddressDict | None]
+    name: NotRequired[UserAccountIdentityNameDict | None]
+    address: NotRequired[UserAccountIdentityAddressDict | None]
     phone_number: NotRequired[str]
     email: NotRequired[str | None]
     date_of_birth: NotRequired[str | None]

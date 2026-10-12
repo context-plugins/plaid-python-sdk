@@ -15,4 +15,4 @@ class LinkDeliveryOptions(SdkBaseModel):
 
 
 class LinkDeliveryOptionsDict(TypedDict):
-    recipient: NotRequired[LinkDeliveryRecipient | LinkDeliveryRecipientDict]
+    recipient: NotRequired[LinkDeliveryRecipientDict]

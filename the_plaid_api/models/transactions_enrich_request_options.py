@@ -9,7 +9,7 @@ from .enums.personal_finance_category_version import PersonalFinanceCategoryVers
 class TransactionsEnrichRequestOptions(SdkBaseModel):
     """An optional object to be used with the request."""
 
-    include_legacy_category: Optional[bool] = UNSET
+    include_legacy_category: bool = False
     """Include ``legacy_category`` and ``legacy_category_id`` in the response (in addition to the default
     ``personal_finance_category``).
 

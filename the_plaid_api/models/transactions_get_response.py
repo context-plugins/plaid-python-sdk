@@ -34,8 +34,8 @@ class TransactionsGetResponse(SdkBaseModel):
 
 
 class TransactionsGetResponseDict(TypedDict):
-    accounts: list[Account | AccountDict]
-    transactions: list[Transaction | TransactionDict]
+    accounts: list[AccountDict]
+    transactions: list[TransactionDict]
     total_transactions: int
-    item: Item | ItemDict
+    item: ItemDict
     request_id: str

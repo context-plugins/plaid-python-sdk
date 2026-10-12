@@ -17,5 +17,5 @@ class Address(SdkBaseModel):
 
 
 class AddressDict(TypedDict):
-    data: AddressData | AddressDataDict
+    data: AddressDataDict
     primary: NotRequired[bool]

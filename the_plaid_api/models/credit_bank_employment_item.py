@@ -35,5 +35,5 @@ class CreditBankEmploymentItemDict(TypedDict):
     last_updated_time: RFC3339DateTime
     institution_id: str
     institution_name: str
-    bank_employments: list[CreditBankEmployment | CreditBankEmploymentDict]
-    bank_employment_accounts: list[CreditBankIncomeAccount | CreditBankIncomeAccountDict]
+    bank_employments: list[CreditBankEmploymentDict]
+    bank_employment_accounts: list[CreditBankIncomeAccountDict]

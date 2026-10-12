@@ -49,6 +49,6 @@ class UserUpdateRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     user_id: NotRequired[str]
-    identity: NotRequired[ClientUserIdentity | ClientUserIdentityDict | None]
+    identity: NotRequired[ClientUserIdentityDict | None]
     user_token: NotRequired[str]
-    consumer_report_user_identity: NotRequired[ConsumerReportUserIdentity | ConsumerReportUserIdentityDict | None]
+    consumer_report_user_identity: NotRequired[ConsumerReportUserIdentityDict | None]

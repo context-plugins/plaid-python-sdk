@@ -22,6 +22,6 @@ class IdentityGetResponse(SdkBaseModel):
 
 
 class IdentityGetResponseDict(TypedDict):
-    accounts: list[AccountIdentity | AccountIdentityDict]
-    item: Item | ItemDict
+    accounts: list[AccountIdentityDict]
+    item: ItemDict
     request_id: str

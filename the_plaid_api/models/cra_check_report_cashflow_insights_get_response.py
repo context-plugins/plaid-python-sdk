@@ -24,6 +24,6 @@ class CraCheckReportCashflowInsightsGetResponse(SdkBaseModel):
 
 
 class CraCheckReportCashflowInsightsGetResponseDict(TypedDict):
-    report: CraCashflowInsightsReport | CraCashflowInsightsReportDict
+    report: CraCashflowInsightsReportDict
     request_id: str
-    warnings: NotRequired[list[CraReportWarning | CraReportWarningDict]]
+    warnings: NotRequired[list[CraReportWarningDict]]

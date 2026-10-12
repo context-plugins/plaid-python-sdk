@@ -18,5 +18,5 @@ class CreditEmploymentGetResponse(SdkBaseModel):
 
 
 class CreditEmploymentGetResponseDict(TypedDict):
-    items: list[CreditEmploymentItem | CreditEmploymentItemDict]
+    items: list[CreditEmploymentItemDict]
     request_id: str

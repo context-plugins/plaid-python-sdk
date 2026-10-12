@@ -23,6 +23,6 @@ class AssetReportInvestments(SdkBaseModel):
 
 
 class AssetReportInvestmentsDict(TypedDict):
-    holdings: NotRequired[list[AssetReportInvestmentHolding | AssetReportInvestmentHoldingDict]]
-    securities: NotRequired[list[AssetReportInvestmentSecurity | AssetReportInvestmentSecurityDict]]
-    transactions: NotRequired[list[AssetReportInvestmentTransaction | AssetReportInvestmentTransactionDict]]
+    holdings: NotRequired[list[AssetReportInvestmentHoldingDict]]
+    securities: NotRequired[list[AssetReportInvestmentSecurityDict]]
+    transactions: NotRequired[list[AssetReportInvestmentTransactionDict]]

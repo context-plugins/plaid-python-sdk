@@ -26,7 +26,7 @@ class CraIncomeMetrics(SdkBaseModel):
 
 
 class CraIncomeMetricsDict(TypedDict):
-    current: CraCurrentModeledIncome | CraCurrentModeledIncomeDict | None
-    projected: CraProjectedModeledIncome | CraProjectedModeledIncomeDict | None
+    current: CraCurrentModeledIncomeDict | None
+    projected: CraProjectedModeledIncomeDict | None
     iso_currency_code: str | None
     unofficial_currency_code: str | None

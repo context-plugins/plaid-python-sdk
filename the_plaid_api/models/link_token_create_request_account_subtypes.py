@@ -39,7 +39,7 @@ class LinkTokenCreateRequestAccountSubtypes(SdkBaseModel):
 
 
 class LinkTokenCreateRequestAccountSubtypesDict(TypedDict):
-    depository: NotRequired[LinkTokenCreateDepositoryFilter | LinkTokenCreateDepositoryFilterDict]
-    credit: NotRequired[LinkTokenCreateCreditFilter | LinkTokenCreateCreditFilterDict]
-    loan: NotRequired[LinkTokenCreateLoanFilter | LinkTokenCreateLoanFilterDict]
-    investment: NotRequired[LinkTokenCreateInvestmentFilter | LinkTokenCreateInvestmentFilterDict]
+    depository: NotRequired[LinkTokenCreateDepositoryFilterDict]
+    credit: NotRequired[LinkTokenCreateCreditFilterDict]
+    loan: NotRequired[LinkTokenCreateLoanFilterDict]
+    investment: NotRequired[LinkTokenCreateInvestmentFilterDict]

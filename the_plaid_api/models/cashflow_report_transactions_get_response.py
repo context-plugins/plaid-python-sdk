@@ -40,10 +40,10 @@ class CashflowReportTransactionsGetResponse(SdkBaseModel):
 
 
 class CashflowReportTransactionsGetResponseDict(TypedDict):
-    accounts: list[BusinessAccount | BusinessAccountDict]
-    transactions: list[CashflowReportTransaction | CashflowReportTransactionDict]
+    accounts: list[BusinessAccountDict]
+    transactions: list[CashflowReportTransactionDict]
     total_transactions: int
-    item: Item | ItemDict
+    item: ItemDict
     next_cursor: str
     has_more: bool
     request_id: str

@@ -19,6 +19,6 @@ class BeaconUserHistoryListResponse(SdkBaseModel):
 
 
 class BeaconUserHistoryListResponseDict(TypedDict):
-    beacon_users: list[BeaconUser | BeaconUserDict]
+    beacon_users: list[BeaconUserDict]
     next_cursor: str | None
     request_id: str

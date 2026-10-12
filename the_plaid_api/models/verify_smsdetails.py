@@ -22,4 +22,4 @@ class VerifySmsdetails(SdkBaseModel):
 
 class VerifySmsdetailsDict(TypedDict):
     status: VerifySmsdetailsStatusOrStr
-    verifications: list[Smsverification | SmsverificationDict]
+    verifications: list[SmsverificationDict]

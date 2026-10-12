@@ -45,11 +45,5 @@ class CraCheckReportVerificationGetRequestDict(TypedDict):
     secret: NotRequired[str]
     user_id: NotRequired[str]
     reports_requested: list[CraCheckReportVerificationGetReportTypeOrStr]
-    employment_refresh_options: NotRequired[
-        (
-            CraCheckReportVerificationGetEmploymentRefreshOptions
-            | CraCheckReportVerificationGetEmploymentRefreshOptionsDict
-            | None
-        )
-    ]
+    employment_refresh_options: NotRequired[CraCheckReportVerificationGetEmploymentRefreshOptionsDict | None]
     user_token: NotRequired[str]

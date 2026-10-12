@@ -41,4 +41,4 @@ class SandboxBankTransferSimulateRequestDict(TypedDict):
     secret: NotRequired[str]
     bank_transfer_id: str
     event_type: str
-    failure_reason: NotRequired[BankTransferFailure | BankTransferFailureDict | None]
+    failure_reason: NotRequired[BankTransferFailureDict | None]

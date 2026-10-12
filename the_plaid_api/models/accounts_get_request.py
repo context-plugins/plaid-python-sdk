@@ -28,4 +28,4 @@ class AccountsGetRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     access_token: str
-    options: NotRequired[AccountsGetRequestOptions | AccountsGetRequestOptionsDict]
+    options: NotRequired[AccountsGetRequestOptionsDict]

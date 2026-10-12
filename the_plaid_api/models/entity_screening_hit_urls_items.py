@@ -18,5 +18,5 @@ class EntityScreeningHitUrlsItems(SdkBaseModel):
 
 
 class EntityScreeningHitUrlsItemsDict(TypedDict):
-    analysis: NotRequired[MatchSummary | MatchSummaryDict]
-    data: NotRequired[EntityScreeningHitUrls | EntityScreeningHitUrlsDict]
+    analysis: NotRequired[MatchSummaryDict]
+    data: NotRequired[EntityScreeningHitUrlsDict]

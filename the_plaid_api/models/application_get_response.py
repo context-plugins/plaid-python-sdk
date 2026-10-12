@@ -19,4 +19,4 @@ class ApplicationGetResponse(SdkBaseModel):
 
 class ApplicationGetResponseDict(TypedDict):
     request_id: str
-    application: Application | ApplicationDict
+    application: ApplicationDict

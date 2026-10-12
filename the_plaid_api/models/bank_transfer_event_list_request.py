@@ -39,11 +39,11 @@ class BankTransferEventListRequest(SdkBaseModel):
     event_types: Optional[list[BankTransferEventTypeOrStr]] = UNSET
     """Filter events by event type."""
 
-    count: OptionalNullable[int] = UNSET
+    count: int | None = 25
     """The maximum number of bank transfer events to return. If the number of events matching the above parameters is
     greater than ``count``, the most recent events will be returned."""
 
-    offset: OptionalNullable[int] = UNSET
+    offset: int | None = 0
     """The offset into the list of bank transfer events. When ``count``=25 and ``offset``=0, the first 25 events will be
     returned. When ``count``=25 and ``offset``=25, the next 25 bank transfer events will be returned."""
 

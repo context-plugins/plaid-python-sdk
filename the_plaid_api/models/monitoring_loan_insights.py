@@ -21,6 +21,6 @@ class MonitoringLoanInsights(SdkBaseModel):
 
 
 class MonitoringLoanInsightsDict(TypedDict):
-    loan_payments_counts: LoanPaymentsCounts | LoanPaymentsCountsDict
+    loan_payments_counts: LoanPaymentsCountsDict
     loan_disbursements_count: float
-    loan_payment_merchants_counts: LoanPaymentsMerchantCounts | LoanPaymentsMerchantCountsDict
+    loan_payment_merchants_counts: LoanPaymentsMerchantCountsDict

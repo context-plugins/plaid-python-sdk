@@ -31,4 +31,4 @@ class AssetReportItemDict(TypedDict):
     institution_name: str
     institution_id: str
     date_last_updated: RFC3339DateTime
-    accounts: list[AccountAssets | AccountAssetsDict]
+    accounts: list[AccountAssetsDict]

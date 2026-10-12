@@ -25,6 +25,6 @@ class PaystubOverrideEmployee(SdkBaseModel):
 
 class PaystubOverrideEmployeeDict(TypedDict):
     name: NotRequired[str]
-    address: NotRequired[PaystubOverrideEmployeeAddress | PaystubOverrideEmployeeAddressDict]
+    address: NotRequired[PaystubOverrideEmployeeAddressDict]
     marital_status: NotRequired[str | None]
-    taxpayer_id: NotRequired[PaystubOverrideTaxpayerId | PaystubOverrideTaxpayerIdDict]
+    taxpayer_id: NotRequired[PaystubOverrideTaxpayerIdDict]

@@ -17,5 +17,5 @@ class CategoryInsights(SdkBaseModel):
 
 
 class CategoryInsightsDict(TypedDict):
-    primary_category_insights: NotRequired[list[CategoryInsightDetails | CategoryInsightDetailsDict]]
-    detailed_category_insights: NotRequired[list[CategoryInsightDetails | CategoryInsightDetailsDict]]
+    primary_category_insights: NotRequired[list[CategoryInsightDetailsDict]]
+    detailed_category_insights: NotRequired[list[CategoryInsightDetailsDict]]

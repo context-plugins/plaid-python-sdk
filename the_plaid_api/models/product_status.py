@@ -35,4 +35,4 @@ class ProductStatus(SdkBaseModel):
 class ProductStatusDict(TypedDict):
     status: Status4OrStr
     last_status_change: RFC3339DateTime
-    breakdown: StatusBreakdown | StatusBreakdownDict
+    breakdown: StatusBreakdownDict

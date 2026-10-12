@@ -29,4 +29,4 @@ class ExternalPaymentInitiationConsentOptions(SdkBaseModel):
 class ExternalPaymentInitiationConsentOptionsDict(TypedDict):
     request_refund_details: NotRequired[bool | None]
     iban: NotRequired[str | None]
-    bacs: NotRequired[PaymentInitiationOptionalRestrictionBacs | PaymentInitiationOptionalRestrictionBacsDict | None]
+    bacs: NotRequired[PaymentInitiationOptionalRestrictionBacsDict | None]

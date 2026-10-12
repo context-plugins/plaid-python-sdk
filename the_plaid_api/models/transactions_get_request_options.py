@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing_extensions import NotRequired, TypedDict
 
-from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
+from ..core import UNSET, Optional, SdkBaseModel
 from .enums.personal_finance_category_version import PersonalFinanceCategoryVersionOrStr
 
 
@@ -14,22 +14,22 @@ class TransactionsGetRequestOptions(SdkBaseModel):
 
     Note: An error will be returned if a provided ``account_id`` is not associated with the Item."""
 
-    count: Optional[int] = UNSET
+    count: int = 100
     """The number of transactions to fetch."""
 
-    offset: Optional[int] = UNSET
+    offset: int = 0
     """The number of transactions to skip. The default value is 0."""
 
-    include_original_description: OptionalNullable[bool] = UNSET
+    include_original_description: bool | None = False
     """Include the raw unparsed transaction description from the financial institution."""
 
-    include_personal_finance_category_beta: Optional[bool] = UNSET
+    include_personal_finance_category_beta: bool = False
     """Personal finance categories are now returned by default."""
 
-    include_personal_finance_category: Optional[bool] = UNSET
+    include_personal_finance_category: bool = False
     """Personal finance categories are now returned by default."""
 
-    include_logo_and_counterparty_beta: Optional[bool] = UNSET
+    include_logo_and_counterparty_beta: bool = False
     """Counterparties and extra merchant fields are now returned by default."""
 
     personal_finance_category_version: Optional[PersonalFinanceCategoryVersionOrStr] = UNSET
@@ -41,7 +41,7 @@ class TransactionsGetRequestOptions(SdkBaseModel):
 
     If you enabled Transactions or Enrich on or after December 3, 2025, you may only receive the ``v2`` taxonomy."""
 
-    days_requested: Optional[int] = UNSET
+    days_requested: int = 90
     """This field only applies to calls for Items where the Transactions product has not already been initialized (i.e.
     by specifying ``transactions`` in the ``products``, ``optional_products``, or ``required_if_supported_products``
     array when calling ``/link/token/create`` or by making a previous call to ``/transactions/sync`` or

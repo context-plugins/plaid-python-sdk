@@ -26,7 +26,7 @@ class LiabilitiesGetResponse(SdkBaseModel):
 
 
 class LiabilitiesGetResponseDict(TypedDict):
-    accounts: list[Account | AccountDict]
-    item: Item | ItemDict
-    liabilities: LiabilitiesObject | LiabilitiesObjectDict
+    accounts: list[AccountDict]
+    item: ItemDict
+    liabilities: LiabilitiesObjectDict
     request_id: str

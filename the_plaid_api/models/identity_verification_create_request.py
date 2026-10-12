@@ -32,7 +32,7 @@ class IdentityVerificationCreateRequest(SdkBaseModel):
     template_id: str
     """ID of the associated Identity Verification template. Like all Plaid identifiers, this is case-sensitive."""
 
-    gave_consent: bool
+    gave_consent: bool = False
     """A flag specifying whether the end user has already agreed to a privacy policy specifying that their data will be
     shared with Plaid for verification purposes.
 
@@ -93,7 +93,7 @@ class IdentityVerificationCreateRequestDict(TypedDict):
     is_shareable: bool
     template_id: str
     gave_consent: bool
-    user: NotRequired[IdentityVerificationCreateRequestUser | IdentityVerificationCreateRequestUserDict | None]
+    user: NotRequired[IdentityVerificationCreateRequestUserDict | None]
     client_id: NotRequired[str]
     secret: NotRequired[str]
     is_idempotent: NotRequired[bool | None]

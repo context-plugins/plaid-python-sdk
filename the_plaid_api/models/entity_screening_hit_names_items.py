@@ -18,5 +18,5 @@ class EntityScreeningHitNamesItems(SdkBaseModel):
 
 
 class EntityScreeningHitNamesItemsDict(TypedDict):
-    analysis: NotRequired[MatchSummary | MatchSummaryDict]
-    data: NotRequired[EntityScreeningHitNames | EntityScreeningHitNamesDict]
+    analysis: NotRequired[MatchSummaryDict]
+    data: NotRequired[EntityScreeningHitNamesDict]

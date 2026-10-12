@@ -25,6 +25,6 @@ class CraCheckReportFreddieMacGetResponse(SdkBaseModel):
 
 
 class CraCheckReportFreddieMacGetResponseDict(TypedDict):
-    deal: CraCheckReportFreddieMacVerificationOfAssetsDeal | CraCheckReportFreddieMacVerificationOfAssetsDealDict
+    deal: CraCheckReportFreddieMacVerificationOfAssetsDealDict
     request_id: str
     schema_version: float

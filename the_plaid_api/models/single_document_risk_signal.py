@@ -14,7 +14,7 @@ class SingleDocumentRiskSignal(SdkBaseModel):
     document_reference: RiskSignalDocumentReference
     """Object containing metadata for the document"""
 
-    risk_signals: list[DocumentRiskSignal]
+    risk_signals: list[DocumentRiskSignal | None]
     """Array of attributes that indicate whether or not there is fraud risk with a document"""
 
     risk_summary: DocumentRiskSummary
@@ -22,6 +22,6 @@ class SingleDocumentRiskSignal(SdkBaseModel):
 
 
 class SingleDocumentRiskSignalDict(TypedDict):
-    document_reference: RiskSignalDocumentReference | RiskSignalDocumentReferenceDict
-    risk_signals: list[DocumentRiskSignal | DocumentRiskSignalDict]
-    risk_summary: DocumentRiskSummary | DocumentRiskSummaryDict
+    document_reference: RiskSignalDocumentReferenceDict
+    risk_signals: list[DocumentRiskSignalDict | None]
+    risk_summary: DocumentRiskSummaryDict

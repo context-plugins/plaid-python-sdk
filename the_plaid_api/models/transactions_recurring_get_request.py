@@ -37,5 +37,5 @@ class TransactionsRecurringGetRequestDict(TypedDict):
     client_id: NotRequired[str]
     access_token: str
     secret: NotRequired[str]
-    options: NotRequired[TransactionsRecurringGetRequestOptions | TransactionsRecurringGetRequestOptionsDict]
+    options: NotRequired[TransactionsRecurringGetRequestOptionsDict]
     account_ids: NotRequired[list[str]]

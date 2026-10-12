@@ -125,6 +125,4 @@ class KyccheckAddressSummaryDict(TypedDict):
     city: NotRequired[HiddenMatchSummaryCodeOrStr]
     region: NotRequired[HiddenMatchSummaryCodeOrStr]
     postal_code: NotRequired[HiddenMatchSummaryCodeOrStr]
-    international_details: NotRequired[
-        KyccheckDetailsInternationalAddress | KyccheckDetailsInternationalAddressDict | None
-    ]
+    international_details: NotRequired[KyccheckDetailsInternationalAddressDict | None]

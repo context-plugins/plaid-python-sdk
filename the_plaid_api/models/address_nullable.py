@@ -17,5 +17,5 @@ class AddressNullable(SdkBaseModel):
 
 
 class AddressNullableDict(TypedDict):
-    data: AddressData | AddressDataDict
+    data: AddressDataDict
     primary: NotRequired[bool]

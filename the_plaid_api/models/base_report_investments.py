@@ -23,6 +23,6 @@ class BaseReportInvestments(SdkBaseModel):
 
 
 class BaseReportInvestmentsDict(TypedDict):
-    holdings: list[BaseReportInvestmentHolding | BaseReportInvestmentHoldingDict]
-    securities: list[BaseReportInvestmentSecurity | BaseReportInvestmentSecurityDict]
-    investment_transactions: list[BaseReportInvestmentTransaction | BaseReportInvestmentTransactionDict]
+    holdings: list[BaseReportInvestmentHoldingDict]
+    securities: list[BaseReportInvestmentSecurityDict]
+    investment_transactions: list[BaseReportInvestmentTransactionDict]

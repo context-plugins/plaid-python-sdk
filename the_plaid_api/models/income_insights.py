@@ -25,8 +25,6 @@ class IncomeInsights(SdkBaseModel):
 
 
 class IncomeInsightsDict(TypedDict):
-    total_income: NotRequired[AmountWithCurrency | AmountWithCurrencyDict | None]
-    income_excluding_transfers: NotRequired[
-        AmountWithCurrencyWithMonthlyAverage | AmountWithCurrencyWithMonthlyAverageDict | None
-    ]
-    transfers_in: NotRequired[AmountWithCurrencyWithMonthlyAverage | AmountWithCurrencyWithMonthlyAverageDict | None]
+    total_income: NotRequired[AmountWithCurrencyDict | None]
+    income_excluding_transfers: NotRequired[AmountWithCurrencyWithMonthlyAverageDict | None]
+    transfers_in: NotRequired[AmountWithCurrencyWithMonthlyAverageDict | None]

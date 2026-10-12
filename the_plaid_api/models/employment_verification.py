@@ -34,6 +34,6 @@ class EmploymentVerificationDict(TypedDict):
     status: NotRequired[EmploymentVerificationStatusOrStr | None]
     start_date: NotRequired[Date | None]
     end_date: NotRequired[Date | None]
-    employer: NotRequired[EmployerVerification | EmployerVerificationDict]
+    employer: NotRequired[EmployerVerificationDict]
     title: NotRequired[str | None]
-    platform_ids: NotRequired[PlatformIds | PlatformIdsDict]
+    platform_ids: NotRequired[PlatformIdsDict]

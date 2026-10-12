@@ -19,4 +19,4 @@ class CraLoanUnregister(SdkBaseModel):
 
 class CraLoanUnregisterDict(TypedDict):
     loan_id: str
-    closed_with_status: CraLoanClosedStatus | CraLoanClosedStatusDict
+    closed_with_status: CraLoanClosedStatusDict

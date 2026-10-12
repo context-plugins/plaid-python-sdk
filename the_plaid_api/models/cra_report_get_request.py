@@ -71,7 +71,7 @@ class CraReportGetRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     user_id: str
-    products: list[CraReportGetRequestProduct | CraReportGetRequestProductDict]
+    products: list[CraReportGetRequestProductDict]
     scope: NotRequired[CraReportScopeOrStr]
     decision_stage: CraReportDecisionStageOrStr
     consumer_report_permissible_purpose: ConsumerReportPermissiblePurposeOrStr

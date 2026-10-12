@@ -16,5 +16,5 @@ class CreditBankIncomeGetResponse(SdkBaseModel):
 
 
 class CreditBankIncomeGetResponseDict(TypedDict):
-    bank_income: NotRequired[list[CreditBankIncome | CreditBankIncomeDict]]
+    bank_income: NotRequired[list[CreditBankIncomeDict]]
     request_id: str

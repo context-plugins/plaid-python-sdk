@@ -16,5 +16,5 @@ class BankTransferSweepListResponse(SdkBaseModel):
 
 
 class BankTransferSweepListResponseDict(TypedDict):
-    sweeps: list[BankTransferSweep | BankTransferSweepDict]
+    sweeps: list[BankTransferSweepDict]
     request_id: str

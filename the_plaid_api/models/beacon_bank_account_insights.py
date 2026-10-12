@@ -49,4 +49,4 @@ class BeaconBankAccountInsightsDict(TypedDict):
     account_id: str
     type_: AccountTypeOrStr
     subtype: AccountSubtypeOrStr | None
-    attributes: BeaconAccountRiskAttributes | BeaconAccountRiskAttributesDict
+    attributes: BeaconAccountRiskAttributesDict

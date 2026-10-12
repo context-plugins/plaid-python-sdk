@@ -31,8 +31,8 @@ class MonitoringIncomeInsights(SdkBaseModel):
 
 
 class MonitoringIncomeInsightsDict(TypedDict):
-    total_monthly_income: TotalMonthlyIncomeInsights | TotalMonthlyIncomeInsightsDict
-    income_sources_counts: IncomeSourcesCounts | IncomeSourcesCountsDict
-    forecasted_monthly_income: ForecastedMonthlyIncome | ForecastedMonthlyIncomeDict
-    historical_annual_income: HistoricalAnnualIncome | HistoricalAnnualIncomeDict
-    income_sources: list[MonitoringIncomeSource | MonitoringIncomeSourceDict]
+    total_monthly_income: TotalMonthlyIncomeInsightsDict
+    income_sources_counts: IncomeSourcesCountsDict
+    forecasted_monthly_income: ForecastedMonthlyIncomeDict
+    historical_annual_income: HistoricalAnnualIncomeDict
+    income_sources: list[MonitoringIncomeSourceDict]

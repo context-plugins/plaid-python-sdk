@@ -27,5 +27,5 @@ class CraVoaReport(SdkBaseModel):
 class CraVoaReportDict(TypedDict):
     generated_time: RFC3339DateTime
     days_requested: float
-    items: list[CraVoaReportItem | CraVoaReportItemDict]
-    attributes: CraVoaReportAttributes | CraVoaReportAttributesDict
+    items: list[CraVoaReportItemDict]
+    attributes: CraVoaReportAttributesDict

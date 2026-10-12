@@ -28,6 +28,6 @@ class ProtectUserInsightsGetResponse(SdkBaseModel):
 
 class ProtectUserInsightsGetResponseDict(TypedDict):
     user_id: str
-    latest_scored_event: LatestScoredEvent | LatestScoredEventDict | None
-    reports: NotRequired[list[ProtectReport | ProtectReportDict]]
+    latest_scored_event: LatestScoredEventDict | None
+    reports: NotRequired[list[ProtectReportDict]]
     request_id: str

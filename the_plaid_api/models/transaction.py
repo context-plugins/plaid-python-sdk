@@ -38,7 +38,7 @@ class Transaction(SdkBaseModel):
     See the `currency code schema <https://plaid.com/docs/api/accounts#currency-code-schema>`__ for a full listing of
     supported ``unofficial_currency_code``s."""
 
-    category: Optional[list[str | None]] = UNSET
+    category: OptionalNullable[list[str]] = UNSET
     """A hierarchical array of the categories to which this transaction belongs. For a full list of categories, see
     https://plaid.com/docs/api/products/transactions/#categoriesget.
 
@@ -250,15 +250,15 @@ class TransactionDict(TypedDict):
     amount: float
     iso_currency_code: str | None
     unofficial_currency_code: str | None
-    category: NotRequired[list[str | None]]
+    category: NotRequired[list[str] | None]
     category_id: NotRequired[str | None]
     check_number: NotRequired[str | None]
     date: Date
-    location: TransactionLocation | TransactionLocationDict
+    location: TransactionLocationDict
     name: str
     merchant_name: NotRequired[str | None]
     original_description: NotRequired[str | None]
-    payment_meta: PaymentMeta | PaymentMetaDict
+    payment_meta: PaymentMetaDict
     pending: bool
     pending_transaction_id: str | None
     account_owner: str | None
@@ -270,10 +270,10 @@ class TransactionDict(TypedDict):
     authorized_datetime: RFC3339DateTime | None
     datetime: RFC3339DateTime | None
     payment_channel: PaymentChannelOrStr
-    personal_finance_category: NotRequired[PersonalFinanceCategory | PersonalFinanceCategoryDict | None]
-    business_finance_category: NotRequired[BusinessFinanceCategory | BusinessFinanceCategoryDict | None]
+    personal_finance_category: NotRequired[PersonalFinanceCategoryDict | None]
+    business_finance_category: NotRequired[BusinessFinanceCategoryDict | None]
     transaction_code: TransactionCodeOrStr | None
     personal_finance_category_icon_url: NotRequired[str]
-    counterparties: NotRequired[list[TransactionCounterparty | TransactionCounterpartyDict]]
+    counterparties: NotRequired[list[TransactionCounterpartyDict]]
     merchant_entity_id: NotRequired[str | None]
-    client_customization: NotRequired[ClientCustomization | ClientCustomizationDict | None]
+    client_customization: NotRequired[ClientCustomizationDict | None]

@@ -51,4 +51,4 @@ class BeaconAccountRiskEvaluateAccountDict(TypedDict):
     account_id: NotRequired[str]
     type_: NotRequired[AccountTypeOrStr]
     subtype: NotRequired[AccountSubtypeOrStr | None]
-    attributes: NotRequired[BeaconAccountRiskEvaluateAccountAttributes | BeaconAccountRiskEvaluateAccountAttributesDict]
+    attributes: NotRequired[BeaconAccountRiskEvaluateAccountAttributesDict]

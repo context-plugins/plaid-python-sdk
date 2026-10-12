@@ -15,4 +15,4 @@ class CreditFreddieMacAssets(SdkBaseModel):
 
 
 class CreditFreddieMacAssetsDict(TypedDict):
-    asset: list[CreditFreddieMacAsset | CreditFreddieMacAssetDict]
+    asset: list[CreditFreddieMacAssetDict]
