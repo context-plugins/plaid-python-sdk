@@ -4,13 +4,12 @@
 
 Accessor: `client` · Source: `the_plaid_api/client.py` · 335 operations
 
-Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omit what its invariants table covers and are otherwise self-contained, so chunk at block level. Signatures are the sync parsed spelling; the async and raw spellings take the same parameters (see sdk-map.md). **Type sources** names the module declaring each type an operation mentions, so resolving a body, return or error payload is a lookup rather than a search; the runtime types `RawError` and `ApiResult` are excluded.
+Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omit what its invariants table covers and are otherwise self-contained, so chunk at block level. Signatures are the sync parsed spelling; the async and raw spellings take the same parameter names, the async ones typing `request_options` as `AsyncRequestOptionsOrDict` (see sdk-map.md). **Type sources** names the module declaring each type an operation mentions, so resolving a body, return or error payload is a lookup rather than a search; the runtime types `RawError` and `ApiResult` are excluded.
 
 ### client.accounts_balance_get
 
 - **Route**: `POST /accounts/balance/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def accounts_balance_get(body: AccountsBalanceGetRequest | AccountsBalanceGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -28,7 +27,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /accounts/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def accounts_get(body: AccountsGetRequest | AccountsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -46,7 +44,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /application/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def application_get(body: ApplicationGetRequest | ApplicationGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -64,7 +61,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /asset_report/audit_copy/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def asset_report_audit_copy_create(body: AssetReportAuditCopyCreateRequest | AssetReportAuditCopyCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -82,7 +78,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /asset_report/audit_copy/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def asset_report_audit_copy_get(body: AssetReportAuditCopyGetRequest | AssetReportAuditCopyGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -100,7 +95,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /asset_report/audit_copy/pdf/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def asset_report_audit_copy_pdf_get(body: AssetReportAuditCopyPdfGetRequest | AssetReportAuditCopyPdfGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -117,7 +111,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /asset_report/audit_copy/remove`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def asset_report_audit_copy_remove(body: AssetReportAuditCopyRemoveRequest | AssetReportAuditCopyRemoveRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -135,7 +128,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /asset_report/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def asset_report_create(body: AssetReportCreateRequest | AssetReportCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -153,7 +145,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /asset_report/filter`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def asset_report_filter(body: AssetReportFilterRequest | AssetReportFilterRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -171,7 +162,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /asset_report/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def asset_report_get(body: AssetReportGetRequest | AssetReportGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -189,8 +179,7 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /asset_report/pdf/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
-- **Signature**: `def asset_report_pdf_get(body: AssetReportPdfgetRequest | AssetReportPdfgetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
+- **Signature**: `def asset_report_pdf_get(body: AssetReportPdfGetRequest | AssetReportPdfGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
 - **Returns (parsed)**: `None`
@@ -199,14 +188,13 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 | Type | Source |
 | --- | --- |
-| `AssetReportPdfgetRequest` | `the_plaid_api/models/asset_report_pdfget_request.py` |
-| `AssetReportPdfgetRequestDict` | `the_plaid_api/models/asset_report_pdfget_request.py` |
+| `AssetReportPdfGetRequest` | `the_plaid_api/models/asset_report_pdf_get_request.py` |
+| `AssetReportPdfGetRequestDict` | `the_plaid_api/models/asset_report_pdf_get_request.py` |
 
 ### client.asset_report_refresh
 
 - **Route**: `POST /asset_report/refresh`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def asset_report_refresh(body: AssetReportRefreshRequest | AssetReportRefreshRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -224,7 +212,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /asset_report/remove`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def asset_report_remove(body: AssetReportRemoveRequest | AssetReportRemoveRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -242,7 +229,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /auth/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def auth_get(body: AuthGetRequest | AuthGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -260,7 +246,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /auth/verify`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def auth_verify(body: AuthVerifyRequest | AuthVerifyRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -278,7 +263,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /bank_transfer/balance/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def bank_transfer_balance_get(body: BankTransferBalanceGetRequest | BankTransferBalanceGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -296,7 +280,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /bank_transfer/cancel`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def bank_transfer_cancel(body: BankTransferCancelRequest | BankTransferCancelRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -314,7 +297,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /bank_transfer/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def bank_transfer_create(body: BankTransferCreateRequest | BankTransferCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -332,7 +314,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /bank_transfer/event/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def bank_transfer_event_list(body: BankTransferEventListRequest | BankTransferEventListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -350,7 +331,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /bank_transfer/event/sync`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def bank_transfer_event_sync(body: BankTransferEventSyncRequest | BankTransferEventSyncRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -368,7 +348,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /bank_transfer/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def bank_transfer_get(body: BankTransferGetRequest | BankTransferGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -386,7 +365,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /bank_transfer/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def bank_transfer_list(body: BankTransferListRequest | BankTransferListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -404,7 +382,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /bank_transfer/migrate_account`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def bank_transfer_migrate_account(body: BankTransferMigrateAccountRequest | BankTransferMigrateAccountRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -422,7 +399,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /bank_transfer/sweep/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def bank_transfer_sweep_get(body: BankTransferSweepGetRequest | BankTransferSweepGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -440,7 +416,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /bank_transfer/sweep/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def bank_transfer_sweep_list(body: BankTransferSweepListRequest | BankTransferSweepListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -458,7 +433,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beacon/account_risk/v1/evaluate`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def beacon_account_risk_evaluate(body: BeaconAccountRiskEvaluateRequest | BeaconAccountRiskEvaluateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -476,7 +450,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beacon/duplicate/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def beacon_duplicate_get(body: BeaconDuplicateGetRequest | BeaconDuplicateGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -494,7 +467,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beacon/report/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def beacon_report_create(body: BeaconReportCreateRequest | BeaconReportCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -512,7 +484,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beacon/report/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def beacon_report_get(body: BeaconReportGetRequest | BeaconReportGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -530,7 +501,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beacon/report/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def beacon_report_list(body: BeaconReportListRequest | BeaconReportListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -548,7 +518,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beacon/report_syndication/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def beacon_report_syndication_get(body: BeaconReportSyndicationGetRequest | BeaconReportSyndicationGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -566,7 +535,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beacon/report_syndication/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def beacon_report_syndication_list(body: BeaconReportSyndicationListRequest | BeaconReportSyndicationListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -584,7 +552,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beacon/user/account_insights/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def beacon_user_account_insights_get(body: BeaconUserAccountInsightsGetRequest | BeaconUserAccountInsightsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -602,7 +569,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beacon/user/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def beacon_user_create(body: BeaconUserCreateRequest | BeaconUserCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -620,7 +586,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beacon/user/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def beacon_user_get(body: BeaconUserGetRequest | BeaconUserGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -638,7 +603,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beacon/user/history/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def beacon_user_history_list(body: BeaconUserHistoryListRequest | BeaconUserHistoryListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -656,7 +620,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beacon/user/review`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def beacon_user_review(body: BeaconUserReviewRequest | BeaconUserReviewRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -674,7 +637,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beacon/user/update`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def beacon_user_update(body: BeaconUserUpdateRequest | BeaconUserUpdateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -692,7 +654,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beta/ewa_report/v1/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def beta_ewa_report_v1_get(body: BetaEwaReportV1GetRequest | BetaEwaReportV1GetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -710,7 +671,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beta/partner/customer/v1/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def beta_partner_customer_v1_create(body: BetaPartnerCustomerV1CreateRequest | BetaPartnerCustomerV1CreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -728,7 +688,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beta/partner/customer/v1/enable`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def beta_partner_customer_v1_enable(body: BetaPartnerCustomerV1EnableRequest | BetaPartnerCustomerV1EnableRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -746,7 +705,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beta/partner/customer/v1/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def beta_partner_customer_v1_get(body: BetaPartnerCustomerV1GetRequest | BetaPartnerCustomerV1GetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -764,7 +722,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beta/partner/customer/v1/update`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def beta_partner_customer_v1_update(body: BetaPartnerCustomerV1UpdateRequest | BetaPartnerCustomerV1UpdateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -782,7 +739,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /business_verification/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def business_verification_create(body: BusinessVerificationCreateRequest | BusinessVerificationCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -800,7 +756,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /business_verification/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def business_verification_get(body: BusinessVerificationGetRequest | BusinessVerificationGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -818,7 +773,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cashflow_report/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def cashflow_report_get(body: CashflowReportGetRequest | CashflowReportGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -836,7 +790,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cashflow_report/insights/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def cashflow_report_insights_get(body: CashflowReportInsightsGetRequest | CashflowReportInsightsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -854,7 +807,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cashflow_report/refresh`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def cashflow_report_refresh(body: CashflowReportRefreshRequest | CashflowReportRefreshRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -872,7 +824,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cashflow_report/transactions/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def cashflow_report_transactions_get(body: CashflowReportTransactionsGetRequest | CashflowReportTransactionsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -889,7 +840,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 ### client.categories_get
 
 - **Route**: `POST /categories/get`
-- **Server**: `default`
 - **Signature**: `def categories_get(body: Any, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -905,7 +855,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /consent/events/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def consent_events_get(body: ConsentEventsGetRequest | ConsentEventsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -923,8 +872,7 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /consumer_report/pdf/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
-- **Signature**: `def consumer_report_pdf_get(body: ConsumerReportPdfgetRequest | ConsumerReportPdfgetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
+- **Signature**: `def consumer_report_pdf_get(body: ConsumerReportPdfGetRequest | ConsumerReportPdfGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
 - **Returns (parsed)**: `None`
@@ -933,14 +881,13 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 | Type | Source |
 | --- | --- |
-| `ConsumerReportPdfgetRequest` | `the_plaid_api/models/consumer_report_pdfget_request.py` |
-| `ConsumerReportPdfgetRequestDict` | `the_plaid_api/models/consumer_report_pdfget_request.py` |
+| `ConsumerReportPdfGetRequest` | `the_plaid_api/models/consumer_report_pdf_get_request.py` |
+| `ConsumerReportPdfGetRequestDict` | `the_plaid_api/models/consumer_report_pdf_get_request.py` |
 
 ### client.cra_check_report_base_report_get
 
 - **Route**: `POST /cra/check_report/base_report/get`
 - **Auth**: (`client_id` AND `secret` AND `plaid_version`) OR `oauth2`
-- **Server**: `default`
 - **Signature**: `def cra_check_report_base_report_get(body: CraCheckReportBaseReportGetRequest | CraCheckReportBaseReportGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -958,7 +905,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cra/check_report/cashflow_insights/get`
 - **Auth**: (`client_id` AND `secret` AND `plaid_version`) OR `oauth2`
-- **Server**: `default`
 - **Signature**: `def cra_check_report_cashflow_insights_get(body: CraCheckReportCashflowInsightsGetRequest | CraCheckReportCashflowInsightsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -976,7 +922,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cra/check_report/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def cra_check_report_create(body: CraCheckReportCreateRequest | CraCheckReportCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -994,7 +939,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cra/check_report/income_insights/get`
 - **Auth**: (`client_id` AND `secret` AND `plaid_version`) OR `oauth2`
-- **Server**: `default`
 - **Signature**: `def cra_check_report_income_insights_get(body: CraCheckReportIncomeInsightsGetRequest | CraCheckReportIncomeInsightsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1012,7 +956,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cra/check_report/lend_score/get`
 - **Auth**: (`client_id` AND `secret` AND `plaid_version`) OR `oauth2`
-- **Server**: `default`
 - **Signature**: `def cra_check_report_lend_score_get(body: CraCheckReportLendScoreGetRequest | CraCheckReportLendScoreGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1030,7 +973,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cra/check_report/network_insights/get`
 - **Auth**: (`client_id` AND `secret` AND `plaid_version`) OR `oauth2`
-- **Server**: `default`
 - **Signature**: `def cra_check_report_network_insights_get(body: CraCheckReportNetworkInsightsGetRequest | CraCheckReportNetworkInsightsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1048,7 +990,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cra/check_report/partner_insights/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def cra_check_report_partner_insights_get(body: CraCheckReportPartnerInsightsGetRequest | CraCheckReportPartnerInsightsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1066,8 +1007,7 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cra/check_report/pdf/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
-- **Signature**: `def cra_check_report_pdf_get(body: CraCheckReportPdfgetRequest | CraCheckReportPdfgetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
+- **Signature**: `def cra_check_report_pdf_get(body: CraCheckReportPdfGetRequest | CraCheckReportPdfGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
 - **Returns (parsed)**: `None`
@@ -1076,14 +1016,13 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 | Type | Source |
 | --- | --- |
-| `CraCheckReportPdfgetRequest` | `the_plaid_api/models/cra_check_report_pdfget_request.py` |
-| `CraCheckReportPdfgetRequestDict` | `the_plaid_api/models/cra_check_report_pdfget_request.py` |
+| `CraCheckReportPdfGetRequest` | `the_plaid_api/models/cra_check_report_pdf_get_request.py` |
+| `CraCheckReportPdfGetRequestDict` | `the_plaid_api/models/cra_check_report_pdf_get_request.py` |
 
 ### client.cra_check_report_verification_get
 
 - **Route**: `POST /cra/check_report/verification/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def cra_check_report_verification_get(body: CraCheckReportVerificationGetRequest | CraCheckReportVerificationGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1101,7 +1040,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cra/check_report/verification/pdf/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def cra_check_report_verification_pdf_get(body: CraCheckReportVerificationPdfGetRequest | CraCheckReportVerificationPdfGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1118,7 +1056,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cra/credit_profile/report/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def cra_credit_profile_report_get(body: CraCreditProfileReportGetRequest | CraCreditProfileReportGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1136,7 +1073,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cra/loans/applications/register`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def cra_loans_applications_register(body: CraLoansApplicationsRegisterRequest | CraLoansApplicationsRegisterRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1154,8 +1090,7 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cra/loans/register`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
-- **Signature**: `def cra_loans_register(body: CraloansRegisterRequest | CraloansRegisterRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
+- **Signature**: `def cra_loans_register(body: CraLoansRegisterRequest | CraLoansRegisterRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
 - **Returns (parsed)**: `CraLoansRegisterResponse`
@@ -1164,15 +1099,14 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 | Type | Source |
 | --- | --- |
-| `CraloansRegisterRequest` | `the_plaid_api/models/craloans_register_request.py` |
-| `CraloansRegisterRequestDict` | `the_plaid_api/models/craloans_register_request.py` |
+| `CraLoansRegisterRequest` | `the_plaid_api/models/cra_loans_register_request.py` |
+| `CraLoansRegisterRequestDict` | `the_plaid_api/models/cra_loans_register_request.py` |
 | `CraLoansRegisterResponse` | `the_plaid_api/models/cra_loans_register_response.py` |
 
 ### client.cra_loans_unregister
 
 - **Route**: `POST /cra/loans/unregister`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def cra_loans_unregister(body: CraLoansUnregisterRequest | CraLoansUnregisterRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1190,7 +1124,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cra/loans/update`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def cra_loans_update(body: CraLoansUpdateRequest | CraLoansUpdateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1208,7 +1141,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cra/monitoring_insights/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def cra_monitoring_insights_get(body: CraMonitoringInsightsGetRequest | CraMonitoringInsightsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1226,7 +1158,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cra/monitoring_insights/subscribe`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def cra_monitoring_insights_subscribe(body: CraMonitoringInsightsSubscribeRequest | CraMonitoringInsightsSubscribeRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1244,7 +1175,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cra/monitoring_insights/unsubscribe`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def cra_monitoring_insights_unsubscribe(body: CraMonitoringInsightsUnsubscribeRequest | CraMonitoringInsightsUnsubscribeRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1262,7 +1192,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cra/partner_insights/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def cra_partner_insights_get(body: CraPartnerInsightsGetRequest | CraPartnerInsightsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1280,7 +1209,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /cra/report/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def cra_report_get(body: CraReportGetRequest | CraReportGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1298,7 +1226,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /payment_initiation/payment/token/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def create_payment_token(body: PaymentInitiationPaymentTokenCreateRequest | PaymentInitiationPaymentTokenCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1316,7 +1243,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/asset_report/freddie_mac/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_asset_report_freddie_mac_get(body: AssetReportFreddieGetRequest | AssetReportFreddieGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1334,7 +1260,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/audit_copy_token/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_audit_copy_token_create(body: CreditAuditCopyTokenCreateRequest | CreditAuditCopyTokenCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1352,7 +1277,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/audit_copy_token/update`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_audit_copy_token_update(body: CreditAuditCopyTokenUpdateRequest | CreditAuditCopyTokenUpdateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1370,7 +1294,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beta/credit/v1/bank_employment/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_bank_employment_get(body: CreditBankEmploymentGetRequest | CreditBankEmploymentGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1388,7 +1311,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/bank_income/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_bank_income_get(body: CreditBankIncomeGetRequest | CreditBankIncomeGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1406,8 +1328,7 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/bank_income/pdf/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
-- **Signature**: `def credit_bank_income_pdf_get(body: CreditBankIncomePdfgetRequest | CreditBankIncomePdfgetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
+- **Signature**: `def credit_bank_income_pdf_get(body: CreditBankIncomePdfGetRequest | CreditBankIncomePdfGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
 - **Returns (parsed)**: `None`
@@ -1416,14 +1337,13 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 | Type | Source |
 | --- | --- |
-| `CreditBankIncomePdfgetRequest` | `the_plaid_api/models/credit_bank_income_pdfget_request.py` |
-| `CreditBankIncomePdfgetRequestDict` | `the_plaid_api/models/credit_bank_income_pdfget_request.py` |
+| `CreditBankIncomePdfGetRequest` | `the_plaid_api/models/credit_bank_income_pdf_get_request.py` |
+| `CreditBankIncomePdfGetRequestDict` | `the_plaid_api/models/credit_bank_income_pdf_get_request.py` |
 
 ### client.credit_bank_income_refresh
 
 - **Route**: `POST /credit/bank_income/refresh`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_bank_income_refresh(body: CreditBankIncomeRefreshRequest | CreditBankIncomeRefreshRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1441,7 +1361,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/bank_income/webhook/update`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_bank_income_webhook_update(body: CreditBankIncomeWebhookUpdateRequest | CreditBankIncomeWebhookUpdateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1459,7 +1378,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/bank_statements/uploads/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_bank_statements_uploads_get(body: CreditBankStatementsUploadsGetRequest | CreditBankStatementsUploadsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1477,7 +1395,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/employment/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_employment_get(body: CreditEmploymentGetRequest | CreditEmploymentGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1495,7 +1412,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/freddie_mac/reports/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_freddie_mac_reports_get(body: CreditFreddieMacReportsGetRequest | CreditFreddieMacReportsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1513,7 +1429,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/payroll_income/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_payroll_income_get(body: CreditPayrollIncomeGetRequest | CreditPayrollIncomeGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1531,7 +1446,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/payroll_income/parsing_config/update`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_payroll_income_parsing_config_update(body: CreditPayrollIncomeParsingConfigUpdateRequest | CreditPayrollIncomeParsingConfigUpdateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1549,7 +1463,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/payroll_income/precheck`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_payroll_income_precheck(body: CreditPayrollIncomePrecheckRequest | CreditPayrollIncomePrecheckRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1567,7 +1480,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/payroll_income/refresh`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_payroll_income_refresh(body: CreditPayrollIncomeRefreshRequest | CreditPayrollIncomeRefreshRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1585,7 +1497,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/payroll_income/risk_signals/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_payroll_income_risk_signals_get(body: CreditPayrollIncomeRiskSignalsGetRequest | CreditPayrollIncomeRiskSignalsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1603,7 +1514,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/relay/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_relay_create(body: CreditRelayCreateRequest | CreditRelayCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1621,7 +1531,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/relay/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_relay_get(body: CreditRelayGetRequest | CreditRelayGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1639,8 +1548,7 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/relay/pdf/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
-- **Signature**: `def credit_relay_pdf_get(body: CreditRelayPdfgetRequest | CreditRelayPdfgetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
+- **Signature**: `def credit_relay_pdf_get(body: CreditRelayPdfGetRequest | CreditRelayPdfGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
 - **Returns (parsed)**: `None`
@@ -1649,14 +1557,13 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 | Type | Source |
 | --- | --- |
-| `CreditRelayPdfgetRequest` | `the_plaid_api/models/credit_relay_pdfget_request.py` |
-| `CreditRelayPdfgetRequestDict` | `the_plaid_api/models/credit_relay_pdfget_request.py` |
+| `CreditRelayPdfGetRequest` | `the_plaid_api/models/credit_relay_pdf_get_request.py` |
+| `CreditRelayPdfGetRequestDict` | `the_plaid_api/models/credit_relay_pdf_get_request.py` |
 
 ### client.credit_relay_refresh
 
 - **Route**: `POST /credit/relay/refresh`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_relay_refresh(body: CreditRelayRefreshRequest | CreditRelayRefreshRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1674,7 +1581,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/relay/remove`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_relay_remove(body: CreditRelayRemoveRequest | CreditRelayRemoveRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1692,7 +1598,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/audit_copy_token/remove`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_report_audit_copy_remove(body: CreditAuditCopyTokenRemoveRequest | CreditAuditCopyTokenRemoveRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1710,7 +1615,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /credit/sessions/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def credit_sessions_get(body: CreditSessionsGetRequest | CreditSessionsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1728,7 +1632,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /dashboard_user/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def dashboard_user_get(body: DashboardUserGetRequest | DashboardUserGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1746,7 +1649,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /dashboard_user/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def dashboard_user_list(body: DashboardUserListRequest | DashboardUserListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1764,7 +1666,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /employers/search`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def employers_search(body: EmployersSearchRequest | EmployersSearchRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1782,7 +1683,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /employment/verification/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def employment_verification_get(body: EmploymentVerificationGetRequest | EmploymentVerificationGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1800,23 +1700,21 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `GET /fdx/consents/{consentId}`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def fdx_consents_get(consent_id: str, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `consent_id`
 - **Params**: `consent_id` — path `consentId`
-- **Returns (parsed)**: `FdxconsentGrant`
-- **Returns (raw)**: `ApiResult[FdxconsentGrant, RawError]`
+- **Returns (parsed)**: `FdxConsentGrant`
+- **Returns (raw)**: `ApiResult[FdxConsentGrant, RawError]`
 - **Error**: `RawError` — **Case B**
 
 | Type | Source |
 | --- | --- |
-| `FdxconsentGrant` | `the_plaid_api/models/fdxconsent_grant.py` |
+| `FdxConsentGrant` | `the_plaid_api/models/fdx_consent_grant.py` |
 
 ### client.fdx_consents_list
 
 - **Route**: `GET /fdx/consents`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def fdx_consents_list(customer_id: str, *, status: FdxConsentGrantStatusOrStr | None = None, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `customer_id`
 - **Params**: `customer_id` — query `customerId` · `status` — query
@@ -1833,24 +1731,22 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `GET /fdx/consents/{consentId}/revocation`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def fdx_consents_revocation_get(consent_id: str, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `consent_id`
 - **Params**: `consent_id` — path `consentId`
-- **Returns (parsed)**: `FdxconsentRevocations`
-- **Returns (raw)**: `ApiResult[FdxconsentRevocations, RawError]`
+- **Returns (parsed)**: `FdxConsentRevocations`
+- **Returns (raw)**: `ApiResult[FdxConsentRevocations, RawError]`
 - **Error**: `RawError` — **Case B**
 
 | Type | Source |
 | --- | --- |
-| `FdxconsentRevocations` | `the_plaid_api/models/fdxconsent_revocations.py` |
+| `FdxConsentRevocations` | `the_plaid_api/models/fdx_consent_revocations.py` |
 
 ### client.fdx_consents_revoke
 
 - **Route**: `PUT /fdx/consents/{consentId}/revocation`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
-- **Signature**: `def fdx_consents_revoke(consent_id: str, body: FdxconsentRevocation | FdxconsentRevocationDict, *, request_options: RequestOptionsOrDict | None = None)`
+- **Signature**: `def fdx_consents_revoke(consent_id: str, body: FdxConsentRevocation | FdxConsentRevocationDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `consent_id`, `body`
 - **Params**: `consent_id` — path `consentId` · `body` — JSON body
 - **Returns (parsed)**: `None`
@@ -1859,14 +1755,13 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 | Type | Source |
 | --- | --- |
-| `FdxconsentRevocation` | `the_plaid_api/models/fdxconsent_revocation.py` |
-| `FdxconsentRevocationDict` | `the_plaid_api/models/fdxconsent_revocation.py` |
+| `FdxConsentRevocation` | `the_plaid_api/models/fdx_consent_revocation.py` |
+| `FdxConsentRevocationDict` | `the_plaid_api/models/fdx_consent_revocation.py` |
 
 ### client.fdx_notifications
 
 - **Route**: `POST /fdx/notifications`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def fdx_notifications(body: FdxNotificationEntity | FdxNotificationEntityDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1883,23 +1778,21 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `GET /fdx/recipient/{recipientId}`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def get_recipient(recipient_id: str, *, oauth_state_id: str | None = None, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `recipient_id`
 - **Params**: `recipient_id` — path `recipientId` · `oauth_state_id` — header `OAUTH-STATE-ID`
-- **Returns (parsed)**: `FdxrecipientMetadata`
-- **Returns (raw)**: `ApiResult[FdxrecipientMetadata, RawError]`
+- **Returns (parsed)**: `FdxRecipientMetadata`
+- **Returns (raw)**: `ApiResult[FdxRecipientMetadata, RawError]`
 - **Error**: `RawError` — **Case B**
 
 | Type | Source |
 | --- | --- |
-| `FdxrecipientMetadata` | `the_plaid_api/models/fdxrecipient_metadata.py` |
+| `FdxRecipientMetadata` | `the_plaid_api/models/fdx_recipient_metadata.py` |
 
 ### client.get_recipients
 
 - **Route**: `GET /fdx/recipients`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def get_recipients(*, request_options: RequestOptionsOrDict | None = None)`
 - **Returns (parsed)**: `GetRecipientsResponse`
 - **Returns (raw)**: `ApiResult[GetRecipientsResponse, RawError]`
@@ -1913,7 +1806,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /identity/documents/uploads/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def identity_documents_uploads_get(body: IdentityDocumentsUploadsGetRequest | IdentityDocumentsUploadsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1931,7 +1823,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /identity/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def identity_get(body: IdentityGetRequest | IdentityGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1949,7 +1840,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /identity/match`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def identity_match(body: IdentityMatchRequest | IdentityMatchRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1967,7 +1857,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /identity/refresh`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def identity_refresh(body: IdentityRefreshRequest | IdentityRefreshRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -1985,7 +1874,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /identity_verification/autofill/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def identity_verification_autofill_create(body: IdentityVerificationAutofillCreateRequest | IdentityVerificationAutofillCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2003,7 +1891,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /identity_verification/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def identity_verification_create(body: IdentityVerificationCreateRequest | IdentityVerificationCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2021,7 +1908,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /identity_verification/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def identity_verification_get(body: IdentityVerificationGetRequest | IdentityVerificationGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2039,7 +1925,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /identity_verification/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def identity_verification_list(body: IdentityVerificationListRequest | IdentityVerificationListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2057,7 +1942,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /identity_verification/retry`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def identity_verification_retry(body: IdentityVerificationRetryRequest | IdentityVerificationRetryRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2075,7 +1959,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /income/verification/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def income_verification_create(body: IncomeVerificationCreateRequest | IncomeVerificationCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2093,7 +1976,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /income/verification/documents/download`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def income_verification_documents_download(body: IncomeVerificationDocumentsDownloadRequest | IncomeVerificationDocumentsDownloadRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2110,7 +1992,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /income/verification/paystubs/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def income_verification_paystubs_get(body: IncomeVerificationPaystubsGetRequest | IncomeVerificationPaystubsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2128,7 +2009,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /income/verification/precheck`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def income_verification_precheck(body: IncomeVerificationPrecheckRequest | IncomeVerificationPrecheckRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2146,7 +2026,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /income/verification/taxforms/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def income_verification_taxforms_get(body: IncomeVerificationTaxformsGetRequest | IncomeVerificationTaxformsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2164,7 +2043,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /institutions/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def institutions_get(body: InstitutionsGetRequest | InstitutionsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2182,7 +2060,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /institutions/get_by_id`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def institutions_get_by_id(body: InstitutionsGetByIdRequest | InstitutionsGetByIdRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2200,7 +2077,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /institutions/search`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def institutions_search(body: InstitutionsSearchRequest | InstitutionsSearchRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2218,7 +2094,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /investments/auth/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def investments_auth_get(body: InvestmentsAuthGetRequest | InvestmentsAuthGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2236,7 +2111,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /investments/holdings/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def investments_holdings_get(body: InvestmentsHoldingsGetRequest | InvestmentsHoldingsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2254,7 +2128,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /investments/refresh`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def investments_refresh(body: InvestmentsRefreshRequest | InvestmentsRefreshRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2272,7 +2145,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /investments/transactions/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def investments_transactions_get(body: InvestmentsTransactionsGetRequest | InvestmentsTransactionsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2290,7 +2162,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /issues/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def issues_get(body: IssuesGetRequest | IssuesGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2308,7 +2179,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /issues/search`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def issues_search(body: IssuesSearchRequest | IssuesSearchRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2326,7 +2196,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /issues/subscribe`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def issues_subscribe(body: IssuesSubscribeRequest | IssuesSubscribeRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2344,7 +2213,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /item/access_token/invalidate`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def item_access_token_invalidate(body: ItemAccessTokenInvalidateRequest | ItemAccessTokenInvalidateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2362,7 +2230,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /item/activity/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def item_activity_list(body: ItemActivityListRequest | ItemActivityListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2380,7 +2247,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /item/application/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def item_application_list(body: ItemApplicationListRequest | ItemApplicationListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2398,7 +2264,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /item/application/scopes/update`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def item_application_scopes_update(body: ItemApplicationScopesUpdateRequest | ItemApplicationScopesUpdateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2416,7 +2281,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /item/application/unlink`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def item_application_unlink(body: ItemApplicationUnlinkRequest | ItemApplicationUnlinkRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2434,7 +2298,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /item/public_token/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def item_create_public_token(body: ItemPublicTokenCreateRequest | ItemPublicTokenCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2452,7 +2315,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /item/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def item_get(body: ItemGetRequest | ItemGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2470,7 +2332,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /item/import`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def item_import(body: ItemImportRequest | ItemImportRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2488,7 +2349,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /item/products/terminate`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def item_products_terminate(body: ItemProductsTerminateRequest | ItemProductsTerminateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2506,7 +2366,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /item/public_token/exchange`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def item_public_token_exchange(body: ItemPublicTokenExchangeRequest | ItemPublicTokenExchangeRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2524,7 +2383,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /item/remove`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def item_remove(body: ItemRemoveRequest | ItemRemoveRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2542,7 +2400,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /item/webhook/update`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def item_webhook_update(body: ItemWebhookUpdateRequest | ItemWebhookUpdateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2560,7 +2417,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /liabilities/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def liabilities_get(body: LiabilitiesGetRequest | LiabilitiesGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2578,7 +2434,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /link_delivery/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def link_delivery_create(body: LinkDeliveryCreateRequest | LinkDeliveryCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2596,7 +2451,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /link_delivery/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def link_delivery_get(body: LinkDeliveryGetRequest | LinkDeliveryGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2614,25 +2468,23 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /link/oauth/correlation_id/exchange`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
-- **Signature**: `def link_oauth_correlation_id_exchange(body: LinkOauthCorrelationIdExchangeRequest | LinkOauthCorrelationIdExchangeRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
+- **Signature**: `def link_oauth_correlation_id_exchange(body: LinkOAuthCorrelationIdExchangeRequest | LinkOAuthCorrelationIdExchangeRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
-- **Returns (parsed)**: `LinkOauthCorrelationIdExchangeResponse`
-- **Returns (raw)**: `ApiResult[LinkOauthCorrelationIdExchangeResponse, RawError]`
+- **Returns (parsed)**: `LinkOAuthCorrelationIdExchangeResponse`
+- **Returns (raw)**: `ApiResult[LinkOAuthCorrelationIdExchangeResponse, RawError]`
 - **Error**: `RawError` — **Case B**
 
 | Type | Source |
 | --- | --- |
-| `LinkOauthCorrelationIdExchangeRequest` | `the_plaid_api/models/link_oauth_correlation_id_exchange_request.py` |
-| `LinkOauthCorrelationIdExchangeRequestDict` | `the_plaid_api/models/link_oauth_correlation_id_exchange_request.py` |
-| `LinkOauthCorrelationIdExchangeResponse` | `the_plaid_api/models/link_oauth_correlation_id_exchange_response.py` |
+| `LinkOAuthCorrelationIdExchangeRequest` | `the_plaid_api/models/link_o_auth_correlation_id_exchange_request.py` |
+| `LinkOAuthCorrelationIdExchangeRequestDict` | `the_plaid_api/models/link_o_auth_correlation_id_exchange_request.py` |
+| `LinkOAuthCorrelationIdExchangeResponse` | `the_plaid_api/models/link_o_auth_correlation_id_exchange_response.py` |
 
 ### client.link_token_create
 
 - **Route**: `POST /link/token/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def link_token_create(body: LinkTokenCreateRequest | LinkTokenCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2650,7 +2502,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /link/token/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def link_token_get(body: LinkTokenGetRequest | LinkTokenGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2668,7 +2519,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /network/status/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def network_status_get(body: NetworkStatusGetRequest | NetworkStatusGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2686,61 +2536,57 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /oauth/introspect`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
-- **Signature**: `def oauth_introspect(body: OauthIntrospectRequest | OauthIntrospectRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
+- **Signature**: `def oauth_introspect(body: OAuthIntrospectRequest | OAuthIntrospectRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
-- **Returns (parsed)**: `OauthIntrospectResponse`
-- **Returns (raw)**: `ApiResult[OauthIntrospectResponse, RawError]`
+- **Returns (parsed)**: `OAuthIntrospectResponse`
+- **Returns (raw)**: `ApiResult[OAuthIntrospectResponse, RawError]`
 - **Error**: `RawError` — **Case B**
 
 | Type | Source |
 | --- | --- |
-| `OauthIntrospectRequest` | `the_plaid_api/models/oauth_introspect_request.py` |
-| `OauthIntrospectRequestDict` | `the_plaid_api/models/oauth_introspect_request.py` |
-| `OauthIntrospectResponse` | `the_plaid_api/models/oauth_introspect_response.py` |
+| `OAuthIntrospectRequest` | `the_plaid_api/models/o_auth_introspect_request.py` |
+| `OAuthIntrospectRequestDict` | `the_plaid_api/models/o_auth_introspect_request.py` |
+| `OAuthIntrospectResponse` | `the_plaid_api/models/o_auth_introspect_response.py` |
 
 ### client.oauth_revoke
 
 - **Route**: `POST /oauth/revoke`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
-- **Signature**: `def oauth_revoke(body: OauthRevokeRequest | OauthRevokeRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
+- **Signature**: `def oauth_revoke(body: OAuthRevokeRequest | OAuthRevokeRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
-- **Returns (parsed)**: `OauthRevokeResponse`
-- **Returns (raw)**: `ApiResult[OauthRevokeResponse, RawError]`
+- **Returns (parsed)**: `OAuthRevokeResponse`
+- **Returns (raw)**: `ApiResult[OAuthRevokeResponse, RawError]`
 - **Error**: `RawError` — **Case B**
 
 | Type | Source |
 | --- | --- |
-| `OauthRevokeRequest` | `the_plaid_api/models/oauth_revoke_request.py` |
-| `OauthRevokeRequestDict` | `the_plaid_api/models/oauth_revoke_request.py` |
-| `OauthRevokeResponse` | `the_plaid_api/models/oauth_revoke_response.py` |
+| `OAuthRevokeRequest` | `the_plaid_api/models/o_auth_revoke_request.py` |
+| `OAuthRevokeRequestDict` | `the_plaid_api/models/o_auth_revoke_request.py` |
+| `OAuthRevokeResponse` | `the_plaid_api/models/o_auth_revoke_response.py` |
 
 ### client.oauth_token
 
 - **Route**: `POST /oauth/token`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
-- **Signature**: `def oauth_token(body: OauthTokenRequest | OauthTokenRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
+- **Signature**: `def oauth_token(body: OAuthTokenRequest | OAuthTokenRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
-- **Returns (parsed)**: `OauthTokenResponse`
-- **Returns (raw)**: `ApiResult[OauthTokenResponse, RawError]`
+- **Returns (parsed)**: `OAuthTokenResponse`
+- **Returns (raw)**: `ApiResult[OAuthTokenResponse, RawError]`
 - **Error**: `RawError` — **Case B**
 
 | Type | Source |
 | --- | --- |
-| `OauthTokenRequest` | `the_plaid_api/models/oauth_token_request.py` |
-| `OauthTokenRequestDict` | `the_plaid_api/models/oauth_token_request.py` |
-| `OauthTokenResponse` | `the_plaid_api/models/oauth_token_response.py` |
+| `OAuthTokenRequest` | `the_plaid_api/models/o_auth_token_request.py` |
+| `OAuthTokenRequestDict` | `the_plaid_api/models/o_auth_token_request.py` |
+| `OAuthTokenResponse` | `the_plaid_api/models/o_auth_token_response.py` |
 
 ### client.partner_customer_create
 
 - **Route**: `POST /partner/customer/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def partner_customer_create(body: PartnerCustomerCreateRequest | PartnerCustomerCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2758,7 +2604,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /partner/customer/enable`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def partner_customer_enable(body: PartnerCustomerEnableRequest | PartnerCustomerEnableRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2776,7 +2621,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /partner/customer/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def partner_customer_get(body: PartnerCustomerGetRequest | PartnerCustomerGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2794,25 +2638,23 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /partner/customer/oauth_institutions/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
-- **Signature**: `def partner_customer_oauth_institutions_get(body: PartnerCustomerOauthInstitutionsGetRequest | PartnerCustomerOauthInstitutionsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
+- **Signature**: `def partner_customer_oauth_institutions_get(body: PartnerCustomerOAuthInstitutionsGetRequest | PartnerCustomerOAuthInstitutionsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
-- **Returns (parsed)**: `PartnerCustomerOauthInstitutionsGetResponse`
-- **Returns (raw)**: `ApiResult[PartnerCustomerOauthInstitutionsGetResponse, RawError]`
+- **Returns (parsed)**: `PartnerCustomerOAuthInstitutionsGetResponse`
+- **Returns (raw)**: `ApiResult[PartnerCustomerOAuthInstitutionsGetResponse, RawError]`
 - **Error**: `RawError` — **Case B**
 
 | Type | Source |
 | --- | --- |
-| `PartnerCustomerOauthInstitutionsGetRequest` | `the_plaid_api/models/partner_customer_oauth_institutions_get_request.py` |
-| `PartnerCustomerOauthInstitutionsGetRequestDict` | `the_plaid_api/models/partner_customer_oauth_institutions_get_request.py` |
-| `PartnerCustomerOauthInstitutionsGetResponse` | `the_plaid_api/models/partner_customer_oauth_institutions_get_response.py` |
+| `PartnerCustomerOAuthInstitutionsGetRequest` | `the_plaid_api/models/partner_customer_o_auth_institutions_get_request.py` |
+| `PartnerCustomerOAuthInstitutionsGetRequestDict` | `the_plaid_api/models/partner_customer_o_auth_institutions_get_request.py` |
+| `PartnerCustomerOAuthInstitutionsGetResponse` | `the_plaid_api/models/partner_customer_o_auth_institutions_get_response.py` |
 
 ### client.partner_customer_remove
 
 - **Route**: `POST /partner/customer/remove`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def partner_customer_remove(body: PartnerCustomerRemoveRequest | PartnerCustomerRemoveRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2830,7 +2672,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /payment_initiation/consent/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def payment_initiation_consent_create(body: PaymentInitiationConsentCreateRequest | PaymentInitiationConsentCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2848,7 +2689,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /payment_initiation/consent/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def payment_initiation_consent_get(body: PaymentInitiationConsentGetRequest | PaymentInitiationConsentGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2866,7 +2706,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /payment_initiation/consent/payment/execute`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def payment_initiation_consent_payment_execute(body: PaymentInitiationConsentPaymentExecuteRequest | PaymentInitiationConsentPaymentExecuteRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2884,7 +2723,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /payment_initiation/consent/revoke`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def payment_initiation_consent_revoke(body: PaymentInitiationConsentRevokeRequest | PaymentInitiationConsentRevokeRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2902,7 +2740,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /payment_initiation/payment/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def payment_initiation_payment_create(body: PaymentInitiationPaymentCreateRequest | PaymentInitiationPaymentCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2920,7 +2757,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /payment_initiation/payment/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def payment_initiation_payment_get(body: PaymentInitiationPaymentGetRequest | PaymentInitiationPaymentGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2938,7 +2774,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /payment_initiation/payment/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def payment_initiation_payment_list(body: PaymentInitiationPaymentListRequest | PaymentInitiationPaymentListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2956,7 +2791,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /payment_initiation/payment/reverse`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def payment_initiation_payment_reverse(body: PaymentInitiationPaymentReverseRequest | PaymentInitiationPaymentReverseRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2974,7 +2808,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /payment_initiation/recipient/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def payment_initiation_recipient_create(body: PaymentInitiationRecipientCreateRequest | PaymentInitiationRecipientCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -2992,7 +2825,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /payment_initiation/recipient/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def payment_initiation_recipient_get(body: PaymentInitiationRecipientGetRequest | PaymentInitiationRecipientGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3010,7 +2842,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /payment_initiation/recipient/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def payment_initiation_recipient_list(body: PaymentInitiationRecipientListRequest | PaymentInitiationRecipientListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3028,7 +2859,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /payment_profile/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def payment_profile_create(body: PaymentProfileCreateRequest | PaymentProfileCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3046,7 +2876,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /payment_profile/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def payment_profile_get(body: PaymentProfileGetRequest | PaymentProfileGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3064,7 +2893,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /payment_profile/remove`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def payment_profile_remove(body: PaymentProfileRemoveRequest | PaymentProfileRemoveRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3082,7 +2910,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/account/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_account_get(body: ProcessorAccountGetRequest | ProcessorAccountGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3100,7 +2927,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/apex/processor_token/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_apex_processor_token_create(body: ProcessorApexProcessorTokenCreateRequest | ProcessorApexProcessorTokenCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3118,7 +2944,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/auth/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_auth_get(body: ProcessorAuthGetRequest | ProcessorAuthGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3136,7 +2961,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/balance/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_balance_get(body: ProcessorBalanceGetRequest | ProcessorBalanceGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3154,7 +2978,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/bank_transfer/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_bank_transfer_create(body: ProcessorBankTransferCreateRequest | ProcessorBankTransferCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3172,7 +2995,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/identity/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_identity_get(body: ProcessorIdentityGetRequest | ProcessorIdentityGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3190,7 +3012,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/identity/match`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_identity_match(body: ProcessorIdentityMatchRequest | ProcessorIdentityMatchRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3208,7 +3029,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/investments/auth/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_investments_auth_get(body: ProcessorInvestmentsAuthGetRequest | ProcessorInvestmentsAuthGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3226,7 +3046,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/investments/holdings/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_investments_holdings_get(body: ProcessorInvestmentsHoldingsGetRequest | ProcessorInvestmentsHoldingsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3244,7 +3063,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/investments/transactions/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_investments_transactions_get(body: ProcessorInvestmentsTransactionsGetRequest | ProcessorInvestmentsTransactionsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3262,7 +3080,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/liabilities/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_liabilities_get(body: ProcessorLiabilitiesGetRequest | ProcessorLiabilitiesGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3280,7 +3097,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/signal/decision/report`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_signal_decision_report(body: ProcessorSignalDecisionReportRequest | ProcessorSignalDecisionReportRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3298,7 +3114,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/signal/evaluate`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_signal_evaluate(body: ProcessorSignalEvaluateRequest | ProcessorSignalEvaluateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3316,7 +3131,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/signal/prepare`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_signal_prepare(body: ProcessorSignalPrepareRequest | ProcessorSignalPrepareRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3334,7 +3148,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/signal/return/report`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_signal_return_report(body: ProcessorSignalReturnReportRequest | ProcessorSignalReturnReportRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3352,7 +3165,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/stripe/bank_account_token/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_stripe_bank_account_token_create(body: ProcessorStripeBankAccountTokenCreateRequest | ProcessorStripeBankAccountTokenCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3370,7 +3182,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/token/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_token_create(body: ProcessorTokenCreateRequest | ProcessorTokenCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3388,7 +3199,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/token/permissions/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_token_permissions_get(body: ProcessorTokenPermissionsGetRequest | ProcessorTokenPermissionsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3406,7 +3216,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/token/permissions/set`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_token_permissions_set(body: ProcessorTokenPermissionsSetRequest | ProcessorTokenPermissionsSetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3424,7 +3233,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/token/webhook/update`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_token_webhook_update(body: ProcessorTokenWebhookUpdateRequest | ProcessorTokenWebhookUpdateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3442,7 +3250,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/transactions/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_transactions_get(body: ProcessorTransactionsGetRequest | ProcessorTransactionsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3460,7 +3267,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/transactions/recurring/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_transactions_recurring_get(body: ProcessorTransactionsRecurringGetRequest | ProcessorTransactionsRecurringGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3478,7 +3284,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/transactions/refresh`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_transactions_refresh(body: ProcessorTransactionsRefreshRequest | ProcessorTransactionsRefreshRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3496,7 +3301,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /processor/transactions/sync`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def processor_transactions_sync(body: ProcessorTransactionsSyncRequest | ProcessorTransactionsSyncRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3514,7 +3318,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /profile/network_status/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def profile_network_status_get(body: ProfileNetworkStatusGetRequest | ProfileNetworkStatusGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3532,7 +3335,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /protect/compute`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def protect_compute(body: ProtectComputeRequest | ProtectComputeRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3550,7 +3352,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /protect/event/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def protect_event_get(body: ProtectEventGetRequest | ProtectEventGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3568,7 +3369,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /protect/event/send`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def protect_event_send(body: ProtectEventSendRequest | ProtectEventSendRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3586,7 +3386,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /protect/report/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def protect_report_create(body: ProtectReportCreateRequest | ProtectReportCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3604,7 +3403,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /protect/user/insights/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def protect_user_insights_get(body: ProtectUserInsightsGetRequest | ProtectUserInsightsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3622,7 +3420,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/bank_income/fire_webhook`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_bank_income_fire_webhook(body: SandboxBankIncomeFireWebhookRequest | SandboxBankIncomeFireWebhookRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3640,7 +3437,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/bank_transfer/fire_webhook`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_bank_transfer_fire_webhook(body: SandboxBankTransferFireWebhookRequest | SandboxBankTransferFireWebhookRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3658,7 +3454,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/bank_transfer/simulate`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_bank_transfer_simulate(body: SandboxBankTransferSimulateRequest | SandboxBankTransferSimulateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3676,7 +3471,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/cra/cashflow_updates/update`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_cra_cashflow_updates_update(body: SandboxCraCashflowUpdatesUpdateRequest | SandboxCraCashflowUpdatesUpdateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3694,7 +3488,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/fdx/consent/seed`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_fdx_consent_seed(body: SandboxFdxConsentSeedRequest | SandboxFdxConsentSeedRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3712,7 +3505,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/income/fire_webhook`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_income_fire_webhook(body: SandboxIncomeFireWebhookRequest | SandboxIncomeFireWebhookRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3730,7 +3522,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/item/application/seed`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_item_application_seed(body: SandboxItemApplicationSeedRequest | SandboxItemApplicationSeedRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3748,7 +3539,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/item/fire_webhook`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_item_fire_webhook(body: SandboxItemFireWebhookRequest | SandboxItemFireWebhookRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3766,7 +3556,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/item/reset_login`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_item_reset_login(body: SandboxItemResetLoginRequest | SandboxItemResetLoginRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3784,7 +3573,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/item/set_verification_status`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_item_set_verification_status(body: SandboxItemSetVerificationStatusRequest | SandboxItemSetVerificationStatusRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3802,7 +3590,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/oauth/select_accounts`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_oauth_select_accounts(body: SandboxOauthSelectAccountsRequest | SandboxOauthSelectAccountsRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3819,7 +3606,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/payment_profile/reset_login`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_payment_profile_reset_login(body: SandboxPaymentProfileResetLoginRequest | SandboxPaymentProfileResetLoginRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3837,7 +3623,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/payment/simulate`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_payment_simulate(body: SandboxPaymentSimulateRequest | SandboxPaymentSimulateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3855,7 +3640,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/processor_token/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_processor_token_create(body: SandboxProcessorTokenCreateRequest | SandboxProcessorTokenCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3873,7 +3657,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/public_token/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_public_token_create(body: SandboxPublicTokenCreateRequest | SandboxPublicTokenCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3891,7 +3674,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/transactions/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_transactions_create(body: SandboxTransactionsCreateRequest | SandboxTransactionsCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3912,7 +3694,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/transfer/fire_webhook`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_transfer_fire_webhook(body: SandboxTransferFireWebhookRequest | SandboxTransferFireWebhookRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3930,7 +3711,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/transfer/ledger/deposit/simulate`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_transfer_ledger_deposit_simulate(body: SandboxTransferLedgerDepositSimulateRequest | SandboxTransferLedgerDepositSimulateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3948,7 +3728,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/transfer/ledger/simulate_available`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_transfer_ledger_simulate_available(body: SandboxTransferLedgerSimulateAvailableRequest | SandboxTransferLedgerSimulateAvailableRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3966,7 +3745,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/transfer/ledger/withdraw/simulate`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_transfer_ledger_withdraw_simulate(body: SandboxTransferLedgerWithdrawSimulateRequest | SandboxTransferLedgerWithdrawSimulateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -3984,7 +3762,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/transfer/refund/simulate`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_transfer_refund_simulate(body: SandboxTransferRefundSimulateRequest | SandboxTransferRefundSimulateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4002,7 +3779,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/transfer/repayment/simulate`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_transfer_repayment_simulate(body: SandboxTransferRepaymentSimulateRequest | SandboxTransferRepaymentSimulateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4020,7 +3796,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/transfer/simulate`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_transfer_simulate(body: SandboxTransferSimulateRequest | SandboxTransferSimulateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4038,7 +3813,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/transfer/sweep/simulate`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_transfer_sweep_simulate(body: SandboxTransferSweepSimulateRequest | SandboxTransferSweepSimulateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4056,7 +3830,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/transfer/test_clock/advance`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_transfer_test_clock_advance(body: SandboxTransferTestClockAdvanceRequest | SandboxTransferTestClockAdvanceRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4074,7 +3847,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/transfer/test_clock/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_transfer_test_clock_create(body: SandboxTransferTestClockCreateRequest | SandboxTransferTestClockCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4092,7 +3864,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/transfer/test_clock/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_transfer_test_clock_get(body: SandboxTransferTestClockGetRequest | SandboxTransferTestClockGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4110,7 +3881,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/transfer/test_clock/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_transfer_test_clock_list(body: SandboxTransferTestClockListRequest | SandboxTransferTestClockListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4128,7 +3898,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /sandbox/user/reset_login`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def sandbox_user_reset_login(body: SandboxUserResetLoginRequest | SandboxUserResetLoginRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4146,7 +3915,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /session/token/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def session_token_create(body: SessionTokenCreateRequest | SessionTokenCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4164,7 +3932,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /signal/decision/report`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def signal_decision_report(body: SignalDecisionReportRequest | SignalDecisionReportRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4182,7 +3949,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /signal/evaluate`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def signal_evaluate(body: SignalEvaluateRequest | SignalEvaluateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4200,7 +3966,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /signal/prepare`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def signal_prepare(body: SignalPrepareRequest | SignalPrepareRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4218,7 +3983,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /signal/return/report`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def signal_return_report(body: SignalReturnReportRequest | SignalReturnReportRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4236,7 +4000,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /signal/schedule`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def signal_schedule(body: SignalScheduleRequest | SignalScheduleRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4254,7 +4017,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /statements/download`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def statements_download(body: StatementsDownloadRequest | StatementsDownloadRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4271,7 +4033,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /statements/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def statements_list(body: StatementsListRequest | StatementsListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4289,7 +4050,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /statements/refresh`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def statements_refresh(body: StatementsRefreshRequest | StatementsRefreshRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4307,7 +4067,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beta/transactions/v1/enhance`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transactions_enhance(body: TransactionsEnhanceGetRequest | TransactionsEnhanceGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4325,7 +4084,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transactions/enrich`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transactions_enrich(body: TransactionsEnrichRequest | TransactionsEnrichRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4343,7 +4101,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transactions/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transactions_get(body: TransactionsGetRequest | TransactionsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4361,7 +4118,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transactions/recurring/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transactions_recurring_get(body: TransactionsRecurringGetRequest | TransactionsRecurringGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4379,7 +4135,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transactions/refresh`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transactions_refresh(body: TransactionsRefreshRequest | TransactionsRefreshRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4397,7 +4152,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beta/transactions/rules/v1/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transactions_rules_create(body: TransactionsRulesCreateRequest | TransactionsRulesCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4415,7 +4169,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beta/transactions/rules/v1/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transactions_rules_list(body: TransactionsRulesListRequest | TransactionsRulesListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4433,7 +4186,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beta/transactions/rules/v1/remove`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transactions_rules_remove(body: TransactionsRulesRemoveRequest | TransactionsRulesRemoveRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4451,7 +4203,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transactions/sync`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transactions_sync(body: TransactionsSyncRequest | TransactionsSyncRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4469,7 +4220,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /beta/transactions/user_insights/v1/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transactions_user_insights_get(body: TransactionsUserInsightsGetRequest | TransactionsUserInsightsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4487,7 +4237,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/authorization/cancel`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_authorization_cancel(body: TransferAuthorizationCancelRequest | TransferAuthorizationCancelRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4505,7 +4254,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/authorization/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_authorization_create(body: TransferAuthorizationCreateRequest | TransferAuthorizationCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4523,7 +4271,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/balance/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_balance_get(body: TransferBalanceGetRequest | TransferBalanceGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4541,7 +4288,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/cancel`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_cancel(body: TransferCancelRequest | TransferCancelRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4559,7 +4305,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/capabilities/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_capabilities_get(body: TransferCapabilitiesGetRequest | TransferCapabilitiesGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4577,7 +4322,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/configuration/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_configuration_get(body: TransferConfigurationGetRequest | TransferConfigurationGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4595,7 +4339,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_create(body: TransferCreateRequest | TransferCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4613,7 +4356,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/diligence/document/upload`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_diligence_document_upload(body: TransferDiligenceDocumentUploadRequest | TransferDiligenceDocumentUploadRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4631,7 +4373,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/diligence/submit`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_diligence_submit(body: TransferDiligenceSubmitRequest | TransferDiligenceSubmitRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4649,7 +4390,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/event/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_event_list(body: TransferEventListRequest | TransferEventListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4667,7 +4407,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/event/sync`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_event_sync(body: TransferEventSyncRequest | TransferEventSyncRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4685,7 +4424,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_get(body: TransferGetRequest | TransferGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4703,7 +4441,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/intent/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_intent_create(body: TransferIntentCreateRequest | TransferIntentCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4721,7 +4458,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/intent/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_intent_get(body: TransferIntentGetRequest | TransferIntentGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4739,7 +4475,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/ledger/deposit`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_ledger_deposit(body: TransferLedgerDepositRequest | TransferLedgerDepositRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4757,7 +4492,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/ledger/distribute`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_ledger_distribute(body: TransferLedgerDistributeRequest | TransferLedgerDistributeRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4775,7 +4509,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/ledger/event/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_ledger_event_list(body: TransferLedgerEventListRequest | TransferLedgerEventListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4793,7 +4526,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/ledger/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_ledger_get(body: TransferLedgerGetRequest | TransferLedgerGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4811,7 +4543,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/ledger/withdraw`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_ledger_withdraw(body: TransferLedgerWithdrawRequest | TransferLedgerWithdrawRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4829,7 +4560,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_list(body: TransferListRequest | TransferListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4847,7 +4577,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/metrics/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_metrics_get(body: TransferMetricsGetRequest | TransferMetricsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4865,7 +4594,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/migrate_account`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_migrate_account(body: TransferMigrateAccountRequest | TransferMigrateAccountRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4883,7 +4611,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/originator/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_originator_create(body: TransferOriginatorCreateRequest | TransferOriginatorCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4901,7 +4628,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/originator/funding_account/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_originator_funding_account_create(body: TransferOriginatorFundingAccountCreateRequest | TransferOriginatorFundingAccountCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4919,7 +4645,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/originator/funding_account/update`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_originator_funding_account_update(body: TransferOriginatorFundingAccountUpdateRequest | TransferOriginatorFundingAccountUpdateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4937,7 +4662,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/originator/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_originator_get(body: TransferOriginatorGetRequest | TransferOriginatorGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4955,7 +4679,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/originator/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_originator_list(body: TransferOriginatorListRequest | TransferOriginatorListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4973,7 +4696,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/platform/originator/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_platform_originator_create(body: TransferPlatformOriginatorCreateRequest | TransferPlatformOriginatorCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -4991,7 +4713,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/platform/person/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_platform_person_create(body: TransferPlatformPersonCreateRequest | TransferPlatformPersonCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5009,7 +4730,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/platform/requirement/submit`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_platform_requirement_submit(body: TransferPlatformRequirementSubmitRequest | TransferPlatformRequirementSubmitRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5027,7 +4747,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/questionnaire/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_questionnaire_create(body: TransferQuestionnaireCreateRequest | TransferQuestionnaireCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5045,7 +4764,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/recurring/cancel`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_recurring_cancel(body: TransferRecurringCancelRequest | TransferRecurringCancelRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5063,7 +4781,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/recurring/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_recurring_create(body: TransferRecurringCreateRequest | TransferRecurringCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5081,7 +4798,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/recurring/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_recurring_get(body: TransferRecurringGetRequest | TransferRecurringGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5099,7 +4815,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/recurring/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_recurring_list(body: TransferRecurringListRequest | TransferRecurringListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5117,7 +4832,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/refund/cancel`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_refund_cancel(body: TransferRefundCancelRequest | TransferRefundCancelRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5135,7 +4849,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/refund/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_refund_create(body: TransferRefundCreateRequest | TransferRefundCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5153,7 +4866,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/refund/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_refund_get(body: TransferRefundGetRequest | TransferRefundGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5171,7 +4883,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/repayment/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_repayment_list(body: TransferRepaymentListRequest | TransferRepaymentListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5189,7 +4900,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/repayment/return/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_repayment_return_list(body: TransferRepaymentReturnListRequest | TransferRepaymentReturnListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5207,7 +4917,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/return/recover`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_return_recover(body: TransferReturnRecoverRequest | TransferReturnRecoverRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5225,7 +4934,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/sweep/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_sweep_get(body: TransferSweepGetRequest | TransferSweepGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5243,7 +4951,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /transfer/sweep/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def transfer_sweep_list(body: TransferSweepListRequest | TransferSweepListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5261,7 +4968,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /user_account/session/event/send`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def user_account_session_event_send(body: UserAccountSessionEventSendRequest | UserAccountSessionEventSendRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5279,7 +4985,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /user_account/session/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def user_account_session_get(body: UserAccountSessionGetRequest | UserAccountSessionGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5297,7 +5002,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /user/create`
 - **Auth**: (`client_id` AND `secret` AND `plaid_version`) OR `oauth2`
-- **Server**: `default`
 - **Signature**: `def user_create(body: UserCreateRequest | UserCreateRequestDict, *, plaid_new_user_api_enabled: bool | None = False, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `plaid_new_user_api_enabled` — header `Plaid-New-User-API-Enabled` · `body` — JSON body
@@ -5315,7 +5019,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /user/financial_data/refresh`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def user_financial_data_refresh(body: UserFinancialDataRefreshRequest | UserFinancialDataRefreshRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5333,7 +5036,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /user/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def user_get(body: UserGetRequest | UserGetRequestDict, *, plaid_new_user_api_enabled: bool | None = False, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `plaid_new_user_api_enabled` — header `Plaid-New-User-API-Enabled` · `body` — JSON body
@@ -5351,7 +5053,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /user/identity/remove`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def user_identity_remove(body: UserIdentityRemoveRequest | UserIdentityRemoveRequestDict, *, plaid_new_user_api_enabled: bool | None = False, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `plaid_new_user_api_enabled` — header `Plaid-New-User-API-Enabled` · `body` — JSON body
@@ -5369,7 +5070,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /user/items/associate`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def user_items_associate(body: UserItemsAssociateRequest | UserItemsAssociateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5387,7 +5087,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /user/items/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def user_items_get(body: UserItemsGetRequest | UserItemsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5405,7 +5104,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /user/items/remove`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def user_items_remove(body: UserItemsRemoveRequest | UserItemsRemoveRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5423,7 +5121,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /user/products/terminate`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def user_products_terminate(body: UserProductsTerminateRequest | UserProductsTerminateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5441,7 +5138,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /user/remove`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def user_remove(body: UserRemoveRequest | UserRemoveRequestDict, *, plaid_new_user_api_enabled: bool | None = False, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `plaid_new_user_api_enabled` — header `Plaid-New-User-API-Enabled` · `body` — JSON body
@@ -5459,7 +5155,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /user/third_party_token/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def user_third_party_token_create(body: UserThirdPartyTokenCreateRequest | UserThirdPartyTokenCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5477,7 +5172,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /user/third_party_token/remove`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def user_third_party_token_remove(body: UserThirdPartyTokenRemoveRequest | UserThirdPartyTokenRemoveRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5495,7 +5189,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /user/transactions/refresh`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def user_transactions_refresh(body: UserTransactionsRefreshRequest | UserTransactionsRefreshRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5513,7 +5206,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /user/update`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def user_update(body: UserUpdateRequest | UserUpdateRequestDict, *, plaid_new_user_api_enabled: bool | None = False, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `plaid_new_user_api_enabled` — header `Plaid-New-User-API-Enabled` · `body` — JSON body
@@ -5531,7 +5223,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /wallet/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def wallet_create(body: WalletCreateRequest | WalletCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5549,7 +5240,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /wallet/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def wallet_get(body: WalletGetRequest | WalletGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5567,7 +5257,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /wallet/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def wallet_list(body: WalletListRequest | WalletListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5585,7 +5274,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /wallet/transaction/execute`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def wallet_transaction_execute(body: WalletTransactionExecuteRequest | WalletTransactionExecuteRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5603,7 +5291,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /wallet/transaction/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def wallet_transaction_get(body: WalletTransactionGetRequest | WalletTransactionGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5621,7 +5308,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /wallet/transaction/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def wallet_transaction_list(body: WalletTransactionListRequest | WalletTransactionListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5639,7 +5325,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/entity/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_entity_create(body: WatchlistScreeningEntityCreateRequest | WatchlistScreeningEntityCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5657,7 +5342,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/entity/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_entity_get(body: WatchlistScreeningEntityGetRequest | WatchlistScreeningEntityGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5675,7 +5359,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/entity/history/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_entity_history_list(body: WatchlistScreeningEntityHistoryListRequest | WatchlistScreeningEntityHistoryListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5693,7 +5376,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/entity/hit/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_entity_hit_list(body: WatchlistScreeningEntityHitListRequest | WatchlistScreeningEntityHitListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5711,7 +5393,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/entity/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_entity_list(body: WatchlistScreeningEntityListRequest | WatchlistScreeningEntityListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5729,7 +5410,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/entity/program/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_entity_program_get(body: WatchlistScreeningEntityProgramGetRequest | WatchlistScreeningEntityProgramGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5747,7 +5427,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/entity/program/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_entity_program_list(body: WatchlistScreeningEntityProgramListRequest | WatchlistScreeningEntityProgramListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5765,7 +5444,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/entity/review/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_entity_review_create(body: WatchlistScreeningEntityReviewCreateRequest | WatchlistScreeningEntityReviewCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5783,7 +5461,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/entity/review/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_entity_review_list(body: WatchlistScreeningEntityReviewListRequest | WatchlistScreeningEntityReviewListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5801,7 +5478,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/entity/update`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_entity_update(body: WatchlistScreeningEntityUpdateRequest | WatchlistScreeningEntityUpdateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5819,7 +5495,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/individual/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_individual_create(body: WatchlistScreeningIndividualCreateRequest | WatchlistScreeningIndividualCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5837,7 +5512,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/individual/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_individual_get(body: WatchlistScreeningIndividualGetRequest | WatchlistScreeningIndividualGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5855,7 +5529,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/individual/history/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_individual_history_list(body: WatchlistScreeningIndividualHistoryListRequest | WatchlistScreeningIndividualHistoryListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5873,7 +5546,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/individual/hit/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_individual_hit_list(body: WatchlistScreeningIndividualHitListRequest | WatchlistScreeningIndividualHitListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5891,7 +5563,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/individual/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_individual_list(body: WatchlistScreeningIndividualListRequest | WatchlistScreeningIndividualListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5909,7 +5580,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/individual/program/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_individual_program_get(body: WatchlistScreeningIndividualProgramGetRequest | WatchlistScreeningIndividualProgramGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5927,7 +5597,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/individual/program/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_individual_program_list(body: WatchlistScreeningIndividualProgramListRequest | WatchlistScreeningIndividualProgramListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5945,7 +5614,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/individual/review/create`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_individual_review_create(body: WatchlistScreeningIndividualReviewCreateRequest | WatchlistScreeningIndividualReviewCreateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5963,7 +5631,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/individual/review/list`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_individual_review_list(body: WatchlistScreeningIndividualReviewListRequest | WatchlistScreeningIndividualReviewListRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5981,7 +5648,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /watchlist_screening/individual/update`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def watchlist_screening_individual_update(body: WatchlistScreeningIndividualUpdateRequest | WatchlistScreeningIndividualUpdateRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body
@@ -5999,7 +5665,6 @@ Each `###` block is one operation and assumes `sdk-map.md` is loaded: blocks omi
 
 - **Route**: `POST /webhook_verification_key/get`
 - **Auth**: `client_id` AND `secret` AND `plaid_version`
-- **Server**: `default`
 - **Signature**: `def webhook_verification_key_get(body: WebhookVerificationKeyGetRequest | WebhookVerificationKeyGetRequestDict, *, request_options: RequestOptionsOrDict | None = None)`
   - required, positional: `body`
 - **Params**: `body` — JSON body

@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
-from .enums.transfer_achnetwork import TransferAchnetworkOrStr
+from .enums.transfer_ach_network import TransferAchNetworkOrStr
 
 
 class TransferLedgerDepositRequest(SdkBaseModel):
@@ -48,7 +48,7 @@ class TransferLedgerDepositRequest(SdkBaseModel):
     twice. For example, if a request to create a ledger deposit fails due to a network connection error, you can retry
     the request with the same idempotency key to guarantee that only a single deposit is created."""
 
-    network: TransferAchnetworkOrStr
+    network: TransferAchNetworkOrStr
     """The ACH networks used for the funds flow.
 
     For requests submitted as either ``ach`` or ``same-day-ach`` the cutoff for Same Day ACH is 3:00 PM Eastern Time and
@@ -67,4 +67,4 @@ class TransferLedgerDepositRequestDict(TypedDict):
     amount: str
     description: NotRequired[str | None]
     idempotency_key: str
-    network: TransferAchnetworkOrStr
+    network: TransferAchNetworkOrStr

@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Date, OptionalNullable, SdkBaseModel
-from .pslfstatus import Pslfstatus, PslfstatusDict
+from .pslf_status import PslfStatus, PslfStatusDict
 from .servicer_address_data import ServicerAddressData, ServicerAddressDataDict
 from .student_loan_status import StudentLoanStatus, StudentLoanStatusDict
 from .student_repayment_plan import StudentRepaymentPlan, StudentRepaymentPlanDict
@@ -85,7 +85,7 @@ class StudentLoan(SdkBaseModel):
     ``payment_reference_number`` will match ``account_number``, but in some institutions, such as Great Lakes
     (``ins_116861``), it will be different."""
 
-    pslf_status: Pslfstatus
+    pslf_status: PslfStatus
     """Information about the student's eligibility in the Public Service Loan Forgiveness program. This is only returned
     if the institution is FedLoan (``ins_116527``). Since FedLoan no longer services student loans, this field is no
     longer returned."""
@@ -127,7 +127,7 @@ class StudentLoanDict(TypedDict):
     origination_principal_amount: float | None
     outstanding_interest_amount: float | None
     payment_reference_number: str | None
-    pslf_status: PslfstatusDict
+    pslf_status: PslfStatusDict
     repayment_plan: StudentRepaymentPlanDict
     sequence_number: str | None
     servicer_address: ServicerAddressDataDict

@@ -1,5 +1,5 @@
 from . import enums
-from .aamvaanalysis import Aamvaanalysis, AamvaanalysisDict
+from .aamva_analysis import AamvaAnalysis, AamvaAnalysisDict
 from .account import Account, AccountDict
 from .account_access import AccountAccess, AccountAccessDict
 from .account_assets import AccountAssets, AccountAssetsDict
@@ -92,8 +92,8 @@ from .asset_report_investment_security import AssetReportInvestmentSecurity, Ass
 from .asset_report_investment_transaction import AssetReportInvestmentTransaction, AssetReportInvestmentTransactionDict
 from .asset_report_investments import AssetReportInvestments, AssetReportInvestmentsDict
 from .asset_report_item import AssetReportItem, AssetReportItemDict
-from .asset_report_pdfget_request import AssetReportPdfgetRequest, AssetReportPdfgetRequestDict
-from .asset_report_pdfget_request_options import AssetReportPdfgetRequestOptions, AssetReportPdfgetRequestOptionsDict
+from .asset_report_pdf_get_request import AssetReportPdfGetRequest, AssetReportPdfGetRequestDict
+from .asset_report_pdf_get_request_options import AssetReportPdfGetRequestOptions, AssetReportPdfGetRequestOptionsDict
 from .asset_report_refresh_request import AssetReportRefreshRequest, AssetReportRefreshRequestDict
 from .asset_report_refresh_request_options import AssetReportRefreshRequestOptions, AssetReportRefreshRequestOptionsDict
 from .asset_report_refresh_response import AssetReportRefreshResponse, AssetReportRefreshResponseDict
@@ -266,7 +266,7 @@ from .beacon_user_get_request import BeaconUserGetRequest, BeaconUserGetRequestD
 from .beacon_user_get_response import BeaconUserGetResponse, BeaconUserGetResponseDict
 from .beacon_user_history_list_request import BeaconUserHistoryListRequest, BeaconUserHistoryListRequestDict
 from .beacon_user_history_list_response import BeaconUserHistoryListResponse, BeaconUserHistoryListResponseDict
-from .beacon_user_idnumber import BeaconUserIdnumber, BeaconUserIdnumberDict
+from .beacon_user_id_number import BeaconUserIdNumber, BeaconUserIdNumberDict
 from .beacon_user_name import BeaconUserName, BeaconUserNameDict
 from .beacon_user_name_nullable import BeaconUserNameNullable, BeaconUserNameNullableDict
 from .beacon_user_request_address import BeaconUserRequestAddress, BeaconUserRequestAddressDict
@@ -328,8 +328,8 @@ from .business_industry_prediction_nullable import (
     BusinessIndustryPredictionNullable,
     BusinessIndustryPredictionNullableDict,
 )
-from .business_kybcheck import BusinessKybcheck, BusinessKybcheckDict
-from .business_kybmatch_details import BusinessKybmatchDetails, BusinessKybmatchDetailsDict
+from .business_kyb_check import BusinessKybCheck, BusinessKybCheckDict
+from .business_kyb_match_details import BusinessKybMatchDetails, BusinessKybMatchDetailsDict
 from .business_phone_number import BusinessPhoneNumber, BusinessPhoneNumberDict
 from .business_risk_check import BusinessRiskCheck, BusinessRiskCheckDict
 from .business_search_terms import BusinessSearchTerms, BusinessSearchTermsDict
@@ -376,7 +376,7 @@ from .cash_flow_updates_new_loan_payment_webhook import (
     CashFlowUpdatesNewLoanPaymentWebhook,
     CashFlowUpdatesNewLoanPaymentWebhookDict,
 )
-from .cash_flow_updates_nsfwebhook import CashFlowUpdatesNsfwebhook, CashFlowUpdatesNsfwebhookDict
+from .cash_flow_updates_nsf_webhook import CashFlowUpdatesNsfWebhook, CashFlowUpdatesNsfWebhookDict
 from .cashflow_account_insights import CashflowAccountInsights, CashflowAccountInsightsDict
 from .cashflow_report_get_request import CashflowReportGetRequest, CashflowReportGetRequestDict
 from .cashflow_report_get_request_options import CashflowReportGetRequestOptions, CashflowReportGetRequestOptionsDict
@@ -477,7 +477,7 @@ from .consent_events_get_request import ConsentEventsGetRequest, ConsentEventsGe
 from .consent_events_get_response import ConsentEventsGetResponse, ConsentEventsGetResponseDict
 from .consented_account import ConsentedAccount, ConsentedAccountDict
 from .consumer_dispute import ConsumerDispute, ConsumerDisputeDict
-from .consumer_report_pdfget_request import ConsumerReportPdfgetRequest, ConsumerReportPdfgetRequestDict
+from .consumer_report_pdf_get_request import ConsumerReportPdfGetRequest, ConsumerReportPdfGetRequestDict
 from .consumer_report_user_identity import ConsumerReportUserIdentity, ConsumerReportUserIdentityDict
 from .counterparty import Counterparty, CounterpartyDict
 from .counterparty_insights import CounterpartyInsights, CounterpartyInsightsDict
@@ -562,7 +562,7 @@ from .cra_check_report_freddie_mac_verification_of_assets_deal import (
     CraCheckReportFreddieMacVerificationOfAssetsDeal,
     CraCheckReportFreddieMacVerificationOfAssetsDealDict,
 )
-from .cra_check_report_gseoptions import CraCheckReportGseoptions, CraCheckReportGseoptionsDict
+from .cra_check_report_gse_options import CraCheckReportGseOptions, CraCheckReportGseOptionsDict
 from .cra_check_report_home_lending_report_options import (
     CraCheckReportHomeLendingReportOptions,
     CraCheckReportHomeLendingReportOptionsDict,
@@ -619,7 +619,7 @@ from .cra_check_report_partner_insights_get_response import (
     CraCheckReportPartnerInsightsGetResponse,
     CraCheckReportPartnerInsightsGetResponseDict,
 )
-from .cra_check_report_pdfget_request import CraCheckReportPdfgetRequest, CraCheckReportPdfgetRequestDict
+from .cra_check_report_pdf_get_request import CraCheckReportPdfGetRequest, CraCheckReportPdfGetRequestDict
 from .cra_check_report_ready_webhook import CraCheckReportReadyWebhook, CraCheckReportReadyWebhookDict
 from .cra_check_report_verification_get_employment_refresh_options import (
     CraCheckReportVerificationGetEmploymentRefreshOptions,
@@ -687,6 +687,7 @@ from .cra_loans_applications_register_response import (
     CraLoansApplicationsRegisterResponse,
     CraLoansApplicationsRegisterResponseDict,
 )
+from .cra_loans_register_request import CraLoansRegisterRequest, CraLoansRegisterRequestDict
 from .cra_loans_register_response import CraLoansRegisterResponse, CraLoansRegisterResponseDict
 from .cra_loans_unregister_request import CraLoansUnregisterRequest, CraLoansUnregisterRequestDict
 from .cra_loans_update_request import CraLoansUpdateRequest, CraLoansUpdateRequestDict
@@ -789,7 +790,6 @@ from .cra_voa_report_account_historical_balance import (
 from .cra_voa_report_attributes import CraVoaReportAttributes, CraVoaReportAttributesDict
 from .cra_voa_report_item import CraVoaReportItem, CraVoaReportItemDict
 from .cra_voa_report_transactions_insights import CraVoaReportTransactionsInsights, CraVoaReportTransactionsInsightsDict
-from .craloans_register_request import CraloansRegisterRequest, CraloansRegisterRequestDict
 from .credit1099 import Credit1099, Credit1099Dict
 from .credit1099_filer import Credit1099Filer, Credit1099FilerDict
 from .credit1099_payer import Credit1099Payer, Credit1099PayerDict
@@ -840,7 +840,7 @@ from .credit_bank_income_historical_summary import (
     CreditBankIncomeHistoricalSummaryDict,
 )
 from .credit_bank_income_item import CreditBankIncomeItem, CreditBankIncomeItemDict
-from .credit_bank_income_pdfget_request import CreditBankIncomePdfgetRequest, CreditBankIncomePdfgetRequestDict
+from .credit_bank_income_pdf_get_request import CreditBankIncomePdfGetRequest, CreditBankIncomePdfGetRequestDict
 from .credit_bank_income_refresh_request import CreditBankIncomeRefreshRequest, CreditBankIncomeRefreshRequestDict
 from .credit_bank_income_refresh_request_options import (
     CreditBankIncomeRefreshRequestOptions,
@@ -997,7 +997,7 @@ from .credit_platform_ids import CreditPlatformIds, CreditPlatformIdsDict
 from .credit_relay_create_request import CreditRelayCreateRequest, CreditRelayCreateRequestDict
 from .credit_relay_create_response import CreditRelayCreateResponse, CreditRelayCreateResponseDict
 from .credit_relay_get_request import CreditRelayGetRequest, CreditRelayGetRequestDict
-from .credit_relay_pdfget_request import CreditRelayPdfgetRequest, CreditRelayPdfgetRequestDict
+from .credit_relay_pdf_get_request import CreditRelayPdfGetRequest, CreditRelayPdfGetRequestDict
 from .credit_relay_refresh_request import CreditRelayRefreshRequest, CreditRelayRefreshRequestDict
 from .credit_relay_refresh_response import CreditRelayRefreshResponse, CreditRelayRefreshResponseDict
 from .credit_relay_remove_request import CreditRelayRemoveRequest, CreditRelayRemoveRequestDict
@@ -1118,19 +1118,19 @@ from .fallback_auth_microdeposit_verification_expired_webhook import (
     FallbackAuthMicrodepositVerificationExpiredWebhook,
     FallbackAuthMicrodepositVerificationExpiredWebhookDict,
 )
+from .fdx_consent_grant import FdxConsentGrant, FdxConsentGrantDict
+from .fdx_consent_grant_resource import FdxConsentGrantResource, FdxConsentGrantResourceDict
+from .fdx_consent_revocation import FdxConsentRevocation, FdxConsentRevocationDict
+from .fdx_consent_revocation_record import FdxConsentRevocationRecord, FdxConsentRevocationRecordDict
+from .fdx_consent_revocations import FdxConsentRevocations, FdxConsentRevocationsDict
 from .fdx_lifecycle_event_entity import FdxLifecycleEventEntity, FdxLifecycleEventEntityDict
 from .fdx_notification_entity import FdxNotificationEntity, FdxNotificationEntityDict
-from .fdxconsent_grant import FdxconsentGrant, FdxconsentGrantDict
-from .fdxconsent_grant_resource import FdxconsentGrantResource, FdxconsentGrantResourceDict
-from .fdxconsent_revocation import FdxconsentRevocation, FdxconsentRevocationDict
-from .fdxconsent_revocation_record import FdxconsentRevocationRecord, FdxconsentRevocationRecordDict
-from .fdxconsent_revocations import FdxconsentRevocations, FdxconsentRevocationsDict
-from .fdxrecipient_metadata import FdxrecipientMetadata, FdxrecipientMetadataDict
+from .fdx_recipient_metadata import FdxRecipientMetadata, FdxRecipientMetadataDict
 from .fi_attribute_entity import FiAttributeEntity, FiAttributeEntityDict
 from .financial_institution_insights import FinancialInstitutionInsights, FinancialInstitutionInsightsDict
 from .fixed_income import FixedIncome, FixedIncomeDict
 from .forecasted_monthly_income import ForecastedMonthlyIncome, ForecastedMonthlyIncomeDict
-from .forwarded_jsonresponse import ForwardedJsonresponse, ForwardedJsonresponseDict
+from .forwarded_json_response import ForwardedJsonResponse, ForwardedJsonResponseDict
 from .fraud_amount import FraudAmount, FraudAmountDict
 from .fraud_analysis_details import FraudAnalysisDetails, FraudAnalysisDetailsDict
 from .gambling_indicators import GamblingIndicators, GamblingIndicatorsDict
@@ -1146,7 +1146,7 @@ from .holding import Holding, HoldingDict
 from .holding_tax_lot import HoldingTaxLot, HoldingTaxLotDict
 from .holdings_default_update_webhook import HoldingsDefaultUpdateWebhook, HoldingsDefaultUpdateWebhookDict
 from .holdings_override import HoldingsOverride, HoldingsOverrideDict
-from .hosted_mmdverification_webhook import HostedMmdverificationWebhook, HostedMmdverificationWebhookDict
+from .hosted_mmd_verification_webhook import HostedMmdVerificationWebhook, HostedMmdVerificationWebhookDict
 from .human_review import HumanReview, HumanReviewDict
 from .id_number import IdNumber, IdNumberDict
 from .identity_default_update_webhook import IdentityDefaultUpdateWebhook, IdentityDefaultUpdateWebhookDict
@@ -1261,7 +1261,7 @@ from .identity_verification_template_reference import (
 )
 from .identity_verification_user_address import IdentityVerificationUserAddress, IdentityVerificationUserAddressDict
 from .identity_verification_user_data import IdentityVerificationUserData, IdentityVerificationUserDataDict
-from .idvprotect_event import IdvprotectEvent, IdvprotectEventDict
+from .idv_protect_event import IdvProtectEvent, IdvProtectEventDict
 from .image_quality_details import ImageQualityDetails, ImageQualityDetailsDict
 from .incident_update import IncidentUpdate, IncidentUpdateDict
 from .income_breakdown import IncomeBreakdown, IncomeBreakdownDict
@@ -1464,18 +1464,18 @@ from .item_status_transactions import ItemStatusTransactions, ItemStatusTransact
 from .item_webhook_update_request import ItemWebhookUpdateRequest, ItemWebhookUpdateRequestDict
 from .item_webhook_update_response import ItemWebhookUpdateResponse, ItemWebhookUpdateResponseDict
 from .item_with_consent_fields import ItemWithConsentFields, ItemWithConsentFieldsDict
-from .jwkpublic_key import JwkpublicKey, JwkpublicKeyDict
-from .jwtheader import Jwtheader, JwtheaderDict
-from .kyccheck_address_summary import KyccheckAddressSummary, KyccheckAddressSummaryDict
-from .kyccheck_date_of_birth_summary import KyccheckDateOfBirthSummary, KyccheckDateOfBirthSummaryDict
-from .kyccheck_details import KyccheckDetails, KyccheckDetailsDict
-from .kyccheck_details_international_address import (
-    KyccheckDetailsInternationalAddress,
-    KyccheckDetailsInternationalAddressDict,
+from .jwk_public_key import JwkPublicKey, JwkPublicKeyDict
+from .jwt_header import JwtHeader, JwtHeaderDict
+from .kyc_check_address_summary import KycCheckAddressSummary, KycCheckAddressSummaryDict
+from .kyc_check_date_of_birth_summary import KycCheckDateOfBirthSummary, KycCheckDateOfBirthSummaryDict
+from .kyc_check_details import KycCheckDetails, KycCheckDetailsDict
+from .kyc_check_details_international_address import (
+    KycCheckDetailsInternationalAddress,
+    KycCheckDetailsInternationalAddressDict,
 )
-from .kyccheck_idnumber_summary import KyccheckIdnumberSummary, KyccheckIdnumberSummaryDict
-from .kyccheck_name_summary import KyccheckNameSummary, KyccheckNameSummaryDict
-from .kyccheck_phone_summary import KyccheckPhoneSummary, KyccheckPhoneSummaryDict
+from .kyc_check_id_number_summary import KycCheckIdNumberSummary, KycCheckIdNumberSummaryDict
+from .kyc_check_name_summary import KycCheckNameSummary, KycCheckNameSummaryDict
+from .kyc_check_phone_summary import KycCheckPhoneSummary, KycCheckPhoneSummaryDict
 from .last_data_access_times import LastDataAccessTimes, LastDataAccessTimesDict
 from .latest_scored_event import LatestScoredEvent, LatestScoredEventDict
 from .layer_authentication_passed_webhook import LayerAuthenticationPassedWebhook, LayerAuthenticationPassedWebhookDict
@@ -1501,13 +1501,13 @@ from .link_delivery_recipient import LinkDeliveryRecipient, LinkDeliveryRecipien
 from .link_event import LinkEvent, LinkEventDict
 from .link_event_metadata import LinkEventMetadata, LinkEventMetadataDict
 from .link_events_webhook import LinkEventsWebhook, LinkEventsWebhookDict
-from .link_oauth_correlation_id_exchange_request import (
-    LinkOauthCorrelationIdExchangeRequest,
-    LinkOauthCorrelationIdExchangeRequestDict,
+from .link_o_auth_correlation_id_exchange_request import (
+    LinkOAuthCorrelationIdExchangeRequest,
+    LinkOAuthCorrelationIdExchangeRequestDict,
 )
-from .link_oauth_correlation_id_exchange_response import (
-    LinkOauthCorrelationIdExchangeResponse,
-    LinkOauthCorrelationIdExchangeResponseDict,
+from .link_o_auth_correlation_id_exchange_response import (
+    LinkOAuthCorrelationIdExchangeResponse,
+    LinkOAuthCorrelationIdExchangeResponseDict,
 )
 from .link_session_bank_employment_result import LinkSessionBankEmploymentResult, LinkSessionBankEmploymentResultDict
 from .link_session_bank_income_result import LinkSessionBankIncomeResult, LinkSessionBankIncomeResultDict
@@ -1566,9 +1566,9 @@ from .link_token_create_request_cra_options_base_report import (
     LinkTokenCreateRequestCraOptionsBaseReport,
     LinkTokenCreateRequestCraOptionsBaseReportDict,
 )
-from .link_token_create_request_cra_options_base_report_gseoptions import (
-    LinkTokenCreateRequestCraOptionsBaseReportGseoptions,
-    LinkTokenCreateRequestCraOptionsBaseReportGseoptionsDict,
+from .link_token_create_request_cra_options_base_report_gse_options import (
+    LinkTokenCreateRequestCraOptionsBaseReportGseOptions,
+    LinkTokenCreateRequestCraOptionsBaseReportGseOptionsDict,
 )
 from .link_token_create_request_cra_options_cashflow_insights import (
     LinkTokenCreateRequestCraOptionsCashflowInsights,
@@ -1636,7 +1636,7 @@ from .link_token_create_request_user_stated_income_source import (
     LinkTokenCreateRequestUserStatedIncomeSourceDict,
 )
 from .link_token_create_response import LinkTokenCreateResponse, LinkTokenCreateResponseDict
-from .link_token_euconfig import LinkTokenEuconfig, LinkTokenEuconfigDict
+from .link_token_eu_config import LinkTokenEuConfig, LinkTokenEuConfigDict
 from .link_token_get_metadata_response import LinkTokenGetMetadataResponse, LinkTokenGetMetadataResponseDict
 from .link_token_get_request import LinkTokenGetRequest, LinkTokenGetRequestDict
 from .link_token_get_response import LinkTokenGetResponse, LinkTokenGetResponseDict
@@ -1684,24 +1684,24 @@ from .notification_payload_entity import NotificationPayloadEntity, Notification
 from .numbers import Numbers, NumbersDict
 from .numbers_acats import NumbersAcats, NumbersAcatsDict
 from .numbers_ach import NumbersAch, NumbersAchDict
-from .numbers_achnullable import NumbersAchnullable, NumbersAchnullableDict
+from .numbers_ach_nullable import NumbersAchNullable, NumbersAchNullableDict
 from .numbers_aton import NumbersAton, NumbersAtonDict
 from .numbers_bacs import NumbersBacs, NumbersBacsDict
-from .numbers_bacsnullable import NumbersBacsnullable, NumbersBacsnullableDict
+from .numbers_bacs_nullable import NumbersBacsNullable, NumbersBacsNullableDict
 from .numbers_eft import NumbersEft, NumbersEftDict
-from .numbers_eftnullable import NumbersEftnullable, NumbersEftnullableDict
+from .numbers_eft_nullable import NumbersEftNullable, NumbersEftNullableDict
 from .numbers_international import NumbersInternational, NumbersInternationalDict
 from .numbers_international_iban import NumbersInternationalIban, NumbersInternationalIbanDict
 from .numbers_international_nullable import NumbersInternationalNullable, NumbersInternationalNullableDict
 from .numbers_retirement401_k import NumbersRetirement401K, NumbersRetirement401KDict
-from .oauth_error_response_error import OauthErrorResponseError, OauthErrorResponseErrorDict
-from .oauth_error_response_model import OauthErrorResponseModel, OauthErrorResponseModelDict
-from .oauth_introspect_request import OauthIntrospectRequest, OauthIntrospectRequestDict
-from .oauth_introspect_response import OauthIntrospectResponse, OauthIntrospectResponseDict
-from .oauth_revoke_request import OauthRevokeRequest, OauthRevokeRequestDict
-from .oauth_revoke_response import OauthRevokeResponse, OauthRevokeResponseDict
-from .oauth_token_request import OauthTokenRequest, OauthTokenRequestDict
-from .oauth_token_response import OauthTokenResponse, OauthTokenResponseDict
+from .o_auth_error_response import OAuthErrorResponse, OAuthErrorResponseDict
+from .o_auth_error_response_error import OAuthErrorResponseError, OAuthErrorResponseErrorDict
+from .o_auth_introspect_request import OAuthIntrospectRequest, OAuthIntrospectRequestDict
+from .o_auth_introspect_response import OAuthIntrospectResponse, OAuthIntrospectResponseDict
+from .o_auth_revoke_request import OAuthRevokeRequest, OAuthRevokeRequestDict
+from .o_auth_revoke_response import OAuthRevokeResponse, OAuthRevokeResponseDict
+from .o_auth_token_request import OAuthTokenRequest, OAuthTokenRequestDict
+from .o_auth_token_response import OAuthTokenResponse, OAuthTokenResponseDict
 from .option_contract import OptionContract, OptionContractDict
 from .originating_fund_source import OriginatingFundSource, OriginatingFundSourceDict
 from .originator import Originator, OriginatorDict
@@ -1717,13 +1717,13 @@ from .partner_customer_enable_request import PartnerCustomerEnableRequest, Partn
 from .partner_customer_enable_response import PartnerCustomerEnableResponse, PartnerCustomerEnableResponseDict
 from .partner_customer_get_request import PartnerCustomerGetRequest, PartnerCustomerGetRequestDict
 from .partner_customer_get_response import PartnerCustomerGetResponse, PartnerCustomerGetResponseDict
-from .partner_customer_oauth_institutions_get_request import (
-    PartnerCustomerOauthInstitutionsGetRequest,
-    PartnerCustomerOauthInstitutionsGetRequestDict,
+from .partner_customer_o_auth_institutions_get_request import (
+    PartnerCustomerOAuthInstitutionsGetRequest,
+    PartnerCustomerOAuthInstitutionsGetRequestDict,
 )
-from .partner_customer_oauth_institutions_get_response import (
-    PartnerCustomerOauthInstitutionsGetResponse,
-    PartnerCustomerOauthInstitutionsGetResponseDict,
+from .partner_customer_o_auth_institutions_get_response import (
+    PartnerCustomerOAuthInstitutionsGetResponse,
+    PartnerCustomerOAuthInstitutionsGetResponseDict,
 )
 from .partner_customer_remove_request import PartnerCustomerRemoveRequest, PartnerCustomerRemoveRequestDict
 from .partner_customer_remove_response import PartnerCustomerRemoveResponse, PartnerCustomerRemoveResponseDict
@@ -1738,27 +1738,27 @@ from .partner_end_customer_bank_addendum_acceptance import (
     PartnerEndCustomerBankAddendumAcceptanceDict,
 )
 from .partner_end_customer_billing_contact import PartnerEndCustomerBillingContact, PartnerEndCustomerBillingContactDict
-from .partner_end_customer_crapurposes import PartnerEndCustomerCrapurposes, PartnerEndCustomerCrapurposesDict
-from .partner_end_customer_craquestionnaire import (
-    PartnerEndCustomerCraquestionnaire,
-    PartnerEndCustomerCraquestionnaireDict,
+from .partner_end_customer_cra_purposes import PartnerEndCustomerCraPurposes, PartnerEndCustomerCraPurposesDict
+from .partner_end_customer_cra_questionnaire import (
+    PartnerEndCustomerCraQuestionnaire,
+    PartnerEndCustomerCraQuestionnaireDict,
 )
-from .partner_end_customer_crause_cases import PartnerEndCustomerCrauseCases, PartnerEndCustomerCrauseCasesDict
+from .partner_end_customer_cra_use_cases import PartnerEndCustomerCraUseCases, PartnerEndCustomerCraUseCasesDict
 from .partner_end_customer_customer_support_info import (
     PartnerEndCustomerCustomerSupportInfo,
     PartnerEndCustomerCustomerSupportInfoDict,
 )
-from .partner_end_customer_oauth_institution import (
-    PartnerEndCustomerOauthInstitution,
-    PartnerEndCustomerOauthInstitutionDict,
+from .partner_end_customer_o_auth_institution import (
+    PartnerEndCustomerOAuthInstitution,
+    PartnerEndCustomerOAuthInstitutionDict,
 )
-from .partner_end_customer_oauth_institution_environments import (
-    PartnerEndCustomerOauthInstitutionEnvironments,
-    PartnerEndCustomerOauthInstitutionEnvironmentsDict,
+from .partner_end_customer_o_auth_institution_environments import (
+    PartnerEndCustomerOAuthInstitutionEnvironments,
+    PartnerEndCustomerOAuthInstitutionEnvironmentsDict,
 )
-from .partner_end_customer_oauth_status_updated_webhook import (
-    PartnerEndCustomerOauthStatusUpdatedWebhook,
-    PartnerEndCustomerOauthStatusUpdatedWebhookDict,
+from .partner_end_customer_o_auth_status_updated_webhook import (
+    PartnerEndCustomerOAuthStatusUpdatedWebhook,
+    PartnerEndCustomerOAuthStatusUpdatedWebhookDict,
 )
 from .partner_end_customer_questionnaires import PartnerEndCustomerQuestionnaires, PartnerEndCustomerQuestionnairesDict
 from .partner_end_customer_secrets import PartnerEndCustomerSecrets, PartnerEndCustomerSecretsDict
@@ -1951,7 +1951,7 @@ from .paystub_override_employer_address import PaystubOverrideEmployerAddress, P
 from .paystub_override_net_pay import PaystubOverrideNetPay, PaystubOverrideNetPayDict
 from .paystub_override_pay_period_details import PaystubOverridePayPeriodDetails, PaystubOverridePayPeriodDetailsDict
 from .paystub_override_taxpayer_id import PaystubOverrideTaxpayerId, PaystubOverrideTaxpayerIdDict
-from .paystub_ytddetails import PaystubYtddetails, PaystubYtddetailsDict
+from .paystub_ytd_details import PaystubYtdDetails, PaystubYtdDetailsDict
 from .pending_disconnect_webhook import PendingDisconnectWebhook, PendingDisconnectWebhookDict
 from .pending_expiration_webhook import PendingExpirationWebhook, PendingExpirationWebhookDict
 from .personal_finance_category import PersonalFinanceCategory, PersonalFinanceCategoryDict
@@ -2155,18 +2155,18 @@ from .protect_model_inputs import ProtectModelInputs, ProtectModelInputsDict
 from .protect_report import ProtectReport, ProtectReportDict
 from .protect_report_create_request import ProtectReportCreateRequest, ProtectReportCreateRequestDict
 from .protect_report_create_response import ProtectReportCreateResponse, ProtectReportCreateResponseDict
-from .protect_sdkmodel_inputs import ProtectSdkmodelInputs, ProtectSdkmodelInputsDict
+from .protect_sdk_model_inputs import ProtectSdkModelInputs, ProtectSdkModelInputsDict
 from .protect_user import ProtectUser, ProtectUserDict
 from .protect_user_event_webhook import ProtectUserEventWebhook, ProtectUserEventWebhookDict
 from .protect_user_insights_get_request import ProtectUserInsightsGetRequest, ProtectUserInsightsGetRequestDict
 from .protect_user_insights_get_response import ProtectUserInsightsGetResponse, ProtectUserInsightsGetResponseDict
 from .provider_business_address import ProviderBusinessAddress, ProviderBusinessAddressDict
 from .provider_business_name import ProviderBusinessName, ProviderBusinessNameDict
-from .pslfstatus import Pslfstatus, PslfstatusDict
+from .pslf_status import PslfStatus, PslfStatusDict
 from .recaptcha_required_error import RecaptchaRequiredError, RecaptchaRequiredErrorDict
 from .receiver_details import ReceiverDetails, ReceiverDetailsDict
 from .recipient_bacs import RecipientBacs, RecipientBacsDict
-from .recipient_bacsnullable import RecipientBacsnullable, RecipientBacsnullableDict
+from .recipient_bacs_nullable import RecipientBacsNullable, RecipientBacsNullableDict
 from .recurring_cancelled_webhook import RecurringCancelledWebhook, RecurringCancelledWebhookDict
 from .recurring_insights_stream import RecurringInsightsStream, RecurringInsightsStreamDict
 from .recurring_new_transfer_webhook import RecurringNewTransferWebhook, RecurringNewTransferWebhookDict
@@ -2430,7 +2430,7 @@ from .selfie_analysis_facial_analysis import SelfieAnalysisFacialAnalysis, Selfi
 from .selfie_capture import SelfieCapture, SelfieCaptureDict
 from .selfie_check import SelfieCheck, SelfieCheckDict
 from .selfie_check_selfie import SelfieCheckSelfie, SelfieCheckSelfieDict
-from .sender_bacsnullable import SenderBacsnullable, SenderBacsnullableDict
+from .sender_bacs_nullable import SenderBacsNullable, SenderBacsNullableDict
 from .service import Service, ServiceDict
 from .service_product_fulfillment import ServiceProductFulfillment, ServiceProductFulfillmentDict
 from .service_product_fulfillment_detail import ServiceProductFulfillmentDetail, ServiceProductFulfillmentDetailDict
@@ -2462,7 +2462,7 @@ from .signal_user import SignalUser, SignalUserDict
 from .signal_warning import SignalWarning, SignalWarningDict
 from .simulated_transfer_sweep import SimulatedTransferSweep, SimulatedTransferSweepDict
 from .single_document_risk_signal import SingleDocumentRiskSignal, SingleDocumentRiskSignalDict
-from .smsverification import Smsverification, SmsverificationDict
+from .sms_verification import SmsVerification, SmsVerificationDict
 from .standalone_account_type import StandaloneAccountType, StandaloneAccountTypeDict
 from .standalone_currency_code_list import StandaloneCurrencyCodeList, StandaloneCurrencyCodeListDict
 from .standalone_investment_transaction_type import (
@@ -2492,7 +2492,7 @@ from .taxform import Taxform, TaxformDict
 from .taxpayer_id import TaxpayerId, TaxpayerIdDict
 from .taxpayer_identifier import TaxpayerIdentifier, TaxpayerIdentifierDict
 from .taxpayer_identifiers import TaxpayerIdentifiers, TaxpayerIdentifiersDict
-from .tosacceptance_metadata import TosacceptanceMetadata, TosacceptanceMetadataDict
+from .tos_acceptance_metadata import TosAcceptanceMetadata, TosAcceptanceMetadataDict
 from .total import Total, TotalDict
 from .total_inflow_amount import TotalInflowAmount, TotalInflowAmountDict
 from .total_inflow_amount30_d import TotalInflowAmount30D, TotalInflowAmount30DDict
@@ -2743,7 +2743,7 @@ from .transfer_platform_person_create_response import (
     TransferPlatformPersonCreateResponse,
     TransferPlatformPersonCreateResponseDict,
 )
-from .transfer_platform_person_idnumber import TransferPlatformPersonIdnumber, TransferPlatformPersonIdnumberDict
+from .transfer_platform_person_id_number import TransferPlatformPersonIdNumber, TransferPlatformPersonIdNumberDict
 from .transfer_platform_person_name import TransferPlatformPersonName, TransferPlatformPersonNameDict
 from .transfer_platform_requirement import TransferPlatformRequirement, TransferPlatformRequirementDict
 from .transfer_platform_requirement_submit_request import (
@@ -2848,9 +2848,9 @@ from .user_financial_data_refresh_request import UserFinancialDataRefreshRequest
 from .user_financial_data_refresh_response import UserFinancialDataRefreshResponse, UserFinancialDataRefreshResponseDict
 from .user_get_request import UserGetRequest, UserGetRequestDict
 from .user_get_response import UserGetResponse, UserGetResponseDict
+from .user_id_number import UserIdNumber, UserIdNumberDict
 from .user_identity_remove_request import UserIdentityRemoveRequest, UserIdentityRemoveRequestDict
 from .user_identity_remove_response import UserIdentityRemoveResponse, UserIdentityRemoveResponseDict
-from .user_idnumber import UserIdnumber, UserIdnumberDict
 from .user_items_associate_request import UserItemsAssociateRequest, UserItemsAssociateRequestDict
 from .user_items_associate_response import UserItemsAssociateResponse, UserItemsAssociateResponseDict
 from .user_items_get_request import UserItemsGetRequest, UserItemsGetRequestDict
@@ -2892,7 +2892,7 @@ from .verification_insights_network_status import (
 )
 from .verification_of_asset import VerificationOfAsset, VerificationOfAssetDict
 from .verification_of_asset_response import VerificationOfAssetResponse, VerificationOfAssetResponseDict
-from .verify_smsdetails import VerifySmsdetails, VerifySmsdetailsDict
+from .verify_sms_details import VerifySmsDetails, VerifySmsDetailsDict
 from .w2 import W2, W2Dict
 from .w2_box12 import W2Box12, W2Box12Dict
 from .w2_box12_override import W2Box12Override, W2Box12OverrideDict
@@ -3118,13 +3118,16 @@ from .webhook_verification_key_get_response import (
     WebhookVerificationKeyGetResponseDict,
 )
 from .yield_rate import YieldRate, YieldRateDict
-from .ytdgross_income_summary_field_number import YtdgrossIncomeSummaryFieldNumber, YtdgrossIncomeSummaryFieldNumberDict
-from .ytdnet_income_summary_field_number import YtdnetIncomeSummaryFieldNumber, YtdnetIncomeSummaryFieldNumberDict
+from .ytd_gross_income_summary_field_number import (
+    YtdGrossIncomeSummaryFieldNumber,
+    YtdGrossIncomeSummaryFieldNumberDict,
+)
+from .ytd_net_income_summary_field_number import YtdNetIncomeSummaryFieldNumber, YtdNetIncomeSummaryFieldNumberDict
 
 __all__ = [
     "enums",
-    "Aamvaanalysis",
-    "AamvaanalysisDict",
+    "AamvaAnalysis",
+    "AamvaAnalysisDict",
     "Account",
     "AccountAccess",
     "AccountAccessDict",
@@ -3261,10 +3264,10 @@ __all__ = [
     "AssetReportInvestmentsDict",
     "AssetReportItem",
     "AssetReportItemDict",
-    "AssetReportPdfgetRequest",
-    "AssetReportPdfgetRequestDict",
-    "AssetReportPdfgetRequestOptions",
-    "AssetReportPdfgetRequestOptionsDict",
+    "AssetReportPdfGetRequest",
+    "AssetReportPdfGetRequestDict",
+    "AssetReportPdfGetRequestOptions",
+    "AssetReportPdfGetRequestOptionsDict",
     "AssetReportRefreshRequest",
     "AssetReportRefreshRequestDict",
     "AssetReportRefreshRequestOptions",
@@ -3513,8 +3516,8 @@ __all__ = [
     "BeaconUserHistoryListRequestDict",
     "BeaconUserHistoryListResponse",
     "BeaconUserHistoryListResponseDict",
-    "BeaconUserIdnumber",
-    "BeaconUserIdnumberDict",
+    "BeaconUserIdNumber",
+    "BeaconUserIdNumberDict",
     "BeaconUserName",
     "BeaconUserNameDict",
     "BeaconUserNameNullable",
@@ -3577,10 +3580,10 @@ __all__ = [
     "BusinessIndustryPredictionDict",
     "BusinessIndustryPredictionNullable",
     "BusinessIndustryPredictionNullableDict",
-    "BusinessKybcheck",
-    "BusinessKybcheckDict",
-    "BusinessKybmatchDetails",
-    "BusinessKybmatchDetailsDict",
+    "BusinessKybCheck",
+    "BusinessKybCheckDict",
+    "BusinessKybMatchDetails",
+    "BusinessKybMatchDetailsDict",
     "BusinessPhoneNumber",
     "BusinessPhoneNumberDict",
     "BusinessRiskCheck",
@@ -3619,8 +3622,8 @@ __all__ = [
     "CashFlowUpdatesNewIncomeStreamWebhookDict",
     "CashFlowUpdatesNewLoanPaymentWebhook",
     "CashFlowUpdatesNewLoanPaymentWebhookDict",
-    "CashFlowUpdatesNsfwebhook",
-    "CashFlowUpdatesNsfwebhookDict",
+    "CashFlowUpdatesNsfWebhook",
+    "CashFlowUpdatesNsfWebhookDict",
     "CashflowAccountInsights",
     "CashflowAccountInsightsDict",
     "CashflowReportGetRequest",
@@ -3719,8 +3722,8 @@ __all__ = [
     "ConsentedAccountDict",
     "ConsumerDispute",
     "ConsumerDisputeDict",
-    "ConsumerReportPdfgetRequest",
-    "ConsumerReportPdfgetRequestDict",
+    "ConsumerReportPdfGetRequest",
+    "ConsumerReportPdfGetRequestDict",
     "ConsumerReportUserIdentity",
     "ConsumerReportUserIdentityDict",
     "Counterparty",
@@ -3799,8 +3802,8 @@ __all__ = [
     "CraCheckReportFreddieMacGetResponseDict",
     "CraCheckReportFreddieMacVerificationOfAssetsDeal",
     "CraCheckReportFreddieMacVerificationOfAssetsDealDict",
-    "CraCheckReportGseoptions",
-    "CraCheckReportGseoptionsDict",
+    "CraCheckReportGseOptions",
+    "CraCheckReportGseOptionsDict",
     "CraCheckReportHomeLendingReportOptions",
     "CraCheckReportHomeLendingReportOptionsDict",
     "CraCheckReportIncomeInsightsGetOptions",
@@ -3829,8 +3832,8 @@ __all__ = [
     "CraCheckReportPartnerInsightsGetRequestDict",
     "CraCheckReportPartnerInsightsGetResponse",
     "CraCheckReportPartnerInsightsGetResponseDict",
-    "CraCheckReportPdfgetRequest",
-    "CraCheckReportPdfgetRequestDict",
+    "CraCheckReportPdfGetRequest",
+    "CraCheckReportPdfGetRequestDict",
     "CraCheckReportReadyWebhook",
     "CraCheckReportReadyWebhookDict",
     "CraCheckReportVerificationGetEmploymentRefreshOptions",
@@ -3905,6 +3908,8 @@ __all__ = [
     "CraLoansApplicationsRegisterRequestDict",
     "CraLoansApplicationsRegisterResponse",
     "CraLoansApplicationsRegisterResponseDict",
+    "CraLoansRegisterRequest",
+    "CraLoansRegisterRequestDict",
     "CraLoansRegisterResponse",
     "CraLoansRegisterResponseDict",
     "CraLoansUnregisterRequest",
@@ -4031,8 +4036,6 @@ __all__ = [
     "CraVoaReportItemDict",
     "CraVoaReportTransactionsInsights",
     "CraVoaReportTransactionsInsightsDict",
-    "CraloansRegisterRequest",
-    "CraloansRegisterRequestDict",
     "Credit1099",
     "Credit1099Dict",
     "Credit1099Filer",
@@ -4085,8 +4088,8 @@ __all__ = [
     "CreditBankIncomeHistoricalSummaryDict",
     "CreditBankIncomeItem",
     "CreditBankIncomeItemDict",
-    "CreditBankIncomePdfgetRequest",
-    "CreditBankIncomePdfgetRequestDict",
+    "CreditBankIncomePdfGetRequest",
+    "CreditBankIncomePdfGetRequestDict",
     "CreditBankIncomeRefreshRequest",
     "CreditBankIncomeRefreshRequestDict",
     "CreditBankIncomeRefreshRequestOptions",
@@ -4231,8 +4234,8 @@ __all__ = [
     "CreditRelayCreateResponseDict",
     "CreditRelayGetRequest",
     "CreditRelayGetRequestDict",
-    "CreditRelayPdfgetRequest",
-    "CreditRelayPdfgetRequestDict",
+    "CreditRelayPdfGetRequest",
+    "CreditRelayPdfGetRequestDict",
     "CreditRelayRefreshRequest",
     "CreditRelayRefreshRequestDict",
     "CreditRelayRefreshResponse",
@@ -4413,22 +4416,22 @@ __all__ = [
     "FallbackAuthMicrodepositAutoVerifiedWebhookDict",
     "FallbackAuthMicrodepositVerificationExpiredWebhook",
     "FallbackAuthMicrodepositVerificationExpiredWebhookDict",
+    "FdxConsentGrant",
+    "FdxConsentGrantDict",
+    "FdxConsentGrantResource",
+    "FdxConsentGrantResourceDict",
+    "FdxConsentRevocation",
+    "FdxConsentRevocationDict",
+    "FdxConsentRevocationRecord",
+    "FdxConsentRevocationRecordDict",
+    "FdxConsentRevocations",
+    "FdxConsentRevocationsDict",
     "FdxLifecycleEventEntity",
     "FdxLifecycleEventEntityDict",
     "FdxNotificationEntity",
     "FdxNotificationEntityDict",
-    "FdxconsentGrant",
-    "FdxconsentGrantDict",
-    "FdxconsentGrantResource",
-    "FdxconsentGrantResourceDict",
-    "FdxconsentRevocation",
-    "FdxconsentRevocationDict",
-    "FdxconsentRevocationRecord",
-    "FdxconsentRevocationRecordDict",
-    "FdxconsentRevocations",
-    "FdxconsentRevocationsDict",
-    "FdxrecipientMetadata",
-    "FdxrecipientMetadataDict",
+    "FdxRecipientMetadata",
+    "FdxRecipientMetadataDict",
     "FiAttributeEntity",
     "FiAttributeEntityDict",
     "FinancialInstitutionInsights",
@@ -4437,8 +4440,8 @@ __all__ = [
     "FixedIncomeDict",
     "ForecastedMonthlyIncome",
     "ForecastedMonthlyIncomeDict",
-    "ForwardedJsonresponse",
-    "ForwardedJsonresponseDict",
+    "ForwardedJsonResponse",
+    "ForwardedJsonResponseDict",
     "FraudAmount",
     "FraudAmountDict",
     "FraudAnalysisDetails",
@@ -4469,8 +4472,8 @@ __all__ = [
     "HoldingsDefaultUpdateWebhookDict",
     "HoldingsOverride",
     "HoldingsOverrideDict",
-    "HostedMmdverificationWebhook",
-    "HostedMmdverificationWebhookDict",
+    "HostedMmdVerificationWebhook",
+    "HostedMmdVerificationWebhookDict",
     "HumanReview",
     "HumanReviewDict",
     "IdNumber",
@@ -4567,8 +4570,8 @@ __all__ = [
     "IdentityVerificationUserAddressDict",
     "IdentityVerificationUserData",
     "IdentityVerificationUserDataDict",
-    "IdvprotectEvent",
-    "IdvprotectEventDict",
+    "IdvProtectEvent",
+    "IdvProtectEventDict",
     "ImageQualityDetails",
     "ImageQualityDetailsDict",
     "IncidentUpdate",
@@ -4811,24 +4814,24 @@ __all__ = [
     "ItemWebhookUpdateResponseDict",
     "ItemWithConsentFields",
     "ItemWithConsentFieldsDict",
-    "JwkpublicKey",
-    "JwkpublicKeyDict",
-    "Jwtheader",
-    "JwtheaderDict",
-    "KyccheckAddressSummary",
-    "KyccheckAddressSummaryDict",
-    "KyccheckDateOfBirthSummary",
-    "KyccheckDateOfBirthSummaryDict",
-    "KyccheckDetails",
-    "KyccheckDetailsDict",
-    "KyccheckDetailsInternationalAddress",
-    "KyccheckDetailsInternationalAddressDict",
-    "KyccheckIdnumberSummary",
-    "KyccheckIdnumberSummaryDict",
-    "KyccheckNameSummary",
-    "KyccheckNameSummaryDict",
-    "KyccheckPhoneSummary",
-    "KyccheckPhoneSummaryDict",
+    "JwkPublicKey",
+    "JwkPublicKeyDict",
+    "JwtHeader",
+    "JwtHeaderDict",
+    "KycCheckAddressSummary",
+    "KycCheckAddressSummaryDict",
+    "KycCheckDateOfBirthSummary",
+    "KycCheckDateOfBirthSummaryDict",
+    "KycCheckDetails",
+    "KycCheckDetailsDict",
+    "KycCheckDetailsInternationalAddress",
+    "KycCheckDetailsInternationalAddressDict",
+    "KycCheckIdNumberSummary",
+    "KycCheckIdNumberSummaryDict",
+    "KycCheckNameSummary",
+    "KycCheckNameSummaryDict",
+    "KycCheckPhoneSummary",
+    "KycCheckPhoneSummaryDict",
     "LastDataAccessTimes",
     "LastDataAccessTimesDict",
     "LatestScoredEvent",
@@ -4879,10 +4882,10 @@ __all__ = [
     "LinkEventMetadataDict",
     "LinkEventsWebhook",
     "LinkEventsWebhookDict",
-    "LinkOauthCorrelationIdExchangeRequest",
-    "LinkOauthCorrelationIdExchangeRequestDict",
-    "LinkOauthCorrelationIdExchangeResponse",
-    "LinkOauthCorrelationIdExchangeResponseDict",
+    "LinkOAuthCorrelationIdExchangeRequest",
+    "LinkOAuthCorrelationIdExchangeRequestDict",
+    "LinkOAuthCorrelationIdExchangeResponse",
+    "LinkOAuthCorrelationIdExchangeResponseDict",
     "LinkSessionBankEmploymentResult",
     "LinkSessionBankEmploymentResultDict",
     "LinkSessionBankIncomeResult",
@@ -4947,8 +4950,8 @@ __all__ = [
     "LinkTokenCreateRequestCraOptions",
     "LinkTokenCreateRequestCraOptionsBaseReport",
     "LinkTokenCreateRequestCraOptionsBaseReportDict",
-    "LinkTokenCreateRequestCraOptionsBaseReportGseoptions",
-    "LinkTokenCreateRequestCraOptionsBaseReportGseoptionsDict",
+    "LinkTokenCreateRequestCraOptionsBaseReportGseOptions",
+    "LinkTokenCreateRequestCraOptionsBaseReportGseOptionsDict",
     "LinkTokenCreateRequestCraOptionsCashflowInsights",
     "LinkTokenCreateRequestCraOptionsCashflowInsightsDict",
     "LinkTokenCreateRequestCraOptionsDict",
@@ -4993,8 +4996,8 @@ __all__ = [
     "LinkTokenCreateRequestUserStatedIncomeSourceDict",
     "LinkTokenCreateResponse",
     "LinkTokenCreateResponseDict",
-    "LinkTokenEuconfig",
-    "LinkTokenEuconfigDict",
+    "LinkTokenEuConfig",
+    "LinkTokenEuConfigDict",
     "LinkTokenGetMetadataResponse",
     "LinkTokenGetMetadataResponseDict",
     "LinkTokenGetRequest",
@@ -5088,19 +5091,19 @@ __all__ = [
     "NumbersAcatsDict",
     "NumbersAch",
     "NumbersAchDict",
-    "NumbersAchnullable",
-    "NumbersAchnullableDict",
+    "NumbersAchNullable",
+    "NumbersAchNullableDict",
     "NumbersAton",
     "NumbersAtonDict",
     "NumbersBacs",
     "NumbersBacsDict",
-    "NumbersBacsnullable",
-    "NumbersBacsnullableDict",
+    "NumbersBacsNullable",
+    "NumbersBacsNullableDict",
     "NumbersDict",
     "NumbersEft",
     "NumbersEftDict",
-    "NumbersEftnullable",
-    "NumbersEftnullableDict",
+    "NumbersEftNullable",
+    "NumbersEftNullableDict",
     "NumbersInternational",
     "NumbersInternationalDict",
     "NumbersInternationalIban",
@@ -5109,22 +5112,22 @@ __all__ = [
     "NumbersInternationalNullableDict",
     "NumbersRetirement401K",
     "NumbersRetirement401KDict",
-    "OauthErrorResponseError",
-    "OauthErrorResponseErrorDict",
-    "OauthErrorResponseModel",
-    "OauthErrorResponseModelDict",
-    "OauthIntrospectRequest",
-    "OauthIntrospectRequestDict",
-    "OauthIntrospectResponse",
-    "OauthIntrospectResponseDict",
-    "OauthRevokeRequest",
-    "OauthRevokeRequestDict",
-    "OauthRevokeResponse",
-    "OauthRevokeResponseDict",
-    "OauthTokenRequest",
-    "OauthTokenRequestDict",
-    "OauthTokenResponse",
-    "OauthTokenResponseDict",
+    "OAuthErrorResponse",
+    "OAuthErrorResponseDict",
+    "OAuthErrorResponseError",
+    "OAuthErrorResponseErrorDict",
+    "OAuthIntrospectRequest",
+    "OAuthIntrospectRequestDict",
+    "OAuthIntrospectResponse",
+    "OAuthIntrospectResponseDict",
+    "OAuthRevokeRequest",
+    "OAuthRevokeRequestDict",
+    "OAuthRevokeResponse",
+    "OAuthRevokeResponseDict",
+    "OAuthTokenRequest",
+    "OAuthTokenRequestDict",
+    "OAuthTokenResponse",
+    "OAuthTokenResponseDict",
     "OptionContract",
     "OptionContractDict",
     "OriginatingFundSource",
@@ -5155,10 +5158,10 @@ __all__ = [
     "PartnerCustomerGetRequestDict",
     "PartnerCustomerGetResponse",
     "PartnerCustomerGetResponseDict",
-    "PartnerCustomerOauthInstitutionsGetRequest",
-    "PartnerCustomerOauthInstitutionsGetRequestDict",
-    "PartnerCustomerOauthInstitutionsGetResponse",
-    "PartnerCustomerOauthInstitutionsGetResponseDict",
+    "PartnerCustomerOAuthInstitutionsGetRequest",
+    "PartnerCustomerOAuthInstitutionsGetRequestDict",
+    "PartnerCustomerOAuthInstitutionsGetResponse",
+    "PartnerCustomerOAuthInstitutionsGetResponseDict",
     "PartnerCustomerRemoveRequest",
     "PartnerCustomerRemoveRequestDict",
     "PartnerCustomerRemoveResponse",
@@ -5172,21 +5175,21 @@ __all__ = [
     "PartnerEndCustomerBankAddendumAcceptanceDict",
     "PartnerEndCustomerBillingContact",
     "PartnerEndCustomerBillingContactDict",
-    "PartnerEndCustomerCrapurposes",
-    "PartnerEndCustomerCrapurposesDict",
-    "PartnerEndCustomerCraquestionnaire",
-    "PartnerEndCustomerCraquestionnaireDict",
-    "PartnerEndCustomerCrauseCases",
-    "PartnerEndCustomerCrauseCasesDict",
+    "PartnerEndCustomerCraPurposes",
+    "PartnerEndCustomerCraPurposesDict",
+    "PartnerEndCustomerCraQuestionnaire",
+    "PartnerEndCustomerCraQuestionnaireDict",
+    "PartnerEndCustomerCraUseCases",
+    "PartnerEndCustomerCraUseCasesDict",
     "PartnerEndCustomerCustomerSupportInfo",
     "PartnerEndCustomerCustomerSupportInfoDict",
     "PartnerEndCustomerDict",
-    "PartnerEndCustomerOauthInstitution",
-    "PartnerEndCustomerOauthInstitutionDict",
-    "PartnerEndCustomerOauthInstitutionEnvironments",
-    "PartnerEndCustomerOauthInstitutionEnvironmentsDict",
-    "PartnerEndCustomerOauthStatusUpdatedWebhook",
-    "PartnerEndCustomerOauthStatusUpdatedWebhookDict",
+    "PartnerEndCustomerOAuthInstitution",
+    "PartnerEndCustomerOAuthInstitutionDict",
+    "PartnerEndCustomerOAuthInstitutionEnvironments",
+    "PartnerEndCustomerOAuthInstitutionEnvironmentsDict",
+    "PartnerEndCustomerOAuthStatusUpdatedWebhook",
+    "PartnerEndCustomerOAuthStatusUpdatedWebhookDict",
     "PartnerEndCustomerQuestionnaires",
     "PartnerEndCustomerQuestionnairesDict",
     "PartnerEndCustomerSecrets",
@@ -5371,8 +5374,8 @@ __all__ = [
     "PaystubOverridePayPeriodDetailsDict",
     "PaystubOverrideTaxpayerId",
     "PaystubOverrideTaxpayerIdDict",
-    "PaystubYtddetails",
-    "PaystubYtddetailsDict",
+    "PaystubYtdDetails",
+    "PaystubYtdDetailsDict",
     "PendingDisconnectWebhook",
     "PendingDisconnectWebhookDict",
     "PendingExpirationWebhook",
@@ -5569,8 +5572,8 @@ __all__ = [
     "ProtectReportCreateResponse",
     "ProtectReportCreateResponseDict",
     "ProtectReportDict",
-    "ProtectSdkmodelInputs",
-    "ProtectSdkmodelInputsDict",
+    "ProtectSdkModelInputs",
+    "ProtectSdkModelInputsDict",
     "ProtectUser",
     "ProtectUserDict",
     "ProtectUserEventWebhook",
@@ -5583,16 +5586,16 @@ __all__ = [
     "ProviderBusinessAddressDict",
     "ProviderBusinessName",
     "ProviderBusinessNameDict",
-    "Pslfstatus",
-    "PslfstatusDict",
+    "PslfStatus",
+    "PslfStatusDict",
     "RecaptchaRequiredError",
     "RecaptchaRequiredErrorDict",
     "ReceiverDetails",
     "ReceiverDetailsDict",
     "RecipientBacs",
     "RecipientBacsDict",
-    "RecipientBacsnullable",
-    "RecipientBacsnullableDict",
+    "RecipientBacsNullable",
+    "RecipientBacsNullableDict",
     "RecurringCancelledWebhook",
     "RecurringCancelledWebhookDict",
     "RecurringInsightsStream",
@@ -5819,8 +5822,8 @@ __all__ = [
     "SelfieCheckDict",
     "SelfieCheckSelfie",
     "SelfieCheckSelfieDict",
-    "SenderBacsnullable",
-    "SenderBacsnullableDict",
+    "SenderBacsNullable",
+    "SenderBacsNullableDict",
     "Service",
     "ServiceDict",
     "ServiceProductFulfillment",
@@ -5883,8 +5886,8 @@ __all__ = [
     "SimulatedTransferSweepDict",
     "SingleDocumentRiskSignal",
     "SingleDocumentRiskSignalDict",
-    "Smsverification",
-    "SmsverificationDict",
+    "SmsVerification",
+    "SmsVerificationDict",
     "StandaloneAccountType",
     "StandaloneAccountTypeDict",
     "StandaloneCurrencyCodeList",
@@ -5937,8 +5940,8 @@ __all__ = [
     "TaxpayerIdentifierDict",
     "TaxpayerIdentifiers",
     "TaxpayerIdentifiersDict",
-    "TosacceptanceMetadata",
-    "TosacceptanceMetadataDict",
+    "TosAcceptanceMetadata",
+    "TosAcceptanceMetadataDict",
     "Total",
     "TotalDict",
     "TotalInflowAmount",
@@ -6247,8 +6250,8 @@ __all__ = [
     "TransferPlatformPersonCreateRequestDict",
     "TransferPlatformPersonCreateResponse",
     "TransferPlatformPersonCreateResponseDict",
-    "TransferPlatformPersonIdnumber",
-    "TransferPlatformPersonIdnumberDict",
+    "TransferPlatformPersonIdNumber",
+    "TransferPlatformPersonIdNumberDict",
     "TransferPlatformPersonName",
     "TransferPlatformPersonNameDict",
     "TransferPlatformRequirement",
@@ -6391,12 +6394,12 @@ __all__ = [
     "UserGetRequestDict",
     "UserGetResponse",
     "UserGetResponseDict",
+    "UserIdNumber",
+    "UserIdNumberDict",
     "UserIdentityRemoveRequest",
     "UserIdentityRemoveRequestDict",
     "UserIdentityRemoveResponse",
     "UserIdentityRemoveResponseDict",
-    "UserIdnumber",
-    "UserIdnumberDict",
     "UserItemsAssociateRequest",
     "UserItemsAssociateRequestDict",
     "UserItemsAssociateResponse",
@@ -6449,8 +6452,8 @@ __all__ = [
     "VerificationOfAssetDict",
     "VerificationOfAssetResponse",
     "VerificationOfAssetResponseDict",
-    "VerifySmsdetails",
-    "VerifySmsdetailsDict",
+    "VerifySmsDetails",
+    "VerifySmsDetailsDict",
     "W2",
     "W2Box12",
     "W2Box12Dict",
@@ -6619,8 +6622,8 @@ __all__ = [
     "WebhookVerificationKeyGetResponseDict",
     "YieldRate",
     "YieldRateDict",
-    "YtdgrossIncomeSummaryFieldNumber",
-    "YtdgrossIncomeSummaryFieldNumberDict",
-    "YtdnetIncomeSummaryFieldNumber",
-    "YtdnetIncomeSummaryFieldNumberDict",
+    "YtdGrossIncomeSummaryFieldNumber",
+    "YtdGrossIncomeSummaryFieldNumberDict",
+    "YtdNetIncomeSummaryFieldNumber",
+    "YtdNetIncomeSummaryFieldNumberDict",
 ]

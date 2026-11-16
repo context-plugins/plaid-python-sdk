@@ -4,7 +4,7 @@ from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, OptionalNullable, SdkBaseModel
 from .protect_link_model_inputs import ProtectLinkModelInputs, ProtectLinkModelInputsDict
-from .protect_sdkmodel_inputs import ProtectSdkmodelInputs, ProtectSdkmodelInputsDict
+from .protect_sdk_model_inputs import ProtectSdkModelInputs, ProtectSdkModelInputsDict
 
 
 class ProtectModelInputs(SdkBaseModel):
@@ -14,10 +14,10 @@ class ProtectModelInputs(SdkBaseModel):
     link: OptionalNullable[ProtectLinkModelInputs] = UNSET
     """Inputs for link session Trust Index models."""
 
-    sdk: OptionalNullable[ProtectSdkmodelInputs] = UNSET
+    sdk: OptionalNullable[ProtectSdkModelInputs] = UNSET
     """Inputs for Protect SDK Trust Index models."""
 
 
 class ProtectModelInputsDict(TypedDict):
     link: NotRequired[ProtectLinkModelInputsDict | None]
-    sdk: NotRequired[ProtectSdkmodelInputsDict | None]
+    sdk: NotRequired[ProtectSdkModelInputsDict | None]

@@ -4,7 +4,7 @@ from pydantic import Field
 from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Date, Optional, OptionalNullable, RFC3339DateTime, SdkBaseModel
-from .enums.achclass import AchclassOrStr
+from .enums.ach_class import AchClassOrStr
 from .enums.transfer_recurring_network import TransferRecurringNetworkOrStr
 from .enums.transfer_recurring_status import TransferRecurringStatusOrStr
 from .enums.transfer_type import TransferTypeOrStr
@@ -46,7 +46,7 @@ class RecurringTransferNullable(SdkBaseModel):
     client or Plaid. ``expired``: The recurring transfer has completed all originations according to its recurring
     schedule."""
 
-    ach_class: Optional[AchclassOrStr] = UNSET
+    ach_class: Optional[AchClassOrStr] = UNSET
     """Specifies the use case of the transfer. Required for transfers on an ACH network. For more details, see `ACH SEC
     codes <https://plaid.com/docs/transfer/creating-transfers/#ach-sec-codes>`__.
 
@@ -103,7 +103,7 @@ class RecurringTransferNullableDict(TypedDict):
     type_: TransferTypeOrStr
     amount: str
     status: TransferRecurringStatusOrStr
-    ach_class: NotRequired[AchclassOrStr]
+    ach_class: NotRequired[AchClassOrStr]
     network: TransferRecurringNetworkOrStr
     origination_account_id: str
     account_id: str

@@ -6,7 +6,7 @@ from typing_extensions import TypedDict
 from ..core import Date, SdkBaseModel
 from .beacon_user_address import BeaconUserAddress, BeaconUserAddressDict
 from .beacon_user_depository_account import BeaconUserDepositoryAccount, BeaconUserDepositoryAccountDict
-from .beacon_user_idnumber import BeaconUserIdnumber, BeaconUserIdnumberDict
+from .beacon_user_id_number import BeaconUserIdNumber, BeaconUserIdNumberDict
 from .beacon_user_name import BeaconUserName, BeaconUserNameDict
 
 
@@ -37,7 +37,7 @@ class BeaconUserData(SdkBaseModel):
     phone_number: str | None
     """A phone number in E.164 format."""
 
-    id_number: BeaconUserIdnumber | None
+    id_number: BeaconUserIdNumber | None
     """The ID number associated with a Beacon User."""
 
     ip_address: str | None
@@ -52,6 +52,6 @@ class BeaconUserDataDict(TypedDict):
     address: BeaconUserAddressDict
     email_address: EmailStr | None
     phone_number: str | None
-    id_number: BeaconUserIdnumberDict | None
+    id_number: BeaconUserIdNumberDict | None
     ip_address: str | None
     depository_accounts: list[BeaconUserDepositoryAccountDict]

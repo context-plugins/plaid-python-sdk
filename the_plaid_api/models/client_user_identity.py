@@ -7,7 +7,7 @@ from .client_user_identity_address import ClientUserIdentityAddress, ClientUserI
 from .client_user_identity_email import ClientUserIdentityEmail, ClientUserIdentityEmailDict
 from .client_user_identity_name import ClientUserIdentityName, ClientUserIdentityNameDict
 from .client_user_identity_phone_number import ClientUserIdentityPhoneNumber, ClientUserIdentityPhoneNumberDict
-from .user_idnumber import UserIdnumber, UserIdnumberDict
+from .user_id_number import UserIdNumber, UserIdNumberDict
 
 
 class ClientUserIdentity(SdkBaseModel):
@@ -35,7 +35,7 @@ class ClientUserIdentity(SdkBaseModel):
     addresses: Optional[list[ClientUserIdentityAddress]] = UNSET
     """The user's addresses."""
 
-    id_numbers: Optional[list[UserIdnumber | None]] = UNSET
+    id_numbers: Optional[list[UserIdNumber | None]] = UNSET
     """The user's ID numbers."""
 
 
@@ -45,4 +45,4 @@ class ClientUserIdentityDict(TypedDict):
     emails: NotRequired[list[ClientUserIdentityEmailDict]]
     phone_numbers: NotRequired[list[ClientUserIdentityPhoneNumberDict]]
     addresses: NotRequired[list[ClientUserIdentityAddressDict]]
-    id_numbers: NotRequired[list[UserIdnumberDict | None]]
+    id_numbers: NotRequired[list[UserIdNumberDict | None]]

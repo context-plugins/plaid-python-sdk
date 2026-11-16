@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
-from .enums.achclass import AchclassOrStr
+from .enums.ach_class import AchClassOrStr
 from .enums.transfer_intent_create_mode import TransferIntentCreateModeOrStr
 from .enums.transfer_intent_create_network import TransferIntentCreateNetwork, TransferIntentCreateNetworkOrStr
 from .transfer_user_in_request import TransferUserInRequest, TransferUserInRequestDict
@@ -60,7 +60,7 @@ class TransferIntentCreateRequest(SdkBaseModel):
     description: str
     """A description for the underlying transfer. Maximum of 15 characters."""
 
-    ach_class: Optional[AchclassOrStr] = UNSET
+    ach_class: Optional[AchClassOrStr] = UNSET
     """Specifies the use case of the transfer. Required for transfers on an ACH network. For more details, see `ACH SEC
     codes <https://plaid.com/docs/transfer/creating-transfers/#ach-sec-codes>`__.
 
@@ -107,7 +107,7 @@ class TransferIntentCreateRequestDict(TypedDict):
     network: NotRequired[TransferIntentCreateNetworkOrStr]
     amount: str
     description: str
-    ach_class: NotRequired[AchclassOrStr]
+    ach_class: NotRequired[AchClassOrStr]
     origination_account_id: NotRequired[str | None]
     user: TransferUserInRequestDict
     metadata: NotRequired[dict[str, str] | None]

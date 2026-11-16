@@ -5,7 +5,7 @@ from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
 from .bank_transfer_user import BankTransferUser, BankTransferUserDict
-from .enums.achclass import AchclassOrStr
+from .enums.ach_class import AchClassOrStr
 from .enums.bank_transfer_network import BankTransferNetworkOrStr
 from .enums.bank_transfer_type import BankTransferTypeOrStr
 
@@ -48,7 +48,7 @@ class ProcessorBankTransferCreateRequest(SdkBaseModel):
     description: str
     """The transfer description. Maximum of 10 characters."""
 
-    ach_class: Optional[AchclassOrStr] = UNSET
+    ach_class: Optional[AchClassOrStr] = UNSET
     """Specifies the use case of the transfer. Required for transfers on an ACH network. For more details, see `ACH SEC
     codes <https://plaid.com/docs/transfer/creating-transfers/#ach-sec-codes>`__.
 
@@ -92,7 +92,7 @@ class ProcessorBankTransferCreateRequestDict(TypedDict):
     amount: str
     iso_currency_code: str
     description: str
-    ach_class: NotRequired[AchclassOrStr]
+    ach_class: NotRequired[AchClassOrStr]
     user: BankTransferUserDict
     custom_tag: NotRequired[str | None]
     metadata: NotRequired[dict[str, str] | None]

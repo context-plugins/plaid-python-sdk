@@ -11,7 +11,7 @@ from .identity_verification_response_user_name import (
     IdentityVerificationResponseUserName,
     IdentityVerificationResponseUserNameDict,
 )
-from .user_idnumber import UserIdnumber, UserIdnumberDict
+from .user_id_number import UserIdNumber, UserIdNumberDict
 
 
 class IdentityVerificationAutofillUserData(SdkBaseModel):
@@ -29,7 +29,7 @@ class IdentityVerificationAutofillUserData(SdkBaseModel):
 
     Addresses from Hong Kong will not include postal code"""
 
-    id_number: UserIdnumber | None
+    id_number: UserIdNumber | None
     """ID number submitted by the user, currently used only for the Identity Verification product. If the user has not
     submitted this data yet, this field will be ``null``. Otherwise, both fields are guaranteed to be filled."""
 
@@ -37,4 +37,4 @@ class IdentityVerificationAutofillUserData(SdkBaseModel):
 class IdentityVerificationAutofillUserDataDict(TypedDict):
     name: IdentityVerificationResponseUserNameDict | None
     address: IdentityVerificationAutofillAddressDict | None
-    id_number: UserIdnumberDict | None
+    id_number: UserIdNumberDict | None

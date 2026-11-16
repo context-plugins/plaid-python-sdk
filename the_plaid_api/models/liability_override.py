@@ -5,7 +5,7 @@ from typing_extensions import TypedDict
 
 from ..core import Date, SdkBaseModel
 from .address import Address, AddressDict
-from .pslfstatus import Pslfstatus, PslfstatusDict
+from .pslf_status import PslfStatus, PslfStatusDict
 from .student_loan_repayment_model import StudentLoanRepaymentModel, StudentLoanRepaymentModelDict
 from .student_loan_status import StudentLoanStatus, StudentLoanStatusDict
 
@@ -74,7 +74,7 @@ class LiabilityOverride(SdkBaseModel):
     payment_reference_number: str
     """Override the ``payment_reference_number`` field. Can only be set if ``type`` is ``student``."""
 
-    pslf_status: Pslfstatus
+    pslf_status: PslfStatus
     """Information about the student's eligibility in the Public Service Loan Forgiveness program. This is only returned
     if the institution is FedLoan (``ins_116527``). Since FedLoan no longer services student loans, this field is no
     longer returned."""
@@ -115,7 +115,7 @@ class LiabilityOverrideDict(TypedDict):
     loan_name: str
     loan_status: StudentLoanStatusDict
     payment_reference_number: str
-    pslf_status: PslfstatusDict
+    pslf_status: PslfStatusDict
     repayment_plan_description: str
     repayment_plan_type: str
     sequence_number: str

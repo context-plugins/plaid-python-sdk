@@ -4,7 +4,7 @@ from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Date, Optional, SdkBaseModel
 from .transfer_platform_person_address import TransferPlatformPersonAddress, TransferPlatformPersonAddressDict
-from .transfer_platform_person_idnumber import TransferPlatformPersonIdnumber, TransferPlatformPersonIdnumberDict
+from .transfer_platform_person_id_number import TransferPlatformPersonIdNumber, TransferPlatformPersonIdNumberDict
 from .transfer_platform_person_name import TransferPlatformPersonName, TransferPlatformPersonNameDict
 
 
@@ -36,7 +36,7 @@ class TransferPlatformPersonCreateRequest(SdkBaseModel):
     address: Optional[TransferPlatformPersonAddress] = UNSET
     """Home address of a person"""
 
-    id_number: Optional[TransferPlatformPersonIdnumber] = UNSET
+    id_number: Optional[TransferPlatformPersonIdNumber] = UNSET
     """ID number of the person"""
 
     date_of_birth: Optional[Date] = UNSET
@@ -62,7 +62,7 @@ class TransferPlatformPersonCreateRequestDict(TypedDict):
     email_address: NotRequired[str]
     phone_number: NotRequired[str]
     address: NotRequired[TransferPlatformPersonAddressDict]
-    id_number: NotRequired[TransferPlatformPersonIdnumberDict]
+    id_number: NotRequired[TransferPlatformPersonIdNumberDict]
     date_of_birth: NotRequired[Date]
     relationship_to_originator: NotRequired[str]
     ownership_percentage: NotRequired[int]

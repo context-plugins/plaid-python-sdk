@@ -9,7 +9,7 @@ from .identity_verification_request_user_name import (
     IdentityVerificationRequestUserNameDict,
 )
 from .user_address import UserAddress, UserAddressDict
-from .user_idnumber import UserIdnumber, UserIdnumberDict
+from .user_id_number import UserIdNumber, UserIdNumberDict
 
 
 class IdentityVerificationCreateRequestUser(SdkBaseModel):
@@ -64,7 +64,7 @@ class IdentityVerificationCreateRequestUser(SdkBaseModel):
     For more context on this field, see `Input Validation by Country
     <https://plaid.com/docs/identity-verification/hybrid-input-validation/#input-validation-by-country>`__."""
 
-    id_number: OptionalNullable[UserIdnumber] = UNSET
+    id_number: OptionalNullable[UserIdNumber] = UNSET
     """ID number submitted by the user, currently used only for the Identity Verification product. If the user has not
     submitted this data yet, this field will be ``null``. Otherwise, both fields are guaranteed to be filled."""
 
@@ -81,6 +81,6 @@ class IdentityVerificationCreateRequestUserDict(TypedDict):
     date_of_birth: NotRequired[Date]
     name: NotRequired[IdentityVerificationRequestUserNameDict | None]
     address: NotRequired[UserAddressDict | None]
-    id_number: NotRequired[UserIdnumberDict | None]
+    id_number: NotRequired[UserIdNumberDict | None]
     client_user_id: NotRequired[str | None]
     ip_address: NotRequired[str | None]

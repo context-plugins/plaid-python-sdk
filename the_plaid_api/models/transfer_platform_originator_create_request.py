@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Optional, RFC3339DateTime, SdkBaseModel
-from .tosacceptance_metadata import TosacceptanceMetadata, TosacceptanceMetadataDict
+from .tos_acceptance_metadata import TosAcceptanceMetadata, TosAcceptanceMetadataDict
 
 
 class TransferPlatformOriginatorCreateRequest(SdkBaseModel):
@@ -20,7 +20,7 @@ class TransferPlatformOriginatorCreateRequest(SdkBaseModel):
     originator_client_id: str
     """The client ID of the originator"""
 
-    tos_acceptance_metadata: TosacceptanceMetadata
+    tos_acceptance_metadata: TosAcceptanceMetadata
     """Metadata related to the acceptance of Terms of Service"""
 
     originator_reviewed_at: RFC3339DateTime
@@ -34,6 +34,6 @@ class TransferPlatformOriginatorCreateRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     originator_client_id: str
-    tos_acceptance_metadata: TosacceptanceMetadataDict
+    tos_acceptance_metadata: TosAcceptanceMetadataDict
     originator_reviewed_at: RFC3339DateTime
     webhook: NotRequired[str]

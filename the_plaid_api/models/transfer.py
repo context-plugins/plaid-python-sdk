@@ -4,7 +4,7 @@ from pydantic import Field
 from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Date, Optional, OptionalNullable, RFC3339DateTime, SdkBaseModel
-from .enums.achclass import AchclassOrStr
+from .enums.ach_class import AchClassOrStr
 from .enums.transfer_authorization_guarantee_decision import TransferAuthorizationGuaranteeDecisionOrStr
 from .enums.transfer_credit_funds_source import TransferCreditFundsSourceOrStr
 from .enums.transfer_network import TransferNetworkOrStr
@@ -35,7 +35,7 @@ class Transfer(SdkBaseModel):
     authorization_id: str
     """Plaid's unique identifier for a transfer authorization."""
 
-    ach_class: Optional[AchclassOrStr] = UNSET
+    ach_class: Optional[AchClassOrStr] = UNSET
     """Specifies the use case of the transfer. Required for transfers on an ACH network. For more details, see `ACH SEC
     codes <https://plaid.com/docs/transfer/creating-transfers/#ach-sec-codes>`__.
 
@@ -209,7 +209,7 @@ class Transfer(SdkBaseModel):
 class TransferDict(TypedDict):
     id: str
     authorization_id: str
-    ach_class: NotRequired[AchclassOrStr]
+    ach_class: NotRequired[AchClassOrStr]
     account_id: NotRequired[str]
     funding_account_id: str | None
     ledger_id: NotRequired[str | None]

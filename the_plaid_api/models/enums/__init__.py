@@ -1,9 +1,9 @@
-from .aamvadetailed_match_result import AamvadetailedMatchResult, AamvadetailedMatchResultOrStr
-from .aamvamatch_result import AamvamatchResult, AamvamatchResultOrStr
+from .aamva_detailed_match_result import AamvaDetailedMatchResult, AamvaDetailedMatchResultOrStr
+from .aamva_match_result import AamvaMatchResult, AamvaMatchResultOrStr
 from .account_selection_cardinality import AccountSelectionCardinality, AccountSelectionCardinalityOrStr
 from .account_subtype import AccountSubtype, AccountSubtypeOrStr
 from .account_type import AccountType, AccountTypeOrStr
-from .achclass import Achclass, AchclassOrStr
+from .ach_class import AchClass, AchClassOrStr
 from .action_state import ActionState, ActionStateOrStr
 from .activity_type import ActivityType, ActivityTypeOrStr
 from .address_purpose_label import AddressPurposeLabel, AddressPurposeLabelOrStr
@@ -109,7 +109,7 @@ from .cra_partner_insights_ultra_fico_score_version import (
     CraPartnerInsightsUltraFicoScoreVersion,
     CraPartnerInsightsUltraFicoScoreVersionOrStr,
 )
-from .cra_pdfadd_ons import CraPdfaddOns, CraPdfaddOnsOrStr
+from .cra_pdf_add_ons import CraPdfAddOns, CraPdfAddOnsOrStr
 from .cra_report_decision_stage import CraReportDecisionStage, CraReportDecisionStageOrStr
 from .cra_report_scope import CraReportScope, CraReportScopeOrStr
 from .cra_user_tier import CraUserTier, CraUserTierOrStr
@@ -120,7 +120,7 @@ from .cra_verification_income_pay_frequency import (
 from .cra_verification_income_status import CraVerificationIncomeStatus, CraVerificationIncomeStatusOrStr
 from .credit_account import CreditAccount, CreditAccountOrStr
 from .credit_account_subtype import CreditAccountSubtype, CreditAccountSubtypeOrStr
-from .credit_achclass import CreditAchclass, CreditAchclassOrStr
+from .credit_ach_class import CreditAchClass, CreditAchClassOrStr
 from .credit_bank_employment_warning_type import CreditBankEmploymentWarningType, CreditBankEmploymentWarningTypeOrStr
 from .credit_bank_income_account_type import CreditBankIncomeAccountType, CreditBankIncomeAccountTypeOrStr
 from .credit_bank_income_category import CreditBankIncomeCategory, CreditBankIncomeCategoryOrStr
@@ -157,19 +157,20 @@ from .fdx_consent_grant_status import FdxConsentGrantStatus, FdxConsentGrantStat
 from .fdx_consent_resource_type import FdxConsentResourceType, FdxConsentResourceTypeOrStr
 from .fdx_data_cluster import FdxDataCluster, FdxDataClusterOrStr
 from .fdx_event_status import FdxEventStatus, FdxEventStatusOrStr
+from .fdx_hateoas_link_action import FdxHateoasLinkAction, FdxHateoasLinkActionOrStr
 from .fdx_update_reason import FdxUpdateReason, FdxUpdateReasonOrStr
-from .fdxhateoas_link_action import FdxhateoasLinkAction, FdxhateoasLinkActionOrStr
 from .fee_type import FeeType, FeeTypeOrStr
 from .flow_type import FlowType, FlowTypeOrStr
 from .form1099_type import Form1099Type, Form1099TypeOrStr
 from .fraud_check_outcome import FraudCheckOutcome, FraudCheckOutcomeOrStr
 from .fraud_check_outcome_with_no_data import FraudCheckOutcomeWithNoData, FraudCheckOutcomeWithNoDataOrStr
-from .gsereport_type import GsereportType, GsereportTypeOrStr
+from .gse_report_type import GseReportType, GseReportTypeOrStr
 from .hidden_match_summary_code import HiddenMatchSummaryCode, HiddenMatchSummaryCodeOrStr
 from .holder_category import HolderCategory, HolderCategoryOrStr
 from .holding_tax_lot_position_type import HoldingTaxLotPositionType, HoldingTaxLotPositionTypeOrStr
 from .hosted_link_delivery_method import HostedLinkDeliveryMethod, HostedLinkDeliveryMethodOrStr
 from .human_review_status import HumanReviewStatus, HumanReviewStatusOrStr
+from .id_number_type import IdNumberType, IdNumberTypeOrStr
 from .identity_update_types import IdentityUpdateTypes, IdentityUpdateTypesOrStr
 from .identity_verification_autofill_status import (
     IdentityVerificationAutofillStatus,
@@ -177,7 +178,6 @@ from .identity_verification_autofill_status import (
 )
 from .identity_verification_status import IdentityVerificationStatus, IdentityVerificationStatusOrStr
 from .identity_verification_step_status import IdentityVerificationStepStatus, IdentityVerificationStepStatusOrStr
-from .idnumber_type import IdnumberType, IdnumberTypeOrStr
 from .image_quality import ImageQuality, ImageQualityOrStr
 from .image_quality_outcome import ImageQualityOutcome, ImageQualityOutcomeOrStr
 from .income_breakdown_type import IncomeBreakdownType, IncomeBreakdownTypeOrStr
@@ -201,7 +201,7 @@ from .investment_account_subtype1 import InvestmentAccountSubtype1, InvestmentAc
 from .investment_transaction_subtype import InvestmentTransactionSubtype, InvestmentTransactionSubtypeOrStr
 from .investment_transaction_type import InvestmentTransactionType, InvestmentTransactionTypeOrStr
 from .iso_currency_code import IsoCurrencyCode, IsoCurrencyCodeOrStr
-from .isocurrency_code1 import IsocurrencyCode1, IsocurrencyCode1OrStr
+from .iso_currency_code1 import IsoCurrencyCode1, IsoCurrencyCode1OrStr
 from .issues_status import IssuesStatus, IssuesStatusOrStr
 from .issuing_country import IssuingCountry, IssuingCountryOrStr
 from .item_auth_method import ItemAuthMethod, ItemAuthMethodOrStr
@@ -250,9 +250,9 @@ from .notification_payload_id_type import NotificationPayloadIdType, Notificatio
 from .notification_priority import NotificationPriority, NotificationPriorityOrStr
 from .notification_severity import NotificationSeverity, NotificationSeverityOrStr
 from .notification_type import NotificationType, NotificationTypeOrStr
-from .oauth_error_code import OauthErrorCode, OauthErrorCodeOrStr
-from .oauth_grant_type import OauthGrantType, OauthGrantTypeOrStr
-from .oauth_subject_token_type import OauthSubjectTokenType, OauthSubjectTokenTypeOrStr
+from .o_auth_error_code import OAuthErrorCode, OAuthErrorCodeOrStr
+from .o_auth_grant_type import OAuthGrantType, OAuthGrantTypeOrStr
+from .o_auth_subject_token_type import OAuthSubjectTokenType, OAuthSubjectTokenTypeOrStr
 from .omittable_transfer_type import OmittableTransferType, OmittableTransferTypeOrStr
 from .originator_expected_transfer_frequency import (
     OriginatorExpectedTransferFrequency,
@@ -261,18 +261,18 @@ from .originator_expected_transfer_frequency import (
 from .other_account_subtype import OtherAccountSubtype, OtherAccountSubtypeOrStr
 from .override_account_type import OverrideAccountType, OverrideAccountTypeOrStr
 from .ownership_type import OwnershipType, OwnershipTypeOrStr
-from .partner_end_customer_crause_case import PartnerEndCustomerCrauseCase, PartnerEndCustomerCrauseCaseOrStr
+from .partner_end_customer_cra_use_case import PartnerEndCustomerCraUseCase, PartnerEndCustomerCraUseCaseOrStr
 from .partner_end_customer_flowdown_status import (
     PartnerEndCustomerFlowdownStatus,
     PartnerEndCustomerFlowdownStatusOrStr,
 )
-from .partner_end_customer_oauth_institution_application_status import (
-    PartnerEndCustomerOauthInstitutionApplicationStatus,
-    PartnerEndCustomerOauthInstitutionApplicationStatusOrStr,
+from .partner_end_customer_o_auth_institution_application_status import (
+    PartnerEndCustomerOAuthInstitutionApplicationStatus,
+    PartnerEndCustomerOAuthInstitutionApplicationStatusOrStr,
 )
-from .partner_end_customer_oauth_status_updated_values import (
-    PartnerEndCustomerOauthStatusUpdatedValues,
-    PartnerEndCustomerOauthStatusUpdatedValuesOrStr,
+from .partner_end_customer_o_auth_status_updated_values import (
+    PartnerEndCustomerOAuthStatusUpdatedValues,
+    PartnerEndCustomerOAuthStatusUpdatedValuesOrStr,
 )
 from .partner_end_customer_questionnaire_status import (
     PartnerEndCustomerQuestionnaireStatus,
@@ -315,7 +315,7 @@ from .phone_type import PhoneType, PhoneTypeOrStr
 from .physical_document_category import PhysicalDocumentCategory, PhysicalDocumentCategoryOrStr
 from .plaid_error_type import PlaidErrorType, PlaidErrorTypeOrStr
 from .plaid_lend_score_version import PlaidLendScoreVersion, PlaidLendScoreVersionOrStr
-from .pobox_status import PoboxStatus, PoboxStatusOrStr
+from .po_box_status import PoBoxStatus, PoBoxStatusOrStr
 from .prism_cash_score_version import PrismCashScoreVersion, PrismCashScoreVersionOrStr
 from .prism_detect_version import PrismDetectVersion, PrismDetectVersionOrStr
 from .prism_extend_version import PrismExtendVersion, PrismExtendVersionOrStr
@@ -411,7 +411,7 @@ from .signal_schedule_default_payment_method import (
     SignalScheduleDefaultPaymentMethod,
     SignalScheduleDefaultPaymentMethodOrStr,
 )
-from .smsverification_status import SmsverificationStatus, SmsverificationStatusOrStr
+from .sms_verification_status import SmsVerificationStatus, SmsVerificationStatusOrStr
 from .source import Source, SourceOrStr
 from .standalone_investment_transaction_transfer_type import (
     StandaloneInvestmentTransactionTransferType,
@@ -432,7 +432,7 @@ from .transaction_type import TransactionType, TransactionTypeOrStr
 from .transactions_rule_field import TransactionsRuleField, TransactionsRuleFieldOrStr
 from .transactions_rule_type import TransactionsRuleType, TransactionsRuleTypeOrStr
 from .transactions_update_status import TransactionsUpdateStatus, TransactionsUpdateStatusOrStr
-from .transfer_achnetwork import TransferAchnetwork, TransferAchnetworkOrStr
+from .transfer_ach_network import TransferAchNetwork, TransferAchNetworkOrStr
 from .transfer_authorization_decision import TransferAuthorizationDecision, TransferAuthorizationDecisionOrStr
 from .transfer_authorization_decision_rationale_code import (
     TransferAuthorizationDecisionRationaleCode,
@@ -494,7 +494,7 @@ from .verification_status1 import VerificationStatus1, VerificationStatus1OrStr
 from .verification_status3 import VerificationStatus3, VerificationStatus3OrStr
 from .verification_status4 import VerificationStatus4, VerificationStatus4OrStr
 from .verification_status5 import VerificationStatus5, VerificationStatus5OrStr
-from .verify_smsdetails_status import VerifySmsdetailsStatus, VerifySmsdetailsStatusOrStr
+from .verify_sms_details_status import VerifySmsDetailsStatus, VerifySmsDetailsStatusOrStr
 from .wallet_payment_scheme import WalletPaymentScheme, WalletPaymentSchemeOrStr
 from .wallet_status import WalletStatus, WalletStatusOrStr
 from .wallet_transaction_failure_reason import WalletTransactionFailureReason, WalletTransactionFailureReasonOrStr
@@ -522,18 +522,18 @@ from .webhook_type import WebhookType, WebhookTypeOrStr
 from .yield_rate_type import YieldRateType, YieldRateTypeOrStr
 
 __all__ = [
-    "AamvadetailedMatchResult",
-    "AamvadetailedMatchResultOrStr",
-    "AamvamatchResult",
-    "AamvamatchResultOrStr",
+    "AamvaDetailedMatchResult",
+    "AamvaDetailedMatchResultOrStr",
+    "AamvaMatchResult",
+    "AamvaMatchResultOrStr",
     "AccountSelectionCardinality",
     "AccountSelectionCardinalityOrStr",
     "AccountSubtype",
     "AccountSubtypeOrStr",
     "AccountType",
     "AccountTypeOrStr",
-    "Achclass",
-    "AchclassOrStr",
+    "AchClass",
+    "AchClassOrStr",
     "ActionState",
     "ActionStateOrStr",
     "ActivityType",
@@ -678,8 +678,8 @@ __all__ = [
     "CraPartnerInsightsBureauOrStr",
     "CraPartnerInsightsUltraFicoScoreVersion",
     "CraPartnerInsightsUltraFicoScoreVersionOrStr",
-    "CraPdfaddOns",
-    "CraPdfaddOnsOrStr",
+    "CraPdfAddOns",
+    "CraPdfAddOnsOrStr",
     "CraReportDecisionStage",
     "CraReportDecisionStageOrStr",
     "CraReportScope",
@@ -694,8 +694,8 @@ __all__ = [
     "CreditAccountOrStr",
     "CreditAccountSubtype",
     "CreditAccountSubtypeOrStr",
-    "CreditAchclass",
-    "CreditAchclassOrStr",
+    "CreditAchClass",
+    "CreditAchClassOrStr",
     "CreditBankEmploymentWarningType",
     "CreditBankEmploymentWarningTypeOrStr",
     "CreditBankIncomeAccountType",
@@ -756,10 +756,10 @@ __all__ = [
     "FdxDataClusterOrStr",
     "FdxEventStatus",
     "FdxEventStatusOrStr",
+    "FdxHateoasLinkAction",
+    "FdxHateoasLinkActionOrStr",
     "FdxUpdateReason",
     "FdxUpdateReasonOrStr",
-    "FdxhateoasLinkAction",
-    "FdxhateoasLinkActionOrStr",
     "FeeType",
     "FeeTypeOrStr",
     "FlowType",
@@ -770,8 +770,8 @@ __all__ = [
     "FraudCheckOutcomeOrStr",
     "FraudCheckOutcomeWithNoData",
     "FraudCheckOutcomeWithNoDataOrStr",
-    "GsereportType",
-    "GsereportTypeOrStr",
+    "GseReportType",
+    "GseReportTypeOrStr",
     "HiddenMatchSummaryCode",
     "HiddenMatchSummaryCodeOrStr",
     "HolderCategory",
@@ -782,6 +782,8 @@ __all__ = [
     "HostedLinkDeliveryMethodOrStr",
     "HumanReviewStatus",
     "HumanReviewStatusOrStr",
+    "IdNumberType",
+    "IdNumberTypeOrStr",
     "IdentityUpdateTypes",
     "IdentityUpdateTypesOrStr",
     "IdentityVerificationAutofillStatus",
@@ -790,8 +792,6 @@ __all__ = [
     "IdentityVerificationStatusOrStr",
     "IdentityVerificationStepStatus",
     "IdentityVerificationStepStatusOrStr",
-    "IdnumberType",
-    "IdnumberTypeOrStr",
     "ImageQuality",
     "ImageQualityOrStr",
     "ImageQualityOutcome",
@@ -819,9 +819,9 @@ __all__ = [
     "InvestmentTransactionType",
     "InvestmentTransactionTypeOrStr",
     "IsoCurrencyCode",
+    "IsoCurrencyCode1",
+    "IsoCurrencyCode1OrStr",
     "IsoCurrencyCodeOrStr",
-    "IsocurrencyCode1",
-    "IsocurrencyCode1OrStr",
     "IssuesStatus",
     "IssuesStatusOrStr",
     "IssuingCountry",
@@ -882,12 +882,12 @@ __all__ = [
     "NotificationSeverityOrStr",
     "NotificationType",
     "NotificationTypeOrStr",
-    "OauthErrorCode",
-    "OauthErrorCodeOrStr",
-    "OauthGrantType",
-    "OauthGrantTypeOrStr",
-    "OauthSubjectTokenType",
-    "OauthSubjectTokenTypeOrStr",
+    "OAuthErrorCode",
+    "OAuthErrorCodeOrStr",
+    "OAuthGrantType",
+    "OAuthGrantTypeOrStr",
+    "OAuthSubjectTokenType",
+    "OAuthSubjectTokenTypeOrStr",
     "OmittableTransferType",
     "OmittableTransferTypeOrStr",
     "OriginatorExpectedTransferFrequency",
@@ -898,14 +898,14 @@ __all__ = [
     "OverrideAccountTypeOrStr",
     "OwnershipType",
     "OwnershipTypeOrStr",
-    "PartnerEndCustomerCrauseCase",
-    "PartnerEndCustomerCrauseCaseOrStr",
+    "PartnerEndCustomerCraUseCase",
+    "PartnerEndCustomerCraUseCaseOrStr",
     "PartnerEndCustomerFlowdownStatus",
     "PartnerEndCustomerFlowdownStatusOrStr",
-    "PartnerEndCustomerOauthInstitutionApplicationStatus",
-    "PartnerEndCustomerOauthInstitutionApplicationStatusOrStr",
-    "PartnerEndCustomerOauthStatusUpdatedValues",
-    "PartnerEndCustomerOauthStatusUpdatedValuesOrStr",
+    "PartnerEndCustomerOAuthInstitutionApplicationStatus",
+    "PartnerEndCustomerOAuthInstitutionApplicationStatusOrStr",
+    "PartnerEndCustomerOAuthStatusUpdatedValues",
+    "PartnerEndCustomerOAuthStatusUpdatedValuesOrStr",
     "PartnerEndCustomerQuestionnaireStatus",
     "PartnerEndCustomerQuestionnaireStatusOrStr",
     "PartnerEndCustomerRequirementDue",
@@ -964,8 +964,8 @@ __all__ = [
     "PlaidErrorTypeOrStr",
     "PlaidLendScoreVersion",
     "PlaidLendScoreVersionOrStr",
-    "PoboxStatus",
-    "PoboxStatusOrStr",
+    "PoBoxStatus",
+    "PoBoxStatusOrStr",
     "PrismCashScoreVersion",
     "PrismCashScoreVersionOrStr",
     "PrismDetectVersion",
@@ -1072,8 +1072,8 @@ __all__ = [
     "SignalPaymentMethodOrStr",
     "SignalScheduleDefaultPaymentMethod",
     "SignalScheduleDefaultPaymentMethodOrStr",
-    "SmsverificationStatus",
-    "SmsverificationStatusOrStr",
+    "SmsVerificationStatus",
+    "SmsVerificationStatusOrStr",
     "Source",
     "SourceOrStr",
     "StandaloneInvestmentTransactionTransferType",
@@ -1108,8 +1108,8 @@ __all__ = [
     "TransactionsRuleTypeOrStr",
     "TransactionsUpdateStatus",
     "TransactionsUpdateStatusOrStr",
-    "TransferAchnetwork",
-    "TransferAchnetworkOrStr",
+    "TransferAchNetwork",
+    "TransferAchNetworkOrStr",
     "TransferAuthorizationDecision",
     "TransferAuthorizationDecisionOrStr",
     "TransferAuthorizationDecisionRationaleCode",
@@ -1196,8 +1196,8 @@ __all__ = [
     "VerificationStatus5",
     "VerificationStatus5OrStr",
     "VerificationStatusOrStr",
-    "VerifySmsdetailsStatus",
-    "VerifySmsdetailsStatusOrStr",
+    "VerifySmsDetailsStatus",
+    "VerifySmsDetailsStatusOrStr",
     "WalletPaymentScheme",
     "WalletPaymentSchemeOrStr",
     "WalletStatus",

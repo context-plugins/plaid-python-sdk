@@ -828,7 +828,7 @@ except ApiError as e:
 </details>
 
 <details>
-<summary><code>def asset_report_pdf_get(body: AssetReportPdfgetRequest | AssetReportPdfgetRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> None</code></summary>
+<summary><code>def asset_report_pdf_get(body: AssetReportPdfGetRequest | AssetReportPdfGetRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> None</code></summary>
 
 <dl>
 <dd>
@@ -856,7 +856,7 @@ The response to `/asset_report/pdf/get` is the PDF binary data. The `request_id`
 
 ```python
 try:
-    client.asset_report_pdf_get(AssetReportPdfgetRequest(asset_report_token="some example string"))
+    client.asset_report_pdf_get(AssetReportPdfGetRequest(asset_report_token="some example string"))
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -865,7 +865,7 @@ except ApiError as e:
 
 ```python
 try:
-    await async_client.asset_report_pdf_get(AssetReportPdfgetRequest(asset_report_token="some example string"))
+    await async_client.asset_report_pdf_get(AssetReportPdfGetRequest(asset_report_token="some example string"))
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -880,7 +880,7 @@ except ApiError as e:
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>body</code> | <code>[AssetReportPdfgetRequest](the_plaid_api/models/asset_report_pdfget_request.py) \| [AssetReportPdfgetRequestDict](the_plaid_api/models/asset_report_pdfget_request.py)</code> | The request body. |
+| <code>body</code> | <code>[AssetReportPdfGetRequest](the_plaid_api/models/asset_report_pdf_get_request.py) \| [AssetReportPdfGetRequestDict](the_plaid_api/models/asset_report_pdf_get_request.py)</code> | The request body. |
 | <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
@@ -3472,8 +3472,8 @@ try:
                 customer_agreement_timestamp=datetime(2025, 1, 1, 1, 0, 0, tzinfo=timezone.utc),
             ),
             questionnaires=PartnerEndCustomerQuestionnaires(
-                cra=PartnerEndCustomerCraquestionnaire(
-                    purposes=PartnerEndCustomerCrapurposes(),
+                cra=PartnerEndCustomerCraQuestionnaire(
+                    purposes=PartnerEndCustomerCraPurposes(),
                     is_third_party_involved=True,
                     is_technical_service_provider_involved=True,
                 ),
@@ -3500,8 +3500,8 @@ try:
                 customer_agreement_timestamp=datetime(2025, 1, 1, 1, 0, 0, tzinfo=timezone.utc),
             ),
             questionnaires=PartnerEndCustomerQuestionnaires(
-                cra=PartnerEndCustomerCraquestionnaire(
-                    purposes=PartnerEndCustomerCrapurposes(),
+                cra=PartnerEndCustomerCraQuestionnaire(
+                    purposes=PartnerEndCustomerCraPurposes(),
                     is_third_party_involved=True,
                     is_technical_service_provider_involved=True,
                 ),
@@ -4175,7 +4175,7 @@ except ApiError as e:
 </details>
 
 <details>
-<summary><code>def consumer_report_pdf_get(body: ConsumerReportPdfgetRequest | ConsumerReportPdfgetRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> None</code></summary>
+<summary><code>def consumer_report_pdf_get(body: ConsumerReportPdfGetRequest | ConsumerReportPdfGetRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> None</code></summary>
 
 <dl>
 <dd>
@@ -4201,7 +4201,7 @@ Response is PDF binary data. The `request_id` is returned in the `Plaid-Request-
 
 ```python
 try:
-    client.consumer_report_pdf_get(ConsumerReportPdfgetRequest(user_token="some example string"))
+    client.consumer_report_pdf_get(ConsumerReportPdfGetRequest(user_token="some example string"))
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -4210,7 +4210,7 @@ except ApiError as e:
 
 ```python
 try:
-    await async_client.consumer_report_pdf_get(ConsumerReportPdfgetRequest(user_token="some example string"))
+    await async_client.consumer_report_pdf_get(ConsumerReportPdfGetRequest(user_token="some example string"))
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -4225,7 +4225,7 @@ except ApiError as e:
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>body</code> | <code>[ConsumerReportPdfgetRequest](the_plaid_api/models/consumer_report_pdfget_request.py) \| [ConsumerReportPdfgetRequestDict](the_plaid_api/models/consumer_report_pdfget_request.py)</code> | The request body. |
+| <code>body</code> | <code>[ConsumerReportPdfGetRequest](the_plaid_api/models/consumer_report_pdf_get_request.py) \| [ConsumerReportPdfGetRequestDict](the_plaid_api/models/consumer_report_pdf_get_request.py)</code> | The request body. |
 | <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
@@ -4781,7 +4781,7 @@ except ApiError as e:
 </details>
 
 <details>
-<summary><code>def cra_check_report_pdf_get(body: CraCheckReportPdfgetRequest | CraCheckReportPdfgetRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> None</code></summary>
+<summary><code>def cra_check_report_pdf_get(body: CraCheckReportPdfGetRequest | CraCheckReportPdfGetRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> None</code></summary>
 
 <dl>
 <dd>
@@ -4805,7 +4805,7 @@ except ApiError as e:
 
 ```python
 try:
-    client.cra_check_report_pdf_get(CraCheckReportPdfgetRequest())
+    client.cra_check_report_pdf_get(CraCheckReportPdfGetRequest())
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -4814,7 +4814,7 @@ except ApiError as e:
 
 ```python
 try:
-    await async_client.cra_check_report_pdf_get(CraCheckReportPdfgetRequest())
+    await async_client.cra_check_report_pdf_get(CraCheckReportPdfGetRequest())
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -4829,7 +4829,7 @@ except ApiError as e:
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>body</code> | <code>[CraCheckReportPdfgetRequest](the_plaid_api/models/cra_check_report_pdfget_request.py) \| [CraCheckReportPdfgetRequestDict](the_plaid_api/models/cra_check_report_pdfget_request.py)</code> | The request body. |
+| <code>body</code> | <code>[CraCheckReportPdfGetRequest](the_plaid_api/models/cra_check_report_pdf_get_request.py) \| [CraCheckReportPdfGetRequestDict](the_plaid_api/models/cra_check_report_pdf_get_request.py)</code> | The request body. |
 | <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
@@ -5197,7 +5197,7 @@ except ApiError as e:
 </details>
 
 <details>
-<summary><code>def cra_loans_register(body: CraloansRegisterRequest | CraloansRegisterRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> CraLoansRegisterResponse</code></summary>
+<summary><code>def cra_loans_register(body: CraLoansRegisterRequest | CraLoansRegisterRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> CraLoansRegisterResponse</code></summary>
 
 <dl>
 <dd>
@@ -5222,7 +5222,7 @@ except ApiError as e:
 ```python
 try:
     response = client.cra_loans_register(
-        CraloansRegisterRequest(
+        CraLoansRegisterRequest(
             loans=[
                 CraLoanRegister(
                     user_token="some example string",
@@ -5245,7 +5245,7 @@ except ApiError as e:
 ```python
 try:
     response = await async_client.cra_loans_register(
-        CraloansRegisterRequest(
+        CraLoansRegisterRequest(
             loans=[
                 CraLoanRegister(
                     user_token="some example string",
@@ -5273,7 +5273,7 @@ except ApiError as e:
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>body</code> | <code>[CraloansRegisterRequest](the_plaid_api/models/craloans_register_request.py) \| [CraloansRegisterRequestDict](the_plaid_api/models/craloans_register_request.py)</code> | The request body. |
+| <code>body</code> | <code>[CraLoansRegisterRequest](the_plaid_api/models/cra_loans_register_request.py) \| [CraLoansRegisterRequestDict](the_plaid_api/models/cra_loans_register_request.py)</code> | The request body. |
 | <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
@@ -6329,7 +6329,7 @@ except ApiError as e:
 </details>
 
 <details>
-<summary><code>def credit_bank_income_pdf_get(body: CreditBankIncomePdfgetRequest | CreditBankIncomePdfgetRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> None</code></summary>
+<summary><code>def credit_bank_income_pdf_get(body: CreditBankIncomePdfGetRequest | CreditBankIncomePdfGetRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> None</code></summary>
 
 <dl>
 <dd>
@@ -6353,7 +6353,7 @@ except ApiError as e:
 
 ```python
 try:
-    client.credit_bank_income_pdf_get(CreditBankIncomePdfgetRequest(user_token="some example string"))
+    client.credit_bank_income_pdf_get(CreditBankIncomePdfGetRequest(user_token="some example string"))
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -6362,7 +6362,7 @@ except ApiError as e:
 
 ```python
 try:
-    await async_client.credit_bank_income_pdf_get(CreditBankIncomePdfgetRequest(user_token="some example string"))
+    await async_client.credit_bank_income_pdf_get(CreditBankIncomePdfGetRequest(user_token="some example string"))
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -6377,7 +6377,7 @@ except ApiError as e:
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>body</code> | <code>[CreditBankIncomePdfgetRequest](the_plaid_api/models/credit_bank_income_pdfget_request.py) \| [CreditBankIncomePdfgetRequestDict](the_plaid_api/models/credit_bank_income_pdfget_request.py)</code> | The request body. |
+| <code>body</code> | <code>[CreditBankIncomePdfGetRequest](the_plaid_api/models/credit_bank_income_pdf_get_request.py) \| [CreditBankIncomePdfGetRequestDict](the_plaid_api/models/credit_bank_income_pdf_get_request.py)</code> | The request body. |
 | <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
@@ -7333,7 +7333,7 @@ except ApiError as e:
 </details>
 
 <details>
-<summary><code>def credit_relay_pdf_get(body: CreditRelayPdfgetRequest | CreditRelayPdfgetRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> None</code></summary>
+<summary><code>def credit_relay_pdf_get(body: CreditRelayPdfGetRequest | CreditRelayPdfGetRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> None</code></summary>
 
 <dl>
 <dd>
@@ -7364,7 +7364,7 @@ The response to `/credit/relay/pdf/get` is the PDF binary data. The `request_id`
 ```python
 try:
     client.credit_relay_pdf_get(
-        CreditRelayPdfgetRequest(relay_token="some example string", report_type=ReportType.ASSET)
+        CreditRelayPdfGetRequest(relay_token="some example string", report_type=ReportType.ASSET)
     )
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7375,7 +7375,7 @@ except ApiError as e:
 ```python
 try:
     await async_client.credit_relay_pdf_get(
-        CreditRelayPdfgetRequest(relay_token="some example string", report_type=ReportType.ASSET)
+        CreditRelayPdfGetRequest(relay_token="some example string", report_type=ReportType.ASSET)
     )
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -7391,7 +7391,7 @@ except ApiError as e:
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>body</code> | <code>[CreditRelayPdfgetRequest](the_plaid_api/models/credit_relay_pdfget_request.py) \| [CreditRelayPdfgetRequestDict](the_plaid_api/models/credit_relay_pdfget_request.py)</code> | The request body. |
+| <code>body</code> | <code>[CreditRelayPdfGetRequest](the_plaid_api/models/credit_relay_pdf_get_request.py) \| [CreditRelayPdfGetRequestDict](the_plaid_api/models/credit_relay_pdf_get_request.py)</code> | The request body. |
 | <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
@@ -8027,7 +8027,7 @@ except ApiError as e:
 </details>
 
 <details>
-<summary><code>def fdx_consents_get(consent_id: str, *, request_options: RequestOptionsOrDict | None = None) -> FdxconsentGrant</code></summary>
+<summary><code>def fdx_consents_get(consent_id: str, *, request_options: RequestOptionsOrDict | None = None) -> FdxConsentGrant</code></summary>
 
 <dl>
 <dd>
@@ -8052,7 +8052,7 @@ Returns a consent grant by its identifier
 ```python
 try:
     response = client.fdx_consents_get("some example string")
-    # TODO: Handle 'response' of type FdxconsentGrant
+    # TODO: Handle 'response' of type FdxConsentGrant
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -8062,7 +8062,7 @@ except ApiError as e:
 ```python
 try:
     response = await async_client.fdx_consents_get("some example string")
-    # TODO: Handle 'response' of type FdxconsentGrant
+    # TODO: Handle 'response' of type FdxConsentGrant
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -8088,7 +8088,7 @@ except ApiError as e:
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FdxconsentGrant](the_plaid_api/models/fdxconsent_grant.py)</code> -- OK
+**OnSuccess**: <code>[FdxConsentGrant](the_plaid_api/models/fdx_consent_grant.py)</code> -- OK
 
 **OnError**: <code>[ApiError](the_plaid_api/core/exceptions.py)&#91;[RawError](the_plaid_api/core/results.py)&#93;</code>
 
@@ -8176,7 +8176,7 @@ except ApiError as e:
 </details>
 
 <details>
-<summary><code>def fdx_consents_revocation_get(consent_id: str, *, request_options: RequestOptionsOrDict | None = None) -> FdxconsentRevocations</code></summary>
+<summary><code>def fdx_consents_revocation_get(consent_id: str, *, request_options: RequestOptionsOrDict | None = None) -> FdxConsentRevocations</code></summary>
 
 <dl>
 <dd>
@@ -8201,7 +8201,7 @@ Returns the revocation history of a consent grant
 ```python
 try:
     response = client.fdx_consents_revocation_get("some example string")
-    # TODO: Handle 'response' of type FdxconsentRevocations
+    # TODO: Handle 'response' of type FdxConsentRevocations
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -8211,7 +8211,7 @@ except ApiError as e:
 ```python
 try:
     response = await async_client.fdx_consents_revocation_get("some example string")
-    # TODO: Handle 'response' of type FdxconsentRevocations
+    # TODO: Handle 'response' of type FdxConsentRevocations
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -8237,7 +8237,7 @@ except ApiError as e:
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FdxconsentRevocations](the_plaid_api/models/fdxconsent_revocations.py)</code> -- OK
+**OnSuccess**: <code>[FdxConsentRevocations](the_plaid_api/models/fdx_consent_revocations.py)</code> -- OK
 
 **OnError**: <code>[ApiError](the_plaid_api/core/exceptions.py)&#91;[RawError](the_plaid_api/core/results.py)&#93;</code>
 
@@ -8250,7 +8250,7 @@ except ApiError as e:
 </details>
 
 <details>
-<summary><code>def fdx_consents_revoke(consent_id: str, body: FdxconsentRevocation | FdxconsentRevocationDict, *, request_options: RequestOptionsOrDict | None = None) -> None</code></summary>
+<summary><code>def fdx_consents_revoke(consent_id: str, body: FdxConsentRevocation | FdxConsentRevocationDict, *, request_options: RequestOptionsOrDict | None = None) -> None</code></summary>
 
 <dl>
 <dd>
@@ -8276,7 +8276,7 @@ Appends a REVOKED status record to the named consent grant
 try:
     client.fdx_consents_revoke(
         "some example string",
-        FdxconsentRevocation(initiator=PartyType.DATA_ACCESS_PLATFORM, reason=FdxUpdateReason.BUSINESS_RULE),
+        FdxConsentRevocation(initiator=PartyType.DATA_ACCESS_PLATFORM, reason=FdxUpdateReason.BUSINESS_RULE),
     )
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8288,7 +8288,7 @@ except ApiError as e:
 try:
     await async_client.fdx_consents_revoke(
         "some example string",
-        FdxconsentRevocation(initiator=PartyType.DATA_ACCESS_PLATFORM, reason=FdxUpdateReason.BUSINESS_RULE),
+        FdxConsentRevocation(initiator=PartyType.DATA_ACCESS_PLATFORM, reason=FdxUpdateReason.BUSINESS_RULE),
     )
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
@@ -8305,7 +8305,7 @@ except ApiError as e:
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>consent_id</code> | <code>str</code> | Consent Grant Identifier. Uniquely identifies the consent grant |
-| <code>body</code> | <code>[FdxconsentRevocation](the_plaid_api/models/fdxconsent_revocation.py) \| [FdxconsentRevocationDict](the_plaid_api/models/fdxconsent_revocation.py)</code> | The request body. |
+| <code>body</code> | <code>[FdxConsentRevocation](the_plaid_api/models/fdx_consent_revocation.py) \| [FdxConsentRevocationDict](the_plaid_api/models/fdx_consent_revocation.py)</code> | The request body. |
 | <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
@@ -8417,7 +8417,7 @@ except ApiError as e:
 </details>
 
 <details>
-<summary><code>def get_recipient(recipient_id: str, *, oauth_state_id: str | None = None, request_options: RequestOptionsOrDict | None = None) -> FdxrecipientMetadata</code></summary>
+<summary><code>def get_recipient(recipient_id: str, *, oauth_state_id: str | None = None, request_options: RequestOptionsOrDict | None = None) -> FdxRecipientMetadata</code></summary>
 
 <dl>
 <dd>
@@ -8442,7 +8442,7 @@ Get a specific recipient
 ```python
 try:
     response = client.get_recipient("some example string")
-    # TODO: Handle 'response' of type FdxrecipientMetadata
+    # TODO: Handle 'response' of type FdxRecipientMetadata
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -8452,7 +8452,7 @@ except ApiError as e:
 ```python
 try:
     response = await async_client.get_recipient("some example string")
-    # TODO: Handle 'response' of type FdxrecipientMetadata
+    # TODO: Handle 'response' of type FdxRecipientMetadata
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -8479,7 +8479,7 @@ except ApiError as e:
 <dl>
 <dd>
 
-**OnSuccess**: <code>[FdxrecipientMetadata](the_plaid_api/models/fdxrecipient_metadata.py)</code> -- OK
+**OnSuccess**: <code>[FdxRecipientMetadata](the_plaid_api/models/fdx_recipient_metadata.py)</code> -- OK
 
 **OnError**: <code>[ApiError](the_plaid_api/core/exceptions.py)&#91;[RawError](the_plaid_api/core/results.py)&#93;</code>
 
@@ -11621,7 +11621,7 @@ except ApiError as e:
 </details>
 
 <details>
-<summary><code>def link_oauth_correlation_id_exchange(body: LinkOauthCorrelationIdExchangeRequest | LinkOauthCorrelationIdExchangeRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> LinkOauthCorrelationIdExchangeResponse</code></summary>
+<summary><code>def link_oauth_correlation_id_exchange(body: LinkOAuthCorrelationIdExchangeRequest | LinkOAuthCorrelationIdExchangeRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> LinkOAuthCorrelationIdExchangeResponse</code></summary>
 
 <dl>
 <dd>
@@ -11647,9 +11647,9 @@ The `link_correlation_id` is ephemeral and expires in a brief period, after whic
 ```python
 try:
     response = client.link_oauth_correlation_id_exchange(
-        LinkOauthCorrelationIdExchangeRequest(link_correlation_id="some example string")
+        LinkOAuthCorrelationIdExchangeRequest(link_correlation_id="some example string")
     )
-    # TODO: Handle 'response' of type LinkOauthCorrelationIdExchangeResponse
+    # TODO: Handle 'response' of type LinkOAuthCorrelationIdExchangeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -11659,9 +11659,9 @@ except ApiError as e:
 ```python
 try:
     response = await async_client.link_oauth_correlation_id_exchange(
-        LinkOauthCorrelationIdExchangeRequest(link_correlation_id="some example string")
+        LinkOAuthCorrelationIdExchangeRequest(link_correlation_id="some example string")
     )
-    # TODO: Handle 'response' of type LinkOauthCorrelationIdExchangeResponse
+    # TODO: Handle 'response' of type LinkOAuthCorrelationIdExchangeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -11676,7 +11676,7 @@ except ApiError as e:
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>body</code> | <code>[LinkOauthCorrelationIdExchangeRequest](the_plaid_api/models/link_oauth_correlation_id_exchange_request.py) \| [LinkOauthCorrelationIdExchangeRequestDict](the_plaid_api/models/link_oauth_correlation_id_exchange_request.py)</code> | The request body. |
+| <code>body</code> | <code>[LinkOAuthCorrelationIdExchangeRequest](the_plaid_api/models/link_o_auth_correlation_id_exchange_request.py) \| [LinkOAuthCorrelationIdExchangeRequestDict](the_plaid_api/models/link_o_auth_correlation_id_exchange_request.py)</code> | The request body. |
 | <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
@@ -11687,7 +11687,7 @@ except ApiError as e:
 <dl>
 <dd>
 
-**OnSuccess**: <code>[LinkOauthCorrelationIdExchangeResponse](the_plaid_api/models/link_oauth_correlation_id_exchange_response.py)</code> -- OK
+**OnSuccess**: <code>[LinkOAuthCorrelationIdExchangeResponse](the_plaid_api/models/link_o_auth_correlation_id_exchange_response.py)</code> -- OK
 
 **OnError**: <code>[ApiError](the_plaid_api/core/exceptions.py)&#91;[RawError](the_plaid_api/core/results.py)&#93;</code>
 
@@ -11942,7 +11942,7 @@ except ApiError as e:
 </details>
 
 <details>
-<summary><code>def oauth_introspect(body: OauthIntrospectRequest | OauthIntrospectRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> OauthIntrospectResponse</code></summary>
+<summary><code>def oauth_introspect(body: OAuthIntrospectRequest | OAuthIntrospectRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> OAuthIntrospectResponse</code></summary>
 
 <dl>
 <dd>
@@ -11968,8 +11968,8 @@ Note: This endpoint supports `Content-Type: application/x-www-form-urlencoded` a
 
 ```python
 try:
-    response = client.oauth_introspect(OauthIntrospectRequest(token="some example string"))
-    # TODO: Handle 'response' of type OauthIntrospectResponse
+    response = client.oauth_introspect(OAuthIntrospectRequest(token="some example string"))
+    # TODO: Handle 'response' of type OAuthIntrospectResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -11978,8 +11978,8 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.oauth_introspect(OauthIntrospectRequest(token="some example string"))
-    # TODO: Handle 'response' of type OauthIntrospectResponse
+    response = await async_client.oauth_introspect(OAuthIntrospectRequest(token="some example string"))
+    # TODO: Handle 'response' of type OAuthIntrospectResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -11994,7 +11994,7 @@ except ApiError as e:
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>body</code> | <code>[OauthIntrospectRequest](the_plaid_api/models/oauth_introspect_request.py) \| [OauthIntrospectRequestDict](the_plaid_api/models/oauth_introspect_request.py)</code> | The request body. |
+| <code>body</code> | <code>[OAuthIntrospectRequest](the_plaid_api/models/o_auth_introspect_request.py) \| [OAuthIntrospectRequestDict](the_plaid_api/models/o_auth_introspect_request.py)</code> | The request body. |
 | <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
@@ -12005,7 +12005,7 @@ except ApiError as e:
 <dl>
 <dd>
 
-**OnSuccess**: <code>[OauthIntrospectResponse](the_plaid_api/models/oauth_introspect_response.py)</code> -- OK
+**OnSuccess**: <code>[OAuthIntrospectResponse](the_plaid_api/models/o_auth_introspect_response.py)</code> -- OK
 
 **OnError**: <code>[ApiError](the_plaid_api/core/exceptions.py)&#91;[RawError](the_plaid_api/core/results.py)&#93;</code>
 
@@ -12018,7 +12018,7 @@ except ApiError as e:
 </details>
 
 <details>
-<summary><code>def oauth_revoke(body: OauthRevokeRequest | OauthRevokeRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> OauthRevokeResponse</code></summary>
+<summary><code>def oauth_revoke(body: OAuthRevokeRequest | OAuthRevokeRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> OAuthRevokeResponse</code></summary>
 
 <dl>
 <dd>
@@ -12044,8 +12044,8 @@ Note: This endpoint supports `Content-Type: application/x-www-form-urlencoded` a
 
 ```python
 try:
-    response = client.oauth_revoke(OauthRevokeRequest(token="some example string"))
-    # TODO: Handle 'response' of type OauthRevokeResponse
+    response = client.oauth_revoke(OAuthRevokeRequest(token="some example string"))
+    # TODO: Handle 'response' of type OAuthRevokeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -12054,8 +12054,8 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.oauth_revoke(OauthRevokeRequest(token="some example string"))
-    # TODO: Handle 'response' of type OauthRevokeResponse
+    response = await async_client.oauth_revoke(OAuthRevokeRequest(token="some example string"))
+    # TODO: Handle 'response' of type OAuthRevokeResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -12070,7 +12070,7 @@ except ApiError as e:
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>body</code> | <code>[OauthRevokeRequest](the_plaid_api/models/oauth_revoke_request.py) \| [OauthRevokeRequestDict](the_plaid_api/models/oauth_revoke_request.py)</code> | The request body. |
+| <code>body</code> | <code>[OAuthRevokeRequest](the_plaid_api/models/o_auth_revoke_request.py) \| [OAuthRevokeRequestDict](the_plaid_api/models/o_auth_revoke_request.py)</code> | The request body. |
 | <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
@@ -12081,7 +12081,7 @@ except ApiError as e:
 <dl>
 <dd>
 
-**OnSuccess**: <code>[OauthRevokeResponse](the_plaid_api/models/oauth_revoke_response.py)</code> -- OK
+**OnSuccess**: <code>[OAuthRevokeResponse](the_plaid_api/models/o_auth_revoke_response.py)</code> -- OK
 
 **OnError**: <code>[ApiError](the_plaid_api/core/exceptions.py)&#91;[RawError](the_plaid_api/core/results.py)&#93;</code>
 
@@ -12094,7 +12094,7 @@ except ApiError as e:
 </details>
 
 <details>
-<summary><code>def oauth_token(body: OauthTokenRequest | OauthTokenRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> OauthTokenResponse</code></summary>
+<summary><code>def oauth_token(body: OAuthTokenRequest | OAuthTokenRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> OAuthTokenResponse</code></summary>
 
 <dl>
 <dd>
@@ -12118,8 +12118,8 @@ except ApiError as e:
 
 ```python
 try:
-    response = client.oauth_token(OauthTokenRequest(grant_type=OauthGrantType.REFRESH_TOKEN))
-    # TODO: Handle 'response' of type OauthTokenResponse
+    response = client.oauth_token(OAuthTokenRequest(grant_type=OAuthGrantType.REFRESH_TOKEN))
+    # TODO: Handle 'response' of type OAuthTokenResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -12128,8 +12128,8 @@ except ApiError as e:
 
 ```python
 try:
-    response = await async_client.oauth_token(OauthTokenRequest(grant_type=OauthGrantType.REFRESH_TOKEN))
-    # TODO: Handle 'response' of type OauthTokenResponse
+    response = await async_client.oauth_token(OAuthTokenRequest(grant_type=OAuthGrantType.REFRESH_TOKEN))
+    # TODO: Handle 'response' of type OAuthTokenResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -12144,7 +12144,7 @@ except ApiError as e:
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>body</code> | <code>[OauthTokenRequest](the_plaid_api/models/oauth_token_request.py) \| [OauthTokenRequestDict](the_plaid_api/models/oauth_token_request.py)</code> | The request body. |
+| <code>body</code> | <code>[OAuthTokenRequest](the_plaid_api/models/o_auth_token_request.py) \| [OAuthTokenRequestDict](the_plaid_api/models/o_auth_token_request.py)</code> | The request body. |
 | <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
@@ -12155,7 +12155,7 @@ except ApiError as e:
 <dl>
 <dd>
 
-**OnSuccess**: <code>[OauthTokenResponse](the_plaid_api/models/oauth_token_response.py)</code> -- OK
+**OnSuccess**: <code>[OAuthTokenResponse](the_plaid_api/models/o_auth_token_response.py)</code> -- OK
 
 **OnError**: <code>[ApiError](the_plaid_api/core/exceptions.py)&#91;[RawError](the_plaid_api/core/results.py)&#93;</code>
 
@@ -12472,7 +12472,7 @@ except ApiError as e:
 </details>
 
 <details>
-<summary><code>def partner_customer_oauth_institutions_get(body: PartnerCustomerOauthInstitutionsGetRequest | PartnerCustomerOauthInstitutionsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> PartnerCustomerOauthInstitutionsGetResponse</code></summary>
+<summary><code>def partner_customer_oauth_institutions_get(body: PartnerCustomerOAuthInstitutionsGetRequest | PartnerCustomerOAuthInstitutionsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None) -> PartnerCustomerOAuthInstitutionsGetResponse</code></summary>
 
 <dl>
 <dd>
@@ -12497,13 +12497,13 @@ The `/partner/customer/oauth_institutions/get` endpoint is used by reseller part
 ```python
 try:
     response = client.partner_customer_oauth_institutions_get(
-        PartnerCustomerOauthInstitutionsGetRequest(
+        PartnerCustomerOAuthInstitutionsGetRequest(
             client_id="7f57eb3d2a9j6480121fx361",
             secret="79g03eoofwl8240v776r2h667442119",
             end_customer_client_id="7f57eb3d2a9j6480121fx361",
         ),
     )
-    # TODO: Handle 'response' of type PartnerCustomerOauthInstitutionsGetResponse
+    # TODO: Handle 'response' of type PartnerCustomerOAuthInstitutionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -12513,13 +12513,13 @@ except ApiError as e:
 ```python
 try:
     response = await async_client.partner_customer_oauth_institutions_get(
-        PartnerCustomerOauthInstitutionsGetRequest(
+        PartnerCustomerOAuthInstitutionsGetRequest(
             client_id="7f57eb3d2a9j6480121fx361",
             secret="79g03eoofwl8240v776r2h667442119",
             end_customer_client_id="7f57eb3d2a9j6480121fx361",
         ),
     )
-    # TODO: Handle 'response' of type PartnerCustomerOauthInstitutionsGetResponse
+    # TODO: Handle 'response' of type PartnerCustomerOAuthInstitutionsGetResponse
 except ApiError as e:
     ...  # TODO: Handle 'e.error' of type RawError
 ```
@@ -12534,7 +12534,7 @@ except ApiError as e:
 
 | Name | Type | Description |
 | --- | --- | --- |
-| <code>body</code> | <code>[PartnerCustomerOauthInstitutionsGetRequest](the_plaid_api/models/partner_customer_oauth_institutions_get_request.py) \| [PartnerCustomerOauthInstitutionsGetRequestDict](the_plaid_api/models/partner_customer_oauth_institutions_get_request.py)</code> | The request body. |
+| <code>body</code> | <code>[PartnerCustomerOAuthInstitutionsGetRequest](the_plaid_api/models/partner_customer_o_auth_institutions_get_request.py) \| [PartnerCustomerOAuthInstitutionsGetRequestDict](the_plaid_api/models/partner_customer_o_auth_institutions_get_request.py)</code> | The request body. |
 | <code>request_options</code> | <code>[RequestOptionsOrDict](the_plaid_api/core/request_options.py) \| None</code> | Per-call overrides for this one request, such as a timeout, extra headers, or its retry count and statuses. |
 
 </dd>
@@ -12545,7 +12545,7 @@ except ApiError as e:
 <dl>
 <dd>
 
-**OnSuccess**: <code>[PartnerCustomerOauthInstitutionsGetResponse](the_plaid_api/models/partner_customer_oauth_institutions_get_response.py)</code> -- OK
+**OnSuccess**: <code>[PartnerCustomerOAuthInstitutionsGetResponse](the_plaid_api/models/partner_customer_o_auth_institutions_get_response.py)</code> -- OK
 
 **OnError**: <code>[ApiError](the_plaid_api/core/exceptions.py)&#91;[RawError](the_plaid_api/core/results.py)&#93;</code>
 
@@ -21408,7 +21408,7 @@ Use the `/transfer/ledger/deposit` endpoint to deposit funds into Plaid Ledger.
 try:
     response = client.transfer_ledger_deposit(
         TransferLedgerDepositRequest(
-            amount="some example string", idempotency_key="some example string", network=TransferAchnetwork.ACH
+            amount="some example string", idempotency_key="some example string", network=TransferAchNetwork.ACH
         ),
     )
     # TODO: Handle 'response' of type TransferLedgerDepositResponse
@@ -21422,7 +21422,7 @@ except ApiError as e:
 try:
     response = await async_client.transfer_ledger_deposit(
         TransferLedgerDepositRequest(
-            amount="some example string", idempotency_key="some example string", network=TransferAchnetwork.ACH
+            amount="some example string", idempotency_key="some example string", network=TransferAchNetwork.ACH
         ),
     )
     # TODO: Handle 'response' of type TransferLedgerDepositResponse
@@ -22447,7 +22447,7 @@ try:
     response = client.transfer_platform_originator_create(
         TransferPlatformOriginatorCreateRequest(
             originator_client_id="some example string",
-            tos_acceptance_metadata=TosacceptanceMetadata(
+            tos_acceptance_metadata=TosAcceptanceMetadata(
                 agreement_accepted=True,
                 originator_ip_address="some example string",
                 agreement_accepted_at=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc),
@@ -22467,7 +22467,7 @@ try:
     response = await async_client.transfer_platform_originator_create(
         TransferPlatformOriginatorCreateRequest(
             originator_client_id="some example string",
-            tos_acceptance_metadata=TosacceptanceMetadata(
+            tos_acceptance_metadata=TosAcceptanceMetadata(
                 agreement_accepted=True,
                 originator_ip_address="some example string",
                 agreement_accepted_at=datetime(2024, 1, 15, 9, 30, 0, tzinfo=timezone.utc),

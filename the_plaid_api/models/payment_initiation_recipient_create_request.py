@@ -4,7 +4,7 @@ from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
 from .payment_initiation_address import PaymentInitiationAddress, PaymentInitiationAddressDict
-from .recipient_bacsnullable import RecipientBacsnullable, RecipientBacsnullableDict
+from .recipient_bacs_nullable import RecipientBacsNullable, RecipientBacsNullableDict
 
 
 class PaymentInitiationRecipientCreateRequest(SdkBaseModel):
@@ -27,7 +27,7 @@ class PaymentInitiationRecipientCreateRequest(SdkBaseModel):
     """The International Bank Account Number (IBAN) for the recipient. If Bacs data is not provided, an IBAN is
     required."""
 
-    bacs: OptionalNullable[RecipientBacsnullable] = UNSET
+    bacs: OptionalNullable[RecipientBacsNullable] = UNSET
     """An object containing a Bacs account number and sort code. If an IBAN is not provided or if this recipient needs
     to accept domestic GBP-denominated payments, Bacs data is required."""
 
@@ -40,5 +40,5 @@ class PaymentInitiationRecipientCreateRequestDict(TypedDict):
     secret: NotRequired[str]
     name: str
     iban: NotRequired[str | None]
-    bacs: NotRequired[RecipientBacsnullableDict | None]
+    bacs: NotRequired[RecipientBacsNullableDict | None]
     address: NotRequired[PaymentInitiationAddressDict | None]

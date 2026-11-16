@@ -11,8 +11,11 @@ from .projected_income_summary_field_number import (
     ProjectedIncomeSummaryFieldNumberDict,
 )
 from .transaction_data import TransactionData, TransactionDataDict
-from .ytdgross_income_summary_field_number import YtdgrossIncomeSummaryFieldNumber, YtdgrossIncomeSummaryFieldNumberDict
-from .ytdnet_income_summary_field_number import YtdnetIncomeSummaryFieldNumber, YtdnetIncomeSummaryFieldNumberDict
+from .ytd_gross_income_summary_field_number import (
+    YtdGrossIncomeSummaryFieldNumber,
+    YtdGrossIncomeSummaryFieldNumberDict,
+)
+from .ytd_net_income_summary_field_number import YtdNetIncomeSummaryFieldNumber, YtdNetIncomeSummaryFieldNumberDict
 
 
 class IncomeSummary(SdkBaseModel):
@@ -24,10 +27,10 @@ class IncomeSummary(SdkBaseModel):
     employee_name: EmployeeIncomeSummaryFieldString | None
     """The name of the employee, as reported on the paystub."""
 
-    ytd_gross_income: YtdgrossIncomeSummaryFieldNumber | None
+    ytd_gross_income: YtdGrossIncomeSummaryFieldNumber | None
     """Year-to-date pre-tax earnings, as reported on the paystub."""
 
-    ytd_net_income: YtdnetIncomeSummaryFieldNumber | None
+    ytd_net_income: YtdNetIncomeSummaryFieldNumber | None
     """Year-to-date earnings after any tax withholdings, benefit payments or deductions, as reported on the paystub."""
 
     pay_frequency: PayFrequency | None
@@ -43,8 +46,8 @@ class IncomeSummary(SdkBaseModel):
 class IncomeSummaryDict(TypedDict):
     employer_name: EmployerIncomeSummaryFieldStringDict | None
     employee_name: EmployeeIncomeSummaryFieldStringDict | None
-    ytd_gross_income: YtdgrossIncomeSummaryFieldNumberDict | None
-    ytd_net_income: YtdnetIncomeSummaryFieldNumberDict | None
+    ytd_gross_income: YtdGrossIncomeSummaryFieldNumberDict | None
+    ytd_net_income: YtdNetIncomeSummaryFieldNumberDict | None
     pay_frequency: PayFrequencyDict | None
     projected_wage: ProjectedIncomeSummaryFieldNumberDict | None
     verified_transaction: TransactionDataDict | None

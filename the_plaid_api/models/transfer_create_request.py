@@ -4,7 +4,7 @@ from pydantic import Field
 from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
-from .enums.achclass import AchclassOrStr
+from .enums.ach_class import AchClassOrStr
 from .enums.transfer_network import TransferNetworkOrStr
 from .enums.transfer_type import TransferTypeOrStr
 from .transfer_user_in_request_deprecated import TransferUserInRequestDeprecated, TransferUserInRequestDeprecatedDict
@@ -58,7 +58,7 @@ class TransferCreateRequest(SdkBaseModel):
     a transfer up to 2 times, within 180 days of creating the original transfer. Only transfers that were returned with
     code ``R01`` or ``R09`` may be retried."""
 
-    ach_class: Optional[AchclassOrStr] = UNSET
+    ach_class: Optional[AchClassOrStr] = UNSET
     user: OptionalNullable[TransferUserInRequestDeprecated] = UNSET
     """The legal name and other information for the account holder."""
 
@@ -95,7 +95,7 @@ class TransferCreateRequestDict(TypedDict):
     network: NotRequired[TransferNetworkOrStr]
     amount: NotRequired[str]
     description: str
-    ach_class: NotRequired[AchclassOrStr]
+    ach_class: NotRequired[AchClassOrStr]
     user: NotRequired[TransferUserInRequestDeprecatedDict | None]
     metadata: NotRequired[dict[str, str] | None]
     origination_account_id: NotRequired[str | None]

@@ -7,9 +7,9 @@ from .cra_check_report_home_lending_report_options import (
     CraCheckReportHomeLendingReportOptions,
     CraCheckReportHomeLendingReportOptionsDict,
 )
-from .link_token_create_request_cra_options_base_report_gseoptions import (
-    LinkTokenCreateRequestCraOptionsBaseReportGseoptions,
-    LinkTokenCreateRequestCraOptionsBaseReportGseoptionsDict,
+from .link_token_create_request_cra_options_base_report_gse_options import (
+    LinkTokenCreateRequestCraOptionsBaseReportGseOptions,
+    LinkTokenCreateRequestCraOptionsBaseReportGseOptionsDict,
 )
 
 
@@ -20,7 +20,7 @@ class LinkTokenCreateRequestCraOptionsBaseReport(SdkBaseModel):
     client_report_id: OptionalNullable[str] = UNSET
     """Client-generated identifier, which can be used by lenders to track loan applications."""
 
-    gse_options: OptionalNullable[LinkTokenCreateRequestCraOptionsBaseReportGseoptions] = UNSET
+    gse_options: OptionalNullable[LinkTokenCreateRequestCraOptionsBaseReportGseOptions] = UNSET
     """Specifies options for initializing Link to create reports that can be shared with GSEs for mortgage
     verification."""
 
@@ -34,6 +34,6 @@ class LinkTokenCreateRequestCraOptionsBaseReport(SdkBaseModel):
 
 class LinkTokenCreateRequestCraOptionsBaseReportDict(TypedDict):
     client_report_id: NotRequired[str | None]
-    gse_options: NotRequired[LinkTokenCreateRequestCraOptionsBaseReportGseoptionsDict | None]
+    gse_options: NotRequired[LinkTokenCreateRequestCraOptionsBaseReportGseOptionsDict | None]
     require_identity: NotRequired[bool | None]
     home_lending_report_options: NotRequired[CraCheckReportHomeLendingReportOptionsDict | None]

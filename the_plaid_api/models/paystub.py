@@ -12,7 +12,7 @@ from .net_pay import NetPay, NetPayDict
 from .pay_period_details import PayPeriodDetails, PayPeriodDetailsDict
 from .paystub_details import PaystubDetails, PaystubDetailsDict
 from .paystub_employer import PaystubEmployer, PaystubEmployerDict
-from .paystub_ytddetails import PaystubYtddetails, PaystubYtddetailsDict
+from .paystub_ytd_details import PaystubYtdDetails, PaystubYtdDetailsDict
 
 
 class Paystub(SdkBaseModel):
@@ -46,7 +46,7 @@ class Paystub(SdkBaseModel):
     """An object representing details that can be found on the paystub."""
 
     income_breakdown: Optional[list[IncomeBreakdown]] = UNSET
-    ytd_earnings: Optional[PaystubYtddetails] = UNSET
+    ytd_earnings: Optional[PaystubYtdDetails] = UNSET
     """The amount of income earned year to date, as based on paystub data."""
 
 
@@ -61,4 +61,4 @@ class PaystubDict(TypedDict):
     pay_period_details: PayPeriodDetailsDict
     paystub_details: NotRequired[PaystubDetailsDict]
     income_breakdown: NotRequired[list[IncomeBreakdownDict]]
-    ytd_earnings: NotRequired[PaystubYtddetailsDict]
+    ytd_earnings: NotRequired[PaystubYtdDetailsDict]

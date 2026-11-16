@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, OptionalNullable, SdkBaseModel
-from .aamvaanalysis import Aamvaanalysis, AamvaanalysisDict
+from .aamva_analysis import AamvaAnalysis, AamvaAnalysisDict
 from .enums.document_authenticity_match_code import DocumentAuthenticityMatchCodeOrStr
 from .enums.image_quality import ImageQualityOrStr
 from .fraud_analysis_details import FraudAnalysisDetails, FraudAnalysisDetailsDict
@@ -62,7 +62,7 @@ class DocumentAnalysis(SdkBaseModel):
     human_review: OptionalNullable[HumanReview] = UNSET
     """Details about the human review check, which refers to a check that is performed by a document specialist."""
 
-    aamva_verification: Aamvaanalysis | None
+    aamva_verification: AamvaAnalysis | None
     """Analyzed AAMVA data for the associated hit.
 
     Note: This field is only available for U.S. driver's licenses issued by participating states."""
@@ -75,4 +75,4 @@ class DocumentAnalysisDict(TypedDict):
     fraud_analysis_details: FraudAnalysisDetailsDict | None
     image_quality_details: ImageQualityDetailsDict | None
     human_review: NotRequired[HumanReviewDict | None]
-    aamva_verification: AamvaanalysisDict | None
+    aamva_verification: AamvaAnalysisDict | None

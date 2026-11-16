@@ -10,7 +10,7 @@ from .external_payment_refund_details import ExternalPaymentRefundDetails, Exter
 from .external_payment_schedule_get import ExternalPaymentScheduleGet, ExternalPaymentScheduleGetDict
 from .payment_amount import PaymentAmount, PaymentAmountDict
 from .payment_amount_refunded import PaymentAmountRefunded, PaymentAmountRefundedDict
-from .sender_bacsnullable import SenderBacsnullable, SenderBacsnullableDict
+from .sender_bacs_nullable import SenderBacsNullable, SenderBacsNullableDict
 
 
 class PaymentInitiationPayment(SdkBaseModel):
@@ -97,7 +97,7 @@ class PaymentInitiationPayment(SdkBaseModel):
     refund_details: OptionalNullable[ExternalPaymentRefundDetails] = UNSET
     """Details about external payment refund"""
 
-    bacs: SenderBacsnullable | None
+    bacs: SenderBacsNullable | None
     """An object containing a Bacs account number and sort code. If an IBAN is not provided or if this recipient needs
     to accept domestic GBP-denominated payments, Bacs data is required."""
 
@@ -179,7 +179,7 @@ class PaymentInitiationPaymentDict(TypedDict):
     last_status_update: RFC3339DateTime
     schedule: NotRequired[ExternalPaymentScheduleGetDict | None]
     refund_details: NotRequired[ExternalPaymentRefundDetailsDict | None]
-    bacs: SenderBacsnullableDict | None
+    bacs: SenderBacsNullableDict | None
     iban: str | None
     refund_ids: NotRequired[list[str] | None]
     amount_refunded: NotRequired[PaymentAmountRefundedDict | None]

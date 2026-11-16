@@ -4,7 +4,7 @@ from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Optional, SdkBaseModel
 from .enums.content_types import ContentTypesOrStr
-from .enums.fdxhateoas_link_action import FdxhateoasLinkActionOrStr
+from .enums.fdx_hateoas_link_action import FdxHateoasLinkActionOrStr
 
 
 class HateoasLink(SdkBaseModel):
@@ -13,7 +13,7 @@ class HateoasLink(SdkBaseModel):
     href: str
     """URL to invoke the action on the resource"""
 
-    action: Optional[FdxhateoasLinkActionOrStr] = UNSET
+    action: Optional[FdxHateoasLinkActionOrStr] = UNSET
     """HTTP Method to use for the request"""
 
     rel: Optional[str] = UNSET
@@ -26,6 +26,6 @@ class HateoasLink(SdkBaseModel):
 
 class HateoasLinkDict(TypedDict):
     href: str
-    action: NotRequired[FdxhateoasLinkActionOrStr]
+    action: NotRequired[FdxHateoasLinkActionOrStr]
     rel: NotRequired[str]
     types: NotRequired[list[ContentTypesOrStr]]

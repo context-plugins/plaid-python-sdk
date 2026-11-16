@@ -4,7 +4,7 @@ from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, OptionalNullable, SdkBaseModel
 from .payment_initiation_address import PaymentInitiationAddress, PaymentInitiationAddressDict
-from .recipient_bacsnullable import RecipientBacsnullable, RecipientBacsnullableDict
+from .recipient_bacs_nullable import RecipientBacsNullable, RecipientBacsNullableDict
 
 
 class PaymentInitiationRecipient(SdkBaseModel):
@@ -22,7 +22,7 @@ class PaymentInitiationRecipient(SdkBaseModel):
     iban: OptionalNullable[str] = UNSET
     """The International Bank Account Number (IBAN) for the recipient."""
 
-    bacs: OptionalNullable[RecipientBacsnullable] = UNSET
+    bacs: OptionalNullable[RecipientBacsNullable] = UNSET
     """An object containing a Bacs account number and sort code. If an IBAN is not provided or if this recipient needs
     to accept domestic GBP-denominated payments, Bacs data is required."""
 
@@ -32,4 +32,4 @@ class PaymentInitiationRecipientDict(TypedDict):
     name: str
     address: NotRequired[PaymentInitiationAddressDict | None]
     iban: NotRequired[str | None]
-    bacs: NotRequired[RecipientBacsnullableDict | None]
+    bacs: NotRequired[RecipientBacsNullableDict | None]

@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing_extensions import TypedDict
 
 from ..core import SdkBaseModel
-from .enums.credit_achclass import CreditAchclassOrStr
+from .enums.credit_ach_class import CreditAchClassOrStr
 from .enums.originator_expected_transfer_frequency import OriginatorExpectedTransferFrequencyOrStr
 
 
@@ -24,7 +24,7 @@ class TransferCreditUsageConfiguration(SdkBaseModel):
     expected_monthly_amount: str
     """The originator's monthly expected ACH credit processing amount for the next 6-12 months."""
 
-    sec_codes: list[CreditAchclassOrStr]
+    sec_codes: list[CreditAchClassOrStr]
     """Specifies the expected use cases for the originator's credit transfers. This should be a list that contains one
     or more of the following codes:
 
@@ -45,4 +45,4 @@ class TransferCreditUsageConfigurationDict(TypedDict):
     expected_highest_amount: str
     expected_average_amount: str
     expected_monthly_amount: str
-    sec_codes: list[CreditAchclassOrStr]
+    sec_codes: list[CreditAchClassOrStr]

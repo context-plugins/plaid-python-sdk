@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Optional, SdkBaseModel
-from .asset_report_pdfget_request_options import AssetReportPdfgetRequestOptions, AssetReportPdfgetRequestOptionsDict
+from .asset_report_pdf_get_request_options import AssetReportPdfGetRequestOptions, AssetReportPdfGetRequestOptionsDict
 
 
 class AssetReportAuditCopyPdfGetRequest(SdkBaseModel):
@@ -20,7 +20,7 @@ class AssetReportAuditCopyPdfGetRequest(SdkBaseModel):
     audit_copy_token: str
     """The ``audit_copy_token`` granting access to the Audit Copy you would like to get as a PDF."""
 
-    options: Optional[AssetReportPdfgetRequestOptions] = UNSET
+    options: Optional[AssetReportPdfGetRequestOptions] = UNSET
     """An optional object to filter or add data to ``/asset_report/get`` results. If provided, must be non-``null``."""
 
 
@@ -28,4 +28,4 @@ class AssetReportAuditCopyPdfGetRequestDict(TypedDict):
     client_id: NotRequired[str]
     secret: NotRequired[str]
     audit_copy_token: str
-    options: NotRequired[AssetReportPdfgetRequestOptionsDict]
+    options: NotRequired[AssetReportPdfGetRequestOptionsDict]

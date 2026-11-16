@@ -11,11 +11,11 @@ from .identity_verification_template_reference import (
     IdentityVerificationTemplateReferenceDict,
 )
 from .identity_verification_user_data import IdentityVerificationUserData, IdentityVerificationUserDataDict
-from .idvprotect_event import IdvprotectEvent, IdvprotectEventDict
-from .kyccheck_details import KyccheckDetails, KyccheckDetailsDict
+from .idv_protect_event import IdvProtectEvent, IdvProtectEventDict
+from .kyc_check_details import KycCheckDetails, KycCheckDetailsDict
 from .risk_check_details import RiskCheckDetails, RiskCheckDetailsDict
 from .selfie_check import SelfieCheck, SelfieCheckDict
-from .verify_smsdetails import VerifySmsdetails, VerifySmsdetailsDict
+from .verify_sms_details import VerifySmsDetails, VerifySmsDetailsDict
 
 
 class IdentityVerificationRetryResponse(SdkBaseModel):
@@ -114,14 +114,14 @@ class IdentityVerificationRetryResponse(SdkBaseModel):
     """Additional information for the ``selfie_check`` step. This field will be ``null`` unless ``steps.selfie_check``
     has reached a terminal state of either ``success`` or ``failed``."""
 
-    kyc_check: KyccheckDetails | None
+    kyc_check: KycCheckDetails | None
     """Additional information for the ``kyc_check`` (Data Source Verification) step. This field will be ``null`` unless
     ``steps.kyc_check`` has reached a terminal state of either ``success`` or ``failed``."""
 
     risk_check: RiskCheckDetails | None
     """Additional information for the ``risk_check`` step."""
 
-    verify_sms: VerifySmsdetails | None
+    verify_sms: VerifySmsDetails | None
     """Additional information for the ``verify_sms`` step."""
 
     watchlist_screening_id: str | None
@@ -142,7 +142,7 @@ class IdentityVerificationRetryResponse(SdkBaseModel):
     redacted_at: RFC3339DateTime | None
     """An ISO8601 formatted timestamp."""
 
-    latest_scored_protect_event: OptionalNullable[IdvprotectEvent] = UNSET
+    latest_scored_protect_event: OptionalNullable[IdvProtectEvent] = UNSET
     """Information about a Protect event including Trust Index score and fraud attributes."""
 
     request_id: str
@@ -163,12 +163,12 @@ class IdentityVerificationRetryResponseDict(TypedDict):
     steps: IdentityVerificationStepSummaryDict
     documentary_verification: DocumentaryVerificationDict | None
     selfie_check: SelfieCheckDict | None
-    kyc_check: KyccheckDetailsDict | None
+    kyc_check: KycCheckDetailsDict | None
     risk_check: RiskCheckDetailsDict | None
-    verify_sms: VerifySmsdetailsDict | None
+    verify_sms: VerifySmsDetailsDict | None
     watchlist_screening_id: str | None
     beacon_user_id: str | None
     user_id: str | None
     redacted_at: RFC3339DateTime | None
-    latest_scored_protect_event: NotRequired[IdvprotectEventDict | None]
+    latest_scored_protect_event: NotRequired[IdvProtectEventDict | None]
     request_id: str

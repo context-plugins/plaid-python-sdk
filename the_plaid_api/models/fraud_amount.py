@@ -3,14 +3,14 @@ from __future__ import annotations
 from typing_extensions import TypedDict
 
 from ..core import SdkBaseModel
-from .enums.isocurrency_code1 import IsocurrencyCode1OrStr
+from .enums.iso_currency_code1 import IsoCurrencyCode1OrStr
 
 
 class FraudAmount(SdkBaseModel):
     """The amount and currency of the fraud or attempted fraud. ``fraud_amount`` should be omitted to indicate an
     unknown fraud amount."""
 
-    iso_currency_code: IsocurrencyCode1OrStr
+    iso_currency_code: IsoCurrencyCode1OrStr
     """An ISO-4217 currency code."""
 
     value: float
@@ -19,5 +19,5 @@ class FraudAmount(SdkBaseModel):
 
 
 class FraudAmountDict(TypedDict):
-    iso_currency_code: IsocurrencyCode1OrStr
+    iso_currency_code: IsoCurrencyCode1OrStr
     value: float

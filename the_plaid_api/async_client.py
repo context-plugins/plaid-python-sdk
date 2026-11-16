@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
 from functools import cached_property
 from types import TracebackType
 from typing import Any
@@ -21,16 +22,19 @@ from .core import (
     AsyncHttpx2Client,
     AsyncOAuth2Scheme,
     AsyncRawClient,
+    AsyncRequestOptionsOrDict,
+    AsyncSdkHook,
+    AsyncSdkHooksDict,
     AsyncTokenSource,
     ClientCredentials,
     ClientCredentialsOrDict,
+    LoggingOptionsOrDict,
     RawError,
-    RequestOptionsOrDict,
     RetryOptionsOrDict,
     SecuredRawResponse,
     async_empty_response,
     async_json_decoder,
-    client_secret_basic,
+    client_secret_post,
     json_body,
     no_auth,
     param,
@@ -72,7 +76,7 @@ from .models.asset_report_freddie_get_request import AssetReportFreddieGetReques
 from .models.asset_report_freddie_get_response import AssetReportFreddieGetResponse
 from .models.asset_report_get_request import AssetReportGetRequest, AssetReportGetRequestDict
 from .models.asset_report_get_response import AssetReportGetResponse
-from .models.asset_report_pdfget_request import AssetReportPdfgetRequest, AssetReportPdfgetRequestDict
+from .models.asset_report_pdf_get_request import AssetReportPdfGetRequest, AssetReportPdfGetRequestDict
 from .models.asset_report_refresh_request import AssetReportRefreshRequest, AssetReportRefreshRequestDict
 from .models.asset_report_refresh_response import AssetReportRefreshResponse
 from .models.asset_report_remove_request import AssetReportRemoveRequest, AssetReportRemoveRequestDict
@@ -187,7 +191,7 @@ from .models.cashflow_report_transactions_get_response import CashflowReportTran
 from .models.categories_get_response import CategoriesGetResponse
 from .models.consent_events_get_request import ConsentEventsGetRequest, ConsentEventsGetRequestDict
 from .models.consent_events_get_response import ConsentEventsGetResponse
-from .models.consumer_report_pdfget_request import ConsumerReportPdfgetRequest, ConsumerReportPdfgetRequestDict
+from .models.consumer_report_pdf_get_request import ConsumerReportPdfGetRequest, ConsumerReportPdfGetRequestDict
 from .models.cra_check_report_base_report_get_request import (
     CraCheckReportBaseReportGetRequest,
     CraCheckReportBaseReportGetRequestDict,
@@ -220,7 +224,7 @@ from .models.cra_check_report_partner_insights_get_request import (
     CraCheckReportPartnerInsightsGetRequestDict,
 )
 from .models.cra_check_report_partner_insights_get_response import CraCheckReportPartnerInsightsGetResponse
-from .models.cra_check_report_pdfget_request import CraCheckReportPdfgetRequest, CraCheckReportPdfgetRequestDict
+from .models.cra_check_report_pdf_get_request import CraCheckReportPdfGetRequest, CraCheckReportPdfGetRequestDict
 from .models.cra_check_report_verification_get_request import (
     CraCheckReportVerificationGetRequest,
     CraCheckReportVerificationGetRequestDict,
@@ -241,6 +245,7 @@ from .models.cra_loans_applications_register_request import (
     CraLoansApplicationsRegisterRequestDict,
 )
 from .models.cra_loans_applications_register_response import CraLoansApplicationsRegisterResponse
+from .models.cra_loans_register_request import CraLoansRegisterRequest, CraLoansRegisterRequestDict
 from .models.cra_loans_register_response import CraLoansRegisterResponse
 from .models.cra_loans_unregister_request import CraLoansUnregisterRequest, CraLoansUnregisterRequestDict
 from .models.cra_loans_update_request import CraLoansUpdateRequest, CraLoansUpdateRequestDict
@@ -264,7 +269,6 @@ from .models.cra_partner_insights_get_request import CraPartnerInsightsGetReques
 from .models.cra_partner_insights_get_response import CraPartnerInsightsGetResponse
 from .models.cra_report_get_request import CraReportGetRequest, CraReportGetRequestDict
 from .models.cra_report_get_response import CraReportGetResponse
-from .models.craloans_register_request import CraloansRegisterRequest, CraloansRegisterRequestDict
 from .models.credit_audit_copy_token_create_request import (
     CreditAuditCopyTokenCreateRequest,
     CreditAuditCopyTokenCreateRequestDict,
@@ -287,7 +291,7 @@ from .models.credit_bank_employment_get_request import (
 from .models.credit_bank_employment_get_response import CreditBankEmploymentGetResponse
 from .models.credit_bank_income_get_request import CreditBankIncomeGetRequest, CreditBankIncomeGetRequestDict
 from .models.credit_bank_income_get_response import CreditBankIncomeGetResponse
-from .models.credit_bank_income_pdfget_request import CreditBankIncomePdfgetRequest, CreditBankIncomePdfgetRequestDict
+from .models.credit_bank_income_pdf_get_request import CreditBankIncomePdfGetRequest, CreditBankIncomePdfGetRequestDict
 from .models.credit_bank_income_refresh_request import (
     CreditBankIncomeRefreshRequest,
     CreditBankIncomeRefreshRequestDict,
@@ -335,7 +339,7 @@ from .models.credit_payroll_income_risk_signals_get_response import CreditPayrol
 from .models.credit_relay_create_request import CreditRelayCreateRequest, CreditRelayCreateRequestDict
 from .models.credit_relay_create_response import CreditRelayCreateResponse
 from .models.credit_relay_get_request import CreditRelayGetRequest, CreditRelayGetRequestDict
-from .models.credit_relay_pdfget_request import CreditRelayPdfgetRequest, CreditRelayPdfgetRequestDict
+from .models.credit_relay_pdf_get_request import CreditRelayPdfGetRequest, CreditRelayPdfGetRequestDict
 from .models.credit_relay_refresh_request import CreditRelayRefreshRequest, CreditRelayRefreshRequestDict
 from .models.credit_relay_refresh_response import CreditRelayRefreshResponse
 from .models.credit_relay_remove_request import CreditRelayRemoveRequest, CreditRelayRemoveRequestDict
@@ -354,11 +358,11 @@ from .models.employment_verification_get_request import (
 )
 from .models.employment_verification_get_response import EmploymentVerificationGetResponse
 from .models.enums.fdx_consent_grant_status import FdxConsentGrantStatusOrStr
+from .models.fdx_consent_grant import FdxConsentGrant
+from .models.fdx_consent_revocation import FdxConsentRevocation, FdxConsentRevocationDict
+from .models.fdx_consent_revocations import FdxConsentRevocations
 from .models.fdx_notification_entity import FdxNotificationEntity, FdxNotificationEntityDict
-from .models.fdxconsent_grant import FdxconsentGrant
-from .models.fdxconsent_revocation import FdxconsentRevocation, FdxconsentRevocationDict
-from .models.fdxconsent_revocations import FdxconsentRevocations
-from .models.fdxrecipient_metadata import FdxrecipientMetadata
+from .models.fdx_recipient_metadata import FdxRecipientMetadata
 from .models.get_consents_response import GetConsentsResponse
 from .models.get_recipients_response import GetRecipientsResponse
 from .models.identity_documents_uploads_get_request import (
@@ -480,34 +484,34 @@ from .models.link_delivery_create_request import LinkDeliveryCreateRequest, Link
 from .models.link_delivery_create_response import LinkDeliveryCreateResponse
 from .models.link_delivery_get_request import LinkDeliveryGetRequest, LinkDeliveryGetRequestDict
 from .models.link_delivery_get_response import LinkDeliveryGetResponse
-from .models.link_oauth_correlation_id_exchange_request import (
-    LinkOauthCorrelationIdExchangeRequest,
-    LinkOauthCorrelationIdExchangeRequestDict,
+from .models.link_o_auth_correlation_id_exchange_request import (
+    LinkOAuthCorrelationIdExchangeRequest,
+    LinkOAuthCorrelationIdExchangeRequestDict,
 )
-from .models.link_oauth_correlation_id_exchange_response import LinkOauthCorrelationIdExchangeResponse
+from .models.link_o_auth_correlation_id_exchange_response import LinkOAuthCorrelationIdExchangeResponse
 from .models.link_token_create_request import LinkTokenCreateRequest, LinkTokenCreateRequestDict
 from .models.link_token_create_response import LinkTokenCreateResponse
 from .models.link_token_get_request import LinkTokenGetRequest, LinkTokenGetRequestDict
 from .models.link_token_get_response import LinkTokenGetResponse
 from .models.network_status_get_request import NetworkStatusGetRequest, NetworkStatusGetRequestDict
 from .models.network_status_get_response import NetworkStatusGetResponse
-from .models.oauth_introspect_request import OauthIntrospectRequest, OauthIntrospectRequestDict
-from .models.oauth_introspect_response import OauthIntrospectResponse
-from .models.oauth_revoke_request import OauthRevokeRequest, OauthRevokeRequestDict
-from .models.oauth_revoke_response import OauthRevokeResponse
-from .models.oauth_token_request import OauthTokenRequest, OauthTokenRequestDict
-from .models.oauth_token_response import OauthTokenResponse
+from .models.o_auth_introspect_request import OAuthIntrospectRequest, OAuthIntrospectRequestDict
+from .models.o_auth_introspect_response import OAuthIntrospectResponse
+from .models.o_auth_revoke_request import OAuthRevokeRequest, OAuthRevokeRequestDict
+from .models.o_auth_revoke_response import OAuthRevokeResponse
+from .models.o_auth_token_request import OAuthTokenRequest, OAuthTokenRequestDict
+from .models.o_auth_token_response import OAuthTokenResponse
 from .models.partner_customer_create_request import PartnerCustomerCreateRequest, PartnerCustomerCreateRequestDict
 from .models.partner_customer_create_response import PartnerCustomerCreateResponse
 from .models.partner_customer_enable_request import PartnerCustomerEnableRequest, PartnerCustomerEnableRequestDict
 from .models.partner_customer_enable_response import PartnerCustomerEnableResponse
 from .models.partner_customer_get_request import PartnerCustomerGetRequest, PartnerCustomerGetRequestDict
 from .models.partner_customer_get_response import PartnerCustomerGetResponse
-from .models.partner_customer_oauth_institutions_get_request import (
-    PartnerCustomerOauthInstitutionsGetRequest,
-    PartnerCustomerOauthInstitutionsGetRequestDict,
+from .models.partner_customer_o_auth_institutions_get_request import (
+    PartnerCustomerOAuthInstitutionsGetRequest,
+    PartnerCustomerOAuthInstitutionsGetRequestDict,
 )
-from .models.partner_customer_oauth_institutions_get_response import PartnerCustomerOauthInstitutionsGetResponse
+from .models.partner_customer_o_auth_institutions_get_response import PartnerCustomerOAuthInstitutionsGetResponse
 from .models.partner_customer_remove_request import PartnerCustomerRemoveRequest, PartnerCustomerRemoveRequestDict
 from .models.partner_customer_remove_response import PartnerCustomerRemoveResponse
 from .models.payment_initiation_consent_create_request import (
@@ -1146,7 +1150,6 @@ from .models.webhook_verification_key_get_request import (
 from .models.webhook_verification_key_get_response import WebhookVerificationKeyGetResponse
 from .server.environment import Environment
 from .server.server import Server
-from .server.server_config import ServerConfigOrDict
 
 
 class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
@@ -1154,9 +1157,11 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         *,
         environment: Environment = "production",
+        base_url: str | None = None,
         timeout: float = DEFAULT_TIMEOUT,
-        server_config: ServerConfigOrDict | None = None,
         retry_options: int | RetryOptionsOrDict | None = None,
+        logging_options: LoggingOptionsOrDict | None = None,
+        hooks: Sequence[AsyncSdkHook] | AsyncSdkHooksDict | None = None,
         custom_async_http_client: AsyncHttpClient | None = None,
         client_id: str | None = None,
         secret: str | None = None,
@@ -1165,13 +1170,19 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         oauth2_token_source: AsyncTokenSource[ClientCredentials[Oauth2Scope]] | None = None,
     ) -> None:
         super().__init__(
-            environment=environment, timeout=timeout, server_config=server_config, retry_options=retry_options
+            environment=environment,
+            base_url=base_url,
+            timeout=timeout,
+            retry_options=retry_options,
+            logging_options=logging_options,
         )
         self._raw_client = AsyncRawClient(
             http_client=(
                 custom_async_http_client if custom_async_http_client is not None else AsyncHttpx2Client(timeout=timeout)
             ),
             retry_options=self._retry_options,
+            logging_options=self._logging_options,
+            hooks=hooks if hooks is not None else [],
             global_headers=[
                 param[str]("User-Agent", "ThePlaidApiClient/0.1.0 Python"),
                 param[str]("X-APIMatic-Lang", "Python"),
@@ -1193,8 +1204,8 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
                         if oauth2_token_source is not None
                         else AsyncClientCredentialsTokenSource[Oauth2Scope](
                             client=self._raw_client,
-                            token_url=self._server.access_token_server("/token"),
-                            placement=client_secret_basic,
+                            token_url=self._server.default("/oauth/token"),
+                            placement=client_secret_post,
                         )
                     ),
                 )
@@ -1211,7 +1222,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: AccountsBalanceGetRequest | AccountsBalanceGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> AccountsGetResponse:
         """The ``/accounts/balance/get`` endpoint returns the real-time balance for each of an Item's accounts. While
         other endpoints, such as ``/accounts/get``, return a balance object, ``/accounts/balance/get`` forces the
@@ -1243,7 +1254,10 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         return unwrap(await self.with_raw_response.accounts_balance_get(body, request_options=request_options))
 
     async def accounts_get(
-        self, body: AccountsGetRequest | AccountsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self,
+        body: AccountsGetRequest | AccountsGetRequestDict,
+        *,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> AccountsGetResponse:
         """The ``/accounts/get`` endpoint can be used to retrieve a list of accounts associated with any linked Item.
         Plaid will only return active bank accounts -- that is, accounts that are not closed and are capable of carrying
@@ -1276,7 +1290,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ApplicationGetRequest | ApplicationGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApplicationGetResponse:
         """Allows financial institutions to retrieve information about Plaid clients for the purpose of building
         control-tower experiences
@@ -1297,7 +1311,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: AssetReportAuditCopyCreateRequest | AssetReportAuditCopyCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> AssetReportAuditCopyCreateResponse:
         """Plaid can provide an Audit Copy of any Asset Report directly to a participating third party on your behalf.
         For example, Plaid can supply an Audit Copy directly to the GSEs on your behalf if you participate in Fannie
@@ -1327,7 +1341,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: AssetReportAuditCopyGetRequest | AssetReportAuditCopyGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> AssetReportGetResponse:
         """``/asset_report/audit_copy/get`` allows auditors to get a copy of an Asset Report that was previously shared
         via the ``/asset_report/audit_copy/create`` endpoint. The caller of ``/asset_report/audit_copy/create`` must
@@ -1350,7 +1364,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: AssetReportAuditCopyPdfGetRequest | AssetReportAuditCopyPdfGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> None:
         """The ``/asset_report/audit_copy/pdf/get`` endpoint retrieves an Asset Report Audit Copy in PDF format. The
         caller must provide the ``audit_copy_token`` that was shared via the ``/asset_report/audit_copy/create``
@@ -1379,7 +1393,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: AssetReportAuditCopyRemoveRequest | AssetReportAuditCopyRemoveRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> AssetReportAuditCopyRemoveResponse:
         """The ``/asset_report/audit_copy/remove`` endpoint allows you to remove an Audit Copy. Removing an Audit Copy
         invalidates the ``audit_copy_token`` associated with it, meaning both you and any third parties holding the
@@ -1405,7 +1419,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: AssetReportCreateRequest | AssetReportCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> AssetReportCreateResponse:
         """The ``/asset_report/create`` endpoint initiates the process of creating an Asset Report, which can then be
         retrieved by passing the ``asset_report_token`` return value to the ``/asset_report/get`` or
@@ -1437,7 +1451,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: AssetReportFilterRequest | AssetReportFilterRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> AssetReportFilterResponse:
         """By default, an Asset Report will contain all of the accounts on a given Item. In some cases, you may not want
         the Asset Report to contain all accounts. For example, you might have the end user choose which accounts are
@@ -1473,7 +1487,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: AssetReportGetRequest | AssetReportGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> AssetReportGetResponse:
         """The ``/asset_report/get`` endpoint retrieves the Asset Report in JSON format. Before calling
         ``/asset_report/get``, you must first create the Asset Report using ``/asset_report/create`` (or filter an Asset
@@ -1507,9 +1521,9 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
     async def asset_report_pdf_get(
         self,
-        body: AssetReportPdfgetRequest | AssetReportPdfgetRequestDict,
+        body: AssetReportPdfGetRequest | AssetReportPdfGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> None:
         """The ``/asset_report/pdf/get`` endpoint retrieves the Asset Report in PDF format. Before calling
         ``/asset_report/pdf/get``, you must first create the Asset Report using ``/asset_report/create`` (or filter an
@@ -1538,7 +1552,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: AssetReportRefreshRequest | AssetReportRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> AssetReportRefreshResponse:
         """An Asset Report is an immutable snapshot of a user's assets. In order to "refresh" an Asset Report you
         created previously, you can use the ``/asset_report/refresh`` endpoint to create a new Asset Report based on the
@@ -1567,7 +1581,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: AssetReportRemoveRequest | AssetReportRemoveRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> AssetReportRemoveResponse:
         """The ``/item/remove`` endpoint allows you to invalidate an ``access_token``, meaning you will not be able to
         create new Asset Reports with it. Removing an Item does not affect any Asset Reports or Audit Copies you have
@@ -1591,7 +1605,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         return unwrap(await self.with_raw_response.asset_report_remove(body, request_options=request_options))
 
     async def auth_get(
-        self, body: AuthGetRequest | AuthGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self, body: AuthGetRequest | AuthGetRequestDict, *, request_options: AsyncRequestOptionsOrDict | None = None
     ) -> AuthGetResponse:
         """The ``/auth/get`` endpoint returns the bank account and bank identification numbers (such as routing numbers,
         for US accounts) associated with an Item's checking, savings, and cash management accounts, along with
@@ -1614,7 +1628,10 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         return unwrap(await self.with_raw_response.auth_get(body, request_options=request_options))
 
     async def auth_verify(
-        self, body: AuthVerifyRequest | AuthVerifyRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self,
+        body: AuthVerifyRequest | AuthVerifyRequestDict,
+        *,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> AuthVerifyResponse:
         """The ``/auth/verify`` endpoint verifies bank account and routing numbers and (optionally) account owner names
         against Plaid's database via `Database Auth <https://plaid.com/docs/auth/coverage/database-auth/>`__. It can be
@@ -1638,7 +1655,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BankTransferBalanceGetRequest | BankTransferBalanceGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BankTransferBalanceGetResponse:
         """Use the ``/bank_transfer/balance/get`` endpoint to see the available balance in your bank transfer account.
         Debit transfers increase this balance once their status is posted. Credit transfers decrease this balance when
@@ -1667,7 +1684,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BankTransferCancelRequest | BankTransferCancelRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BankTransferCancelResponse:
         """Use the ``/bank_transfer/cancel`` endpoint to cancel a bank transfer. A transfer is eligible for cancelation
         if the ``cancellable`` property returned by ``/bank_transfer/get`` is ``true``.
@@ -1688,7 +1705,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BankTransferCreateRequest | BankTransferCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BankTransferCreateResponse:
         """Use the ``/bank_transfer/create`` endpoint to initiate a new bank transfer.
 
@@ -1708,7 +1725,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BankTransferEventListRequest | BankTransferEventListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BankTransferEventListResponse:
         """Use the ``/bank_transfer/event/list`` endpoint to get a list of Plaid-initiated ACH or bank transfer events
         based on specified filter criteria. When using Auth with micro-deposit verification enabled, this endpoint can
@@ -1731,7 +1748,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BankTransferEventSyncRequest | BankTransferEventSyncRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BankTransferEventSyncResponse:
         """``/bank_transfer/event/sync`` allows you to request up to the next 25 Plaid-initiated bank transfer events
         that happened after a specific ``event_id``. When using Auth with micro-deposit verification enabled, this
@@ -1754,7 +1771,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BankTransferGetRequest | BankTransferGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BankTransferGetResponse:
         """The ``/bank_transfer/get`` fetches information about the bank transfer corresponding to the given
         ``bank_transfer_id``.
@@ -1775,7 +1792,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BankTransferListRequest | BankTransferListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BankTransferListResponse:
         """Use the ``/bank_transfer/list`` endpoint to see a list of all your bank transfers and their statuses. Results
         are paginated; use the ``count`` and ``offset`` query parameters to retrieve the desired bank transfers.
@@ -1796,7 +1813,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BankTransferMigrateAccountRequest | BankTransferMigrateAccountRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BankTransferMigrateAccountResponse:
         """As an alternative to adding Items via Link, you can also use the ``/bank_transfer/migrate_account`` endpoint
         to migrate known account and routing numbers to Plaid Items. Note that Items created in this way are not
@@ -1821,7 +1838,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BankTransferSweepGetRequest | BankTransferSweepGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BankTransferSweepGetResponse:
         """The ``/bank_transfer/sweep/get`` endpoint fetches information about the sweep corresponding to the given
         ``sweep_id``.
@@ -1842,7 +1859,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BankTransferSweepListRequest | BankTransferSweepListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BankTransferSweepListResponse:
         """The ``/bank_transfer/sweep/list`` endpoint fetches information about the sweeps matching the given filters.
 
@@ -1862,7 +1879,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BeaconAccountRiskEvaluateRequest | BeaconAccountRiskEvaluateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BeaconAccountRiskEvaluateResponse:
         """Use ``/beacon/account_risk/v1/evaluate`` to get risk insights for a linked account.
 
@@ -1882,7 +1899,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BeaconDuplicateGetRequest | BeaconDuplicateGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BeaconDuplicateGetResponse:
         """Returns a Beacon Duplicate for a given Beacon Duplicate id.
 
@@ -1910,7 +1927,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BeaconReportCreateRequest | BeaconReportCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BeaconReportCreateResponse:
         """Create a fraud report for a given Beacon User.
 
@@ -1930,7 +1947,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BeaconReportGetRequest | BeaconReportGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BeaconReportGetResponse:
         """Returns a Beacon Report for a given Beacon Report ID.
 
@@ -1950,7 +1967,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BeaconReportListRequest | BeaconReportListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BeaconReportListResponse:
         """Use the ``/beacon/report/list`` endpoint to view all Beacon Reports you created for a specific Beacon User.
         The reports returned by this endpoint are exclusively reports you created for a specific user. A Beacon User can
@@ -1975,7 +1992,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BeaconReportSyndicationGetRequest | BeaconReportSyndicationGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BeaconReportSyndicationGetResponse:
         """Returns a Beacon Report Syndication for a given Beacon Report Syndication id.
 
@@ -1995,7 +2012,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BeaconReportSyndicationListRequest | BeaconReportSyndicationListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BeaconReportSyndicationListResponse:
         """Use the ``/beacon/report_syndication/list`` endpoint to view all Beacon Reports that have been syndicated to
         a specific Beacon User. This endpoint returns Beacon Report Syndications which are references to Beacon Reports
@@ -2022,7 +2039,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BeaconUserAccountInsightsGetRequest | BeaconUserAccountInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BeaconUserAccountInsightsGetResponse:
         """Get Account Insights for all Accounts linked to this Beacon User. The insights for each account are computed
         based on the information that was last retrieved from the financial institution.
@@ -2045,7 +2062,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BeaconUserCreateRequest | BeaconUserCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BeaconUserCreateResponse:
         """Create and scan a Beacon User against your Beacon Program, according to your program's settings.
 
@@ -2079,7 +2096,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BeaconUserGetRequest | BeaconUserGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BeaconUserGetResponse:
         """Fetch a Beacon User.
 
@@ -2102,7 +2119,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BeaconUserHistoryListRequest | BeaconUserHistoryListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BeaconUserHistoryListResponse:
         """List all changes to the Beacon User in reverse-chronological order.
 
@@ -2122,7 +2139,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BeaconUserReviewRequest | BeaconUserReviewRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BeaconUserGetResponse:
         """Update the status of a Beacon User.
 
@@ -2157,7 +2174,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BeaconUserUpdateRequest | BeaconUserUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BeaconUserUpdateResponse:
         """Update the identity data for a Beacon User in your Beacon Program or add new accounts to the Beacon User.
 
@@ -2195,7 +2212,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BetaEwaReportV1GetRequest | BetaEwaReportV1GetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BetaEwaReportV1GetResponse:
         """The ``/beta/ewa_report/v1/get`` endpoint provides an Earned Wage Access (EWA) score that quantifies the
         delinquency risk associated with a given item. The score is derived from a combination of cashflow patterns and
@@ -2227,7 +2244,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BetaPartnerCustomerV1CreateRequest | BetaPartnerCustomerV1CreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BetaPartnerCustomerV1CreateResponse:
         """The ``/beta/partner/customer/v1/create`` endpoint creates a new end customer record. You can provide as much
         information as you have available. If any required information is missing for the products you intend to use, it
@@ -2251,7 +2268,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BetaPartnerCustomerV1EnableRequest | BetaPartnerCustomerV1EnableRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BetaPartnerCustomerV1EnableResponse:
         """The ``/beta/partner/customer/v1/enable`` endpoint is used by reseller partners to enable an end customer in
         the full Production environment.
@@ -2274,7 +2291,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BetaPartnerCustomerV1GetRequest | BetaPartnerCustomerV1GetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BetaPartnerCustomerV1GetResponse:
         """The ``/beta/partner/customer/v1/get`` endpoint is used by reseller partners to retrieve data about a single
         end customer.
@@ -2295,7 +2312,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BetaPartnerCustomerV1UpdateRequest | BetaPartnerCustomerV1UpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BetaPartnerCustomerV1UpdateResponse:
         """The ``/beta/partner/customer/v1/update`` endpoint updates an existing end customer record.
 
@@ -2317,7 +2334,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BusinessVerificationCreateRequest | BusinessVerificationCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BusinessVerificationCreateResponse:
         """Create a new business verification to check a business's identity and risk profile.
 
@@ -2337,7 +2354,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: BusinessVerificationGetRequest | BusinessVerificationGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> BusinessVerificationGetResponse:
         """Retrieve the current state of a specific business verification.
 
@@ -2357,7 +2374,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CashflowReportGetRequest | CashflowReportGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CashflowReportGetResponse:
         """The ``/cashflow_report/get`` endpoint retrieves transactions data associated with an Item. Transactions data
         is standardized across financial institutions. Transactions are returned in reverse-chronological order, and the
@@ -2388,7 +2405,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CashflowReportInsightsGetRequest | CashflowReportInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CashflowReportInsightsGetResponse:
         """The ``/cashflow_report/insights/get`` endpoint retrieves insights data associated with an Item. Insights are
         only calculated on credit and depository accounts.
@@ -2409,7 +2426,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CashflowReportRefreshRequest | CashflowReportRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CashflowReportRefreshResponse:
         """``/cashflow_report/refresh`` is an endpoint that initiates an on-demand extraction to fetch the newest
         transactions for an Item (given an ``item_id``). The Item must already have Cashflow Report added as a product
@@ -2443,7 +2460,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CashflowReportTransactionsGetRequest | CashflowReportTransactionsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CashflowReportTransactionsGetResponse:
         """The ``/cashflow_report/transactions/get`` endpoint retrieves transactions data associated with an Item.
         Transactions data is standardized across financial institutions. Transactions are returned in
@@ -2473,7 +2490,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         )
 
     async def categories_get(
-        self, body: Any, *, request_options: RequestOptionsOrDict | None = None
+        self, body: Any, *, request_options: AsyncRequestOptionsOrDict | None = None
     ) -> CategoriesGetResponse:
         """Send a request to the ``/categories/get`` endpoint to get detailed information on legacy categories returned
         by Plaid. This endpoint does not require authentication.
@@ -2497,7 +2514,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ConsentEventsGetRequest | ConsentEventsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ConsentEventsGetResponse:
         """List a historical log of Item consent events. Consent logs are only available for events occurring on or
         after November 7, 2024. Extremely recent events (occurring within the past 12 hours) may not be available via
@@ -2517,9 +2534,9 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
     async def consumer_report_pdf_get(
         self,
-        body: ConsumerReportPdfgetRequest | ConsumerReportPdfgetRequestDict,
+        body: ConsumerReportPdfGetRequest | ConsumerReportPdfGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> None:
         """Retrieves all existing CRB Bank Income and Base reports for the consumer in PDF format.
 
@@ -2541,7 +2558,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CraCheckReportBaseReportGetRequest | CraCheckReportBaseReportGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CraCheckReportBaseReportGetResponse:
         """This endpoint allows you to retrieve the Base Report for your user, allowing you to receive comprehensive
         bank account and cash flow data. You should call this endpoint after you've received a ``CHECK_REPORT_READY`` or
@@ -2568,7 +2585,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CraCheckReportCashflowInsightsGetRequest | CraCheckReportCashflowInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CraCheckReportCashflowInsightsGetResponse:
         """This endpoint allows you to retrieve the Cashflow Insights report for your user. You should call this
         endpoint after you've received a ``CHECK_REPORT_READY`` or a ``USER_CHECK_REPORT_READY`` webhook, either after
@@ -2595,7 +2612,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CraCheckReportCreateRequest | CraCheckReportCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CraCheckReportCreateResponse:
         """Use ``/cra/check_report/create`` to refresh data in an existing report. A Consumer Report will last for 24
         hours before expiring; you should call any ``/get`` endpoints on the report before it expires. If a report
@@ -2617,7 +2634,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CraCheckReportIncomeInsightsGetRequest | CraCheckReportIncomeInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CraCheckReportIncomeInsightsGetResponse:
         """This endpoint allows you to retrieve the Income Insights report for your user. You should call this endpoint
         after you've received a ``CHECK_REPORT_READY`` or a ``USER_CHECK_REPORT_READY`` webhook, either after the Link
@@ -2651,7 +2668,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CraCheckReportLendScoreGetRequest | CraCheckReportLendScoreGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CraCheckReportLendScoreGetResponse:
         """This endpoint allows you to retrieve the LendScore report for your user. You should call this endpoint after
         you've received a ``CHECK_REPORT_READY`` or a ``USER_CHECK_REPORT_READY`` webhook, either after the Link session
@@ -2677,7 +2694,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CraCheckReportNetworkInsightsGetRequest | CraCheckReportNetworkInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CraCheckReportNetworkInsightsGetResponse:
         """This endpoint allows you to retrieve the Network Insights report for your user. You should call this endpoint
         after you've received a ``CHECK_REPORT_READY`` or a ``USER_CHECK_REPORT_READY`` webhook, either after the Link
@@ -2703,7 +2720,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CraCheckReportPartnerInsightsGetRequest | CraCheckReportPartnerInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CraCheckReportPartnerInsightsGetResponse:
         """This endpoint allows you to retrieve the Partner Insights report for your user. You should call this endpoint
         after you've received a ``CHECK_REPORT_READY`` or a ``USER_CHECK_REPORT_READY`` webhook, either after the Link
@@ -2727,9 +2744,9 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
     async def cra_check_report_pdf_get(
         self,
-        body: CraCheckReportPdfgetRequest | CraCheckReportPdfgetRequestDict,
+        body: CraCheckReportPdfGetRequest | CraCheckReportPdfGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> None:
         """``/cra/check_report/pdf/get`` retrieves the most recent Consumer Report in PDF format. By default, the most
         recent Base Report (if it exists) for the user will be returned. To request that the most recent Partner
@@ -2751,7 +2768,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CraCheckReportVerificationGetRequest | CraCheckReportVerificationGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CraCheckReportVerificationGetResponse:
         """This endpoint allows you to retrieve home lending reports for a user. To obtain a VoA or Employment Refresh
         report, you need to make sure that ``cra_base_report`` is included in the ``products`` parameter when calling
@@ -2782,7 +2799,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CraCheckReportVerificationPdfGetRequest | CraCheckReportVerificationPdfGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> None:
         """The ``/cra/check_report/verification/pdf/get`` endpoint retrieves the most recent Consumer Report in PDF
         format, specifically formatted for Home Lending verification use cases. Before calling this endpoint, ensure
@@ -2810,7 +2827,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CraCreditProfileReportGetRequest | CraCreditProfileReportGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CraCreditProfileReportGetResponse:
         """``/cra/credit_profile/report/get`` retrieves a credit profile report for a user.
 
@@ -2830,7 +2847,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CraLoansApplicationsRegisterRequest | CraLoansApplicationsRegisterRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CraLoansApplicationsRegisterResponse:
         """``/cra/loans/applications/register`` registers loan applications and decisions.
 
@@ -2850,9 +2867,9 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
     async def cra_loans_register(
         self,
-        body: CraloansRegisterRequest | CraloansRegisterRequestDict,
+        body: CraLoansRegisterRequest | CraLoansRegisterRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CraLoansRegisterResponse:
         """``/cra/loans/register`` registers a list of loans to their applicants.
 
@@ -2872,7 +2889,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CraLoansUnregisterRequest | CraLoansUnregisterRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CraLoanUnregisterResponse:
         """``/cra/loans/unregister`` indicates the loans have reached a final status and no further updates are
         expected.
@@ -2893,7 +2910,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CraLoansUpdateRequest | CraLoansUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CraLoansUpdateResponse:
         """``/cra/loans/update`` updates loan information such as the status and payment history.
 
@@ -2913,7 +2930,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CraMonitoringInsightsGetRequest | CraMonitoringInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CraMonitoringInsightsGetResponse:
         """This endpoint allows you to retrieve a Cash Flow Updates report by passing in the ``user_id`` referred to in
         the webhook you received.
@@ -2934,7 +2951,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CraMonitoringInsightsSubscribeRequest | CraMonitoringInsightsSubscribeRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CraMonitoringInsightsSubscribeResponse:
         """This endpoint allows you to subscribe to insights for a user's linked CRA Item, which are updated between one
         and four times per day (best-effort). In the current Cash Flow Updates beta experience, only one Item per user
@@ -2958,7 +2975,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CraMonitoringInsightsUnsubscribeRequest | CraMonitoringInsightsUnsubscribeRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CraMonitoringInsightsUnsubscribeResponse:
         """This endpoint allows you to unsubscribe from previously subscribed Monitoring Insights.
 
@@ -2980,7 +2997,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CraPartnerInsightsGetRequest | CraPartnerInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CraPartnerInsightsGetResponse:
         """``/cra/partner_insights/get`` returns cash flow insights for a specified user.
 
@@ -3000,7 +3017,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CraReportGetRequest | CraReportGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CraReportGetResponse:
         """``/cra/report/get`` retrieves a CRA Report for a user.
 
@@ -3020,7 +3037,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PaymentInitiationPaymentTokenCreateRequest | PaymentInitiationPaymentTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PaymentInitiationPaymentTokenCreateResponse:
         """The ``/payment_initiation/payment/token/create`` endpoint has been deprecated. New Plaid customers will be
         unable to use this endpoint, and existing customers are encouraged to migrate to the newer, ``link_token``-based
@@ -3048,7 +3065,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: AssetReportFreddieGetRequest | AssetReportFreddieGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> AssetReportFreddieGetResponse:
         """The ``/credit/asset_report/freddie_mac/get`` endpoint retrieves the Asset Report in Freddie Mac's JSON
         format.
@@ -3071,7 +3088,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditAuditCopyTokenCreateRequest | CreditAuditCopyTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditAuditCopyTokenCreateResponse:
         """Plaid can create an Audit Copy token of an Asset Report and/or Income Report to share with a participating
         Government-Sponsored Enterprise (GSE) if you participate in Fannie Mae's Day 1 Certainty™ program or utilize
@@ -3099,7 +3116,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditAuditCopyTokenUpdateRequest | CreditAuditCopyTokenUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditAuditCopyTokenUpdateResponse:
         """The ``/credit/audit_copy_token/update`` endpoint updates an existing Audit Copy Token by adding the report
         tokens in the ``report_tokens`` field to the ``audit_copy_token``. If the Audit Copy Token already contains a
@@ -3123,7 +3140,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditBankEmploymentGetRequest | CreditBankEmploymentGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditBankEmploymentGetResponse:
         """``/beta/credit/v1/bank_employment/get`` returns the employment report(s) derived from bank transaction data
         for a specified user.
@@ -3144,7 +3161,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditBankIncomeGetRequest | CreditBankIncomeGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditBankIncomeGetResponse:
         """``/credit/bank_income/get`` returns the bank income report(s) for a specified user. A single report
         corresponds to all institutions linked in a single Link session. To include multiple institutions in a single
@@ -3165,9 +3182,9 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
     async def credit_bank_income_pdf_get(
         self,
-        body: CreditBankIncomePdfgetRequest | CreditBankIncomePdfgetRequestDict,
+        body: CreditBankIncomePdfGetRequest | CreditBankIncomePdfGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> None:
         """``/credit/bank_income/pdf/get`` returns the most recent bank income report for a specified user in PDF
         format. A single report corresponds to all institutions linked in a single Link session. To include multiple
@@ -3189,7 +3206,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditBankIncomeRefreshRequest | CreditBankIncomeRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditBankIncomeRefreshResponse:
         """``/credit/bank_income/refresh`` is deprecated. The backend implementation was removed (returns an
         ``Unimplemented`` error at runtime), and the endpoint is no longer part of the documented API surface. To
@@ -3213,7 +3230,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditBankIncomeWebhookUpdateRequest | CreditBankIncomeWebhookUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditBankIncomeWebhookUpdateResponse:
         """``/credit/bank_income/webhook/update`` allows you to subscribe or unsubscribe a user for income webhook
         notifications. By default, all users start out unsubscribed.
@@ -3239,7 +3256,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditBankStatementsUploadsGetRequest | CreditBankStatementsUploadsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditBankStatementsUploadsGetResponse:
         """``/credit/bank_statements/uploads/get`` returns parsed data from bank statements uploaded by users as part of
         the Document Income flow. If your account is not enabled for Document Parsing, contact your account manager to
@@ -3263,7 +3280,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditEmploymentGetRequest | CreditEmploymentGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditEmploymentGetResponse:
         """``/credit/employment/get`` returns a list of items with employment information from a user's payroll provider
         that was verified by an end user.
@@ -3284,7 +3301,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditFreddieMacReportsGetRequest | CreditFreddieMacReportsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditFreddieMacReportsGetResponse:
         """The ``/credit/freddie_mac/reports/get`` endpoint retrieves the Verification of Assets and Verification of
         Employment reports.
@@ -3307,7 +3324,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditPayrollIncomeGetRequest | CreditPayrollIncomeGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditPayrollIncomeGetResponse:
         """This endpoint gets payroll income information for a specific user, either as a result of the user connecting
         to their payroll provider or uploading a pay related document.
@@ -3328,7 +3345,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditPayrollIncomeParsingConfigUpdateRequest | CreditPayrollIncomeParsingConfigUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditPayrollIncomeParsingConfigUpdateResponse:
         """``/credit/payroll_income/parsing_config/update`` updates the parsing configuration for a document income
         verification.
@@ -3353,7 +3370,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditPayrollIncomePrecheckRequest | CreditPayrollIncomePrecheckRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditPayrollIncomePrecheckResponse:
         """``/credit/payroll_income/precheck`` is an optional endpoint that can be called before initializing a Link
         session for income verification. It evaluates whether a given user is supportable by digital income
@@ -3390,7 +3407,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditPayrollIncomeRefreshRequest | CreditPayrollIncomeRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditPayrollIncomeRefreshResponse:
         """``/credit/payroll_income/refresh`` refreshes a given digital payroll income verification.
 
@@ -3410,7 +3427,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditPayrollIncomeRiskSignalsGetRequest | CreditPayrollIncomeRiskSignalsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditPayrollIncomeRiskSignalsGetResponse:
         """``/credit/payroll_income/risk_signals/get`` can be used as part of the Document Income flow to assess a
         user-uploaded document for signs of potential fraud or tampering. It returns a risk score for each uploaded
@@ -3443,7 +3460,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditRelayCreateRequest | CreditRelayCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditRelayCreateResponse:
         """Plaid can share an Asset Report directly with a participating third party on your behalf. The shared Asset
         Report is the exact same Asset Report originally created in ``/asset_report/create``.
@@ -3469,7 +3486,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditRelayGetRequest | CreditRelayGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> AssetReportGetResponse:
         """``/credit/relay/get`` allows third parties to receive a report that was shared with them, using a
         ``relay_token`` that was created by the report owner.
@@ -3488,9 +3505,9 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
     async def credit_relay_pdf_get(
         self,
-        body: CreditRelayPdfgetRequest | CreditRelayPdfgetRequestDict,
+        body: CreditRelayPdfGetRequest | CreditRelayPdfGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> None:
         """``/credit/relay/pdf/get`` allows third parties to receive a PDF report that was shared with them, using a
         ``relay_token`` that was created by the report owner.
@@ -3521,7 +3538,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditRelayRefreshRequest | CreditRelayRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditRelayRefreshResponse:
         """The ``/credit/relay/refresh`` endpoint allows third parties to refresh a report that was relayed to them,
         using a ``relay_token`` that was created by the report owner. A new report will be created with the original
@@ -3544,7 +3561,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditRelayRemoveRequest | CreditRelayRemoveRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditRelayRemoveResponse:
         """The ``/credit/relay/remove`` endpoint allows you to invalidate a ``relay_token``. The third party holding the
         token will no longer be able to access or refresh the reports which the ``relay_token`` gives access to. The
@@ -3567,7 +3584,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditAuditCopyTokenRemoveRequest | CreditAuditCopyTokenRemoveRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditAuditCopyTokenRemoveResponse:
         """The ``/credit/audit_copy_token/remove`` endpoint allows you to remove an Audit Copy. Removing an Audit Copy
         invalidates the ``audit_copy_token`` associated with it, meaning both you and any third parties holding the
@@ -3592,7 +3609,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: CreditSessionsGetRequest | CreditSessionsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> CreditSessionsGetResponse:
         """This endpoint can be used for your end users after they complete the Link flow. This endpoint returns a list
         of Link sessions that your user completed, where each session includes the results from the Link flow.
@@ -3616,7 +3633,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: DashboardUserGetRequest | DashboardUserGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> DashboardUserGetResponse:
         """The ``/dashboard_user/get`` endpoint provides details (such as email address) about a specific Dashboard user
         based on the ``dashboard_user_id`` field, which is returned in the ``audit_trail`` object of certain Monitor and
@@ -3638,7 +3655,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: DashboardUserListRequest | DashboardUserListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> DashboardUserListResponse:
         """The ``/dashboard_user/list`` endpoint provides details (such as email address) about all Dashboard users
         associated with your account. This can be used to audit or track the list of reviewers for Monitor, Beacon, and
@@ -3660,7 +3677,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: EmployersSearchRequest | EmployersSearchRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> EmployersSearchResponse:
         """``/employers/search`` allows you the ability to search Plaid's database of known employers, for use with
         Deposit Switch. You can use this endpoint to look up a user's employer in order to confirm that they are
@@ -3686,7 +3703,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: EmploymentVerificationGetRequest | EmploymentVerificationGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> EmploymentVerificationGetResponse:
         """``/employment/verification/get`` returns a list of employments through a user payroll that was verified by an
         end user.
@@ -3706,8 +3723,8 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         return unwrap(await self.with_raw_response.employment_verification_get(body, request_options=request_options))
 
     async def fdx_consents_get(
-        self, consent_id: str, *, request_options: RequestOptionsOrDict | None = None
-    ) -> FdxconsentGrant:
+        self, consent_id: str, *, request_options: AsyncRequestOptionsOrDict | None = None
+    ) -> FdxConsentGrant:
         """Returns a consent grant by its identifier
 
         Args:
@@ -3727,7 +3744,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         customer_id: str,
         *,
         status: FdxConsentGrantStatusOrStr | None = None,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> GetConsentsResponse:
         """Returns zero or more consent grants associated with the given data provider customer, optionally filtered by
         status.
@@ -3749,8 +3766,8 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         )
 
     async def fdx_consents_revocation_get(
-        self, consent_id: str, *, request_options: RequestOptionsOrDict | None = None
-    ) -> FdxconsentRevocations:
+        self, consent_id: str, *, request_options: AsyncRequestOptionsOrDict | None = None
+    ) -> FdxConsentRevocations:
         """Returns the revocation history of a consent grant
 
         Args:
@@ -3770,9 +3787,9 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
     async def fdx_consents_revoke(
         self,
         consent_id: str,
-        body: FdxconsentRevocation | FdxconsentRevocationDict,
+        body: FdxConsentRevocation | FdxConsentRevocationDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> None:
         """Appends a REVOKED status record to the named consent grant
 
@@ -3795,7 +3812,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: FdxNotificationEntity | FdxNotificationEntityDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> None:
         """A generic webhook receiver endpoint for FDX Event Notifications
 
@@ -3816,8 +3833,8 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         recipient_id: str,
         *,
         oauth_state_id: str | None = None,
-        request_options: RequestOptionsOrDict | None = None,
-    ) -> FdxrecipientMetadata:
+        request_options: AsyncRequestOptionsOrDict | None = None,
+    ) -> FdxRecipientMetadata:
         """Get a specific recipient
 
         Args:
@@ -3837,7 +3854,9 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
             ),
         )
 
-    async def get_recipients(self, *, request_options: RequestOptionsOrDict | None = None) -> GetRecipientsResponse:
+    async def get_recipients(
+        self, *, request_options: AsyncRequestOptionsOrDict | None = None
+    ) -> GetRecipientsResponse:
         """Returns a list of Recipients
 
         Args:
@@ -3855,7 +3874,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: IdentityDocumentsUploadsGetRequest | IdentityDocumentsUploadsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> IdentityDocumentsUploadsGetResponse:
         """Use ``/identity/documents/uploads/get`` to retrieve identity details when using `Identity Document Upload
         <https://plaid.com/docs/identity/identity-document-upload/>`__.
@@ -3875,7 +3894,10 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         )
 
     async def identity_get(
-        self, body: IdentityGetRequest | IdentityGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self,
+        body: IdentityGetRequest | IdentityGetRequestDict,
+        *,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> IdentityGetResponse:
         """The ``/identity/get`` endpoint allows you to retrieve various account holder information on file with the
         financial institution, including names, emails, phone numbers, and addresses. Only name data is guaranteed to be
@@ -3901,7 +3923,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: IdentityMatchRequest | IdentityMatchRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> IdentityMatchResponse:
         """The ``/identity/match`` endpoint generates a match score, which indicates how well the provided identity data
         matches the identity information on file with the account holder's financial institution.
@@ -3926,7 +3948,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: IdentityRefreshRequest | IdentityRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> IdentityRefreshResponse:
         """``/identity/refresh`` is an optional endpoint for users of the Identity product. It initiates an on-demand
         extraction to fetch the most up to date Identity information from the Financial Institution. This on-demand
@@ -3958,7 +3980,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: IdentityVerificationAutofillCreateRequest | IdentityVerificationAutofillCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> IdentityVerificationAutofillCreateResponse:
         """Try to autofill an Identity Verification based on the provided phone number, date of birth and country of
         residence.
@@ -3981,7 +4003,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: IdentityVerificationCreateRequest | IdentityVerificationCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> IdentityVerificationCreateResponse:
         """Create a new Identity Verification for the user specified by the ``client_user_id`` and/or ``user_id`` field.
         At least one of these two fields must be provided. The requirements and behavior of the verification are
@@ -4016,7 +4038,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: IdentityVerificationGetRequest | IdentityVerificationGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> IdentityVerificationGetResponse:
         """Retrieve a previously created Identity Verification.
 
@@ -4036,7 +4058,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: IdentityVerificationListRequest | IdentityVerificationListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> IdentityVerificationListResponse:
         """Filter and list Identity Verifications created by your account
 
@@ -4056,7 +4078,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: IdentityVerificationRetryRequest | IdentityVerificationRetryRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> IdentityVerificationRetryResponse:
         """Allow a customer to retry their Identity Verification
 
@@ -4076,7 +4098,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: IncomeVerificationCreateRequest | IncomeVerificationCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> IncomeVerificationCreateResponse:
         """``/income/verification/create`` begins the income verification process by returning an
         ``income_verification_id``. You can then provide the ``income_verification_id`` to ``/link/token/create`` under
@@ -4100,7 +4122,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: IncomeVerificationDocumentsDownloadRequest | IncomeVerificationDocumentsDownloadRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> None:
         """``/income/verification/documents/download`` provides the ability to download the source documents associated
         with the verification.
@@ -4132,7 +4154,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: IncomeVerificationPaystubsGetRequest | IncomeVerificationPaystubsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> IncomeVerificationPaystubsGetResponse:
         """``/income/verification/paystubs/get`` returns the information collected from the paystubs that were used to
         verify an end user's income. It can be called once the status of the verification has been set to
@@ -4159,7 +4181,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: IncomeVerificationPrecheckRequest | IncomeVerificationPrecheckRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> IncomeVerificationPrecheckResponse:
         """``/income/verification/precheck`` is an optional endpoint that can be called before initializing a Link
         session for income verification. It evaluates whether a given user is supportable by digital income verification
@@ -4190,7 +4212,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: IncomeVerificationTaxformsGetRequest | IncomeVerificationTaxformsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> IncomeVerificationTaxformsGetResponse:
         """``/income/verification/taxforms/get`` returns the information collected from forms that were used to verify
         an end user''s income. It can be called once the status of the verification has been set to
@@ -4217,7 +4239,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: InstitutionsGetRequest | InstitutionsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> InstitutionsGetResponse:
         """Returns a JSON response containing details on all financial institutions currently supported by Plaid.
         Because Plaid supports thousands of institutions, results are paginated.
@@ -4242,7 +4264,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: InstitutionsGetByIdRequest | InstitutionsGetByIdRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> InstitutionsGetByIdResponse:
         """Returns a JSON response containing details on a specified financial institution currently supported by Plaid.
 
@@ -4266,7 +4288,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: InstitutionsSearchRequest | InstitutionsSearchRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> InstitutionsSearchResponse:
         """Returns a JSON response containing details for institutions that match the query parameters, up to a maximum
         of ten institutions per query.
@@ -4291,7 +4313,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: InvestmentsAuthGetRequest | InvestmentsAuthGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> InvestmentsAuthGetResponse:
         """The ``/investments/auth/get`` endpoint allows developers to receive user-authorized data to facilitate the
         transfer of holdings
@@ -4312,7 +4334,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: InvestmentsHoldingsGetRequest | InvestmentsHoldingsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> InvestmentsHoldingsGetResponse:
         """The ``/investments/holdings/get`` endpoint allows developers to receive user-authorized stock position data
         for ``investment``-type accounts.
@@ -4333,7 +4355,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: InvestmentsRefreshRequest | InvestmentsRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> InvestmentsRefreshResponse:
         """``/investments/refresh`` is an optional endpoint for users of the Investments product. It initiates an
         on-demand extraction to fetch the newest investment holdings and transactions for an Item. This on-demand
@@ -4373,7 +4395,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: InvestmentsTransactionsGetRequest | InvestmentsTransactionsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> InvestmentsTransactionsGetResponse:
         """The ``/investments/transactions/get`` endpoint allows developers to retrieve up to 24 months of
         user-authorized transaction data for investment accounts.
@@ -4408,7 +4430,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         return unwrap(await self.with_raw_response.investments_transactions_get(body, request_options=request_options))
 
     async def issues_get(
-        self, body: IssuesGetRequest | IssuesGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self, body: IssuesGetRequest | IssuesGetRequestDict, *, request_options: AsyncRequestOptionsOrDict | None = None
     ) -> IssuesGetResponse:
         """Retrieve detailed information about a specific ``Issue``. This endpoint returns a single ``Issue`` object.
 
@@ -4428,7 +4450,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: IssuesSearchRequest | IssuesSearchRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> IssuesSearchResponse:
         """Search for an issue associated with one of the following identifiers: ``item_id``, ``link_session_id`` or
         Link session ``request_id``. This endpoint returns a list of ``Issue`` objects, with an empty list indicating
@@ -4451,7 +4473,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: IssuesSubscribeRequest | IssuesSubscribeRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> IssuesSubscribeResponse:
         """Allows a user to subscribe to updates on a specific ``Issue`` using a POST method. Subscribers will receive
         webhook notifications when the issue status changes, particularly when resolved.
@@ -4472,7 +4494,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ItemAccessTokenInvalidateRequest | ItemAccessTokenInvalidateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ItemAccessTokenInvalidateResponse:
         """By default, the ``access_token`` associated with an Item does not expire and should be stored in a
         persistent, secure manner.
@@ -4496,7 +4518,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ItemActivityListRequest | ItemActivityListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ItemActivityListResponse:
         """List a historical log of user consent events
 
@@ -4516,7 +4538,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ItemApplicationListRequest | ItemApplicationListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ItemApplicationListResponse:
         """List a user's connected applications
 
@@ -4536,7 +4558,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ItemApplicationScopesUpdateRequest | ItemApplicationScopesUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ItemApplicationScopesUpdateResponse:
         """Enable consumers to update product access on selected accounts for an application.
 
@@ -4558,7 +4580,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ItemApplicationUnlinkRequest | ItemApplicationUnlinkRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ItemApplicationUnlinkResponse:
         """Unlink a user's connected application. On an unlink request, Plaid will immediately revoke the Application's
         access to the User's data. The User will have to redo the OAuth authentication process in order to restore
@@ -4587,7 +4609,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ItemPublicTokenCreateRequest | ItemPublicTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ItemPublicTokenCreateResponse:
         """Note: As of July 2020, the ``/item/public_token/create`` endpoint is deprecated. Instead, use
         ``/link/token/create`` with an ``access_token`` to create a Link token for use with `update mode
@@ -4617,7 +4639,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         return unwrap(await self.with_raw_response.item_create_public_token(body, request_options=request_options))
 
     async def item_get(
-        self, body: ItemGetRequest | ItemGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self, body: ItemGetRequest | ItemGetRequestDict, *, request_options: AsyncRequestOptionsOrDict | None = None
     ) -> ItemGetResponse:
         """Returns information about the status of an Item.
 
@@ -4634,7 +4656,10 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         return unwrap(await self.with_raw_response.item_get(body, request_options=request_options))
 
     async def item_import(
-        self, body: ItemImportRequest | ItemImportRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self,
+        body: ItemImportRequest | ItemImportRequestDict,
+        *,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ItemImportResponse:
         """``/item/import`` creates an Item via your Plaid Exchange Integration and returns an ``access_token``. As part
         of an ``/item/import`` request, you will include a User ID (``user_auth.user_id``) and Authentication Token
@@ -4660,7 +4685,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ItemProductsTerminateRequest | ItemProductsTerminateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ItemProductsTerminateResponse:
         """The ``/item/products/terminate`` endpoint allows you to terminate an Item. Once terminated, the
         ``access_token`` associated with the Item is no longer valid, billing for the Item's products is ended, and
@@ -4684,7 +4709,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ItemPublicTokenExchangeRequest | ItemPublicTokenExchangeRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ItemPublicTokenExchangeResponse:
         """Exchange a Link ``public_token`` for an API ``access_token``. Link hands off the ``public_token`` client-side
         via the ``onSuccess`` callback once a user has successfully created an Item. The ``public_token`` is ephemeral
@@ -4707,7 +4732,10 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         return unwrap(await self.with_raw_response.item_public_token_exchange(body, request_options=request_options))
 
     async def item_remove(
-        self, body: ItemRemoveRequest | ItemRemoveRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self,
+        body: ItemRemoveRequest | ItemRemoveRequestDict,
+        *,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ItemRemoveResponse:
         """The ``/item/remove`` endpoint allows you to remove an Item. Once removed, the ``access_token``, as well as
         any processor tokens or bank account tokens associated with the Item, is no longer valid and cannot be used to
@@ -4746,7 +4774,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ItemWebhookUpdateRequest | ItemWebhookUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ItemWebhookUpdateResponse:
         """The POST ``/item/webhook/update`` allows you to update the webhook URL associated with an Item. This request
         triggers a https://plaid.com/docs/api/items/#webhook_update_acknowledged webhook to the newly specified webhook
@@ -4768,7 +4796,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: LiabilitiesGetRequest | LiabilitiesGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> LiabilitiesGetResponse:
         """The ``/liabilities/get`` endpoint returns various details about an Item with loan or credit accounts.
         Liabilities data is available primarily for US financial institutions, with some limited coverage of Canadian
@@ -4797,7 +4825,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: LinkDeliveryCreateRequest | LinkDeliveryCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> LinkDeliveryCreateResponse:
         """Use the ``/link_delivery/create`` endpoint to create a Hosted Link session.
 
@@ -4817,7 +4845,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: LinkDeliveryGetRequest | LinkDeliveryGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> LinkDeliveryGetResponse:
         """Use the ``/link_delivery/get`` endpoint to get the status of a Hosted Link session.
 
@@ -4835,10 +4863,10 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
     async def link_oauth_correlation_id_exchange(
         self,
-        body: LinkOauthCorrelationIdExchangeRequest | LinkOauthCorrelationIdExchangeRequestDict,
+        body: LinkOAuthCorrelationIdExchangeRequest | LinkOAuthCorrelationIdExchangeRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
-    ) -> LinkOauthCorrelationIdExchangeResponse:
+        request_options: AsyncRequestOptionsOrDict | None = None,
+    ) -> LinkOAuthCorrelationIdExchangeResponse:
         """Exchange an OAuth ``link_correlation_id`` for the corresponding ``link_token``. The ``link_correlation_id``
         is only available for ``payment_initiation`` products and is provided to the client via the OAuth
         ``redirect_uri`` as a query parameter. The ``link_correlation_id`` is ephemeral and expires in a brief period,
@@ -4862,7 +4890,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: LinkTokenCreateRequest | LinkTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> LinkTokenCreateResponse:
         """The ``/link/token/create`` endpoint creates a ``link_token``, which is required as a parameter when
         initializing Link. Once Link has been initialized, it returns a ``public_token``. For most Plaid products, the
@@ -4890,7 +4918,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: LinkTokenGetRequest | LinkTokenGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> LinkTokenGetResponse:
         """The ``/link/token/get`` endpoint gets information about a Link session, including all callbacks fired during
         the session along with their metadata, including the public token. This endpoint is used with Link flows that
@@ -4920,7 +4948,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: NetworkStatusGetRequest | NetworkStatusGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> NetworkStatusGetResponse:
         """The ``/network/status/get`` endpoint can be used to check whether Plaid has a matching profile for the user.
         This is useful for determining if a user is eligible for a streamlined experience, such as Layer. To access this
@@ -4945,10 +4973,10 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
     async def oauth_introspect(
         self,
-        body: OauthIntrospectRequest | OauthIntrospectRequestDict,
+        body: OAuthIntrospectRequest | OAuthIntrospectRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
-    ) -> OauthIntrospectResponse:
+        request_options: AsyncRequestOptionsOrDict | None = None,
+    ) -> OAuthIntrospectResponse:
         """``/oauth/introspect`` returns metadata about an access token or refresh token.
 
         Note: This endpoint supports ``Content-Type: application/x-www-form-urlencoded`` as well as JSON. The fields for
@@ -4967,8 +4995,11 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         return unwrap(await self.with_raw_response.oauth_introspect(body, request_options=request_options))
 
     async def oauth_revoke(
-        self, body: OauthRevokeRequest | OauthRevokeRequestDict, *, request_options: RequestOptionsOrDict | None = None
-    ) -> OauthRevokeResponse:
+        self,
+        body: OAuthRevokeRequest | OAuthRevokeRequestDict,
+        *,
+        request_options: AsyncRequestOptionsOrDict | None = None,
+    ) -> OAuthRevokeResponse:
         """``/oauth/revoke`` revokes an access or refresh token, preventing any further use. If a refresh token is
         revoked, all access and refresh tokens derived from it are also revoked, including exchanged tokens.
 
@@ -4988,8 +5019,11 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         return unwrap(await self.with_raw_response.oauth_revoke(body, request_options=request_options))
 
     async def oauth_token(
-        self, body: OauthTokenRequest | OauthTokenRequestDict, *, request_options: RequestOptionsOrDict | None = None
-    ) -> OauthTokenResponse:
+        self,
+        body: OAuthTokenRequest | OAuthTokenRequestDict,
+        *,
+        request_options: AsyncRequestOptionsOrDict | None = None,
+    ) -> OAuthTokenResponse:
         """``/oauth/token`` issues an access token and refresh token depending on the ``grant_type`` provided. This
         endpoint supports ``Content-Type: application/x-www-form-urlencoded`` as well as JSON. The fields for the form
         are equivalent to the fields for JSON and conform to the OAuth 2.0 specification.
@@ -5010,7 +5044,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PartnerCustomerCreateRequest | PartnerCustomerCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PartnerCustomerCreateResponse:
         """The ``/partner/customer/create`` endpoint is used by reseller partners to create end customers. To create end
         customers, it should be called in the Production environment only, even when creating Sandbox API keys. If
@@ -5033,7 +5067,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PartnerCustomerEnableRequest | PartnerCustomerEnableRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PartnerCustomerEnableResponse:
         """The ``/partner/customer/enable`` endpoint is used by reseller partners to enable an end customer in the full
         Production environment.
@@ -5054,7 +5088,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PartnerCustomerGetRequest | PartnerCustomerGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PartnerCustomerGetResponse:
         """The ``/partner/customer/get`` endpoint is used by reseller partners to retrieve data about a single end
         customer.
@@ -5073,10 +5107,10 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
 
     async def partner_customer_oauth_institutions_get(
         self,
-        body: PartnerCustomerOauthInstitutionsGetRequest | PartnerCustomerOauthInstitutionsGetRequestDict,
+        body: PartnerCustomerOAuthInstitutionsGetRequest | PartnerCustomerOAuthInstitutionsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
-    ) -> PartnerCustomerOauthInstitutionsGetResponse:
+        request_options: AsyncRequestOptionsOrDict | None = None,
+    ) -> PartnerCustomerOAuthInstitutionsGetResponse:
         """The ``/partner/customer/oauth_institutions/get`` endpoint is used by reseller partners to retrieve
         OAuth-institution registration information about a single end customer. To learn how to set up a webhook to
         listen to status update events, visit the `reseller documentation
@@ -5100,7 +5134,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PartnerCustomerRemoveRequest | PartnerCustomerRemoveRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PartnerCustomerRemoveResponse:
         """The ``/partner/customer/remove`` endpoint is used by reseller partners to remove an end customer. Removing an
         end customer will remove it from view in the Plaid Dashboard and deactivate its API keys. This endpoint can only
@@ -5122,7 +5156,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PaymentInitiationConsentCreateRequest | PaymentInitiationConsentCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PaymentInitiationConsentCreateResponse:
         """The ``/payment_initiation/consent/create`` endpoint is used to create a payment consent, which can be used to
         initiate payments on behalf of the user. Payment consents are created with ``UNAUTHORISED`` status by default
@@ -5148,7 +5182,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PaymentInitiationConsentGetRequest | PaymentInitiationConsentGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PaymentInitiationConsentGetResponse:
         """The ``/payment_initiation/consent/get`` endpoint can be used to check the status of a payment consent, as
         well as to receive basic information such as recipient and constraints.
@@ -5171,7 +5205,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PaymentInitiationConsentPaymentExecuteRequest | PaymentInitiationConsentPaymentExecuteRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PaymentInitiationConsentPaymentExecuteResponse:
         """The ``/payment_initiation/consent/payment/execute`` endpoint can be used to execute payments using payment
         consent.
@@ -5196,7 +5230,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PaymentInitiationConsentRevokeRequest | PaymentInitiationConsentRevokeRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PaymentInitiationConsentRevokeResponse:
         """The ``/payment_initiation/consent/revoke`` endpoint can be used to revoke the payment consent. Once the
         consent is revoked, it is not possible to initiate payments using it.
@@ -5219,7 +5253,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PaymentInitiationPaymentCreateRequest | PaymentInitiationPaymentCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PaymentInitiationPaymentCreateResponse:
         """After creating a payment recipient, you can use the ``/payment_initiation/payment/create`` endpoint to create
         a payment to that recipient. Payments can be one-time or standing order (recurring) and can be denominated in
@@ -5258,7 +5292,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PaymentInitiationPaymentGetRequest | PaymentInitiationPaymentGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PaymentInitiationPaymentGetResponse:
         """The ``/payment_initiation/payment/get`` endpoint can be used to check the status of a payment, as well as to
         receive basic information such as recipient and payment amount. In the case of standing orders, the
@@ -5287,7 +5321,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PaymentInitiationPaymentListRequest | PaymentInitiationPaymentListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PaymentInitiationPaymentListResponse:
         """The ``/payment_initiation/payment/list`` endpoint can be used to retrieve all created payments. By default,
         the 10 most recent payments are returned. You can request more payments and paginate through the results using
@@ -5311,7 +5345,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PaymentInitiationPaymentReverseRequest | PaymentInitiationPaymentReverseRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PaymentInitiationPaymentReverseResponse:
         """Reverse a settled payment from a Plaid virtual account.
 
@@ -5343,7 +5377,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PaymentInitiationRecipientCreateRequest | PaymentInitiationRecipientCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PaymentInitiationRecipientCreateResponse:
         """Create a payment recipient for payment initiation. The recipient must be in Europe, within a country that is
         a member of the Single Euro Payments Area (SEPA) or a non-Eurozone country `supported
@@ -5373,7 +5407,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PaymentInitiationRecipientGetRequest | PaymentInitiationRecipientGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PaymentInitiationRecipientGetResponse:
         """Get details about a payment recipient you have previously created.
 
@@ -5395,7 +5429,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PaymentInitiationRecipientListRequest | PaymentInitiationRecipientListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PaymentInitiationRecipientListResponse:
         """The ``/payment_initiation/recipient/list`` endpoint lists the payment recipients that you have previously
         created.
@@ -5418,7 +5452,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PaymentProfileCreateRequest | PaymentProfileCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PaymentProfileCreateResponse:
         """Use ``/payment_profile/create`` endpoint to create a new payment profile. To initiate the account linking
         experience, call ``/link/token/create`` and provide the ``payment_profile_token`` in the
@@ -5441,7 +5475,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PaymentProfileGetRequest | PaymentProfileGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PaymentProfileGetResponse:
         """Use ``/payment_profile/get`` endpoint to get the status of a given Payment Profile.
 
@@ -5461,7 +5495,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: PaymentProfileRemoveRequest | PaymentProfileRemoveRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> PaymentProfileRemoveResponse:
         """Use the ``/payment_profile/remove`` endpoint to remove a given Payment Profile. Once it's removed, it can no
         longer be used to create transfers.
@@ -5482,7 +5516,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorAccountGetRequest | ProcessorAccountGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorAccountGetResponse:
         """This endpoint returns the account associated with a given processor token.
 
@@ -5506,7 +5540,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorApexProcessorTokenCreateRequest | ProcessorApexProcessorTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorTokenCreateResponse:
         """Used to create a token suitable for sending to Apex to enable Plaid-Apex integrations.
 
@@ -5528,7 +5562,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorAuthGetRequest | ProcessorAuthGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorAuthGetResponse:
         """The ``/processor/auth/get`` endpoint returns the bank account and bank identification number (such as the
         routing number, for US accounts), for a checking, savings, or cash management account that''s associated with a
@@ -5554,7 +5588,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorBalanceGetRequest | ProcessorBalanceGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorBalanceGetResponse:
         """The ``/processor/balance/get`` endpoint returns the real-time balance for each of an Item's accounts. While
         other endpoints may return a balance object, only ``/processor/balance/get`` forces the available and current
@@ -5581,7 +5615,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorBankTransferCreateRequest | ProcessorBankTransferCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorBankTransferCreateResponse:
         """Use the ``/processor/bank_transfer/create`` endpoint to initiate a new bank transfer as a processor
 
@@ -5603,7 +5637,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorIdentityGetRequest | ProcessorIdentityGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorIdentityGetResponse:
         """The ``/processor/identity/get`` endpoint allows you to retrieve various account holder information on file
         with the financial institution, including names, emails, phone numbers, and addresses.
@@ -5624,7 +5658,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorIdentityMatchRequest | ProcessorIdentityMatchRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorIdentityMatchResponse:
         """The ``/processor/identity/match`` endpoint generates a match score, which indicates how well the provided
         identity data matches the identity information on file with the account holder's financial institution.
@@ -5648,7 +5682,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorInvestmentsAuthGetRequest | ProcessorInvestmentsAuthGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorInvestmentsAuthGetResponse:
         """The ``/processor/investments/auth/get`` endpoint allows you to retrieve information about the account
         authorized by a processor token, including account numbers, account owners, holdings, and data provenance
@@ -5675,7 +5709,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorInvestmentsHoldingsGetRequest | ProcessorInvestmentsHoldingsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorInvestmentsHoldingsGetResponse:
         """This endpoint returns the stock position data of the account associated with a given processor token.
 
@@ -5697,7 +5731,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorInvestmentsTransactionsGetRequest | ProcessorInvestmentsTransactionsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorInvestmentsTransactionsGetResponse:
         """The ``/processor/investments/transactions/get`` endpoint allows developers to retrieve up to 24 months of
         user-authorized transaction data for the investment account associated with the processor token.
@@ -5741,7 +5775,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorLiabilitiesGetRequest | ProcessorLiabilitiesGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorLiabilitiesGetResponse:
         """The ``/processor/liabilities/get`` endpoint returns various details about a loan or credit account.
         Liabilities data is available primarily for US financial institutions, with some limited coverage of Canadian
@@ -5772,7 +5806,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorSignalDecisionReportRequest | ProcessorSignalDecisionReportRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorSignalDecisionReportResponse:
         """After you call ``/processor/signal/evaluate``, Plaid will normally infer the outcome from your Signal Rules.
         However, if you are not using Signal Rules, if the Signal Rules outcome was ``REVIEW``, or if you take a
@@ -5807,7 +5841,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorSignalEvaluateRequest | ProcessorSignalEvaluateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorSignalEvaluateResponse:
         """Use ``/processor/signal/evaluate`` to evaluate a planned ACH transaction to get a return risk assessment and
         additional risk signals.
@@ -5838,7 +5872,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorSignalPrepareRequest | ProcessorSignalPrepareRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorSignalPrepareResponse:
         """When a processor token is not initialized with ``signal``, call ``/processor/signal/prepare`` to opt-in that
         processor token to the data collection process, which will improve the accuracy of the Signal Transaction Score.
@@ -5862,7 +5896,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorSignalReturnReportRequest | ProcessorSignalReturnReportRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorSignalReturnReportResponse:
         """Call the ``/processor/signal/return/report`` endpoint to report a returned transaction that was previously
         sent to the ``/processor/signal/evaluate`` endpoint. Your feedback will be used by the model to incorporate the
@@ -5889,7 +5923,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorStripeBankAccountTokenCreateRequest | ProcessorStripeBankAccountTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorStripeBankAccountTokenCreateResponse:
         """Used to create a token suitable for sending to Stripe to enable Plaid-Stripe integrations. For a detailed
         guide on integrating Stripe, see `Add Stripe to your app <https://plaid.com/docs/auth/partnerships/stripe/>`__.
@@ -5924,7 +5958,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorTokenCreateRequest | ProcessorTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorTokenCreateResponse:
         """Used to create a token suitable for sending to one of Plaid's partners to enable integrations. Note that
         Stripe partnerships use bank account tokens instead; see ``/processor/stripe/bank_account_token/create`` for
@@ -5949,7 +5983,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorTokenPermissionsGetRequest | ProcessorTokenPermissionsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorTokenPermissionsGetResponse:
         """Used to get a processor token's product permissions. The ``products`` field will be an empty list if the
         processor can access all available products.
@@ -5972,7 +6006,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorTokenPermissionsSetRequest | ProcessorTokenPermissionsSetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorTokenPermissionsSetResponse:
         """Used to control a processor's access to products on the given processor token. By default, a processor will
         have access to all available products on the corresponding item. To restrict access to a particular set of
@@ -5998,7 +6032,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorTokenWebhookUpdateRequest | ProcessorTokenWebhookUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorTokenWebhookUpdateResponse:
         """This endpoint allows you, the processor, to update the webhook URL associated with a processor token. This
         request triggers a ``WEBHOOK_UPDATE_ACKNOWLEDGED`` webhook to the newly specified webhook URL.
@@ -6021,7 +6055,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorTransactionsGetRequest | ProcessorTransactionsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorTransactionsGetResponse:
         """The ``/processor/transactions/get`` endpoint allows developers to receive user-authorized transaction data
         for credit, depository, and some loan-type accounts (only those with account subtype ``student`` or
@@ -6067,7 +6101,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorTransactionsRecurringGetRequest | ProcessorTransactionsRecurringGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorTransactionsRecurringGetResponse:
         """The ``/processor/transactions/recurring/get`` endpoint allows developers to receive a summary of the
         recurring outflow and inflow streams (expenses and deposits) from a user's checking, savings or credit card
@@ -6115,7 +6149,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorTransactionsRefreshRequest | ProcessorTransactionsRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorTransactionsRefreshResponse:
         """``/processor/transactions/refresh`` is an optional endpoint for users of the Transactions product. It
         initiates an on-demand extraction to fetch the newest transactions for a processor token. This on-demand
@@ -6158,7 +6192,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProcessorTransactionsSyncRequest | ProcessorTransactionsSyncRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProcessorTransactionsSyncResponse:
         """The ``/processor/transactions/sync`` endpoint retrieves transactions associated with an Item and can fetch
         updates using a cursor to track which updates have already been seen.
@@ -6211,7 +6245,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProfileNetworkStatusGetRequest | ProfileNetworkStatusGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProfileNetworkStatusGetResponse:
         """The ``/profile/network_status/get`` endpoint can be used to check whether Plaid has a matching profile for
         the user.
@@ -6232,7 +6266,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProtectComputeRequest | ProtectComputeRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProtectComputeResponse:
         """Compute a Protect Trust Index score for a user. The model selected determines what is scored and what
         additional fields the response contains. For example, ``ti-link-session-2.0`` scores a completed Link session
@@ -6260,7 +6294,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProtectEventGetRequest | ProtectEventGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProtectEventGetResponse:
         """Get information about a user event including Trust Index score and fraud attributes.
 
@@ -6280,7 +6314,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProtectEventSendRequest | ProtectEventSendRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProtectEventSendResponse:
         """Send a new event to enrich user data and optionally get a Trust Index score for the event.
 
@@ -6300,7 +6334,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProtectReportCreateRequest | ProtectReportCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProtectReportCreateResponse:
         """Use this endpoint to create a Protect report to document fraud incidents, investigation outcomes, or other
         risk events. This endpoint allows you to report various types of incidents including account takeovers, identity
@@ -6329,7 +6363,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: ProtectUserInsightsGetRequest | ProtectUserInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ProtectUserInsightsGetResponse:
         """Use this endpoint to get basic information about a user as it relates to their fraud profile with Protect.
 
@@ -6349,7 +6383,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxBankIncomeFireWebhookRequest | SandboxBankIncomeFireWebhookRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxBankIncomeFireWebhookResponse:
         """Use the ``/sandbox/bank_income/fire_webhook`` endpoint to manually trigger a Bank Income webhook in the
         Sandbox environment.
@@ -6372,7 +6406,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxBankTransferFireWebhookRequest | SandboxBankTransferFireWebhookRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxBankTransferFireWebhookResponse:
         """Use the ``/sandbox/bank_transfer/fire_webhook`` endpoint to manually trigger a Bank Transfers webhook in the
         Sandbox environment.
@@ -6395,7 +6429,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxBankTransferSimulateRequest | SandboxBankTransferSimulateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxBankTransferSimulateResponse:
         """Use the ``/sandbox/bank_transfer/simulate`` endpoint to simulate a bank transfer event in the Sandbox
         environment. Note that while an event will be simulated and will appear when using endpoints such as
@@ -6420,7 +6454,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxCraCashflowUpdatesUpdateRequest | SandboxCraCashflowUpdatesUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxCraCashflowUpdatesUpdateResponse:
         """Use the ``/sandbox/cra/cashflow_updates/update`` endpoint to manually trigger an update for Cash Flow Updates
         (Monitoring) in the Sandbox environment.
@@ -6443,7 +6477,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxFdxConsentSeedRequest | SandboxFdxConsentSeedRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxFdxConsentSeedResponse:
         """``/sandbox/fdx/consent/seed`` creates a test FDX consent grant (and a backing Item) for a data provider's
         customer in Sandbox, so the FDX Consent API endpoints can be exercised end-to-end without a live data provider
@@ -6471,7 +6505,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxIncomeFireWebhookRequest | SandboxIncomeFireWebhookRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxIncomeFireWebhookResponse:
         """Use the ``/sandbox/income/fire_webhook`` endpoint to manually trigger a Payroll or Document Income webhook in
         the Sandbox environment.
@@ -6492,7 +6526,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxItemApplicationSeedRequest | SandboxItemApplicationSeedRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxItemApplicationSeedResponse:
         """``/sandbox/item/application/seed`` creates a test connected application on an existing Permissions Manager
         Item's login. The seeded application will appear in subsequent calls to ``/item/application/list``.
@@ -6517,7 +6551,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxItemFireWebhookRequest | SandboxItemFireWebhookRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxItemFireWebhookResponse:
         """The ``/sandbox/item/fire_webhook`` endpoint is used to test that code correctly handles webhooks. This
         endpoint can trigger the following webhooks:
@@ -6581,7 +6615,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxItemResetLoginRequest | SandboxItemResetLoginRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxItemResetLoginResponse:
         """``/sandbox/item/reset_login`` forces an Item into an ``ITEM_LOGIN_REQUIRED`` state in order to simulate an
         Item whose login is no longer valid. This makes it easy to test Link's `update mode
@@ -6607,7 +6641,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxItemSetVerificationStatusRequest | SandboxItemSetVerificationStatusRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxItemSetVerificationStatusResponse:
         """The ``/sandbox/item/set_verification_status`` endpoint can be used to change the verification status of an
         Item in the Sandbox in order to simulate the Automated Micro-deposit flow.
@@ -6633,7 +6667,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxOauthSelectAccountsRequest | SandboxOauthSelectAccountsRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> Any:
         """Save the selected accounts when connecting to the Platypus OAuth institution
 
@@ -6653,7 +6687,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxPaymentProfileResetLoginRequest | SandboxPaymentProfileResetLoginRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxPaymentProfileResetLoginResponse:
         """``/sandbox/payment_profile/reset_login`` forces a Payment Profile into a state where the login is no longer
         valid. This makes it easy to test update mode for Payment Profile in the Sandbox environment.
@@ -6684,7 +6718,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxPaymentSimulateRequest | SandboxPaymentSimulateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxPaymentSimulateResponse:
         """Use the ``/sandbox/payment/simulate`` endpoint to simulate various payment events in the Sandbox environment.
         This endpoint will trigger the corresponding payment status webhook.
@@ -6705,7 +6739,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxProcessorTokenCreateRequest | SandboxProcessorTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxProcessorTokenCreateResponse:
         """Use the ``/sandbox/processor_token/create`` endpoint to create a valid ``processor_token`` for an arbitrary
         institution ID and test credentials. The created ``processor_token`` corresponds to a new Sandbox Item. You can
@@ -6731,7 +6765,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxPublicTokenCreateRequest | SandboxPublicTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxPublicTokenCreateResponse:
         """Use the ``/sandbox/public_token/create`` endpoint to create a valid ``public_token`` for an arbitrary
         institution ID, initial products, and test credentials. The created ``public_token`` maps to a new Sandbox Item.
@@ -6756,7 +6790,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxTransactionsCreateRequest | SandboxTransactionsCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxTransactionsCreateResponse:
         """Use the ``/sandbox/transactions/create`` endpoint to create new transactions for an existing Item. This
         endpoint can be used to add up to 10 transactions to any Item at a time.
@@ -6784,7 +6818,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxTransferFireWebhookRequest | SandboxTransferFireWebhookRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxTransferFireWebhookResponse:
         """Use the ``/sandbox/transfer/fire_webhook`` endpoint to manually trigger a ``TRANSFER_EVENTS_UPDATE`` webhook
         in the Sandbox environment.
@@ -6805,7 +6839,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxTransferLedgerDepositSimulateRequest | SandboxTransferLedgerDepositSimulateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxTransferLedgerDepositSimulateResponse:
         """Use the ``/sandbox/transfer/ledger/deposit/simulate`` endpoint to simulate a ledger deposit event in the
         Sandbox environment.
@@ -6828,7 +6862,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxTransferLedgerSimulateAvailableRequest | SandboxTransferLedgerSimulateAvailableRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxTransferLedgerSimulateAvailableResponse:
         """Use the ``/sandbox/transfer/ledger/simulate_available`` endpoint to simulate converting pending balance to
         available balance for all originators in the Sandbox environment.
@@ -6853,7 +6887,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxTransferLedgerWithdrawSimulateRequest | SandboxTransferLedgerWithdrawSimulateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxTransferLedgerWithdrawSimulateResponse:
         """Use the ``/sandbox/transfer/ledger/withdraw/simulate`` endpoint to simulate a ledger withdraw event in the
         Sandbox environment.
@@ -6878,7 +6912,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxTransferRefundSimulateRequest | SandboxTransferRefundSimulateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxTransferRefundSimulateResponse:
         """Use the ``/sandbox/transfer/refund/simulate`` endpoint to simulate a refund event in the Sandbox environment.
         Note that while an event will be simulated and will appear when using endpoints such as ``/transfer/event/sync``
@@ -6903,7 +6937,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxTransferRepaymentSimulateRequest | SandboxTransferRepaymentSimulateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxTransferRepaymentSimulateResponse:
         """Use the ``/sandbox/transfer/repayment/simulate`` endpoint to trigger the creation of a repayment. As a side
         effect of calling this route, a repayment is created that includes all unreimbursed returns of guaranteed
@@ -6927,7 +6961,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxTransferSimulateRequest | SandboxTransferSimulateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxTransferSimulateResponse:
         """Use the ``/sandbox/transfer/simulate`` endpoint to simulate a transfer event in the Sandbox environment. Note
         that while an event will be simulated and will appear when using endpoints such as ``/transfer/event/sync`` or
@@ -6950,7 +6984,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxTransferSweepSimulateRequest | SandboxTransferSweepSimulateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxTransferSweepSimulateResponse:
         """Use the ``/sandbox/transfer/sweep/simulate`` endpoint to create a sweep and associated events in the Sandbox
         environment. Upon calling this endpoint, all transfers with a sweep status of ``swept`` will become
@@ -6975,7 +7009,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxTransferTestClockAdvanceRequest | SandboxTransferTestClockAdvanceRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxTransferTestClockAdvanceResponse:
         """Use the ``/sandbox/transfer/test_clock/advance`` endpoint to advance a ``test_clock`` in the Sandbox
         environment.
@@ -7015,7 +7049,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxTransferTestClockCreateRequest | SandboxTransferTestClockCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxTransferTestClockCreateResponse:
         """Use the ``/sandbox/transfer/test_clock/create`` endpoint to create a ``test_clock`` in the Sandbox
         environment.
@@ -7043,7 +7077,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxTransferTestClockGetRequest | SandboxTransferTestClockGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxTransferTestClockGetResponse:
         """Use the ``/sandbox/transfer/test_clock/get`` endpoint to get a ``test_clock`` in the Sandbox environment.
 
@@ -7065,7 +7099,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxTransferTestClockListRequest | SandboxTransferTestClockListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxTransferTestClockListResponse:
         """Use the ``/sandbox/transfer/test_clock/list`` endpoint to see a list of all your test clocks in the Sandbox
         environment, by ascending ``virtual_time``. Results are paginated; use the ``count`` and ``offset`` query
@@ -7089,7 +7123,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SandboxUserResetLoginRequest | SandboxUserResetLoginRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SandboxUserResetLoginResponse:
         """``/sandbox/user/reset_login`` functions the same as ``/sandbox/item/reset_login``, but will modify Items
         related to a User. This endpoint forces each Item into an ``ITEM_LOGIN_REQUIRED`` state in order to simulate an
@@ -7116,7 +7150,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SessionTokenCreateRequest | SessionTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SessionTokenCreateResponse:
         """``/session/token/create`` is used to create a Link token for Layer. The returned Link token is used as a
         parameter when initializing the Link SDK. For more details, see the `Link flow overview
@@ -7138,7 +7172,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SignalDecisionReportRequest | SignalDecisionReportRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SignalDecisionReportResponse:
         """After you call ``/signal/evaluate``, Plaid will normally infer the outcome from your Signal Rules. However,
         if you are not using Signal Rules, if the Signal Rules outcome was ``REVIEW``, or if you take a different action
@@ -7171,7 +7205,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SignalEvaluateRequest | SignalEvaluateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SignalEvaluateResponse:
         """Use ``/signal/evaluate`` to evaluate a planned ACH transaction to get a return risk assessment and additional
         risk signals.
@@ -7205,7 +7239,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SignalPrepareRequest | SignalPrepareRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SignalPrepareResponse:
         """When an Item is not initialized with ``signal``, call ``/signal/prepare`` to opt-in that Item to the data
         collection process used to develop a Signal Transaction Score. This should be done on Items where ``signal`` was
@@ -7236,7 +7270,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SignalReturnReportRequest | SignalReturnReportRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SignalReturnReportResponse:
         """Call the ``/signal/return/report`` endpoint to report a returned transaction that was previously sent to the
         ``/signal/evaluate`` endpoint. Your feedback will be used by the model to incorporate the latest risk trends
@@ -7260,7 +7294,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: SignalScheduleRequest | SignalScheduleRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> SignalScheduleResponse:
         """Use ``/signal/schedule`` to schedule a planned ACH transaction.
 
@@ -7280,7 +7314,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: StatementsDownloadRequest | StatementsDownloadRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> None:
         """The ``/statements/download`` endpoint retrieves a single statement PDF in binary format. The response will
         contain a ``Plaid-Content-Hash`` header containing a SHA 256 checksum of the statement. This can be used to
@@ -7302,7 +7336,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: StatementsListRequest | StatementsListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> StatementsListResponse:
         """The ``/statements/list`` endpoint retrieves a list of all statements associated with an Item.
 
@@ -7322,7 +7356,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: StatementsRefreshRequest | StatementsRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> StatementsRefreshResponse:
         """``/statements/refresh`` initiates an on-demand extraction to fetch the statements for the provided dates.
 
@@ -7342,7 +7376,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransactionsEnhanceGetRequest | TransactionsEnhanceGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransactionsEnhanceGetResponse:
         """The ``/beta/transactions/v1/enhance`` endpoint enriches raw transaction data provided directly by clients.
 
@@ -7364,7 +7398,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransactionsEnrichRequest | TransactionsEnrichRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransactionsEnrichResponse:
         """The ``/transactions/enrich`` endpoint enriches raw transaction data generated by your own banking products or
         retrieved from other non-Plaid sources.
@@ -7385,7 +7419,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransactionsGetRequest | TransactionsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransactionsGetResponse:
         """Note: All new implementations are encouraged to use ``/transactions/sync`` rather than ``/transactions/get``.
         ``/transactions/sync`` provides the same functionality as ``/transactions/get`` and improves developer
@@ -7433,7 +7467,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransactionsRecurringGetRequest | TransactionsRecurringGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransactionsRecurringGetResponse:
         """The ``/transactions/recurring/get`` endpoint allows developers to receive a summary of the recurring outflow
         and inflow streams (expenses and deposits) from a user's checking, savings or credit card accounts.
@@ -7480,7 +7514,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransactionsRefreshRequest | TransactionsRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransactionsRefreshResponse:
         """``/transactions/refresh`` is an optional endpoint that initiates an on-demand extraction to fetch the newest
         transactions for an Item. The on-demand extraction takes place in addition to the periodic extractions that
@@ -7523,7 +7557,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransactionsRulesCreateRequest | TransactionsRulesCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransactionsRulesCreateResponse:
         """The ``/beta/transactions/rules/v1/create`` endpoint creates transaction categorization rules.
 
@@ -7547,7 +7581,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransactionsRulesListRequest | TransactionsRulesListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransactionsRulesListResponse:
         """The ``/beta/transactions/rules/v1/list`` returns a list of transaction rules created for the Item associated
         with the access token.
@@ -7568,7 +7602,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransactionsRulesRemoveRequest | TransactionsRulesRemoveRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransactionsRulesRemoveResponse:
         """The ``/beta/transactions/rules/v1/remove`` endpoint is used to remove a transaction rule.
 
@@ -7588,7 +7622,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransactionsSyncRequest | TransactionsSyncRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransactionsSyncResponse:
         """The ``/transactions/sync`` endpoint retrieves transactions associated with an Item and can fetch updates
         using a cursor to track which updates have already been seen.
@@ -7638,7 +7672,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransactionsUserInsightsGetRequest | TransactionsUserInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransactionsUserInsightsGetResponse:
         """The ``/beta/transactions/user_insights/v1/get`` gets user insights for clients who have enriched data with
         ``/transactions/enrich``.
@@ -7663,7 +7697,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferAuthorizationCancelRequest | TransferAuthorizationCancelRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferAuthorizationCancelResponse:
         """Use the ``/transfer/authorization/cancel`` endpoint to cancel a transfer authorization. A transfer
         authorization is eligible for cancellation if it has not yet been used to create a transfer.
@@ -7684,7 +7718,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferAuthorizationCreateRequest | TransferAuthorizationCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferAuthorizationCreateResponse:
         """Use the ``/transfer/authorization/create`` endpoint to authorize a transfer. This endpoint must be called
         prior to calling ``/transfer/create``. The transfer authorization will expire if not used after one hour. (You
@@ -7745,7 +7779,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferBalanceGetRequest | TransferBalanceGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferBalanceGetResponse:
         """(Deprecated) Use the ``/transfer/ledger/get`` endpoint to view a balance held with Plaid.
 
@@ -7765,7 +7799,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferCancelRequest | TransferCancelRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferCancelResponse:
         """Use the ``/transfer/cancel`` endpoint to cancel a transfer. A transfer is eligible for cancellation if the
         ``cancellable`` property returned by ``/transfer/get`` is ``true``.
@@ -7786,7 +7820,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferCapabilitiesGetRequest | TransferCapabilitiesGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferCapabilitiesGetResponse:
         """Use the ``/transfer/capabilities/get`` endpoint to determine the RTP eligibility information of an account to
         be used with Transfer. This endpoint works on all Transfer-capable Items, including those created by
@@ -7808,7 +7842,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferConfigurationGetRequest | TransferConfigurationGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferConfigurationGetResponse:
         """Use the ``/transfer/configuration/get`` endpoint to view your transfer product configurations.
 
@@ -7828,7 +7862,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferCreateRequest | TransferCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferCreateResponse:
         """Use the ``/transfer/create`` endpoint to initiate a new transfer. This endpoint is retryable and idempotent;
         if a transfer with the provided ``transfer_id`` has already been created, it will return the transfer details
@@ -7851,7 +7885,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferDiligenceDocumentUploadRequest | TransferDiligenceDocumentUploadRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferDiligenceDocumentUploadResponse:
         """Third-party sender customers can use the ``/transfer/diligence/document/upload`` endpoint to upload a
         document on behalf of their end customer (i.e. originator) to Plaid. You'll need to send a request of type
@@ -7876,7 +7910,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferDiligenceSubmitRequest | TransferDiligenceSubmitRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferDiligenceSubmitResponse:
         """Use the ``/transfer/diligence/submit`` endpoint to submit transfer diligence on behalf of the originator
         (i.e., the end customer).
@@ -7897,7 +7931,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferEventListRequest | TransferEventListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferEventListResponse:
         """Use the ``/transfer/event/list`` endpoint to get a list of transfer events based on specified filter
         criteria.
@@ -7918,7 +7952,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferEventSyncRequest | TransferEventSyncRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferEventSyncResponse:
         """``/transfer/event/sync`` allows you to request up to the next 500 transfer events that happened after a
         specific ``event_id``. Use the ``/transfer/event/sync`` endpoint to guarantee you have seen all transfer events.
@@ -7936,7 +7970,10 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         return unwrap(await self.with_raw_response.transfer_event_sync(body, request_options=request_options))
 
     async def transfer_get(
-        self, body: TransferGetRequest | TransferGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self,
+        body: TransferGetRequest | TransferGetRequestDict,
+        *,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferGetResponse:
         """The ``/transfer/get`` endpoint fetches information about the transfer corresponding to the given
         ``transfer_id`` or ``authorization_id``. One of ``transfer_id`` or ``authorization_id`` must be populated but
@@ -7958,7 +7995,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferIntentCreateRequest | TransferIntentCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferIntentCreateResponse:
         """Use the ``/transfer/intent/create`` endpoint to generate a transfer intent object and invoke the Transfer UI.
 
@@ -7978,7 +8015,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferIntentGetRequest | TransferIntentGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferIntentGetResponse:
         """Use the ``/transfer/intent/get`` endpoint to retrieve more information about a transfer intent.
 
@@ -7998,7 +8035,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferLedgerDepositRequest | TransferLedgerDepositRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferLedgerDepositResponse:
         """Use the ``/transfer/ledger/deposit`` endpoint to deposit funds into Plaid Ledger.
 
@@ -8018,7 +8055,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferLedgerDistributeRequest | TransferLedgerDistributeRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferLedgerDistributeResponse:
         """Use the ``/transfer/ledger/distribute`` endpoint to move available balance between ledgers, if you have
         multiple. If you're a platform, you can move funds between one of your ledgers and one of your customer's
@@ -8040,7 +8077,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferLedgerEventListRequest | TransferLedgerEventListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferLedgerEventListResponse:
         """Use the ``/transfer/ledger/event/list`` endpoint to get a list of ledger events for a specific ledger based
         on specified filter criteria.
@@ -8061,7 +8098,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferLedgerGetRequest | TransferLedgerGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferLedgerGetResponse:
         """Use the ``/transfer/ledger/get`` endpoint to view a balance on the ledger held with Plaid.
 
@@ -8081,7 +8118,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferLedgerWithdrawRequest | TransferLedgerWithdrawRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferLedgerWithdrawResponse:
         """Use the ``/transfer/ledger/withdraw`` endpoint to withdraw funds from a Plaid Ledger balance.
 
@@ -8101,7 +8138,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferListRequest | TransferListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferListResponse:
         """Use the ``/transfer/list`` endpoint to see a list of all your transfers and their statuses. Results are
         paginated; use the ``count`` and ``offset`` query parameters to retrieve the desired transfers.
@@ -8122,7 +8159,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferMetricsGetRequest | TransferMetricsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferMetricsGetResponse:
         """Use the ``/transfer/metrics/get`` endpoint to view your transfer product usage metrics.
 
@@ -8145,7 +8182,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferMigrateAccountRequest | TransferMigrateAccountRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferMigrateAccountResponse:
         """As an alternative to adding Items via Link, you can also use the ``/transfer/migrate_account`` endpoint to
         migrate previously-verified account and routing numbers to Plaid Items. This endpoint is also required when
@@ -8172,7 +8209,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferOriginatorCreateRequest | TransferOriginatorCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferOriginatorCreateResponse:
         """Use the ``/transfer/originator/create`` endpoint to create a new originator and return an
         ``originator_client_id``.
@@ -8193,7 +8230,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferOriginatorFundingAccountCreateRequest | TransferOriginatorFundingAccountCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferOriginatorFundingAccountCreateResponse:
         """Use the ``/transfer/originator/funding_account/create`` endpoint to create a new funding account for the
         originator.
@@ -8218,7 +8255,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferOriginatorFundingAccountUpdateRequest | TransferOriginatorFundingAccountUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferOriginatorFundingAccountUpdateResponse:
         """Use the ``/transfer/originator/funding_account/update`` endpoint to update the funding account associated
         with the originator.
@@ -8243,7 +8280,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferOriginatorGetRequest | TransferOriginatorGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferOriginatorGetResponse:
         """The ``/transfer/originator/get`` endpoint gets status updates for an originator's onboarding process. This
         information is also available via the Transfer page on the Plaid dashboard.
@@ -8264,7 +8301,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferOriginatorListRequest | TransferOriginatorListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferOriginatorListResponse:
         """The ``/transfer/originator/list`` endpoint gets status updates for all of your originators' onboarding. This
         information is also available via the Plaid dashboard.
@@ -8285,7 +8322,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferPlatformOriginatorCreateRequest | TransferPlatformOriginatorCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferPlatformOriginatorCreateResponse:
         """Use the ``/transfer/platform/originator/create`` endpoint to submit information about the originator you are
         onboarding, including the originator's agreement to the required legal terms.
@@ -8308,7 +8345,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferPlatformPersonCreateRequest | TransferPlatformPersonCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferPlatformPersonCreateResponse:
         """Use the ``/transfer/platform/person/create`` endpoint to create a person associated with an originator (e.g.
         beneficial owner or control person) and optionally submit personal identification information for them.
@@ -8331,7 +8368,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferPlatformRequirementSubmitRequest | TransferPlatformRequirementSubmitRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferPlatformRequirementSubmitResponse:
         """Use the ``/transfer/platform/requirement/submit`` endpoint to submit additional onboarding information that
         is needed by Plaid to approve or decline the originator. See `Requirement type schema documentation
@@ -8356,7 +8393,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferQuestionnaireCreateRequest | TransferQuestionnaireCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferQuestionnaireCreateResponse:
         """The ``/transfer/questionnaire/create`` endpoint generates a Plaid-hosted onboarding UI URL. Redirect the
         originator to this URL to provide their due diligence information and agree to Plaid's terms for ACH money
@@ -8378,7 +8415,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferRecurringCancelRequest | TransferRecurringCancelRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferRecurringCancelResponse:
         """Use the ``/transfer/recurring/cancel`` endpoint to cancel a recurring transfer. A scheduled transfer that
         hasn't been submitted to the bank will be cancelled.
@@ -8399,7 +8436,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferRecurringCreateRequest | TransferRecurringCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferRecurringCreateResponse:
         """Use the ``/transfer/recurring/create`` endpoint to initiate a new recurring transfer. This capability is not
         currently supported for Transfer UI or Transfer for Platforms (beta) customers.
@@ -8420,7 +8457,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferRecurringGetRequest | TransferRecurringGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferRecurringGetResponse:
         """The ``/transfer/recurring/get`` fetches information about the recurring transfer corresponding to the given
         ``recurring_transfer_id``.
@@ -8441,7 +8478,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferRecurringListRequest | TransferRecurringListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferRecurringListResponse:
         """Use the ``/transfer/recurring/list`` endpoint to see a list of all your recurring transfers and their
         statuses. Results are paginated; use the ``count`` and ``offset`` query parameters to retrieve the desired
@@ -8463,7 +8500,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferRefundCancelRequest | TransferRefundCancelRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferRefundCancelResponse:
         """Use the ``/transfer/refund/cancel`` endpoint to cancel a refund. A refund is eligible for cancellation if it
         has not yet been submitted to the payment network.
@@ -8484,7 +8521,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferRefundCreateRequest | TransferRefundCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferRefundCreateResponse:
         """Use the ``/transfer/refund/create`` endpoint to create a refund for a transfer. A transfer can be refunded if
         the transfer was initiated in the past 180 days.
@@ -8514,7 +8551,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferRefundGetRequest | TransferRefundGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferRefundGetResponse:
         """The ``/transfer/refund/get`` endpoint fetches information about the refund corresponding to the given
         ``refund_id``.
@@ -8535,7 +8572,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferRepaymentListRequest | TransferRepaymentListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferRepaymentListResponse:
         """The ``/transfer/repayment/list`` endpoint fetches repayments matching the given filters. Repayments are
         returned in reverse-chronological order (most recent first) starting at the given ``start_time``.
@@ -8556,7 +8593,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferRepaymentReturnListRequest | TransferRepaymentReturnListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferRepaymentReturnListResponse:
         """The ``/transfer/repayment/return/list`` endpoint retrieves the set of returns that were batched together into
         the specified repayment. The sum of amounts of returns retrieved by this request equals the amount of the
@@ -8580,7 +8617,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferReturnRecoverRequest | TransferReturnRecoverRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferReturnRecoverResponse:
         """Use the ``/transfer/return/recover`` endpoint to notify Plaid that you have recovered some or all of the loss
         on a returned guaranteed transfer.
@@ -8604,7 +8641,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferSweepGetRequest | TransferSweepGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferSweepGetResponse:
         """The ``/transfer/sweep/get`` endpoint fetches a sweep corresponding to the given ``sweep_id``.
 
@@ -8624,7 +8661,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: TransferSweepListRequest | TransferSweepListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> TransferSweepListResponse:
         """The ``/transfer/sweep/list`` endpoint fetches sweeps matching the given filters.
 
@@ -8644,7 +8681,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: UserAccountSessionEventSendRequest | UserAccountSessionEventSendRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> UserAccountSessionEventSendResponse:
         """This endpoint allows sending client-specific events related to Layer sessions for analytics and tracking
         purposes.
@@ -8667,7 +8704,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: UserAccountSessionGetRequest | UserAccountSessionGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> UserAccountSessionGetResponse:
         """This endpoint returns user permissioned account data, including identity and Item access tokens, for use with
         `Plaid Layer <https://plaid.com/docs/layer>`__. Note that end users are permitted to edit the prefilled identity
@@ -8694,7 +8731,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         body: UserCreateRequest | UserCreateRequestDict,
         *,
         plaid_new_user_api_enabled: bool | None = False,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> UserCreateResponse:
         """For Plaid products and flows that use the user object, ``/user/create`` provides you a single token to access
         all data associated with the user. You must call this endpoint before calling ``/link/token/create`` if you are
@@ -8747,7 +8784,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: UserFinancialDataRefreshRequest | UserFinancialDataRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> UserFinancialDataRefreshResponse:
         """``/user/financial_data/refresh`` is an optional endpoint that initiates an on-demand extraction to fetch the
         newest transactions for a User using the Financial Insights bundle. This bundle refreshes the Transactions,
@@ -8775,7 +8812,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         body: UserGetRequest | UserGetRequestDict,
         *,
         plaid_new_user_api_enabled: bool | None = False,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> UserGetResponse:
         """Get user details using a ``user_id``. This endpoint only supports users that were created on the new user API
         flow, without a ``user_token``. For more details, see `New User APIs
@@ -8804,7 +8841,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         body: UserIdentityRemoveRequest | UserIdentityRemoveRequestDict,
         *,
         plaid_new_user_api_enabled: bool | None = False,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> UserIdentityRemoveResponse:
         """This endpoint allows customers to explicitly purge identity/PII data provided to Plaid for a given user. This
         is not exposed to customers by default, as it is meant for special scenarios or requests, but Plaid is obligated
@@ -8832,7 +8869,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: UserItemsAssociateRequest | UserItemsAssociateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> UserItemsAssociateResponse:
         """Associates Items to the target user. If an Item is already associated to another user, the Item will be
         disassociated with the existing user and associated to the target user. This operation supports a max of 100
@@ -8854,7 +8891,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: UserItemsGetRequest | UserItemsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> UserItemsGetResponse:
         """Returns Items associated with a ``user_id``, along with their corresponding statuses. Plaid associates an
         Item with a User when it has been successfully connected within a Link session initialized with that
@@ -8876,7 +8913,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: UserItemsRemoveRequest | UserItemsRemoveRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> UserItemsRemoveResponse:
         """Removes specific Items associated with a user. It is equivalent to calling ``/item/remove`` on each Item
         individually, but supports use cases (such as Plaid Check) where access tokens are not available. All specified
@@ -8905,7 +8942,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: UserProductsTerminateRequest | UserProductsTerminateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> UserProductsTerminateResponse:
         """Terminates user-based recurring subscription bundles or products (Financial Management, Plaid Protect, and
         CRA Cash Flow Updates) associated with a ``user_id``. After you call this endpoint, the user will no longer be
@@ -8929,7 +8966,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         body: UserRemoveRequest | UserRemoveRequestDict,
         *,
         plaid_new_user_api_enabled: bool | None = False,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> UserRemoveResponse:
         """``/user/remove`` deletes a ``user_id`` or ``user_token`` and associated information, including any Items
         associated with the user.
@@ -8956,7 +8993,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: UserThirdPartyTokenCreateRequest | UserThirdPartyTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> UserThirdPartyTokenCreateResponse:
         """This endpoint is used to create a third-party user token. This token can be shared with and used by a
         specified third-party client to access data associated with the user through supported endpoints.
@@ -8980,7 +9017,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: UserThirdPartyTokenRemoveRequest | UserThirdPartyTokenRemoveRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> UserThirdPartyTokenRemoveResponse:
         """This endpoint is used to delete a third-party user token. Once removed, the token can no longer be used to
         access data associated with the user.
@@ -9004,7 +9041,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: UserTransactionsRefreshRequest | UserTransactionsRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> UserTransactionsRefreshResponse:
         """``/user/transactions/refresh`` is an optional endpoint that initiates an on-demand extraction to fetch the
         newest transactions for a User using the Transactions bundle. This bundle refreshes only the Transactions
@@ -9032,7 +9069,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         body: UserUpdateRequest | UserUpdateRequestDict,
         *,
         plaid_new_user_api_enabled: bool | None = False,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> UserUpdateResponse:
         """This endpoint updates user information for an existing ``user_id`` or ``user_token``. If an existing
         ``user_id`` or ``user_token`` is missing fields required for a given use case (e.g. creating a Consumer Report)
@@ -9062,7 +9099,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WalletCreateRequest | WalletCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WalletCreateResponse:
         """Create an e-wallet. The response is the newly created e-wallet object.
 
@@ -9079,7 +9116,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         return unwrap(await self.with_raw_response.wallet_create(body, request_options=request_options))
 
     async def wallet_get(
-        self, body: WalletGetRequest | WalletGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self, body: WalletGetRequest | WalletGetRequestDict, *, request_options: AsyncRequestOptionsOrDict | None = None
     ) -> WalletGetResponse:
         """Fetch an e-wallet. The response includes the current balance.
 
@@ -9096,7 +9133,10 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         return unwrap(await self.with_raw_response.wallet_get(body, request_options=request_options))
 
     async def wallet_list(
-        self, body: WalletListRequest | WalletListRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self,
+        body: WalletListRequest | WalletListRequestDict,
+        *,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WalletListResponse:
         """This endpoint lists all e-wallets in descending order of creation.
 
@@ -9116,7 +9156,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WalletTransactionExecuteRequest | WalletTransactionExecuteRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WalletTransactionExecuteResponse:
         """Execute a transaction using the specified e-wallet. Specify the e-wallet to debit from, the counterparty to
         credit to, the idempotency key to prevent duplicate transactions, the amount and reference for the transaction.
@@ -9138,7 +9178,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WalletTransactionGetRequest | WalletTransactionGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WalletTransactionGetResponse:
         """Fetch a specific e-wallet transaction
 
@@ -9158,7 +9198,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WalletTransactionListRequest | WalletTransactionListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WalletTransactionListResponse:
         """This endpoint lists the latest transactions of the specified e-wallet. Transactions are returned in
         descending order by the ``created_at`` time.
@@ -9179,7 +9219,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningEntityCreateRequest | WatchlistScreeningEntityCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningEntityCreateResponse:
         """Create a new entity watchlist screening to check your customer against watchlists defined in the associated
         entity watchlist program. If your associated program has ongoing screening enabled, this is the profile
@@ -9203,7 +9243,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningEntityGetRequest | WatchlistScreeningEntityGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningEntityGetResponse:
         """Retrieve an entity watchlist screening.
 
@@ -9225,7 +9265,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningEntityHistoryListRequest | WatchlistScreeningEntityHistoryListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningEntityHistoryListResponse:
         """List all changes to the entity watchlist screening in reverse-chronological order. If the watchlist screening
         has not been edited, no history will be returned.
@@ -9248,7 +9288,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningEntityHitListRequest | WatchlistScreeningEntityHitListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningEntityHitListResponse:
         """List all hits for the entity watchlist screening.
 
@@ -9270,7 +9310,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningEntityListRequest | WatchlistScreeningEntityListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningEntityListResponse:
         """List all entity screenings.
 
@@ -9292,7 +9332,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningEntityProgramGetRequest | WatchlistScreeningEntityProgramGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningEntityProgramGetResponse:
         """Get an entity watchlist screening program
 
@@ -9314,7 +9354,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningEntityProgramListRequest | WatchlistScreeningEntityProgramListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningEntityProgramListResponse:
         """List all entity watchlist screening programs
 
@@ -9336,7 +9376,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningEntityReviewCreateRequest | WatchlistScreeningEntityReviewCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningEntityReviewCreateResponse:
         """Create a review for an entity watchlist screening. Reviews are compliance reports created by users in your
         organization regarding the relevance of potential hits found by Plaid.
@@ -9359,7 +9399,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningEntityReviewListRequest | WatchlistScreeningEntityReviewListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningEntityReviewListResponse:
         """List all reviews for a particular entity watchlist screening. Reviews are compliance reports created by users
         in your organization regarding the relevance of potential hits found by Plaid.
@@ -9382,7 +9422,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningEntityUpdateRequest | WatchlistScreeningEntityUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningEntityUpdateResponse:
         """Update an entity watchlist screening.
 
@@ -9404,7 +9444,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningIndividualCreateRequest | WatchlistScreeningIndividualCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningIndividualCreateResponse:
         """Create a new Watchlist Screening to check your customer against watchlists defined in the associated
         Watchlist Program. If your associated program has ongoing screening enabled, this is the profile information
@@ -9428,7 +9468,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningIndividualGetRequest | WatchlistScreeningIndividualGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningIndividualGetResponse:
         """Retrieve a previously created individual watchlist screening
 
@@ -9450,7 +9490,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningIndividualHistoryListRequest | WatchlistScreeningIndividualHistoryListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningIndividualHistoryListResponse:
         """List all changes to the individual watchlist screening in reverse-chronological order. If the watchlist
         screening has not been edited, no history will be returned.
@@ -9475,7 +9515,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningIndividualHitListRequest | WatchlistScreeningIndividualHitListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningIndividualHitListResponse:
         """List all hits found by Plaid for a particular individual watchlist screening.
 
@@ -9497,7 +9537,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningIndividualListRequest | WatchlistScreeningIndividualListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningIndividualListResponse:
         """List previously created watchlist screenings for individuals
 
@@ -9519,7 +9559,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningIndividualProgramGetRequest | WatchlistScreeningIndividualProgramGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningIndividualProgramGetResponse:
         """Get an individual watchlist screening program
 
@@ -9543,7 +9583,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningIndividualProgramListRequest | WatchlistScreeningIndividualProgramListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningIndividualProgramListResponse:
         """List all individual watchlist screening programs
 
@@ -9567,7 +9607,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningIndividualReviewCreateRequest | WatchlistScreeningIndividualReviewCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningIndividualReviewCreateResponse:
         """Create a review for the individual watchlist screening. Reviews are compliance reports created by users in
         your organization regarding the relevance of potential hits found by Plaid.
@@ -9592,7 +9632,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningIndividualReviewListRequest | WatchlistScreeningIndividualReviewListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningIndividualReviewListResponse:
         """List all reviews for the individual watchlist screening.
 
@@ -9616,7 +9656,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WatchlistScreeningIndividualUpdateRequest | WatchlistScreeningIndividualUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WatchlistScreeningIndividualUpdateResponse:
         """Update a specific individual watchlist screening. This endpoint can be used to add additional customer
         information, correct outdated information, add a reference id, assign the individual to a reviewer, and update
@@ -9641,7 +9681,7 @@ class AsyncThePlaidApiClient(BaseThePlaidApiClient[AsyncRawClient]):
         self,
         body: WebhookVerificationKeyGetRequest | WebhookVerificationKeyGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> WebhookVerificationKeyGetResponse:
         """Plaid signs all outgoing webhooks and provides JSON Web Tokens (JWTs) so that you can verify the authenticity
         of any incoming webhooks to your application. A message signature is included in the ``Plaid-Verification``
@@ -9678,7 +9718,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: AccountsBalanceGetRequest | AccountsBalanceGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[AccountsGetResponse, RawError]:
         """The ``/accounts/balance/get`` endpoint returns the real-time balance for each of an Item's accounts. While
         other endpoints, such as ``/accounts/get``, return a balance object, ``/accounts/balance/get`` forces the
@@ -9716,7 +9756,10 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         )
 
     async def accounts_get(
-        self, body: AccountsGetRequest | AccountsGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self,
+        body: AccountsGetRequest | AccountsGetRequestDict,
+        *,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[AccountsGetResponse, RawError]:
         """The ``/accounts/get`` endpoint can be used to retrieve a list of accounts associated with any linked Item.
         Plaid will only return active bank accounts -- that is, accounts that are not closed and are capable of carrying
@@ -9755,7 +9798,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ApplicationGetRequest | ApplicationGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ApplicationGetResponse, RawError]:
         """Allows financial institutions to retrieve information about Plaid clients for the purpose of building
         control-tower experiences
@@ -9782,7 +9825,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: AssetReportAuditCopyCreateRequest | AssetReportAuditCopyCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[AssetReportAuditCopyCreateResponse, RawError]:
         """Plaid can provide an Audit Copy of any Asset Report directly to a participating third party on your behalf.
         For example, Plaid can supply an Audit Copy directly to the GSEs on your behalf if you participate in Fannie
@@ -9816,7 +9859,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: AssetReportAuditCopyGetRequest | AssetReportAuditCopyGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[AssetReportGetResponse, RawError]:
         """``/asset_report/audit_copy/get`` allows auditors to get a copy of an Asset Report that was previously shared
         via the ``/asset_report/audit_copy/create`` endpoint. The caller of ``/asset_report/audit_copy/create`` must
@@ -9845,7 +9888,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: AssetReportAuditCopyPdfGetRequest | AssetReportAuditCopyPdfGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[None, RawError]:
         """The ``/asset_report/audit_copy/pdf/get`` endpoint retrieves an Asset Report Audit Copy in PDF format. The
         caller must provide the ``audit_copy_token`` that was shared via the ``/asset_report/audit_copy/create``
@@ -9878,7 +9921,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: AssetReportAuditCopyRemoveRequest | AssetReportAuditCopyRemoveRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[AssetReportAuditCopyRemoveResponse, RawError]:
         """The ``/asset_report/audit_copy/remove`` endpoint allows you to remove an Audit Copy. Removing an Audit Copy
         invalidates the ``audit_copy_token`` associated with it, meaning both you and any third parties holding the
@@ -9908,7 +9951,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: AssetReportCreateRequest | AssetReportCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[AssetReportCreateResponse, RawError]:
         """The ``/asset_report/create`` endpoint initiates the process of creating an Asset Report, which can then be
         retrieved by passing the ``asset_report_token`` return value to the ``/asset_report/get`` or
@@ -9946,7 +9989,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: AssetReportFilterRequest | AssetReportFilterRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[AssetReportFilterResponse, RawError]:
         """By default, an Asset Report will contain all of the accounts on a given Item. In some cases, you may not want
         the Asset Report to contain all accounts. For example, you might have the end user choose which accounts are
@@ -9988,7 +10031,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: AssetReportGetRequest | AssetReportGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[AssetReportGetResponse, RawError]:
         """The ``/asset_report/get`` endpoint retrieves the Asset Report in JSON format. Before calling
         ``/asset_report/get``, you must first create the Asset Report using ``/asset_report/create`` (or filter an Asset
@@ -10028,9 +10071,9 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
     async def asset_report_pdf_get(
         self,
-        body: AssetReportPdfgetRequest | AssetReportPdfgetRequestDict,
+        body: AssetReportPdfGetRequest | AssetReportPdfGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[None, RawError]:
         """The ``/asset_report/pdf/get`` endpoint retrieves the Asset Report in PDF format. Before calling
         ``/asset_report/pdf/get``, you must first create the Asset Report using ``/asset_report/create`` (or filter an
@@ -10054,7 +10097,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             http_method="POST",
             url_template=self._server.default("/asset_report/pdf/get"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[AssetReportPdfgetRequest | AssetReportPdfgetRequestDict](body),
+            body=json_body[AssetReportPdfGetRequest | AssetReportPdfGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
             decoder=async_empty_response,
             error_mapper=raw_error_response,
@@ -10065,7 +10108,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: AssetReportRefreshRequest | AssetReportRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[AssetReportRefreshResponse, RawError]:
         """An Asset Report is an immutable snapshot of a user's assets. In order to "refresh" an Asset Report you
         created previously, you can use the ``/asset_report/refresh`` endpoint to create a new Asset Report based on the
@@ -10100,7 +10143,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: AssetReportRemoveRequest | AssetReportRemoveRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[AssetReportRemoveResponse, RawError]:
         """The ``/item/remove`` endpoint allows you to invalidate an ``access_token``, meaning you will not be able to
         create new Asset Reports with it. Removing an Item does not affect any Asset Reports or Audit Copies you have
@@ -10130,7 +10173,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         )
 
     async def auth_get(
-        self, body: AuthGetRequest | AuthGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self, body: AuthGetRequest | AuthGetRequestDict, *, request_options: AsyncRequestOptionsOrDict | None = None
     ) -> ApiResult[AuthGetResponse, RawError]:
         """The ``/auth/get`` endpoint returns the bank account and bank identification numbers (such as routing numbers,
         for US accounts) associated with an Item's checking, savings, and cash management accounts, along with
@@ -10159,7 +10202,10 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         )
 
     async def auth_verify(
-        self, body: AuthVerifyRequest | AuthVerifyRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self,
+        body: AuthVerifyRequest | AuthVerifyRequestDict,
+        *,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[AuthVerifyResponse, RawError]:
         """The ``/auth/verify`` endpoint verifies bank account and routing numbers and (optionally) account owner names
         against Plaid's database via `Database Auth <https://plaid.com/docs/auth/coverage/database-auth/>`__. It can be
@@ -10189,7 +10235,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BankTransferBalanceGetRequest | BankTransferBalanceGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BankTransferBalanceGetResponse, RawError]:
         """Use the ``/bank_transfer/balance/get`` endpoint to see the available balance in your bank transfer account.
         Debit transfers increase this balance once their status is posted. Credit transfers decrease this balance when
@@ -10224,7 +10270,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BankTransferCancelRequest | BankTransferCancelRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BankTransferCancelResponse, RawError]:
         """Use the ``/bank_transfer/cancel`` endpoint to cancel a bank transfer. A transfer is eligible for cancelation
         if the ``cancellable`` property returned by ``/bank_transfer/get`` is ``true``.
@@ -10251,7 +10297,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BankTransferCreateRequest | BankTransferCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BankTransferCreateResponse, RawError]:
         """Use the ``/bank_transfer/create`` endpoint to initiate a new bank transfer.
 
@@ -10277,7 +10323,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BankTransferEventListRequest | BankTransferEventListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BankTransferEventListResponse, RawError]:
         """Use the ``/bank_transfer/event/list`` endpoint to get a list of Plaid-initiated ACH or bank transfer events
         based on specified filter criteria. When using Auth with micro-deposit verification enabled, this endpoint can
@@ -10306,7 +10352,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BankTransferEventSyncRequest | BankTransferEventSyncRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BankTransferEventSyncResponse, RawError]:
         """``/bank_transfer/event/sync`` allows you to request up to the next 25 Plaid-initiated bank transfer events
         that happened after a specific ``event_id``. When using Auth with micro-deposit verification enabled, this
@@ -10335,7 +10381,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BankTransferGetRequest | BankTransferGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BankTransferGetResponse, RawError]:
         """The ``/bank_transfer/get`` fetches information about the bank transfer corresponding to the given
         ``bank_transfer_id``.
@@ -10362,7 +10408,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BankTransferListRequest | BankTransferListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BankTransferListResponse, RawError]:
         """Use the ``/bank_transfer/list`` endpoint to see a list of all your bank transfers and their statuses. Results
         are paginated; use the ``count`` and ``offset`` query parameters to retrieve the desired bank transfers.
@@ -10389,7 +10435,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BankTransferMigrateAccountRequest | BankTransferMigrateAccountRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BankTransferMigrateAccountResponse, RawError]:
         """As an alternative to adding Items via Link, you can also use the ``/bank_transfer/migrate_account`` endpoint
         to migrate known account and routing numbers to Plaid Items. Note that Items created in this way are not
@@ -10420,7 +10466,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BankTransferSweepGetRequest | BankTransferSweepGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BankTransferSweepGetResponse, RawError]:
         """The ``/bank_transfer/sweep/get`` endpoint fetches information about the sweep corresponding to the given
         ``sweep_id``.
@@ -10447,7 +10493,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BankTransferSweepListRequest | BankTransferSweepListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BankTransferSweepListResponse, RawError]:
         """The ``/bank_transfer/sweep/list`` endpoint fetches information about the sweeps matching the given filters.
 
@@ -10473,7 +10519,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BeaconAccountRiskEvaluateRequest | BeaconAccountRiskEvaluateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BeaconAccountRiskEvaluateResponse, RawError]:
         """Use ``/beacon/account_risk/v1/evaluate`` to get risk insights for a linked account.
 
@@ -10499,7 +10545,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BeaconDuplicateGetRequest | BeaconDuplicateGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BeaconDuplicateGetResponse, RawError]:
         """Returns a Beacon Duplicate for a given Beacon Duplicate id.
 
@@ -10533,7 +10579,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BeaconReportCreateRequest | BeaconReportCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BeaconReportCreateResponse, RawError]:
         """Create a fraud report for a given Beacon User.
 
@@ -10559,7 +10605,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BeaconReportGetRequest | BeaconReportGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BeaconReportGetResponse, RawError]:
         """Returns a Beacon Report for a given Beacon Report ID.
 
@@ -10585,7 +10631,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BeaconReportListRequest | BeaconReportListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BeaconReportListResponse, RawError]:
         """Use the ``/beacon/report/list`` endpoint to view all Beacon Reports you created for a specific Beacon User.
         The reports returned by this endpoint are exclusively reports you created for a specific user. A Beacon User can
@@ -10616,7 +10662,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BeaconReportSyndicationGetRequest | BeaconReportSyndicationGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BeaconReportSyndicationGetResponse, RawError]:
         """Returns a Beacon Report Syndication for a given Beacon Report Syndication id.
 
@@ -10642,7 +10688,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BeaconReportSyndicationListRequest | BeaconReportSyndicationListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BeaconReportSyndicationListResponse, RawError]:
         """Use the ``/beacon/report_syndication/list`` endpoint to view all Beacon Reports that have been syndicated to
         a specific Beacon User. This endpoint returns Beacon Report Syndications which are references to Beacon Reports
@@ -10673,7 +10719,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BeaconUserAccountInsightsGetRequest | BeaconUserAccountInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BeaconUserAccountInsightsGetResponse, RawError]:
         """Get Account Insights for all Accounts linked to this Beacon User. The insights for each account are computed
         based on the information that was last retrieved from the financial institution.
@@ -10700,7 +10746,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BeaconUserCreateRequest | BeaconUserCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BeaconUserCreateResponse, RawError]:
         """Create and scan a Beacon User against your Beacon Program, according to your program's settings.
 
@@ -10740,7 +10786,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BeaconUserGetRequest | BeaconUserGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BeaconUserGetResponse, RawError]:
         """Fetch a Beacon User.
 
@@ -10769,7 +10815,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BeaconUserHistoryListRequest | BeaconUserHistoryListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BeaconUserHistoryListResponse, RawError]:
         """List all changes to the Beacon User in reverse-chronological order.
 
@@ -10795,7 +10841,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BeaconUserReviewRequest | BeaconUserReviewRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BeaconUserGetResponse, RawError]:
         """Update the status of a Beacon User.
 
@@ -10836,7 +10882,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BeaconUserUpdateRequest | BeaconUserUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BeaconUserUpdateResponse, RawError]:
         """Update the identity data for a Beacon User in your Beacon Program or add new accounts to the Beacon User.
 
@@ -10880,7 +10926,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BetaEwaReportV1GetRequest | BetaEwaReportV1GetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BetaEwaReportV1GetResponse, RawError]:
         """The ``/beta/ewa_report/v1/get`` endpoint provides an Earned Wage Access (EWA) score that quantifies the
         delinquency risk associated with a given item. The score is derived from a combination of cashflow patterns and
@@ -10918,7 +10964,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BetaPartnerCustomerV1CreateRequest | BetaPartnerCustomerV1CreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BetaPartnerCustomerV1CreateResponse, RawError]:
         """The ``/beta/partner/customer/v1/create`` endpoint creates a new end customer record. You can provide as much
         information as you have available. If any required information is missing for the products you intend to use, it
@@ -10946,7 +10992,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BetaPartnerCustomerV1EnableRequest | BetaPartnerCustomerV1EnableRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BetaPartnerCustomerV1EnableResponse, RawError]:
         """The ``/beta/partner/customer/v1/enable`` endpoint is used by reseller partners to enable an end customer in
         the full Production environment.
@@ -10973,7 +11019,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BetaPartnerCustomerV1GetRequest | BetaPartnerCustomerV1GetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BetaPartnerCustomerV1GetResponse, RawError]:
         """The ``/beta/partner/customer/v1/get`` endpoint is used by reseller partners to retrieve data about a single
         end customer.
@@ -11000,7 +11046,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BetaPartnerCustomerV1UpdateRequest | BetaPartnerCustomerV1UpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BetaPartnerCustomerV1UpdateResponse, RawError]:
         """The ``/beta/partner/customer/v1/update`` endpoint updates an existing end customer record.
 
@@ -11026,7 +11072,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BusinessVerificationCreateRequest | BusinessVerificationCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BusinessVerificationCreateResponse, RawError]:
         """Create a new business verification to check a business's identity and risk profile.
 
@@ -11052,7 +11098,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: BusinessVerificationGetRequest | BusinessVerificationGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[BusinessVerificationGetResponse, RawError]:
         """Retrieve the current state of a specific business verification.
 
@@ -11078,7 +11124,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CashflowReportGetRequest | CashflowReportGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CashflowReportGetResponse, RawError]:
         """The ``/cashflow_report/get`` endpoint retrieves transactions data associated with an Item. Transactions data
         is standardized across financial institutions. Transactions are returned in reverse-chronological order, and the
@@ -11115,7 +11161,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CashflowReportInsightsGetRequest | CashflowReportInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CashflowReportInsightsGetResponse, RawError]:
         """The ``/cashflow_report/insights/get`` endpoint retrieves insights data associated with an Item. Insights are
         only calculated on credit and depository accounts.
@@ -11142,7 +11188,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CashflowReportRefreshRequest | CashflowReportRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CashflowReportRefreshResponse, RawError]:
         """``/cashflow_report/refresh`` is an endpoint that initiates an on-demand extraction to fetch the newest
         transactions for an Item (given an ``item_id``). The Item must already have Cashflow Report added as a product
@@ -11182,7 +11228,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CashflowReportTransactionsGetRequest | CashflowReportTransactionsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CashflowReportTransactionsGetResponse, RawError]:
         """The ``/cashflow_report/transactions/get`` endpoint retrieves transactions data associated with an Item.
         Transactions data is standardized across financial institutions. Transactions are returned in
@@ -11216,7 +11262,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         )
 
     async def categories_get(
-        self, body: Any, *, request_options: RequestOptionsOrDict | None = None
+        self, body: Any, *, request_options: AsyncRequestOptionsOrDict | None = None
     ) -> ApiResult[CategoriesGetResponse, RawError]:
         """Send a request to the ``/categories/get`` endpoint to get detailed information on legacy categories returned
         by Plaid. This endpoint does not require authentication.
@@ -11245,7 +11291,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ConsentEventsGetRequest | ConsentEventsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ConsentEventsGetResponse, RawError]:
         """List a historical log of Item consent events. Consent logs are only available for events occurring on or
         after November 7, 2024. Extremely recent events (occurring within the past 12 hours) may not be available via
@@ -11271,9 +11317,9 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
     async def consumer_report_pdf_get(
         self,
-        body: ConsumerReportPdfgetRequest | ConsumerReportPdfgetRequestDict,
+        body: ConsumerReportPdfGetRequest | ConsumerReportPdfGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[None, RawError]:
         """Retrieves all existing CRB Bank Income and Base reports for the consumer in PDF format.
 
@@ -11290,7 +11336,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             http_method="POST",
             url_template=self._server.default("/consumer_report/pdf/get"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[ConsumerReportPdfgetRequest | ConsumerReportPdfgetRequestDict](body),
+            body=json_body[ConsumerReportPdfGetRequest | ConsumerReportPdfGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
             decoder=async_empty_response,
             error_mapper=raw_error_response,
@@ -11301,7 +11347,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CraCheckReportBaseReportGetRequest | CraCheckReportBaseReportGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CraCheckReportBaseReportGetResponse, RawError]:
         """This endpoint allows you to retrieve the Base Report for your user, allowing you to receive comprehensive
         bank account and cash flow data. You should call this endpoint after you've received a ``CHECK_REPORT_READY`` or
@@ -11334,7 +11380,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CraCheckReportCashflowInsightsGetRequest | CraCheckReportCashflowInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CraCheckReportCashflowInsightsGetResponse, RawError]:
         """This endpoint allows you to retrieve the Cashflow Insights report for your user. You should call this
         endpoint after you've received a ``CHECK_REPORT_READY`` or a ``USER_CHECK_REPORT_READY`` webhook, either after
@@ -11369,7 +11415,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CraCheckReportCreateRequest | CraCheckReportCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CraCheckReportCreateResponse, RawError]:
         """Use ``/cra/check_report/create`` to refresh data in an existing report. A Consumer Report will last for 24
         hours before expiring; you should call any ``/get`` endpoints on the report before it expires. If a report
@@ -11397,7 +11443,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CraCheckReportIncomeInsightsGetRequest | CraCheckReportIncomeInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CraCheckReportIncomeInsightsGetResponse, RawError]:
         """This endpoint allows you to retrieve the Income Insights report for your user. You should call this endpoint
         after you've received a ``CHECK_REPORT_READY`` or a ``USER_CHECK_REPORT_READY`` webhook, either after the Link
@@ -11437,7 +11483,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CraCheckReportLendScoreGetRequest | CraCheckReportLendScoreGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CraCheckReportLendScoreGetResponse, RawError]:
         """This endpoint allows you to retrieve the LendScore report for your user. You should call this endpoint after
         you've received a ``CHECK_REPORT_READY`` or a ``USER_CHECK_REPORT_READY`` webhook, either after the Link session
@@ -11469,7 +11515,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CraCheckReportNetworkInsightsGetRequest | CraCheckReportNetworkInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CraCheckReportNetworkInsightsGetResponse, RawError]:
         """This endpoint allows you to retrieve the Network Insights report for your user. You should call this endpoint
         after you've received a ``CHECK_REPORT_READY`` or a ``USER_CHECK_REPORT_READY`` webhook, either after the Link
@@ -11501,7 +11547,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CraCheckReportPartnerInsightsGetRequest | CraCheckReportPartnerInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CraCheckReportPartnerInsightsGetResponse, RawError]:
         """This endpoint allows you to retrieve the Partner Insights report for your user. You should call this endpoint
         after you've received a ``CHECK_REPORT_READY`` or a ``USER_CHECK_REPORT_READY`` webhook, either after the Link
@@ -11529,9 +11575,9 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
     async def cra_check_report_pdf_get(
         self,
-        body: CraCheckReportPdfgetRequest | CraCheckReportPdfgetRequestDict,
+        body: CraCheckReportPdfGetRequest | CraCheckReportPdfGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[None, RawError]:
         """``/cra/check_report/pdf/get`` retrieves the most recent Consumer Report in PDF format. By default, the most
         recent Base Report (if it exists) for the user will be returned. To request that the most recent Partner
@@ -11548,7 +11594,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             http_method="POST",
             url_template=self._server.default("/cra/check_report/pdf/get"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[CraCheckReportPdfgetRequest | CraCheckReportPdfgetRequestDict](body),
+            body=json_body[CraCheckReportPdfGetRequest | CraCheckReportPdfGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
             decoder=async_empty_response,
             error_mapper=raw_error_response,
@@ -11559,7 +11605,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CraCheckReportVerificationGetRequest | CraCheckReportVerificationGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CraCheckReportVerificationGetResponse, RawError]:
         """This endpoint allows you to retrieve home lending reports for a user. To obtain a VoA or Employment Refresh
         report, you need to make sure that ``cra_base_report`` is included in the ``products`` parameter when calling
@@ -11594,7 +11640,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CraCheckReportVerificationPdfGetRequest | CraCheckReportVerificationPdfGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[None, RawError]:
         """The ``/cra/check_report/verification/pdf/get`` endpoint retrieves the most recent Consumer Report in PDF
         format, specifically formatted for Home Lending verification use cases. Before calling this endpoint, ensure
@@ -11626,7 +11672,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CraCreditProfileReportGetRequest | CraCreditProfileReportGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CraCreditProfileReportGetResponse, RawError]:
         """``/cra/credit_profile/report/get`` retrieves a credit profile report for a user.
 
@@ -11652,7 +11698,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CraLoansApplicationsRegisterRequest | CraLoansApplicationsRegisterRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CraLoansApplicationsRegisterResponse, RawError]:
         """``/cra/loans/applications/register`` registers loan applications and decisions.
 
@@ -11676,9 +11722,9 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
     async def cra_loans_register(
         self,
-        body: CraloansRegisterRequest | CraloansRegisterRequestDict,
+        body: CraLoansRegisterRequest | CraLoansRegisterRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CraLoansRegisterResponse, RawError]:
         """``/cra/loans/register`` registers a list of loans to their applicants.
 
@@ -11693,7 +11739,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             http_method="POST",
             url_template=self._server.default("/cra/loans/register"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[CraloansRegisterRequest | CraloansRegisterRequestDict](body),
+            body=json_body[CraLoansRegisterRequest | CraLoansRegisterRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
             decoder=async_json_decoder[CraLoansRegisterResponse],
             error_mapper=raw_error_response,
@@ -11704,7 +11750,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CraLoansUnregisterRequest | CraLoansUnregisterRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CraLoanUnregisterResponse, RawError]:
         """``/cra/loans/unregister`` indicates the loans have reached a final status and no further updates are
         expected.
@@ -11731,7 +11777,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CraLoansUpdateRequest | CraLoansUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CraLoansUpdateResponse, RawError]:
         """``/cra/loans/update`` updates loan information such as the status and payment history.
 
@@ -11757,7 +11803,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CraMonitoringInsightsGetRequest | CraMonitoringInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CraMonitoringInsightsGetResponse, RawError]:
         """This endpoint allows you to retrieve a Cash Flow Updates report by passing in the ``user_id`` referred to in
         the webhook you received.
@@ -11784,7 +11830,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CraMonitoringInsightsSubscribeRequest | CraMonitoringInsightsSubscribeRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CraMonitoringInsightsSubscribeResponse, RawError]:
         """This endpoint allows you to subscribe to insights for a user's linked CRA Item, which are updated between one
         and four times per day (best-effort). In the current Cash Flow Updates beta experience, only one Item per user
@@ -11812,7 +11858,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CraMonitoringInsightsUnsubscribeRequest | CraMonitoringInsightsUnsubscribeRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CraMonitoringInsightsUnsubscribeResponse, RawError]:
         """This endpoint allows you to unsubscribe from previously subscribed Monitoring Insights.
 
@@ -11838,7 +11884,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CraPartnerInsightsGetRequest | CraPartnerInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CraPartnerInsightsGetResponse, RawError]:
         """``/cra/partner_insights/get`` returns cash flow insights for a specified user.
 
@@ -11864,7 +11910,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CraReportGetRequest | CraReportGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CraReportGetResponse, RawError]:
         """``/cra/report/get`` retrieves a CRA Report for a user.
 
@@ -11890,7 +11936,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PaymentInitiationPaymentTokenCreateRequest | PaymentInitiationPaymentTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PaymentInitiationPaymentTokenCreateResponse, RawError]:
         """The ``/payment_initiation/payment/token/create`` endpoint has been deprecated. New Plaid customers will be
         unable to use this endpoint, and existing customers are encouraged to migrate to the newer, ``link_token``-based
@@ -11926,7 +11972,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: AssetReportFreddieGetRequest | AssetReportFreddieGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[AssetReportFreddieGetResponse, RawError]:
         """The ``/credit/asset_report/freddie_mac/get`` endpoint retrieves the Asset Report in Freddie Mac's JSON
         format.
@@ -11953,7 +11999,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditAuditCopyTokenCreateRequest | CreditAuditCopyTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditAuditCopyTokenCreateResponse, RawError]:
         """Plaid can create an Audit Copy token of an Asset Report and/or Income Report to share with a participating
         Government-Sponsored Enterprise (GSE) if you participate in Fannie Mae's Day 1 Certainty™ program or utilize
@@ -11985,7 +12031,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditAuditCopyTokenUpdateRequest | CreditAuditCopyTokenUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditAuditCopyTokenUpdateResponse, RawError]:
         """The ``/credit/audit_copy_token/update`` endpoint updates an existing Audit Copy Token by adding the report
         tokens in the ``report_tokens`` field to the ``audit_copy_token``. If the Audit Copy Token already contains a
@@ -12013,7 +12059,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditBankEmploymentGetRequest | CreditBankEmploymentGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditBankEmploymentGetResponse, RawError]:
         """``/beta/credit/v1/bank_employment/get`` returns the employment report(s) derived from bank transaction data
         for a specified user.
@@ -12040,7 +12086,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditBankIncomeGetRequest | CreditBankIncomeGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditBankIncomeGetResponse, RawError]:
         """``/credit/bank_income/get`` returns the bank income report(s) for a specified user. A single report
         corresponds to all institutions linked in a single Link session. To include multiple institutions in a single
@@ -12067,9 +12113,9 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
     async def credit_bank_income_pdf_get(
         self,
-        body: CreditBankIncomePdfgetRequest | CreditBankIncomePdfgetRequestDict,
+        body: CreditBankIncomePdfGetRequest | CreditBankIncomePdfGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[None, RawError]:
         """``/credit/bank_income/pdf/get`` returns the most recent bank income report for a specified user in PDF
         format. A single report corresponds to all institutions linked in a single Link session. To include multiple
@@ -12086,7 +12132,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             http_method="POST",
             url_template=self._server.default("/credit/bank_income/pdf/get"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[CreditBankIncomePdfgetRequest | CreditBankIncomePdfgetRequestDict](body),
+            body=json_body[CreditBankIncomePdfGetRequest | CreditBankIncomePdfGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
             decoder=async_empty_response,
             error_mapper=raw_error_response,
@@ -12097,7 +12143,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditBankIncomeRefreshRequest | CreditBankIncomeRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditBankIncomeRefreshResponse, RawError]:
         """``/credit/bank_income/refresh`` is deprecated. The backend implementation was removed (returns an
         ``Unimplemented`` error at runtime), and the endpoint is no longer part of the documented API surface. To
@@ -12127,7 +12173,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditBankIncomeWebhookUpdateRequest | CreditBankIncomeWebhookUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditBankIncomeWebhookUpdateResponse, RawError]:
         """``/credit/bank_income/webhook/update`` allows you to subscribe or unsubscribe a user for income webhook
         notifications. By default, all users start out unsubscribed.
@@ -12157,7 +12203,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditBankStatementsUploadsGetRequest | CreditBankStatementsUploadsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditBankStatementsUploadsGetResponse, RawError]:
         """``/credit/bank_statements/uploads/get`` returns parsed data from bank statements uploaded by users as part of
         the Document Income flow. If your account is not enabled for Document Parsing, contact your account manager to
@@ -12185,7 +12231,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditEmploymentGetRequest | CreditEmploymentGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditEmploymentGetResponse, RawError]:
         """``/credit/employment/get`` returns a list of items with employment information from a user's payroll provider
         that was verified by an end user.
@@ -12212,7 +12258,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditFreddieMacReportsGetRequest | CreditFreddieMacReportsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditFreddieMacReportsGetResponse, RawError]:
         """The ``/credit/freddie_mac/reports/get`` endpoint retrieves the Verification of Assets and Verification of
         Employment reports.
@@ -12239,7 +12285,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditPayrollIncomeGetRequest | CreditPayrollIncomeGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditPayrollIncomeGetResponse, RawError]:
         """This endpoint gets payroll income information for a specific user, either as a result of the user connecting
         to their payroll provider or uploading a pay related document.
@@ -12266,7 +12312,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditPayrollIncomeParsingConfigUpdateRequest | CreditPayrollIncomeParsingConfigUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditPayrollIncomeParsingConfigUpdateResponse, RawError]:
         """``/credit/payroll_income/parsing_config/update`` updates the parsing configuration for a document income
         verification.
@@ -12295,7 +12341,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditPayrollIncomePrecheckRequest | CreditPayrollIncomePrecheckRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditPayrollIncomePrecheckResponse, RawError]:
         """``/credit/payroll_income/precheck`` is an optional endpoint that can be called before initializing a Link
         session for income verification. It evaluates whether a given user is supportable by digital income
@@ -12336,7 +12382,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditPayrollIncomeRefreshRequest | CreditPayrollIncomeRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditPayrollIncomeRefreshResponse, RawError]:
         """``/credit/payroll_income/refresh`` refreshes a given digital payroll income verification.
 
@@ -12362,7 +12408,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditPayrollIncomeRiskSignalsGetRequest | CreditPayrollIncomeRiskSignalsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditPayrollIncomeRiskSignalsGetResponse, RawError]:
         """``/credit/payroll_income/risk_signals/get`` can be used as part of the Document Income flow to assess a
         user-uploaded document for signs of potential fraud or tampering. It returns a risk score for each uploaded
@@ -12401,7 +12447,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditRelayCreateRequest | CreditRelayCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditRelayCreateResponse, RawError]:
         """Plaid can share an Asset Report directly with a participating third party on your behalf. The shared Asset
         Report is the exact same Asset Report originally created in ``/asset_report/create``.
@@ -12433,7 +12479,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditRelayGetRequest | CreditRelayGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[AssetReportGetResponse, RawError]:
         """``/credit/relay/get`` allows third parties to receive a report that was shared with them, using a
         ``relay_token`` that was created by the report owner.
@@ -12458,9 +12504,9 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
     async def credit_relay_pdf_get(
         self,
-        body: CreditRelayPdfgetRequest | CreditRelayPdfgetRequestDict,
+        body: CreditRelayPdfGetRequest | CreditRelayPdfGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[None, RawError]:
         """``/credit/relay/pdf/get`` allows third parties to receive a PDF report that was shared with them, using a
         ``relay_token`` that was created by the report owner.
@@ -12486,7 +12532,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             http_method="POST",
             url_template=self._server.default("/credit/relay/pdf/get"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[CreditRelayPdfgetRequest | CreditRelayPdfgetRequestDict](body),
+            body=json_body[CreditRelayPdfGetRequest | CreditRelayPdfGetRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
             decoder=async_empty_response,
             error_mapper=raw_error_response,
@@ -12497,7 +12543,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditRelayRefreshRequest | CreditRelayRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditRelayRefreshResponse, RawError]:
         """The ``/credit/relay/refresh`` endpoint allows third parties to refresh a report that was relayed to them,
         using a ``relay_token`` that was created by the report owner. A new report will be created with the original
@@ -12526,7 +12572,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditRelayRemoveRequest | CreditRelayRemoveRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditRelayRemoveResponse, RawError]:
         """The ``/credit/relay/remove`` endpoint allows you to invalidate a ``relay_token``. The third party holding the
         token will no longer be able to access or refresh the reports which the ``relay_token`` gives access to. The
@@ -12555,7 +12601,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditAuditCopyTokenRemoveRequest | CreditAuditCopyTokenRemoveRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditAuditCopyTokenRemoveResponse, RawError]:
         """The ``/credit/audit_copy_token/remove`` endpoint allows you to remove an Audit Copy. Removing an Audit Copy
         invalidates the ``audit_copy_token`` associated with it, meaning both you and any third parties holding the
@@ -12584,7 +12630,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: CreditSessionsGetRequest | CreditSessionsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[CreditSessionsGetResponse, RawError]:
         """This endpoint can be used for your end users after they complete the Link flow. This endpoint returns a list
         of Link sessions that your user completed, where each session includes the results from the Link flow.
@@ -12614,7 +12660,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: DashboardUserGetRequest | DashboardUserGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[DashboardUserGetResponse, RawError]:
         """The ``/dashboard_user/get`` endpoint provides details (such as email address) about a specific Dashboard user
         based on the ``dashboard_user_id`` field, which is returned in the ``audit_trail`` object of certain Monitor and
@@ -12642,7 +12688,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: DashboardUserListRequest | DashboardUserListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[DashboardUserListResponse, RawError]:
         """The ``/dashboard_user/list`` endpoint provides details (such as email address) about all Dashboard users
         associated with your account. This can be used to audit or track the list of reviewers for Monitor, Beacon, and
@@ -12670,7 +12716,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: EmployersSearchRequest | EmployersSearchRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[EmployersSearchResponse, RawError]:
         """``/employers/search`` allows you the ability to search Plaid's database of known employers, for use with
         Deposit Switch. You can use this endpoint to look up a user's employer in order to confirm that they are
@@ -12702,7 +12748,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: EmploymentVerificationGetRequest | EmploymentVerificationGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[EmploymentVerificationGetResponse, RawError]:
         """``/employment/verification/get`` returns a list of employments through a user payroll that was verified by an
         end user.
@@ -12728,8 +12774,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         )
 
     async def fdx_consents_get(
-        self, consent_id: str, *, request_options: RequestOptionsOrDict | None = None
-    ) -> ApiResult[FdxconsentGrant, RawError]:
+        self, consent_id: str, *, request_options: AsyncRequestOptionsOrDict | None = None
+    ) -> ApiResult[FdxConsentGrant, RawError]:
         """Returns a consent grant by its identifier
 
         Args:
@@ -12744,7 +12790,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             url_template=self._server.default("/fdx/consents/{consentId}"),
             path_params=[param[str]("consentId", consent_id)],
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=async_json_decoder[FdxconsentGrant],
+            decoder=async_json_decoder[FdxConsentGrant],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12754,7 +12800,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         customer_id: str,
         *,
         status: FdxConsentGrantStatusOrStr | None = None,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[GetConsentsResponse, RawError]:
         """Returns zero or more consent grants associated with the given data provider customer, optionally filtered by
         status.
@@ -12781,8 +12827,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         )
 
     async def fdx_consents_revocation_get(
-        self, consent_id: str, *, request_options: RequestOptionsOrDict | None = None
-    ) -> ApiResult[FdxconsentRevocations, RawError]:
+        self, consent_id: str, *, request_options: AsyncRequestOptionsOrDict | None = None
+    ) -> ApiResult[FdxConsentRevocations, RawError]:
         """Returns the revocation history of a consent grant
 
         Args:
@@ -12797,7 +12843,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             url_template=self._server.default("/fdx/consents/{consentId}/revocation"),
             path_params=[param[str]("consentId", consent_id)],
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=async_json_decoder[FdxconsentRevocations],
+            decoder=async_json_decoder[FdxConsentRevocations],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12805,9 +12851,9 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
     async def fdx_consents_revoke(
         self,
         consent_id: str,
-        body: FdxconsentRevocation | FdxconsentRevocationDict,
+        body: FdxConsentRevocation | FdxConsentRevocationDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[None, RawError]:
         """Appends a REVOKED status record to the named consent grant
 
@@ -12824,7 +12870,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             url_template=self._server.default("/fdx/consents/{consentId}/revocation"),
             path_params=[param[str]("consentId", consent_id)],
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[FdxconsentRevocation | FdxconsentRevocationDict](body),
+            body=json_body[FdxConsentRevocation | FdxConsentRevocationDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
             decoder=async_empty_response,
             error_mapper=raw_error_response,
@@ -12835,7 +12881,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: FdxNotificationEntity | FdxNotificationEntityDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[None, RawError]:
         """A generic webhook receiver endpoint for FDX Event Notifications
 
@@ -12862,8 +12908,8 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         recipient_id: str,
         *,
         oauth_state_id: str | None = None,
-        request_options: RequestOptionsOrDict | None = None,
-    ) -> ApiResult[FdxrecipientMetadata, RawError]:
+        request_options: AsyncRequestOptionsOrDict | None = None,
+    ) -> ApiResult[FdxRecipientMetadata, RawError]:
         """Get a specific recipient
 
         Args:
@@ -12880,13 +12926,13 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             path_params=[param[str]("recipientId", recipient_id)],
             headers=[param[str | None]("OAUTH-STATE-ID", oauth_state_id)],
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=async_json_decoder[FdxrecipientMetadata],
+            decoder=async_json_decoder[FdxRecipientMetadata],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
 
     async def get_recipients(
-        self, *, request_options: RequestOptionsOrDict | None = None
+        self, *, request_options: AsyncRequestOptionsOrDict | None = None
     ) -> ApiResult[GetRecipientsResponse, RawError]:
         """Returns a list of Recipients
 
@@ -12909,7 +12955,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: IdentityDocumentsUploadsGetRequest | IdentityDocumentsUploadsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[IdentityDocumentsUploadsGetResponse, RawError]:
         """Use ``/identity/documents/uploads/get`` to retrieve identity details when using `Identity Document Upload
         <https://plaid.com/docs/identity/identity-document-upload/>`__.
@@ -12933,7 +12979,10 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         )
 
     async def identity_get(
-        self, body: IdentityGetRequest | IdentityGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self,
+        body: IdentityGetRequest | IdentityGetRequestDict,
+        *,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[IdentityGetResponse, RawError]:
         """The ``/identity/get`` endpoint allows you to retrieve various account holder information on file with the
         financial institution, including names, emails, phone numbers, and addresses. Only name data is guaranteed to be
@@ -12965,7 +13014,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: IdentityMatchRequest | IdentityMatchRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[IdentityMatchResponse, RawError]:
         """The ``/identity/match`` endpoint generates a match score, which indicates how well the provided identity data
         matches the identity information on file with the account holder's financial institution.
@@ -12996,7 +13045,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: IdentityRefreshRequest | IdentityRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[IdentityRefreshResponse, RawError]:
         """``/identity/refresh`` is an optional endpoint for users of the Identity product. It initiates an on-demand
         extraction to fetch the most up to date Identity information from the Financial Institution. This on-demand
@@ -13034,7 +13083,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: IdentityVerificationAutofillCreateRequest | IdentityVerificationAutofillCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[IdentityVerificationAutofillCreateResponse, RawError]:
         """Try to autofill an Identity Verification based on the provided phone number, date of birth and country of
         residence.
@@ -13063,7 +13112,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: IdentityVerificationCreateRequest | IdentityVerificationCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[IdentityVerificationCreateResponse, RawError]:
         """Create a new Identity Verification for the user specified by the ``client_user_id`` and/or ``user_id`` field.
         At least one of these two fields must be provided. The requirements and behavior of the verification are
@@ -13104,7 +13153,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: IdentityVerificationGetRequest | IdentityVerificationGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[IdentityVerificationGetResponse, RawError]:
         """Retrieve a previously created Identity Verification.
 
@@ -13130,7 +13179,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: IdentityVerificationListRequest | IdentityVerificationListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[IdentityVerificationListResponse, RawError]:
         """Filter and list Identity Verifications created by your account
 
@@ -13156,7 +13205,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: IdentityVerificationRetryRequest | IdentityVerificationRetryRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[IdentityVerificationRetryResponse, RawError]:
         """Allow a customer to retry their Identity Verification
 
@@ -13182,7 +13231,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: IncomeVerificationCreateRequest | IncomeVerificationCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[IncomeVerificationCreateResponse, RawError]:
         """``/income/verification/create`` begins the income verification process by returning an
         ``income_verification_id``. You can then provide the ``income_verification_id`` to ``/link/token/create`` under
@@ -13212,7 +13261,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: IncomeVerificationDocumentsDownloadRequest | IncomeVerificationDocumentsDownloadRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[None, RawError]:
         """``/income/verification/documents/download`` provides the ability to download the source documents associated
         with the verification.
@@ -13250,7 +13299,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: IncomeVerificationPaystubsGetRequest | IncomeVerificationPaystubsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[IncomeVerificationPaystubsGetResponse, RawError]:
         """``/income/verification/paystubs/get`` returns the information collected from the paystubs that were used to
         verify an end user's income. It can be called once the status of the verification has been set to
@@ -13281,7 +13330,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: IncomeVerificationPrecheckRequest | IncomeVerificationPrecheckRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[IncomeVerificationPrecheckResponse, RawError]:
         """``/income/verification/precheck`` is an optional endpoint that can be called before initializing a Link
         session for income verification. It evaluates whether a given user is supportable by digital income verification
@@ -13318,7 +13367,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: IncomeVerificationTaxformsGetRequest | IncomeVerificationTaxformsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[IncomeVerificationTaxformsGetResponse, RawError]:
         """``/income/verification/taxforms/get`` returns the information collected from forms that were used to verify
         an end user''s income. It can be called once the status of the verification has been set to
@@ -13349,7 +13398,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: InstitutionsGetRequest | InstitutionsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[InstitutionsGetResponse, RawError]:
         """Returns a JSON response containing details on all financial institutions currently supported by Plaid.
         Because Plaid supports thousands of institutions, results are paginated.
@@ -13380,7 +13429,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: InstitutionsGetByIdRequest | InstitutionsGetByIdRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[InstitutionsGetByIdResponse, RawError]:
         """Returns a JSON response containing details on a specified financial institution currently supported by Plaid.
 
@@ -13410,7 +13459,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: InstitutionsSearchRequest | InstitutionsSearchRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[InstitutionsSearchResponse, RawError]:
         """Returns a JSON response containing details for institutions that match the query parameters, up to a maximum
         of ten institutions per query.
@@ -13441,7 +13490,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: InvestmentsAuthGetRequest | InvestmentsAuthGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[InvestmentsAuthGetResponse, RawError]:
         """The ``/investments/auth/get`` endpoint allows developers to receive user-authorized data to facilitate the
         transfer of holdings
@@ -13468,7 +13517,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: InvestmentsHoldingsGetRequest | InvestmentsHoldingsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[InvestmentsHoldingsGetResponse, RawError]:
         """The ``/investments/holdings/get`` endpoint allows developers to receive user-authorized stock position data
         for ``investment``-type accounts.
@@ -13495,7 +13544,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: InvestmentsRefreshRequest | InvestmentsRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[InvestmentsRefreshResponse, RawError]:
         """``/investments/refresh`` is an optional endpoint for users of the Investments product. It initiates an
         on-demand extraction to fetch the newest investment holdings and transactions for an Item. This on-demand
@@ -13541,7 +13590,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: InvestmentsTransactionsGetRequest | InvestmentsTransactionsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[InvestmentsTransactionsGetResponse, RawError]:
         """The ``/investments/transactions/get`` endpoint allows developers to retrieve up to 24 months of
         user-authorized transaction data for investment accounts.
@@ -13582,7 +13631,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         )
 
     async def issues_get(
-        self, body: IssuesGetRequest | IssuesGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self, body: IssuesGetRequest | IssuesGetRequestDict, *, request_options: AsyncRequestOptionsOrDict | None = None
     ) -> ApiResult[IssuesGetResponse, RawError]:
         """Retrieve detailed information about a specific ``Issue``. This endpoint returns a single ``Issue`` object.
 
@@ -13608,7 +13657,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: IssuesSearchRequest | IssuesSearchRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[IssuesSearchResponse, RawError]:
         """Search for an issue associated with one of the following identifiers: ``item_id``, ``link_session_id`` or
         Link session ``request_id``. This endpoint returns a list of ``Issue`` objects, with an empty list indicating
@@ -13637,7 +13686,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: IssuesSubscribeRequest | IssuesSubscribeRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[IssuesSubscribeResponse, RawError]:
         """Allows a user to subscribe to updates on a specific ``Issue`` using a POST method. Subscribers will receive
         webhook notifications when the issue status changes, particularly when resolved.
@@ -13664,7 +13713,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ItemAccessTokenInvalidateRequest | ItemAccessTokenInvalidateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ItemAccessTokenInvalidateResponse, RawError]:
         """By default, the ``access_token`` associated with an Item does not expire and should be stored in a
         persistent, secure manner.
@@ -13694,7 +13743,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ItemActivityListRequest | ItemActivityListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ItemActivityListResponse, RawError]:
         """List a historical log of user consent events
 
@@ -13720,7 +13769,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ItemApplicationListRequest | ItemApplicationListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ItemApplicationListResponse, RawError]:
         """List a user's connected applications
 
@@ -13746,7 +13795,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ItemApplicationScopesUpdateRequest | ItemApplicationScopesUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ItemApplicationScopesUpdateResponse, RawError]:
         """Enable consumers to update product access on selected accounts for an application.
 
@@ -13772,7 +13821,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ItemApplicationUnlinkRequest | ItemApplicationUnlinkRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ItemApplicationUnlinkResponse, RawError]:
         """Unlink a user's connected application. On an unlink request, Plaid will immediately revoke the Application's
         access to the User's data. The User will have to redo the OAuth authentication process in order to restore
@@ -13807,7 +13856,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ItemPublicTokenCreateRequest | ItemPublicTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ItemPublicTokenCreateResponse, RawError]:
         """Note: As of July 2020, the ``/item/public_token/create`` endpoint is deprecated. Instead, use
         ``/link/token/create`` with an ``access_token`` to create a Link token for use with `update mode
@@ -13843,7 +13892,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         )
 
     async def item_get(
-        self, body: ItemGetRequest | ItemGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self, body: ItemGetRequest | ItemGetRequestDict, *, request_options: AsyncRequestOptionsOrDict | None = None
     ) -> ApiResult[ItemGetResponse, RawError]:
         """Returns information about the status of an Item.
 
@@ -13866,7 +13915,10 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         )
 
     async def item_import(
-        self, body: ItemImportRequest | ItemImportRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self,
+        body: ItemImportRequest | ItemImportRequestDict,
+        *,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ItemImportResponse, RawError]:
         """``/item/import`` creates an Item via your Plaid Exchange Integration and returns an ``access_token``. As part
         of an ``/item/import`` request, you will include a User ID (``user_auth.user_id``) and Authentication Token
@@ -13898,7 +13950,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ItemProductsTerminateRequest | ItemProductsTerminateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ItemProductsTerminateResponse, RawError]:
         """The ``/item/products/terminate`` endpoint allows you to terminate an Item. Once terminated, the
         ``access_token`` associated with the Item is no longer valid, billing for the Item's products is ended, and
@@ -13928,7 +13980,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ItemPublicTokenExchangeRequest | ItemPublicTokenExchangeRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ItemPublicTokenExchangeResponse, RawError]:
         """Exchange a Link ``public_token`` for an API ``access_token``. Link hands off the ``public_token`` client-side
         via the ``onSuccess`` callback once a user has successfully created an Item. The ``public_token`` is ephemeral
@@ -13957,7 +14009,10 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         )
 
     async def item_remove(
-        self, body: ItemRemoveRequest | ItemRemoveRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self,
+        body: ItemRemoveRequest | ItemRemoveRequestDict,
+        *,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ItemRemoveResponse, RawError]:
         """The ``/item/remove`` endpoint allows you to remove an Item. Once removed, the ``access_token``, as well as
         any processor tokens or bank account tokens associated with the Item, is no longer valid and cannot be used to
@@ -14002,7 +14057,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ItemWebhookUpdateRequest | ItemWebhookUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ItemWebhookUpdateResponse, RawError]:
         """The POST ``/item/webhook/update`` allows you to update the webhook URL associated with an Item. This request
         triggers a https://plaid.com/docs/api/items/#webhook_update_acknowledged webhook to the newly specified webhook
@@ -14030,7 +14085,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: LiabilitiesGetRequest | LiabilitiesGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[LiabilitiesGetResponse, RawError]:
         """The ``/liabilities/get`` endpoint returns various details about an Item with loan or credit accounts.
         Liabilities data is available primarily for US financial institutions, with some limited coverage of Canadian
@@ -14065,7 +14120,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: LinkDeliveryCreateRequest | LinkDeliveryCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[LinkDeliveryCreateResponse, RawError]:
         """Use the ``/link_delivery/create`` endpoint to create a Hosted Link session.
 
@@ -14091,7 +14146,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: LinkDeliveryGetRequest | LinkDeliveryGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[LinkDeliveryGetResponse, RawError]:
         """Use the ``/link_delivery/get`` endpoint to get the status of a Hosted Link session.
 
@@ -14115,10 +14170,10 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
     async def link_oauth_correlation_id_exchange(
         self,
-        body: LinkOauthCorrelationIdExchangeRequest | LinkOauthCorrelationIdExchangeRequestDict,
+        body: LinkOAuthCorrelationIdExchangeRequest | LinkOAuthCorrelationIdExchangeRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
-    ) -> ApiResult[LinkOauthCorrelationIdExchangeResponse, RawError]:
+        request_options: AsyncRequestOptionsOrDict | None = None,
+    ) -> ApiResult[LinkOAuthCorrelationIdExchangeResponse, RawError]:
         """Exchange an OAuth ``link_correlation_id`` for the corresponding ``link_token``. The ``link_correlation_id``
         is only available for ``payment_initiation`` products and is provided to the client via the OAuth
         ``redirect_uri`` as a query parameter. The ``link_correlation_id`` is ephemeral and expires in a brief period,
@@ -14135,9 +14190,9 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             http_method="POST",
             url_template=self._server.default("/link/oauth/correlation_id/exchange"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[LinkOauthCorrelationIdExchangeRequest | LinkOauthCorrelationIdExchangeRequestDict](body),
+            body=json_body[LinkOAuthCorrelationIdExchangeRequest | LinkOAuthCorrelationIdExchangeRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=async_json_decoder[LinkOauthCorrelationIdExchangeResponse],
+            decoder=async_json_decoder[LinkOAuthCorrelationIdExchangeResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14146,7 +14201,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: LinkTokenCreateRequest | LinkTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[LinkTokenCreateResponse, RawError]:
         """The ``/link/token/create`` endpoint creates a ``link_token``, which is required as a parameter when
         initializing Link. Once Link has been initialized, it returns a ``public_token``. For most Plaid products, the
@@ -14180,7 +14235,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: LinkTokenGetRequest | LinkTokenGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[LinkTokenGetResponse, RawError]:
         """The ``/link/token/get`` endpoint gets information about a Link session, including all callbacks fired during
         the session along with their metadata, including the public token. This endpoint is used with Link flows that
@@ -14216,7 +14271,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: NetworkStatusGetRequest | NetworkStatusGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[NetworkStatusGetResponse, RawError]:
         """The ``/network/status/get`` endpoint can be used to check whether Plaid has a matching profile for the user.
         This is useful for determining if a user is eligible for a streamlined experience, such as Layer. To access this
@@ -14247,10 +14302,10 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
     async def oauth_introspect(
         self,
-        body: OauthIntrospectRequest | OauthIntrospectRequestDict,
+        body: OAuthIntrospectRequest | OAuthIntrospectRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
-    ) -> ApiResult[OauthIntrospectResponse, RawError]:
+        request_options: AsyncRequestOptionsOrDict | None = None,
+    ) -> ApiResult[OAuthIntrospectResponse, RawError]:
         """``/oauth/introspect`` returns metadata about an access token or refresh token.
 
         Note: This endpoint supports ``Content-Type: application/x-www-form-urlencoded`` as well as JSON. The fields for
@@ -14267,16 +14322,19 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             http_method="POST",
             url_template=self._server.default("/oauth/introspect"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[OauthIntrospectRequest | OauthIntrospectRequestDict](body),
+            body=json_body[OAuthIntrospectRequest | OAuthIntrospectRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=async_json_decoder[OauthIntrospectResponse],
+            decoder=async_json_decoder[OAuthIntrospectResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
 
     async def oauth_revoke(
-        self, body: OauthRevokeRequest | OauthRevokeRequestDict, *, request_options: RequestOptionsOrDict | None = None
-    ) -> ApiResult[OauthRevokeResponse, RawError]:
+        self,
+        body: OAuthRevokeRequest | OAuthRevokeRequestDict,
+        *,
+        request_options: AsyncRequestOptionsOrDict | None = None,
+    ) -> ApiResult[OAuthRevokeResponse, RawError]:
         """``/oauth/revoke`` revokes an access or refresh token, preventing any further use. If a refresh token is
         revoked, all access and refresh tokens derived from it are also revoked, including exchanged tokens.
 
@@ -14294,16 +14352,19 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             http_method="POST",
             url_template=self._server.default("/oauth/revoke"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[OauthRevokeRequest | OauthRevokeRequestDict](body),
+            body=json_body[OAuthRevokeRequest | OAuthRevokeRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=async_json_decoder[OauthRevokeResponse],
+            decoder=async_json_decoder[OAuthRevokeResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
 
     async def oauth_token(
-        self, body: OauthTokenRequest | OauthTokenRequestDict, *, request_options: RequestOptionsOrDict | None = None
-    ) -> ApiResult[OauthTokenResponse, RawError]:
+        self,
+        body: OAuthTokenRequest | OAuthTokenRequestDict,
+        *,
+        request_options: AsyncRequestOptionsOrDict | None = None,
+    ) -> ApiResult[OAuthTokenResponse, RawError]:
         """``/oauth/token`` issues an access token and refresh token depending on the ``grant_type`` provided. This
         endpoint supports ``Content-Type: application/x-www-form-urlencoded`` as well as JSON. The fields for the form
         are equivalent to the fields for JSON and conform to the OAuth 2.0 specification.
@@ -14319,9 +14380,9 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             http_method="POST",
             url_template=self._server.default("/oauth/token"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[OauthTokenRequest | OauthTokenRequestDict](body),
+            body=json_body[OAuthTokenRequest | OAuthTokenRequestDict](body),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=async_json_decoder[OauthTokenResponse],
+            decoder=async_json_decoder[OAuthTokenResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14330,7 +14391,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PartnerCustomerCreateRequest | PartnerCustomerCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PartnerCustomerCreateResponse, RawError]:
         """The ``/partner/customer/create`` endpoint is used by reseller partners to create end customers. To create end
         customers, it should be called in the Production environment only, even when creating Sandbox API keys. If
@@ -14359,7 +14420,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PartnerCustomerEnableRequest | PartnerCustomerEnableRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PartnerCustomerEnableResponse, RawError]:
         """The ``/partner/customer/enable`` endpoint is used by reseller partners to enable an end customer in the full
         Production environment.
@@ -14386,7 +14447,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PartnerCustomerGetRequest | PartnerCustomerGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PartnerCustomerGetResponse, RawError]:
         """The ``/partner/customer/get`` endpoint is used by reseller partners to retrieve data about a single end
         customer.
@@ -14411,10 +14472,10 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
 
     async def partner_customer_oauth_institutions_get(
         self,
-        body: PartnerCustomerOauthInstitutionsGetRequest | PartnerCustomerOauthInstitutionsGetRequestDict,
+        body: PartnerCustomerOAuthInstitutionsGetRequest | PartnerCustomerOAuthInstitutionsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
-    ) -> ApiResult[PartnerCustomerOauthInstitutionsGetResponse, RawError]:
+        request_options: AsyncRequestOptionsOrDict | None = None,
+    ) -> ApiResult[PartnerCustomerOAuthInstitutionsGetResponse, RawError]:
         """The ``/partner/customer/oauth_institutions/get`` endpoint is used by reseller partners to retrieve
         OAuth-institution registration information about a single end customer. To learn how to set up a webhook to
         listen to status update events, visit the `reseller documentation
@@ -14431,11 +14492,11 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
             http_method="POST",
             url_template=self._server.default("/partner/customer/oauth_institutions/get"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[PartnerCustomerOauthInstitutionsGetRequest | PartnerCustomerOauthInstitutionsGetRequestDict](
+            body=json_body[PartnerCustomerOAuthInstitutionsGetRequest | PartnerCustomerOAuthInstitutionsGetRequestDict](
                 body
             ),
             auth_scheme=AsyncAllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=async_json_decoder[PartnerCustomerOauthInstitutionsGetResponse],
+            decoder=async_json_decoder[PartnerCustomerOAuthInstitutionsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14444,7 +14505,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PartnerCustomerRemoveRequest | PartnerCustomerRemoveRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PartnerCustomerRemoveResponse, RawError]:
         """The ``/partner/customer/remove`` endpoint is used by reseller partners to remove an end customer. Removing an
         end customer will remove it from view in the Plaid Dashboard and deactivate its API keys. This endpoint can only
@@ -14472,7 +14533,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PaymentInitiationConsentCreateRequest | PaymentInitiationConsentCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PaymentInitiationConsentCreateResponse, RawError]:
         """The ``/payment_initiation/consent/create`` endpoint is used to create a payment consent, which can be used to
         initiate payments on behalf of the user. Payment consents are created with ``UNAUTHORISED`` status by default
@@ -14502,7 +14563,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PaymentInitiationConsentGetRequest | PaymentInitiationConsentGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PaymentInitiationConsentGetResponse, RawError]:
         """The ``/payment_initiation/consent/get`` endpoint can be used to check the status of a payment consent, as
         well as to receive basic information such as recipient and constraints.
@@ -14529,7 +14590,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PaymentInitiationConsentPaymentExecuteRequest | PaymentInitiationConsentPaymentExecuteRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PaymentInitiationConsentPaymentExecuteResponse, RawError]:
         """The ``/payment_initiation/consent/payment/execute`` endpoint can be used to execute payments using payment
         consent.
@@ -14558,7 +14619,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PaymentInitiationConsentRevokeRequest | PaymentInitiationConsentRevokeRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PaymentInitiationConsentRevokeResponse, RawError]:
         """The ``/payment_initiation/consent/revoke`` endpoint can be used to revoke the payment consent. Once the
         consent is revoked, it is not possible to initiate payments using it.
@@ -14585,7 +14646,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PaymentInitiationPaymentCreateRequest | PaymentInitiationPaymentCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PaymentInitiationPaymentCreateResponse, RawError]:
         """After creating a payment recipient, you can use the ``/payment_initiation/payment/create`` endpoint to create
         a payment to that recipient. Payments can be one-time or standing order (recurring) and can be denominated in
@@ -14628,7 +14689,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PaymentInitiationPaymentGetRequest | PaymentInitiationPaymentGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PaymentInitiationPaymentGetResponse, RawError]:
         """The ``/payment_initiation/payment/get`` endpoint can be used to check the status of a payment, as well as to
         receive basic information such as recipient and payment amount. In the case of standing orders, the
@@ -14661,7 +14722,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PaymentInitiationPaymentListRequest | PaymentInitiationPaymentListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PaymentInitiationPaymentListResponse, RawError]:
         """The ``/payment_initiation/payment/list`` endpoint can be used to retrieve all created payments. By default,
         the 10 most recent payments are returned. You can request more payments and paginate through the results using
@@ -14689,7 +14750,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PaymentInitiationPaymentReverseRequest | PaymentInitiationPaymentReverseRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PaymentInitiationPaymentReverseResponse, RawError]:
         """Reverse a settled payment from a Plaid virtual account.
 
@@ -14725,7 +14786,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PaymentInitiationRecipientCreateRequest | PaymentInitiationRecipientCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PaymentInitiationRecipientCreateResponse, RawError]:
         """Create a payment recipient for payment initiation. The recipient must be in Europe, within a country that is
         a member of the Single Euro Payments Area (SEPA) or a non-Eurozone country `supported
@@ -14759,7 +14820,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PaymentInitiationRecipientGetRequest | PaymentInitiationRecipientGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PaymentInitiationRecipientGetResponse, RawError]:
         """Get details about a payment recipient you have previously created.
 
@@ -14785,7 +14846,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PaymentInitiationRecipientListRequest | PaymentInitiationRecipientListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PaymentInitiationRecipientListResponse, RawError]:
         """The ``/payment_initiation/recipient/list`` endpoint lists the payment recipients that you have previously
         created.
@@ -14812,7 +14873,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PaymentProfileCreateRequest | PaymentProfileCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PaymentProfileCreateResponse, RawError]:
         """Use ``/payment_profile/create`` endpoint to create a new payment profile. To initiate the account linking
         experience, call ``/link/token/create`` and provide the ``payment_profile_token`` in the
@@ -14841,7 +14902,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PaymentProfileGetRequest | PaymentProfileGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PaymentProfileGetResponse, RawError]:
         """Use ``/payment_profile/get`` endpoint to get the status of a given Payment Profile.
 
@@ -14867,7 +14928,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: PaymentProfileRemoveRequest | PaymentProfileRemoveRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[PaymentProfileRemoveResponse, RawError]:
         """Use the ``/payment_profile/remove`` endpoint to remove a given Payment Profile. Once it's removed, it can no
         longer be used to create transfers.
@@ -14894,7 +14955,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorAccountGetRequest | ProcessorAccountGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorAccountGetResponse, RawError]:
         """This endpoint returns the account associated with a given processor token.
 
@@ -14924,7 +14985,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorApexProcessorTokenCreateRequest | ProcessorApexProcessorTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorTokenCreateResponse, RawError]:
         """Used to create a token suitable for sending to Apex to enable Plaid-Apex integrations.
 
@@ -14952,7 +15013,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorAuthGetRequest | ProcessorAuthGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorAuthGetResponse, RawError]:
         """The ``/processor/auth/get`` endpoint returns the bank account and bank identification number (such as the
         routing number, for US accounts), for a checking, savings, or cash management account that''s associated with a
@@ -14984,7 +15045,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorBalanceGetRequest | ProcessorBalanceGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorBalanceGetResponse, RawError]:
         """The ``/processor/balance/get`` endpoint returns the real-time balance for each of an Item's accounts. While
         other endpoints may return a balance object, only ``/processor/balance/get`` forces the available and current
@@ -15017,7 +15078,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorBankTransferCreateRequest | ProcessorBankTransferCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorBankTransferCreateResponse, RawError]:
         """Use the ``/processor/bank_transfer/create`` endpoint to initiate a new bank transfer as a processor
 
@@ -15043,7 +15104,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorIdentityGetRequest | ProcessorIdentityGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorIdentityGetResponse, RawError]:
         """The ``/processor/identity/get`` endpoint allows you to retrieve various account holder information on file
         with the financial institution, including names, emails, phone numbers, and addresses.
@@ -15070,7 +15131,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorIdentityMatchRequest | ProcessorIdentityMatchRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorIdentityMatchResponse, RawError]:
         """The ``/processor/identity/match`` endpoint generates a match score, which indicates how well the provided
         identity data matches the identity information on file with the account holder's financial institution.
@@ -15100,7 +15161,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorInvestmentsAuthGetRequest | ProcessorInvestmentsAuthGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorInvestmentsAuthGetResponse, RawError]:
         """The ``/processor/investments/auth/get`` endpoint allows you to retrieve information about the account
         authorized by a processor token, including account numbers, account owners, holdings, and data provenance
@@ -15131,7 +15192,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorInvestmentsHoldingsGetRequest | ProcessorInvestmentsHoldingsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorInvestmentsHoldingsGetResponse, RawError]:
         """This endpoint returns the stock position data of the account associated with a given processor token.
 
@@ -15157,7 +15218,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorInvestmentsTransactionsGetRequest | ProcessorInvestmentsTransactionsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorInvestmentsTransactionsGetResponse, RawError]:
         """The ``/processor/investments/transactions/get`` endpoint allows developers to retrieve up to 24 months of
         user-authorized transaction data for the investment account associated with the processor token.
@@ -15207,7 +15268,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorLiabilitiesGetRequest | ProcessorLiabilitiesGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorLiabilitiesGetResponse, RawError]:
         """The ``/processor/liabilities/get`` endpoint returns various details about a loan or credit account.
         Liabilities data is available primarily for US financial institutions, with some limited coverage of Canadian
@@ -15244,7 +15305,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorSignalDecisionReportRequest | ProcessorSignalDecisionReportRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorSignalDecisionReportResponse, RawError]:
         """After you call ``/processor/signal/evaluate``, Plaid will normally infer the outcome from your Signal Rules.
         However, if you are not using Signal Rules, if the Signal Rules outcome was ``REVIEW``, or if you take a
@@ -15283,7 +15344,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorSignalEvaluateRequest | ProcessorSignalEvaluateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorSignalEvaluateResponse, RawError]:
         """Use ``/processor/signal/evaluate`` to evaluate a planned ACH transaction to get a return risk assessment and
         additional risk signals.
@@ -15320,7 +15381,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorSignalPrepareRequest | ProcessorSignalPrepareRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorSignalPrepareResponse, RawError]:
         """When a processor token is not initialized with ``signal``, call ``/processor/signal/prepare`` to opt-in that
         processor token to the data collection process, which will improve the accuracy of the Signal Transaction Score.
@@ -15350,7 +15411,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorSignalReturnReportRequest | ProcessorSignalReturnReportRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorSignalReturnReportResponse, RawError]:
         """Call the ``/processor/signal/return/report`` endpoint to report a returned transaction that was previously
         sent to the ``/processor/signal/evaluate`` endpoint. Your feedback will be used by the model to incorporate the
@@ -15381,7 +15442,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorStripeBankAccountTokenCreateRequest | ProcessorStripeBankAccountTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorStripeBankAccountTokenCreateResponse, RawError]:
         """Used to create a token suitable for sending to Stripe to enable Plaid-Stripe integrations. For a detailed
         guide on integrating Stripe, see `Add Stripe to your app <https://plaid.com/docs/auth/partnerships/stripe/>`__.
@@ -15420,7 +15481,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorTokenCreateRequest | ProcessorTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorTokenCreateResponse, RawError]:
         """Used to create a token suitable for sending to one of Plaid's partners to enable integrations. Note that
         Stripe partnerships use bank account tokens instead; see ``/processor/stripe/bank_account_token/create`` for
@@ -15451,7 +15512,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorTokenPermissionsGetRequest | ProcessorTokenPermissionsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorTokenPermissionsGetResponse, RawError]:
         """Used to get a processor token's product permissions. The ``products`` field will be an empty list if the
         processor can access all available products.
@@ -15478,7 +15539,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorTokenPermissionsSetRequest | ProcessorTokenPermissionsSetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorTokenPermissionsSetResponse, RawError]:
         """Used to control a processor's access to products on the given processor token. By default, a processor will
         have access to all available products on the corresponding item. To restrict access to a particular set of
@@ -15508,7 +15569,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorTokenWebhookUpdateRequest | ProcessorTokenWebhookUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorTokenWebhookUpdateResponse, RawError]:
         """This endpoint allows you, the processor, to update the webhook URL associated with a processor token. This
         request triggers a ``WEBHOOK_UPDATE_ACKNOWLEDGED`` webhook to the newly specified webhook URL.
@@ -15535,7 +15596,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorTransactionsGetRequest | ProcessorTransactionsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorTransactionsGetResponse, RawError]:
         """The ``/processor/transactions/get`` endpoint allows developers to receive user-authorized transaction data
         for credit, depository, and some loan-type accounts (only those with account subtype ``student`` or
@@ -15587,7 +15648,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorTransactionsRecurringGetRequest | ProcessorTransactionsRecurringGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorTransactionsRecurringGetResponse, RawError]:
         """The ``/processor/transactions/recurring/get`` endpoint allows developers to receive a summary of the
         recurring outflow and inflow streams (expenses and deposits) from a user's checking, savings or credit card
@@ -15641,7 +15702,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorTransactionsRefreshRequest | ProcessorTransactionsRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorTransactionsRefreshResponse, RawError]:
         """``/processor/transactions/refresh`` is an optional endpoint for users of the Transactions product. It
         initiates an on-demand extraction to fetch the newest transactions for a processor token. This on-demand
@@ -15688,7 +15749,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProcessorTransactionsSyncRequest | ProcessorTransactionsSyncRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProcessorTransactionsSyncResponse, RawError]:
         """The ``/processor/transactions/sync`` endpoint retrieves transactions associated with an Item and can fetch
         updates using a cursor to track which updates have already been seen.
@@ -15747,7 +15808,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProfileNetworkStatusGetRequest | ProfileNetworkStatusGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProfileNetworkStatusGetResponse, RawError]:
         """The ``/profile/network_status/get`` endpoint can be used to check whether Plaid has a matching profile for
         the user.
@@ -15774,7 +15835,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProtectComputeRequest | ProtectComputeRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProtectComputeResponse, RawError]:
         """Compute a Protect Trust Index score for a user. The model selected determines what is scored and what
         additional fields the response contains. For example, ``ti-link-session-2.0`` scores a completed Link session
@@ -15808,7 +15869,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProtectEventGetRequest | ProtectEventGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProtectEventGetResponse, RawError]:
         """Get information about a user event including Trust Index score and fraud attributes.
 
@@ -15834,7 +15895,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProtectEventSendRequest | ProtectEventSendRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProtectEventSendResponse, RawError]:
         """Send a new event to enrich user data and optionally get a Trust Index score for the event.
 
@@ -15860,7 +15921,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProtectReportCreateRequest | ProtectReportCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProtectReportCreateResponse, RawError]:
         """Use this endpoint to create a Protect report to document fraud incidents, investigation outcomes, or other
         risk events. This endpoint allows you to report various types of incidents including account takeovers, identity
@@ -15895,7 +15956,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: ProtectUserInsightsGetRequest | ProtectUserInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[ProtectUserInsightsGetResponse, RawError]:
         """Use this endpoint to get basic information about a user as it relates to their fraud profile with Protect.
 
@@ -15921,7 +15982,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxBankIncomeFireWebhookRequest | SandboxBankIncomeFireWebhookRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxBankIncomeFireWebhookResponse, RawError]:
         """Use the ``/sandbox/bank_income/fire_webhook`` endpoint to manually trigger a Bank Income webhook in the
         Sandbox environment.
@@ -15948,7 +16009,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxBankTransferFireWebhookRequest | SandboxBankTransferFireWebhookRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxBankTransferFireWebhookResponse, RawError]:
         """Use the ``/sandbox/bank_transfer/fire_webhook`` endpoint to manually trigger a Bank Transfers webhook in the
         Sandbox environment.
@@ -15975,7 +16036,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxBankTransferSimulateRequest | SandboxBankTransferSimulateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxBankTransferSimulateResponse, RawError]:
         """Use the ``/sandbox/bank_transfer/simulate`` endpoint to simulate a bank transfer event in the Sandbox
         environment. Note that while an event will be simulated and will appear when using endpoints such as
@@ -16004,7 +16065,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxCraCashflowUpdatesUpdateRequest | SandboxCraCashflowUpdatesUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxCraCashflowUpdatesUpdateResponse, RawError]:
         """Use the ``/sandbox/cra/cashflow_updates/update`` endpoint to manually trigger an update for Cash Flow Updates
         (Monitoring) in the Sandbox environment.
@@ -16031,7 +16092,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxFdxConsentSeedRequest | SandboxFdxConsentSeedRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxFdxConsentSeedResponse, RawError]:
         """``/sandbox/fdx/consent/seed`` creates a test FDX consent grant (and a backing Item) for a data provider's
         customer in Sandbox, so the FDX Consent API endpoints can be exercised end-to-end without a live data provider
@@ -16065,7 +16126,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxIncomeFireWebhookRequest | SandboxIncomeFireWebhookRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxIncomeFireWebhookResponse, RawError]:
         """Use the ``/sandbox/income/fire_webhook`` endpoint to manually trigger a Payroll or Document Income webhook in
         the Sandbox environment.
@@ -16092,7 +16153,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxItemApplicationSeedRequest | SandboxItemApplicationSeedRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxItemApplicationSeedResponse, RawError]:
         """``/sandbox/item/application/seed`` creates a test connected application on an existing Permissions Manager
         Item's login. The seeded application will appear in subsequent calls to ``/item/application/list``.
@@ -16123,7 +16184,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxItemFireWebhookRequest | SandboxItemFireWebhookRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxItemFireWebhookResponse, RawError]:
         """The ``/sandbox/item/fire_webhook`` endpoint is used to test that code correctly handles webhooks. This
         endpoint can trigger the following webhooks:
@@ -16193,7 +16254,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxItemResetLoginRequest | SandboxItemResetLoginRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxItemResetLoginResponse, RawError]:
         """``/sandbox/item/reset_login`` forces an Item into an ``ITEM_LOGIN_REQUIRED`` state in order to simulate an
         Item whose login is no longer valid. This makes it easy to test Link's `update mode
@@ -16225,7 +16286,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxItemSetVerificationStatusRequest | SandboxItemSetVerificationStatusRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxItemSetVerificationStatusResponse, RawError]:
         """The ``/sandbox/item/set_verification_status`` endpoint can be used to change the verification status of an
         Item in the Sandbox in order to simulate the Automated Micro-deposit flow.
@@ -16255,7 +16316,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxOauthSelectAccountsRequest | SandboxOauthSelectAccountsRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[Any, RawError]:
         """Save the selected accounts when connecting to the Platypus OAuth institution
 
@@ -16281,7 +16342,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxPaymentProfileResetLoginRequest | SandboxPaymentProfileResetLoginRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxPaymentProfileResetLoginResponse, RawError]:
         """``/sandbox/payment_profile/reset_login`` forces a Payment Profile into a state where the login is no longer
         valid. This makes it easy to test update mode for Payment Profile in the Sandbox environment.
@@ -16316,7 +16377,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxPaymentSimulateRequest | SandboxPaymentSimulateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxPaymentSimulateResponse, RawError]:
         """Use the ``/sandbox/payment/simulate`` endpoint to simulate various payment events in the Sandbox environment.
         This endpoint will trigger the corresponding payment status webhook.
@@ -16343,7 +16404,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxProcessorTokenCreateRequest | SandboxProcessorTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxProcessorTokenCreateResponse, RawError]:
         """Use the ``/sandbox/processor_token/create`` endpoint to create a valid ``processor_token`` for an arbitrary
         institution ID and test credentials. The created ``processor_token`` corresponds to a new Sandbox Item. You can
@@ -16373,7 +16434,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxPublicTokenCreateRequest | SandboxPublicTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxPublicTokenCreateResponse, RawError]:
         """Use the ``/sandbox/public_token/create`` endpoint to create a valid ``public_token`` for an arbitrary
         institution ID, initial products, and test credentials. The created ``public_token`` maps to a new Sandbox Item.
@@ -16404,7 +16465,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxTransactionsCreateRequest | SandboxTransactionsCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxTransactionsCreateResponse, SandboxTransactionsCreateErrorBody]:
         """Use the ``/sandbox/transactions/create`` endpoint to create new transactions for an existing Item. This
         endpoint can be used to add up to 10 transactions to any Item at a time.
@@ -16438,7 +16499,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxTransferFireWebhookRequest | SandboxTransferFireWebhookRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxTransferFireWebhookResponse, RawError]:
         """Use the ``/sandbox/transfer/fire_webhook`` endpoint to manually trigger a ``TRANSFER_EVENTS_UPDATE`` webhook
         in the Sandbox environment.
@@ -16465,7 +16526,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxTransferLedgerDepositSimulateRequest | SandboxTransferLedgerDepositSimulateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxTransferLedgerDepositSimulateResponse, RawError]:
         """Use the ``/sandbox/transfer/ledger/deposit/simulate`` endpoint to simulate a ledger deposit event in the
         Sandbox environment.
@@ -16494,7 +16555,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxTransferLedgerSimulateAvailableRequest | SandboxTransferLedgerSimulateAvailableRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxTransferLedgerSimulateAvailableResponse, RawError]:
         """Use the ``/sandbox/transfer/ledger/simulate_available`` endpoint to simulate converting pending balance to
         available balance for all originators in the Sandbox environment.
@@ -16523,7 +16584,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxTransferLedgerWithdrawSimulateRequest | SandboxTransferLedgerWithdrawSimulateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxTransferLedgerWithdrawSimulateResponse, RawError]:
         """Use the ``/sandbox/transfer/ledger/withdraw/simulate`` endpoint to simulate a ledger withdraw event in the
         Sandbox environment.
@@ -16552,7 +16613,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxTransferRefundSimulateRequest | SandboxTransferRefundSimulateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxTransferRefundSimulateResponse, RawError]:
         """Use the ``/sandbox/transfer/refund/simulate`` endpoint to simulate a refund event in the Sandbox environment.
         Note that while an event will be simulated and will appear when using endpoints such as ``/transfer/event/sync``
@@ -16581,7 +16642,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxTransferRepaymentSimulateRequest | SandboxTransferRepaymentSimulateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxTransferRepaymentSimulateResponse, RawError]:
         """Use the ``/sandbox/transfer/repayment/simulate`` endpoint to trigger the creation of a repayment. As a side
         effect of calling this route, a repayment is created that includes all unreimbursed returns of guaranteed
@@ -16609,7 +16670,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxTransferSimulateRequest | SandboxTransferSimulateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxTransferSimulateResponse, RawError]:
         """Use the ``/sandbox/transfer/simulate`` endpoint to simulate a transfer event in the Sandbox environment. Note
         that while an event will be simulated and will appear when using endpoints such as ``/transfer/event/sync`` or
@@ -16638,7 +16699,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxTransferSweepSimulateRequest | SandboxTransferSweepSimulateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxTransferSweepSimulateResponse, RawError]:
         """Use the ``/sandbox/transfer/sweep/simulate`` endpoint to create a sweep and associated events in the Sandbox
         environment. Upon calling this endpoint, all transfers with a sweep status of ``swept`` will become
@@ -16667,7 +16728,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxTransferTestClockAdvanceRequest | SandboxTransferTestClockAdvanceRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxTransferTestClockAdvanceResponse, RawError]:
         """Use the ``/sandbox/transfer/test_clock/advance`` endpoint to advance a ``test_clock`` in the Sandbox
         environment.
@@ -16711,7 +16772,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxTransferTestClockCreateRequest | SandboxTransferTestClockCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxTransferTestClockCreateResponse, RawError]:
         """Use the ``/sandbox/transfer/test_clock/create`` endpoint to create a ``test_clock`` in the Sandbox
         environment.
@@ -16743,7 +16804,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxTransferTestClockGetRequest | SandboxTransferTestClockGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxTransferTestClockGetResponse, RawError]:
         """Use the ``/sandbox/transfer/test_clock/get`` endpoint to get a ``test_clock`` in the Sandbox environment.
 
@@ -16769,7 +16830,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxTransferTestClockListRequest | SandboxTransferTestClockListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxTransferTestClockListResponse, RawError]:
         """Use the ``/sandbox/transfer/test_clock/list`` endpoint to see a list of all your test clocks in the Sandbox
         environment, by ascending ``virtual_time``. Results are paginated; use the ``count`` and ``offset`` query
@@ -16797,7 +16858,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SandboxUserResetLoginRequest | SandboxUserResetLoginRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SandboxUserResetLoginResponse, RawError]:
         """``/sandbox/user/reset_login`` functions the same as ``/sandbox/item/reset_login``, but will modify Items
         related to a User. This endpoint forces each Item into an ``ITEM_LOGIN_REQUIRED`` state in order to simulate an
@@ -16830,7 +16891,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SessionTokenCreateRequest | SessionTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SessionTokenCreateResponse, RawError]:
         """``/session/token/create`` is used to create a Link token for Layer. The returned Link token is used as a
         parameter when initializing the Link SDK. For more details, see the `Link flow overview
@@ -16858,7 +16919,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SignalDecisionReportRequest | SignalDecisionReportRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SignalDecisionReportResponse, RawError]:
         """After you call ``/signal/evaluate``, Plaid will normally infer the outcome from your Signal Rules. However,
         if you are not using Signal Rules, if the Signal Rules outcome was ``REVIEW``, or if you take a different action
@@ -16897,7 +16958,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SignalEvaluateRequest | SignalEvaluateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SignalEvaluateResponse, RawError]:
         """Use ``/signal/evaluate`` to evaluate a planned ACH transaction to get a return risk assessment and additional
         risk signals.
@@ -16937,7 +16998,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SignalPrepareRequest | SignalPrepareRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SignalPrepareResponse, RawError]:
         """When an Item is not initialized with ``signal``, call ``/signal/prepare`` to opt-in that Item to the data
         collection process used to develop a Signal Transaction Score. This should be done on Items where ``signal`` was
@@ -16974,7 +17035,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SignalReturnReportRequest | SignalReturnReportRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SignalReturnReportResponse, RawError]:
         """Call the ``/signal/return/report`` endpoint to report a returned transaction that was previously sent to the
         ``/signal/evaluate`` endpoint. Your feedback will be used by the model to incorporate the latest risk trends
@@ -17004,7 +17065,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: SignalScheduleRequest | SignalScheduleRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[SignalScheduleResponse, RawError]:
         """Use ``/signal/schedule`` to schedule a planned ACH transaction.
 
@@ -17030,7 +17091,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: StatementsDownloadRequest | StatementsDownloadRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[None, RawError]:
         """The ``/statements/download`` endpoint retrieves a single statement PDF in binary format. The response will
         contain a ``Plaid-Content-Hash`` header containing a SHA 256 checksum of the statement. This can be used to
@@ -17058,7 +17119,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: StatementsListRequest | StatementsListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[StatementsListResponse, RawError]:
         """The ``/statements/list`` endpoint retrieves a list of all statements associated with an Item.
 
@@ -17084,7 +17145,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: StatementsRefreshRequest | StatementsRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[StatementsRefreshResponse, RawError]:
         """``/statements/refresh`` initiates an on-demand extraction to fetch the statements for the provided dates.
 
@@ -17110,7 +17171,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransactionsEnhanceGetRequest | TransactionsEnhanceGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransactionsEnhanceGetResponse, RawError]:
         """The ``/beta/transactions/v1/enhance`` endpoint enriches raw transaction data provided directly by clients.
 
@@ -17138,7 +17199,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransactionsEnrichRequest | TransactionsEnrichRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransactionsEnrichResponse, RawError]:
         """The ``/transactions/enrich`` endpoint enriches raw transaction data generated by your own banking products or
         retrieved from other non-Plaid sources.
@@ -17165,7 +17226,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransactionsGetRequest | TransactionsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransactionsGetResponse, RawError]:
         """Note: All new implementations are encouraged to use ``/transactions/sync`` rather than ``/transactions/get``.
         ``/transactions/sync`` provides the same functionality as ``/transactions/get`` and improves developer
@@ -17219,7 +17280,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransactionsRecurringGetRequest | TransactionsRecurringGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransactionsRecurringGetResponse, RawError]:
         """The ``/transactions/recurring/get`` endpoint allows developers to receive a summary of the recurring outflow
         and inflow streams (expenses and deposits) from a user's checking, savings or credit card accounts.
@@ -17272,7 +17333,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransactionsRefreshRequest | TransactionsRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransactionsRefreshResponse, RawError]:
         """``/transactions/refresh`` is an optional endpoint that initiates an on-demand extraction to fetch the newest
         transactions for an Item. The on-demand extraction takes place in addition to the periodic extractions that
@@ -17321,7 +17382,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransactionsRulesCreateRequest | TransactionsRulesCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransactionsRulesCreateResponse, RawError]:
         """The ``/beta/transactions/rules/v1/create`` endpoint creates transaction categorization rules.
 
@@ -17351,7 +17412,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransactionsRulesListRequest | TransactionsRulesListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransactionsRulesListResponse, RawError]:
         """The ``/beta/transactions/rules/v1/list`` returns a list of transaction rules created for the Item associated
         with the access token.
@@ -17378,7 +17439,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransactionsRulesRemoveRequest | TransactionsRulesRemoveRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransactionsRulesRemoveResponse, RawError]:
         """The ``/beta/transactions/rules/v1/remove`` endpoint is used to remove a transaction rule.
 
@@ -17404,7 +17465,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransactionsSyncRequest | TransactionsSyncRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransactionsSyncResponse, RawError]:
         """The ``/transactions/sync`` endpoint retrieves transactions associated with an Item and can fetch updates
         using a cursor to track which updates have already been seen.
@@ -17460,7 +17521,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransactionsUserInsightsGetRequest | TransactionsUserInsightsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransactionsUserInsightsGetResponse, RawError]:
         """The ``/beta/transactions/user_insights/v1/get`` gets user insights for clients who have enriched data with
         ``/transactions/enrich``.
@@ -17489,7 +17550,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferAuthorizationCancelRequest | TransferAuthorizationCancelRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferAuthorizationCancelResponse, RawError]:
         """Use the ``/transfer/authorization/cancel`` endpoint to cancel a transfer authorization. A transfer
         authorization is eligible for cancellation if it has not yet been used to create a transfer.
@@ -17516,7 +17577,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferAuthorizationCreateRequest | TransferAuthorizationCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferAuthorizationCreateResponse, RawError]:
         """Use the ``/transfer/authorization/create`` endpoint to authorize a transfer. This endpoint must be called
         prior to calling ``/transfer/create``. The transfer authorization will expire if not used after one hour. (You
@@ -17583,7 +17644,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferBalanceGetRequest | TransferBalanceGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferBalanceGetResponse, RawError]:
         """(Deprecated) Use the ``/transfer/ledger/get`` endpoint to view a balance held with Plaid.
 
@@ -17609,7 +17670,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferCancelRequest | TransferCancelRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferCancelResponse, RawError]:
         """Use the ``/transfer/cancel`` endpoint to cancel a transfer. A transfer is eligible for cancellation if the
         ``cancellable`` property returned by ``/transfer/get`` is ``true``.
@@ -17636,7 +17697,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferCapabilitiesGetRequest | TransferCapabilitiesGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferCapabilitiesGetResponse, RawError]:
         """Use the ``/transfer/capabilities/get`` endpoint to determine the RTP eligibility information of an account to
         be used with Transfer. This endpoint works on all Transfer-capable Items, including those created by
@@ -17664,7 +17725,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferConfigurationGetRequest | TransferConfigurationGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferConfigurationGetResponse, RawError]:
         """Use the ``/transfer/configuration/get`` endpoint to view your transfer product configurations.
 
@@ -17690,7 +17751,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferCreateRequest | TransferCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferCreateResponse, RawError]:
         """Use the ``/transfer/create`` endpoint to initiate a new transfer. This endpoint is retryable and idempotent;
         if a transfer with the provided ``transfer_id`` has already been created, it will return the transfer details
@@ -17719,7 +17780,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferDiligenceDocumentUploadRequest | TransferDiligenceDocumentUploadRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferDiligenceDocumentUploadResponse, RawError]:
         """Third-party sender customers can use the ``/transfer/diligence/document/upload`` endpoint to upload a
         document on behalf of their end customer (i.e. originator) to Plaid. You'll need to send a request of type
@@ -17748,7 +17809,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferDiligenceSubmitRequest | TransferDiligenceSubmitRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferDiligenceSubmitResponse, RawError]:
         """Use the ``/transfer/diligence/submit`` endpoint to submit transfer diligence on behalf of the originator
         (i.e., the end customer).
@@ -17775,7 +17836,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferEventListRequest | TransferEventListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferEventListResponse, RawError]:
         """Use the ``/transfer/event/list`` endpoint to get a list of transfer events based on specified filter
         criteria.
@@ -17802,7 +17863,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferEventSyncRequest | TransferEventSyncRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferEventSyncResponse, RawError]:
         """``/transfer/event/sync`` allows you to request up to the next 500 transfer events that happened after a
         specific ``event_id``. Use the ``/transfer/event/sync`` endpoint to guarantee you have seen all transfer events.
@@ -17826,7 +17887,10 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         )
 
     async def transfer_get(
-        self, body: TransferGetRequest | TransferGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self,
+        body: TransferGetRequest | TransferGetRequestDict,
+        *,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferGetResponse, RawError]:
         """The ``/transfer/get`` endpoint fetches information about the transfer corresponding to the given
         ``transfer_id`` or ``authorization_id``. One of ``transfer_id`` or ``authorization_id`` must be populated but
@@ -17854,7 +17918,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferIntentCreateRequest | TransferIntentCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferIntentCreateResponse, RawError]:
         """Use the ``/transfer/intent/create`` endpoint to generate a transfer intent object and invoke the Transfer UI.
 
@@ -17880,7 +17944,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferIntentGetRequest | TransferIntentGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferIntentGetResponse, RawError]:
         """Use the ``/transfer/intent/get`` endpoint to retrieve more information about a transfer intent.
 
@@ -17906,7 +17970,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferLedgerDepositRequest | TransferLedgerDepositRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferLedgerDepositResponse, RawError]:
         """Use the ``/transfer/ledger/deposit`` endpoint to deposit funds into Plaid Ledger.
 
@@ -17932,7 +17996,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferLedgerDistributeRequest | TransferLedgerDistributeRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferLedgerDistributeResponse, RawError]:
         """Use the ``/transfer/ledger/distribute`` endpoint to move available balance between ledgers, if you have
         multiple. If you're a platform, you can move funds between one of your ledgers and one of your customer's
@@ -17960,7 +18024,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferLedgerEventListRequest | TransferLedgerEventListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferLedgerEventListResponse, RawError]:
         """Use the ``/transfer/ledger/event/list`` endpoint to get a list of ledger events for a specific ledger based
         on specified filter criteria.
@@ -17987,7 +18051,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferLedgerGetRequest | TransferLedgerGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferLedgerGetResponse, RawError]:
         """Use the ``/transfer/ledger/get`` endpoint to view a balance on the ledger held with Plaid.
 
@@ -18013,7 +18077,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferLedgerWithdrawRequest | TransferLedgerWithdrawRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferLedgerWithdrawResponse, RawError]:
         """Use the ``/transfer/ledger/withdraw`` endpoint to withdraw funds from a Plaid Ledger balance.
 
@@ -18039,7 +18103,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferListRequest | TransferListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferListResponse, RawError]:
         """Use the ``/transfer/list`` endpoint to see a list of all your transfers and their statuses. Results are
         paginated; use the ``count`` and ``offset`` query parameters to retrieve the desired transfers.
@@ -18066,7 +18130,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferMetricsGetRequest | TransferMetricsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferMetricsGetResponse, RawError]:
         """Use the ``/transfer/metrics/get`` endpoint to view your transfer product usage metrics.
 
@@ -18095,7 +18159,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferMigrateAccountRequest | TransferMigrateAccountRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferMigrateAccountResponse, RawError]:
         """As an alternative to adding Items via Link, you can also use the ``/transfer/migrate_account`` endpoint to
         migrate previously-verified account and routing numbers to Plaid Items. This endpoint is also required when
@@ -18128,7 +18192,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferOriginatorCreateRequest | TransferOriginatorCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferOriginatorCreateResponse, RawError]:
         """Use the ``/transfer/originator/create`` endpoint to create a new originator and return an
         ``originator_client_id``.
@@ -18155,7 +18219,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferOriginatorFundingAccountCreateRequest | TransferOriginatorFundingAccountCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferOriginatorFundingAccountCreateResponse, RawError]:
         """Use the ``/transfer/originator/funding_account/create`` endpoint to create a new funding account for the
         originator.
@@ -18184,7 +18248,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferOriginatorFundingAccountUpdateRequest | TransferOriginatorFundingAccountUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferOriginatorFundingAccountUpdateResponse, RawError]:
         """Use the ``/transfer/originator/funding_account/update`` endpoint to update the funding account associated
         with the originator.
@@ -18213,7 +18277,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferOriginatorGetRequest | TransferOriginatorGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferOriginatorGetResponse, RawError]:
         """The ``/transfer/originator/get`` endpoint gets status updates for an originator's onboarding process. This
         information is also available via the Transfer page on the Plaid dashboard.
@@ -18240,7 +18304,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferOriginatorListRequest | TransferOriginatorListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferOriginatorListResponse, RawError]:
         """The ``/transfer/originator/list`` endpoint gets status updates for all of your originators' onboarding. This
         information is also available via the Plaid dashboard.
@@ -18267,7 +18331,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferPlatformOriginatorCreateRequest | TransferPlatformOriginatorCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferPlatformOriginatorCreateResponse, RawError]:
         """Use the ``/transfer/platform/originator/create`` endpoint to submit information about the originator you are
         onboarding, including the originator's agreement to the required legal terms.
@@ -18294,7 +18358,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferPlatformPersonCreateRequest | TransferPlatformPersonCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferPlatformPersonCreateResponse, RawError]:
         """Use the ``/transfer/platform/person/create`` endpoint to create a person associated with an originator (e.g.
         beneficial owner or control person) and optionally submit personal identification information for them.
@@ -18321,7 +18385,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferPlatformRequirementSubmitRequest | TransferPlatformRequirementSubmitRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferPlatformRequirementSubmitResponse, RawError]:
         """Use the ``/transfer/platform/requirement/submit`` endpoint to submit additional onboarding information that
         is needed by Plaid to approve or decline the originator. See `Requirement type schema documentation
@@ -18352,7 +18416,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferQuestionnaireCreateRequest | TransferQuestionnaireCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferQuestionnaireCreateResponse, RawError]:
         """The ``/transfer/questionnaire/create`` endpoint generates a Plaid-hosted onboarding UI URL. Redirect the
         originator to this URL to provide their due diligence information and agree to Plaid's terms for ACH money
@@ -18380,7 +18444,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferRecurringCancelRequest | TransferRecurringCancelRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferRecurringCancelResponse, RawError]:
         """Use the ``/transfer/recurring/cancel`` endpoint to cancel a recurring transfer. A scheduled transfer that
         hasn't been submitted to the bank will be cancelled.
@@ -18407,7 +18471,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferRecurringCreateRequest | TransferRecurringCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferRecurringCreateResponse, RawError]:
         """Use the ``/transfer/recurring/create`` endpoint to initiate a new recurring transfer. This capability is not
         currently supported for Transfer UI or Transfer for Platforms (beta) customers.
@@ -18434,7 +18498,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferRecurringGetRequest | TransferRecurringGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferRecurringGetResponse, RawError]:
         """The ``/transfer/recurring/get`` fetches information about the recurring transfer corresponding to the given
         ``recurring_transfer_id``.
@@ -18461,7 +18525,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferRecurringListRequest | TransferRecurringListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferRecurringListResponse, RawError]:
         """Use the ``/transfer/recurring/list`` endpoint to see a list of all your recurring transfers and their
         statuses. Results are paginated; use the ``count`` and ``offset`` query parameters to retrieve the desired
@@ -18489,7 +18553,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferRefundCancelRequest | TransferRefundCancelRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferRefundCancelResponse, RawError]:
         """Use the ``/transfer/refund/cancel`` endpoint to cancel a refund. A refund is eligible for cancellation if it
         has not yet been submitted to the payment network.
@@ -18516,7 +18580,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferRefundCreateRequest | TransferRefundCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferRefundCreateResponse, RawError]:
         """Use the ``/transfer/refund/create`` endpoint to create a refund for a transfer. A transfer can be refunded if
         the transfer was initiated in the past 180 days.
@@ -18552,7 +18616,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferRefundGetRequest | TransferRefundGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferRefundGetResponse, RawError]:
         """The ``/transfer/refund/get`` endpoint fetches information about the refund corresponding to the given
         ``refund_id``.
@@ -18579,7 +18643,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferRepaymentListRequest | TransferRepaymentListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferRepaymentListResponse, RawError]:
         """The ``/transfer/repayment/list`` endpoint fetches repayments matching the given filters. Repayments are
         returned in reverse-chronological order (most recent first) starting at the given ``start_time``.
@@ -18606,7 +18670,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferRepaymentReturnListRequest | TransferRepaymentReturnListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferRepaymentReturnListResponse, RawError]:
         """The ``/transfer/repayment/return/list`` endpoint retrieves the set of returns that were batched together into
         the specified repayment. The sum of amounts of returns retrieved by this request equals the amount of the
@@ -18634,7 +18698,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferReturnRecoverRequest | TransferReturnRecoverRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferReturnRecoverResponse, RawError]:
         """Use the ``/transfer/return/recover`` endpoint to notify Plaid that you have recovered some or all of the loss
         on a returned guaranteed transfer.
@@ -18664,7 +18728,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferSweepGetRequest | TransferSweepGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferSweepGetResponse, RawError]:
         """The ``/transfer/sweep/get`` endpoint fetches a sweep corresponding to the given ``sweep_id``.
 
@@ -18690,7 +18754,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: TransferSweepListRequest | TransferSweepListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[TransferSweepListResponse, RawError]:
         """The ``/transfer/sweep/list`` endpoint fetches sweeps matching the given filters.
 
@@ -18716,7 +18780,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: UserAccountSessionEventSendRequest | UserAccountSessionEventSendRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[UserAccountSessionEventSendResponse, RawError]:
         """This endpoint allows sending client-specific events related to Layer sessions for analytics and tracking
         purposes.
@@ -18743,7 +18807,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: UserAccountSessionGetRequest | UserAccountSessionGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[UserAccountSessionGetResponse, RawError]:
         """This endpoint returns user permissioned account data, including identity and Item access tokens, for use with
         `Plaid Layer <https://plaid.com/docs/layer>`__. Note that end users are permitted to edit the prefilled identity
@@ -18776,7 +18840,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         body: UserCreateRequest | UserCreateRequestDict,
         *,
         plaid_new_user_api_enabled: bool | None = False,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[UserCreateResponse, RawError]:
         """For Plaid products and flows that use the user object, ``/user/create`` provides you a single token to access
         all data associated with the user. You must call this endpoint before calling ``/link/token/create`` if you are
@@ -18836,7 +18900,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: UserFinancialDataRefreshRequest | UserFinancialDataRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[UserFinancialDataRefreshResponse, RawError]:
         """``/user/financial_data/refresh`` is an optional endpoint that initiates an on-demand extraction to fetch the
         newest transactions for a User using the Financial Insights bundle. This bundle refreshes the Transactions,
@@ -18870,7 +18934,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         body: UserGetRequest | UserGetRequestDict,
         *,
         plaid_new_user_api_enabled: bool | None = False,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[UserGetResponse, RawError]:
         """Get user details using a ``user_id``. This endpoint only supports users that were created on the new user API
         flow, without a ``user_token``. For more details, see `New User APIs
@@ -18904,7 +18968,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         body: UserIdentityRemoveRequest | UserIdentityRemoveRequestDict,
         *,
         plaid_new_user_api_enabled: bool | None = False,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[UserIdentityRemoveResponse, RawError]:
         """This endpoint allows customers to explicitly purge identity/PII data provided to Plaid for a given user. This
         is not exposed to customers by default, as it is meant for special scenarios or requests, but Plaid is obligated
@@ -18937,7 +19001,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: UserItemsAssociateRequest | UserItemsAssociateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[UserItemsAssociateResponse, RawError]:
         """Associates Items to the target user. If an Item is already associated to another user, the Item will be
         disassociated with the existing user and associated to the target user. This operation supports a max of 100
@@ -18965,7 +19029,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: UserItemsGetRequest | UserItemsGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[UserItemsGetResponse, RawError]:
         """Returns Items associated with a ``user_id``, along with their corresponding statuses. Plaid associates an
         Item with a User when it has been successfully connected within a Link session initialized with that
@@ -18993,7 +19057,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: UserItemsRemoveRequest | UserItemsRemoveRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[UserItemsRemoveResponse, RawError]:
         """Removes specific Items associated with a user. It is equivalent to calling ``/item/remove`` on each Item
         individually, but supports use cases (such as Plaid Check) where access tokens are not available. All specified
@@ -19028,7 +19092,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: UserProductsTerminateRequest | UserProductsTerminateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[UserProductsTerminateResponse, RawError]:
         """Terminates user-based recurring subscription bundles or products (Financial Management, Plaid Protect, and
         CRA Cash Flow Updates) associated with a ``user_id``. After you call this endpoint, the user will no longer be
@@ -19058,7 +19122,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         body: UserRemoveRequest | UserRemoveRequestDict,
         *,
         plaid_new_user_api_enabled: bool | None = False,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[UserRemoveResponse, RawError]:
         """``/user/remove`` deletes a ``user_id`` or ``user_token`` and associated information, including any Items
         associated with the user.
@@ -19090,7 +19154,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: UserThirdPartyTokenCreateRequest | UserThirdPartyTokenCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[UserThirdPartyTokenCreateResponse, RawError]:
         """This endpoint is used to create a third-party user token. This token can be shared with and used by a
         specified third-party client to access data associated with the user through supported endpoints.
@@ -19120,7 +19184,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: UserThirdPartyTokenRemoveRequest | UserThirdPartyTokenRemoveRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[UserThirdPartyTokenRemoveResponse, RawError]:
         """This endpoint is used to delete a third-party user token. Once removed, the token can no longer be used to
         access data associated with the user.
@@ -19150,7 +19214,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: UserTransactionsRefreshRequest | UserTransactionsRefreshRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[UserTransactionsRefreshResponse, RawError]:
         """``/user/transactions/refresh`` is an optional endpoint that initiates an on-demand extraction to fetch the
         newest transactions for a User using the Transactions bundle. This bundle refreshes only the Transactions
@@ -19184,7 +19248,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         body: UserUpdateRequest | UserUpdateRequestDict,
         *,
         plaid_new_user_api_enabled: bool | None = False,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[UserUpdateResponse, RawError]:
         """This endpoint updates user information for an existing ``user_id`` or ``user_token``. If an existing
         ``user_id`` or ``user_token`` is missing fields required for a given use case (e.g. creating a Consumer Report)
@@ -19219,7 +19283,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WalletCreateRequest | WalletCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WalletCreateResponse, RawError]:
         """Create an e-wallet. The response is the newly created e-wallet object.
 
@@ -19242,7 +19306,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         )
 
     async def wallet_get(
-        self, body: WalletGetRequest | WalletGetRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self, body: WalletGetRequest | WalletGetRequestDict, *, request_options: AsyncRequestOptionsOrDict | None = None
     ) -> ApiResult[WalletGetResponse, RawError]:
         """Fetch an e-wallet. The response includes the current balance.
 
@@ -19265,7 +19329,10 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         )
 
     async def wallet_list(
-        self, body: WalletListRequest | WalletListRequestDict, *, request_options: RequestOptionsOrDict | None = None
+        self,
+        body: WalletListRequest | WalletListRequestDict,
+        *,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WalletListResponse, RawError]:
         """This endpoint lists all e-wallets in descending order of creation.
 
@@ -19291,7 +19358,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WalletTransactionExecuteRequest | WalletTransactionExecuteRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WalletTransactionExecuteResponse, RawError]:
         """Execute a transaction using the specified e-wallet. Specify the e-wallet to debit from, the counterparty to
         credit to, the idempotency key to prevent duplicate transactions, the amount and reference for the transaction.
@@ -19319,7 +19386,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WalletTransactionGetRequest | WalletTransactionGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WalletTransactionGetResponse, RawError]:
         """Fetch a specific e-wallet transaction
 
@@ -19345,7 +19412,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WalletTransactionListRequest | WalletTransactionListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WalletTransactionListResponse, RawError]:
         """This endpoint lists the latest transactions of the specified e-wallet. Transactions are returned in
         descending order by the ``created_at`` time.
@@ -19372,7 +19439,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningEntityCreateRequest | WatchlistScreeningEntityCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningEntityCreateResponse, RawError]:
         """Create a new entity watchlist screening to check your customer against watchlists defined in the associated
         entity watchlist program. If your associated program has ongoing screening enabled, this is the profile
@@ -19400,7 +19467,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningEntityGetRequest | WatchlistScreeningEntityGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningEntityGetResponse, RawError]:
         """Retrieve an entity watchlist screening.
 
@@ -19426,7 +19493,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningEntityHistoryListRequest | WatchlistScreeningEntityHistoryListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningEntityHistoryListResponse, RawError]:
         """List all changes to the entity watchlist screening in reverse-chronological order. If the watchlist screening
         has not been edited, no history will be returned.
@@ -19455,7 +19522,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningEntityHitListRequest | WatchlistScreeningEntityHitListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningEntityHitListResponse, RawError]:
         """List all hits for the entity watchlist screening.
 
@@ -19481,7 +19548,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningEntityListRequest | WatchlistScreeningEntityListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningEntityListResponse, RawError]:
         """List all entity screenings.
 
@@ -19507,7 +19574,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningEntityProgramGetRequest | WatchlistScreeningEntityProgramGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningEntityProgramGetResponse, RawError]:
         """Get an entity watchlist screening program
 
@@ -19535,7 +19602,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningEntityProgramListRequest | WatchlistScreeningEntityProgramListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningEntityProgramListResponse, RawError]:
         """List all entity watchlist screening programs
 
@@ -19563,7 +19630,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningEntityReviewCreateRequest | WatchlistScreeningEntityReviewCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningEntityReviewCreateResponse, RawError]:
         """Create a review for an entity watchlist screening. Reviews are compliance reports created by users in your
         organization regarding the relevance of potential hits found by Plaid.
@@ -19592,7 +19659,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningEntityReviewListRequest | WatchlistScreeningEntityReviewListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningEntityReviewListResponse, RawError]:
         """List all reviews for a particular entity watchlist screening. Reviews are compliance reports created by users
         in your organization regarding the relevance of potential hits found by Plaid.
@@ -19621,7 +19688,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningEntityUpdateRequest | WatchlistScreeningEntityUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningEntityUpdateResponse, RawError]:
         """Update an entity watchlist screening.
 
@@ -19647,7 +19714,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningIndividualCreateRequest | WatchlistScreeningIndividualCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningIndividualCreateResponse, RawError]:
         """Create a new Watchlist Screening to check your customer against watchlists defined in the associated
         Watchlist Program. If your associated program has ongoing screening enabled, this is the profile information
@@ -19677,7 +19744,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningIndividualGetRequest | WatchlistScreeningIndividualGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningIndividualGetResponse, RawError]:
         """Retrieve a previously created individual watchlist screening
 
@@ -19703,7 +19770,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningIndividualHistoryListRequest | WatchlistScreeningIndividualHistoryListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningIndividualHistoryListResponse, RawError]:
         """List all changes to the individual watchlist screening in reverse-chronological order. If the watchlist
         screening has not been edited, no history will be returned.
@@ -19732,7 +19799,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningIndividualHitListRequest | WatchlistScreeningIndividualHitListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningIndividualHitListResponse, RawError]:
         """List all hits found by Plaid for a particular individual watchlist screening.
 
@@ -19760,7 +19827,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningIndividualListRequest | WatchlistScreeningIndividualListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningIndividualListResponse, RawError]:
         """List previously created watchlist screenings for individuals
 
@@ -19786,7 +19853,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningIndividualProgramGetRequest | WatchlistScreeningIndividualProgramGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningIndividualProgramGetResponse, RawError]:
         """Get an individual watchlist screening program
 
@@ -19814,7 +19881,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningIndividualProgramListRequest | WatchlistScreeningIndividualProgramListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningIndividualProgramListResponse, RawError]:
         """List all individual watchlist screening programs
 
@@ -19842,7 +19909,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningIndividualReviewCreateRequest | WatchlistScreeningIndividualReviewCreateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningIndividualReviewCreateResponse, RawError]:
         """Create a review for the individual watchlist screening. Reviews are compliance reports created by users in
         your organization regarding the relevance of potential hits found by Plaid.
@@ -19871,7 +19938,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningIndividualReviewListRequest | WatchlistScreeningIndividualReviewListRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningIndividualReviewListResponse, RawError]:
         """List all reviews for the individual watchlist screening.
 
@@ -19899,7 +19966,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WatchlistScreeningIndividualUpdateRequest | WatchlistScreeningIndividualUpdateRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WatchlistScreeningIndividualUpdateResponse, RawError]:
         """Update a specific individual watchlist screening. This endpoint can be used to add additional customer
         information, correct outdated information, add a reference id, assign the individual to a reviewer, and update
@@ -19930,7 +19997,7 @@ class AsyncApiWithRawResponse(SecuredRawResponse[AsyncRawClient, Server, AsyncAu
         self,
         body: WebhookVerificationKeyGetRequest | WebhookVerificationKeyGetRequestDict,
         *,
-        request_options: RequestOptionsOrDict | None = None,
+        request_options: AsyncRequestOptionsOrDict | None = None,
     ) -> ApiResult[WebhookVerificationKeyGetResponse, RawError]:
         """Plaid signs all outgoing webhooks and provides JSON Web Tokens (JWTs) so that you can verify the authenticity
         of any incoming webhooks to your application. A message signature is included in the ``Plaid-Verification``

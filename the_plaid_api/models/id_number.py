@@ -4,7 +4,7 @@ from pydantic import Field
 from typing_extensions import TypedDict
 
 from ..core import SdkBaseModel
-from .enums.idnumber_type import IdnumberTypeOrStr
+from .enums.id_number_type import IdNumberTypeOrStr
 
 
 class IdNumber(SdkBaseModel):
@@ -13,7 +13,7 @@ class IdNumber(SdkBaseModel):
     specific format requirements by ID type, see `Input Validation Rules
     <https://plaid.com/docs/identity-verification/hybrid-input-validation/#id-numbers>`__."""
 
-    type_: IdnumberTypeOrStr = Field(alias="type")
+    type_: IdNumberTypeOrStr = Field(alias="type")
     """A globally unique and human readable ID type, specific to the country and document category. For more context on
     this field, see `Input Validation Rules
     <https://plaid.com/docs/identity-verification/hybrid-input-validation/#id-numbers>`__."""
@@ -21,4 +21,4 @@ class IdNumber(SdkBaseModel):
 
 class IdNumberDict(TypedDict):
     value: str
-    type_: IdnumberTypeOrStr
+    type_: IdNumberTypeOrStr

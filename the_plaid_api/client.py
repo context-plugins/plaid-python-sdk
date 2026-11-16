@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Sequence
 from functools import cached_property
 from types import TracebackType
 from typing import Any
@@ -21,14 +22,17 @@ from .core import (
     ClientCredentialsTokenSource,
     HttpClient,
     Httpx2Client,
+    LoggingOptionsOrDict,
     OAuth2Scheme,
     RawClient,
     RawError,
     RequestOptionsOrDict,
     RetryOptionsOrDict,
+    SdkHook,
+    SdkHooksDict,
     SecuredRawResponse,
     TokenSource,
-    client_secret_basic,
+    client_secret_post,
     empty_response,
     json_body,
     json_decoder,
@@ -72,7 +76,7 @@ from .models.asset_report_freddie_get_request import AssetReportFreddieGetReques
 from .models.asset_report_freddie_get_response import AssetReportFreddieGetResponse
 from .models.asset_report_get_request import AssetReportGetRequest, AssetReportGetRequestDict
 from .models.asset_report_get_response import AssetReportGetResponse
-from .models.asset_report_pdfget_request import AssetReportPdfgetRequest, AssetReportPdfgetRequestDict
+from .models.asset_report_pdf_get_request import AssetReportPdfGetRequest, AssetReportPdfGetRequestDict
 from .models.asset_report_refresh_request import AssetReportRefreshRequest, AssetReportRefreshRequestDict
 from .models.asset_report_refresh_response import AssetReportRefreshResponse
 from .models.asset_report_remove_request import AssetReportRemoveRequest, AssetReportRemoveRequestDict
@@ -187,7 +191,7 @@ from .models.cashflow_report_transactions_get_response import CashflowReportTran
 from .models.categories_get_response import CategoriesGetResponse
 from .models.consent_events_get_request import ConsentEventsGetRequest, ConsentEventsGetRequestDict
 from .models.consent_events_get_response import ConsentEventsGetResponse
-from .models.consumer_report_pdfget_request import ConsumerReportPdfgetRequest, ConsumerReportPdfgetRequestDict
+from .models.consumer_report_pdf_get_request import ConsumerReportPdfGetRequest, ConsumerReportPdfGetRequestDict
 from .models.cra_check_report_base_report_get_request import (
     CraCheckReportBaseReportGetRequest,
     CraCheckReportBaseReportGetRequestDict,
@@ -220,7 +224,7 @@ from .models.cra_check_report_partner_insights_get_request import (
     CraCheckReportPartnerInsightsGetRequestDict,
 )
 from .models.cra_check_report_partner_insights_get_response import CraCheckReportPartnerInsightsGetResponse
-from .models.cra_check_report_pdfget_request import CraCheckReportPdfgetRequest, CraCheckReportPdfgetRequestDict
+from .models.cra_check_report_pdf_get_request import CraCheckReportPdfGetRequest, CraCheckReportPdfGetRequestDict
 from .models.cra_check_report_verification_get_request import (
     CraCheckReportVerificationGetRequest,
     CraCheckReportVerificationGetRequestDict,
@@ -241,6 +245,7 @@ from .models.cra_loans_applications_register_request import (
     CraLoansApplicationsRegisterRequestDict,
 )
 from .models.cra_loans_applications_register_response import CraLoansApplicationsRegisterResponse
+from .models.cra_loans_register_request import CraLoansRegisterRequest, CraLoansRegisterRequestDict
 from .models.cra_loans_register_response import CraLoansRegisterResponse
 from .models.cra_loans_unregister_request import CraLoansUnregisterRequest, CraLoansUnregisterRequestDict
 from .models.cra_loans_update_request import CraLoansUpdateRequest, CraLoansUpdateRequestDict
@@ -264,7 +269,6 @@ from .models.cra_partner_insights_get_request import CraPartnerInsightsGetReques
 from .models.cra_partner_insights_get_response import CraPartnerInsightsGetResponse
 from .models.cra_report_get_request import CraReportGetRequest, CraReportGetRequestDict
 from .models.cra_report_get_response import CraReportGetResponse
-from .models.craloans_register_request import CraloansRegisterRequest, CraloansRegisterRequestDict
 from .models.credit_audit_copy_token_create_request import (
     CreditAuditCopyTokenCreateRequest,
     CreditAuditCopyTokenCreateRequestDict,
@@ -287,7 +291,7 @@ from .models.credit_bank_employment_get_request import (
 from .models.credit_bank_employment_get_response import CreditBankEmploymentGetResponse
 from .models.credit_bank_income_get_request import CreditBankIncomeGetRequest, CreditBankIncomeGetRequestDict
 from .models.credit_bank_income_get_response import CreditBankIncomeGetResponse
-from .models.credit_bank_income_pdfget_request import CreditBankIncomePdfgetRequest, CreditBankIncomePdfgetRequestDict
+from .models.credit_bank_income_pdf_get_request import CreditBankIncomePdfGetRequest, CreditBankIncomePdfGetRequestDict
 from .models.credit_bank_income_refresh_request import (
     CreditBankIncomeRefreshRequest,
     CreditBankIncomeRefreshRequestDict,
@@ -335,7 +339,7 @@ from .models.credit_payroll_income_risk_signals_get_response import CreditPayrol
 from .models.credit_relay_create_request import CreditRelayCreateRequest, CreditRelayCreateRequestDict
 from .models.credit_relay_create_response import CreditRelayCreateResponse
 from .models.credit_relay_get_request import CreditRelayGetRequest, CreditRelayGetRequestDict
-from .models.credit_relay_pdfget_request import CreditRelayPdfgetRequest, CreditRelayPdfgetRequestDict
+from .models.credit_relay_pdf_get_request import CreditRelayPdfGetRequest, CreditRelayPdfGetRequestDict
 from .models.credit_relay_refresh_request import CreditRelayRefreshRequest, CreditRelayRefreshRequestDict
 from .models.credit_relay_refresh_response import CreditRelayRefreshResponse
 from .models.credit_relay_remove_request import CreditRelayRemoveRequest, CreditRelayRemoveRequestDict
@@ -354,11 +358,11 @@ from .models.employment_verification_get_request import (
 )
 from .models.employment_verification_get_response import EmploymentVerificationGetResponse
 from .models.enums.fdx_consent_grant_status import FdxConsentGrantStatusOrStr
+from .models.fdx_consent_grant import FdxConsentGrant
+from .models.fdx_consent_revocation import FdxConsentRevocation, FdxConsentRevocationDict
+from .models.fdx_consent_revocations import FdxConsentRevocations
 from .models.fdx_notification_entity import FdxNotificationEntity, FdxNotificationEntityDict
-from .models.fdxconsent_grant import FdxconsentGrant
-from .models.fdxconsent_revocation import FdxconsentRevocation, FdxconsentRevocationDict
-from .models.fdxconsent_revocations import FdxconsentRevocations
-from .models.fdxrecipient_metadata import FdxrecipientMetadata
+from .models.fdx_recipient_metadata import FdxRecipientMetadata
 from .models.get_consents_response import GetConsentsResponse
 from .models.get_recipients_response import GetRecipientsResponse
 from .models.identity_documents_uploads_get_request import (
@@ -480,34 +484,34 @@ from .models.link_delivery_create_request import LinkDeliveryCreateRequest, Link
 from .models.link_delivery_create_response import LinkDeliveryCreateResponse
 from .models.link_delivery_get_request import LinkDeliveryGetRequest, LinkDeliveryGetRequestDict
 from .models.link_delivery_get_response import LinkDeliveryGetResponse
-from .models.link_oauth_correlation_id_exchange_request import (
-    LinkOauthCorrelationIdExchangeRequest,
-    LinkOauthCorrelationIdExchangeRequestDict,
+from .models.link_o_auth_correlation_id_exchange_request import (
+    LinkOAuthCorrelationIdExchangeRequest,
+    LinkOAuthCorrelationIdExchangeRequestDict,
 )
-from .models.link_oauth_correlation_id_exchange_response import LinkOauthCorrelationIdExchangeResponse
+from .models.link_o_auth_correlation_id_exchange_response import LinkOAuthCorrelationIdExchangeResponse
 from .models.link_token_create_request import LinkTokenCreateRequest, LinkTokenCreateRequestDict
 from .models.link_token_create_response import LinkTokenCreateResponse
 from .models.link_token_get_request import LinkTokenGetRequest, LinkTokenGetRequestDict
 from .models.link_token_get_response import LinkTokenGetResponse
 from .models.network_status_get_request import NetworkStatusGetRequest, NetworkStatusGetRequestDict
 from .models.network_status_get_response import NetworkStatusGetResponse
-from .models.oauth_introspect_request import OauthIntrospectRequest, OauthIntrospectRequestDict
-from .models.oauth_introspect_response import OauthIntrospectResponse
-from .models.oauth_revoke_request import OauthRevokeRequest, OauthRevokeRequestDict
-from .models.oauth_revoke_response import OauthRevokeResponse
-from .models.oauth_token_request import OauthTokenRequest, OauthTokenRequestDict
-from .models.oauth_token_response import OauthTokenResponse
+from .models.o_auth_introspect_request import OAuthIntrospectRequest, OAuthIntrospectRequestDict
+from .models.o_auth_introspect_response import OAuthIntrospectResponse
+from .models.o_auth_revoke_request import OAuthRevokeRequest, OAuthRevokeRequestDict
+from .models.o_auth_revoke_response import OAuthRevokeResponse
+from .models.o_auth_token_request import OAuthTokenRequest, OAuthTokenRequestDict
+from .models.o_auth_token_response import OAuthTokenResponse
 from .models.partner_customer_create_request import PartnerCustomerCreateRequest, PartnerCustomerCreateRequestDict
 from .models.partner_customer_create_response import PartnerCustomerCreateResponse
 from .models.partner_customer_enable_request import PartnerCustomerEnableRequest, PartnerCustomerEnableRequestDict
 from .models.partner_customer_enable_response import PartnerCustomerEnableResponse
 from .models.partner_customer_get_request import PartnerCustomerGetRequest, PartnerCustomerGetRequestDict
 from .models.partner_customer_get_response import PartnerCustomerGetResponse
-from .models.partner_customer_oauth_institutions_get_request import (
-    PartnerCustomerOauthInstitutionsGetRequest,
-    PartnerCustomerOauthInstitutionsGetRequestDict,
+from .models.partner_customer_o_auth_institutions_get_request import (
+    PartnerCustomerOAuthInstitutionsGetRequest,
+    PartnerCustomerOAuthInstitutionsGetRequestDict,
 )
-from .models.partner_customer_oauth_institutions_get_response import PartnerCustomerOauthInstitutionsGetResponse
+from .models.partner_customer_o_auth_institutions_get_response import PartnerCustomerOAuthInstitutionsGetResponse
 from .models.partner_customer_remove_request import PartnerCustomerRemoveRequest, PartnerCustomerRemoveRequestDict
 from .models.partner_customer_remove_response import PartnerCustomerRemoveResponse
 from .models.payment_initiation_consent_create_request import (
@@ -1146,7 +1150,6 @@ from .models.webhook_verification_key_get_request import (
 from .models.webhook_verification_key_get_response import WebhookVerificationKeyGetResponse
 from .server.environment import Environment
 from .server.server import Server
-from .server.server_config import ServerConfigOrDict
 
 
 class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
@@ -1154,9 +1157,11 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
         self,
         *,
         environment: Environment = "production",
+        base_url: str | None = None,
         timeout: float = DEFAULT_TIMEOUT,
-        server_config: ServerConfigOrDict | None = None,
         retry_options: int | RetryOptionsOrDict | None = None,
+        logging_options: LoggingOptionsOrDict | None = None,
+        hooks: Sequence[SdkHook] | SdkHooksDict | None = None,
         custom_http_client: HttpClient | None = None,
         client_id: str | None = None,
         secret: str | None = None,
@@ -1165,11 +1170,17 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
         oauth2_token_source: TokenSource[ClientCredentials[Oauth2Scope]] | None = None,
     ) -> None:
         super().__init__(
-            environment=environment, timeout=timeout, server_config=server_config, retry_options=retry_options
+            environment=environment,
+            base_url=base_url,
+            timeout=timeout,
+            retry_options=retry_options,
+            logging_options=logging_options,
         )
         self._raw_client = RawClient(
             http_client=custom_http_client if custom_http_client is not None else Httpx2Client(timeout=timeout),
             retry_options=self._retry_options,
+            logging_options=self._logging_options,
+            hooks=hooks if hooks is not None else [],
             global_headers=[
                 param[str]("User-Agent", "ThePlaidApiClient/0.1.0 Python"),
                 param[str]("X-APIMatic-Lang", "Python"),
@@ -1191,8 +1202,8 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
                         if oauth2_token_source is not None
                         else ClientCredentialsTokenSource[Oauth2Scope](
                             client=self._raw_client,
-                            token_url=self._server.access_token_server("/token"),
-                            placement=client_secret_basic,
+                            token_url=self._server.default("/oauth/token"),
+                            placement=client_secret_post,
                         )
                     ),
                 )
@@ -1499,7 +1510,7 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
     def asset_report_pdf_get(
         self,
-        body: AssetReportPdfgetRequest | AssetReportPdfgetRequestDict,
+        body: AssetReportPdfGetRequest | AssetReportPdfGetRequestDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
     ) -> None:
@@ -2497,7 +2508,7 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
     def consumer_report_pdf_get(
         self,
-        body: ConsumerReportPdfgetRequest | ConsumerReportPdfgetRequestDict,
+        body: ConsumerReportPdfGetRequest | ConsumerReportPdfGetRequestDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
     ) -> None:
@@ -2703,7 +2714,7 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
     def cra_check_report_pdf_get(
         self,
-        body: CraCheckReportPdfgetRequest | CraCheckReportPdfgetRequestDict,
+        body: CraCheckReportPdfGetRequest | CraCheckReportPdfGetRequestDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
     ) -> None:
@@ -2822,7 +2833,7 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
     def cra_loans_register(
         self,
-        body: CraloansRegisterRequest | CraloansRegisterRequestDict,
+        body: CraLoansRegisterRequest | CraLoansRegisterRequestDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
     ) -> CraLoansRegisterResponse:
@@ -3127,7 +3138,7 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
     def credit_bank_income_pdf_get(
         self,
-        body: CreditBankIncomePdfgetRequest | CreditBankIncomePdfgetRequestDict,
+        body: CreditBankIncomePdfGetRequest | CreditBankIncomePdfGetRequestDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
     ) -> None:
@@ -3440,7 +3451,7 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
     def credit_relay_pdf_get(
         self,
-        body: CreditRelayPdfgetRequest | CreditRelayPdfgetRequestDict,
+        body: CreditRelayPdfGetRequest | CreditRelayPdfGetRequestDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
     ) -> None:
@@ -3657,7 +3668,7 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
     def fdx_consents_get(
         self, consent_id: str, *, request_options: RequestOptionsOrDict | None = None
-    ) -> FdxconsentGrant:
+    ) -> FdxConsentGrant:
         """Returns a consent grant by its identifier
 
         Args:
@@ -3700,7 +3711,7 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
     def fdx_consents_revocation_get(
         self, consent_id: str, *, request_options: RequestOptionsOrDict | None = None
-    ) -> FdxconsentRevocations:
+    ) -> FdxConsentRevocations:
         """Returns the revocation history of a consent grant
 
         Args:
@@ -3718,7 +3729,7 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
     def fdx_consents_revoke(
         self,
         consent_id: str,
-        body: FdxconsentRevocation | FdxconsentRevocationDict,
+        body: FdxConsentRevocation | FdxConsentRevocationDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
     ) -> None:
@@ -3763,7 +3774,7 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
         *,
         oauth_state_id: str | None = None,
         request_options: RequestOptionsOrDict | None = None,
-    ) -> FdxrecipientMetadata:
+    ) -> FdxRecipientMetadata:
         """Get a specific recipient
 
         Args:
@@ -4773,10 +4784,10 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
     def link_oauth_correlation_id_exchange(
         self,
-        body: LinkOauthCorrelationIdExchangeRequest | LinkOauthCorrelationIdExchangeRequestDict,
+        body: LinkOAuthCorrelationIdExchangeRequest | LinkOAuthCorrelationIdExchangeRequestDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
-    ) -> LinkOauthCorrelationIdExchangeResponse:
+    ) -> LinkOAuthCorrelationIdExchangeResponse:
         """Exchange an OAuth ``link_correlation_id`` for the corresponding ``link_token``. The ``link_correlation_id``
         is only available for ``payment_initiation`` products and is provided to the client via the OAuth
         ``redirect_uri`` as a query parameter. The ``link_correlation_id`` is ephemeral and expires in a brief period,
@@ -4881,10 +4892,10 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
     def oauth_introspect(
         self,
-        body: OauthIntrospectRequest | OauthIntrospectRequestDict,
+        body: OAuthIntrospectRequest | OAuthIntrospectRequestDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
-    ) -> OauthIntrospectResponse:
+    ) -> OAuthIntrospectResponse:
         """``/oauth/introspect`` returns metadata about an access token or refresh token.
 
         Note: This endpoint supports ``Content-Type: application/x-www-form-urlencoded`` as well as JSON. The fields for
@@ -4903,8 +4914,8 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
         return unwrap(self.with_raw_response.oauth_introspect(body, request_options=request_options))
 
     def oauth_revoke(
-        self, body: OauthRevokeRequest | OauthRevokeRequestDict, *, request_options: RequestOptionsOrDict | None = None
-    ) -> OauthRevokeResponse:
+        self, body: OAuthRevokeRequest | OAuthRevokeRequestDict, *, request_options: RequestOptionsOrDict | None = None
+    ) -> OAuthRevokeResponse:
         """``/oauth/revoke`` revokes an access or refresh token, preventing any further use. If a refresh token is
         revoked, all access and refresh tokens derived from it are also revoked, including exchanged tokens.
 
@@ -4924,8 +4935,8 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
         return unwrap(self.with_raw_response.oauth_revoke(body, request_options=request_options))
 
     def oauth_token(
-        self, body: OauthTokenRequest | OauthTokenRequestDict, *, request_options: RequestOptionsOrDict | None = None
-    ) -> OauthTokenResponse:
+        self, body: OAuthTokenRequest | OAuthTokenRequestDict, *, request_options: RequestOptionsOrDict | None = None
+    ) -> OAuthTokenResponse:
         """``/oauth/token`` issues an access token and refresh token depending on the ``grant_type`` provided. This
         endpoint supports ``Content-Type: application/x-www-form-urlencoded`` as well as JSON. The fields for the form
         are equivalent to the fields for JSON and conform to the OAuth 2.0 specification.
@@ -5009,10 +5020,10 @@ class ThePlaidApiClient(BaseThePlaidApiClient[RawClient]):
 
     def partner_customer_oauth_institutions_get(
         self,
-        body: PartnerCustomerOauthInstitutionsGetRequest | PartnerCustomerOauthInstitutionsGetRequestDict,
+        body: PartnerCustomerOAuthInstitutionsGetRequest | PartnerCustomerOAuthInstitutionsGetRequestDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
-    ) -> PartnerCustomerOauthInstitutionsGetResponse:
+    ) -> PartnerCustomerOAuthInstitutionsGetResponse:
         """The ``/partner/customer/oauth_institutions/get`` endpoint is used by reseller partners to retrieve
         OAuth-institution registration information about a single end customer. To learn how to set up a webhook to
         listen to status update events, visit the `reseller documentation
@@ -9852,7 +9863,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
     def asset_report_pdf_get(
         self,
-        body: AssetReportPdfgetRequest | AssetReportPdfgetRequestDict,
+        body: AssetReportPdfGetRequest | AssetReportPdfGetRequestDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
     ) -> ApiResult[None, RawError]:
@@ -9878,7 +9889,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             http_method="POST",
             url_template=self._server.default("/asset_report/pdf/get"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[AssetReportPdfgetRequest | AssetReportPdfgetRequestDict](body),
+            body=json_body[AssetReportPdfGetRequest | AssetReportPdfGetRequestDict](body),
             auth_scheme=AllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
             decoder=empty_response,
             error_mapper=raw_error_response,
@@ -11095,7 +11106,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
     def consumer_report_pdf_get(
         self,
-        body: ConsumerReportPdfgetRequest | ConsumerReportPdfgetRequestDict,
+        body: ConsumerReportPdfGetRequest | ConsumerReportPdfGetRequestDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
     ) -> ApiResult[None, RawError]:
@@ -11114,7 +11125,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             http_method="POST",
             url_template=self._server.default("/consumer_report/pdf/get"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[ConsumerReportPdfgetRequest | ConsumerReportPdfgetRequestDict](body),
+            body=json_body[ConsumerReportPdfGetRequest | ConsumerReportPdfGetRequestDict](body),
             auth_scheme=AllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
             decoder=empty_response,
             error_mapper=raw_error_response,
@@ -11353,7 +11364,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
     def cra_check_report_pdf_get(
         self,
-        body: CraCheckReportPdfgetRequest | CraCheckReportPdfgetRequestDict,
+        body: CraCheckReportPdfGetRequest | CraCheckReportPdfGetRequestDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
     ) -> ApiResult[None, RawError]:
@@ -11372,7 +11383,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             http_method="POST",
             url_template=self._server.default("/cra/check_report/pdf/get"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[CraCheckReportPdfgetRequest | CraCheckReportPdfgetRequestDict](body),
+            body=json_body[CraCheckReportPdfGetRequest | CraCheckReportPdfGetRequestDict](body),
             auth_scheme=AllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
             decoder=empty_response,
             error_mapper=raw_error_response,
@@ -11500,7 +11511,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
     def cra_loans_register(
         self,
-        body: CraloansRegisterRequest | CraloansRegisterRequestDict,
+        body: CraLoansRegisterRequest | CraLoansRegisterRequestDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
     ) -> ApiResult[CraLoansRegisterResponse, RawError]:
@@ -11517,7 +11528,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             http_method="POST",
             url_template=self._server.default("/cra/loans/register"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[CraloansRegisterRequest | CraloansRegisterRequestDict](body),
+            body=json_body[CraLoansRegisterRequest | CraLoansRegisterRequestDict](body),
             auth_scheme=AllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
             decoder=json_decoder[CraLoansRegisterResponse],
             error_mapper=raw_error_response,
@@ -11891,7 +11902,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
     def credit_bank_income_pdf_get(
         self,
-        body: CreditBankIncomePdfgetRequest | CreditBankIncomePdfgetRequestDict,
+        body: CreditBankIncomePdfGetRequest | CreditBankIncomePdfGetRequestDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
     ) -> ApiResult[None, RawError]:
@@ -11910,7 +11921,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             http_method="POST",
             url_template=self._server.default("/credit/bank_income/pdf/get"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[CreditBankIncomePdfgetRequest | CreditBankIncomePdfgetRequestDict](body),
+            body=json_body[CreditBankIncomePdfGetRequest | CreditBankIncomePdfGetRequestDict](body),
             auth_scheme=AllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
             decoder=empty_response,
             error_mapper=raw_error_response,
@@ -12282,7 +12293,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
     def credit_relay_pdf_get(
         self,
-        body: CreditRelayPdfgetRequest | CreditRelayPdfgetRequestDict,
+        body: CreditRelayPdfGetRequest | CreditRelayPdfGetRequestDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
     ) -> ApiResult[None, RawError]:
@@ -12310,7 +12321,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             http_method="POST",
             url_template=self._server.default("/credit/relay/pdf/get"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[CreditRelayPdfgetRequest | CreditRelayPdfgetRequestDict](body),
+            body=json_body[CreditRelayPdfGetRequest | CreditRelayPdfGetRequestDict](body),
             auth_scheme=AllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
             decoder=empty_response,
             error_mapper=raw_error_response,
@@ -12553,7 +12564,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
     def fdx_consents_get(
         self, consent_id: str, *, request_options: RequestOptionsOrDict | None = None
-    ) -> ApiResult[FdxconsentGrant, RawError]:
+    ) -> ApiResult[FdxConsentGrant, RawError]:
         """Returns a consent grant by its identifier
 
         Args:
@@ -12568,7 +12579,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             url_template=self._server.default("/fdx/consents/{consentId}"),
             path_params=[param[str]("consentId", consent_id)],
             auth_scheme=AllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[FdxconsentGrant],
+            decoder=json_decoder[FdxConsentGrant],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12606,7 +12617,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
     def fdx_consents_revocation_get(
         self, consent_id: str, *, request_options: RequestOptionsOrDict | None = None
-    ) -> ApiResult[FdxconsentRevocations, RawError]:
+    ) -> ApiResult[FdxConsentRevocations, RawError]:
         """Returns the revocation history of a consent grant
 
         Args:
@@ -12621,7 +12632,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             url_template=self._server.default("/fdx/consents/{consentId}/revocation"),
             path_params=[param[str]("consentId", consent_id)],
             auth_scheme=AllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[FdxconsentRevocations],
+            decoder=json_decoder[FdxConsentRevocations],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -12629,7 +12640,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
     def fdx_consents_revoke(
         self,
         consent_id: str,
-        body: FdxconsentRevocation | FdxconsentRevocationDict,
+        body: FdxConsentRevocation | FdxConsentRevocationDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
     ) -> ApiResult[None, RawError]:
@@ -12648,7 +12659,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             url_template=self._server.default("/fdx/consents/{consentId}/revocation"),
             path_params=[param[str]("consentId", consent_id)],
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[FdxconsentRevocation | FdxconsentRevocationDict](body),
+            body=json_body[FdxConsentRevocation | FdxConsentRevocationDict](body),
             auth_scheme=AllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
             decoder=empty_response,
             error_mapper=raw_error_response,
@@ -12687,7 +12698,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
         *,
         oauth_state_id: str | None = None,
         request_options: RequestOptionsOrDict | None = None,
-    ) -> ApiResult[FdxrecipientMetadata, RawError]:
+    ) -> ApiResult[FdxRecipientMetadata, RawError]:
         """Get a specific recipient
 
         Args:
@@ -12704,7 +12715,7 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             path_params=[param[str]("recipientId", recipient_id)],
             headers=[param[str | None]("OAUTH-STATE-ID", oauth_state_id)],
             auth_scheme=AllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[FdxrecipientMetadata],
+            decoder=json_decoder[FdxRecipientMetadata],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -13939,10 +13950,10 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
     def link_oauth_correlation_id_exchange(
         self,
-        body: LinkOauthCorrelationIdExchangeRequest | LinkOauthCorrelationIdExchangeRequestDict,
+        body: LinkOAuthCorrelationIdExchangeRequest | LinkOAuthCorrelationIdExchangeRequestDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
-    ) -> ApiResult[LinkOauthCorrelationIdExchangeResponse, RawError]:
+    ) -> ApiResult[LinkOAuthCorrelationIdExchangeResponse, RawError]:
         """Exchange an OAuth ``link_correlation_id`` for the corresponding ``link_token``. The ``link_correlation_id``
         is only available for ``payment_initiation`` products and is provided to the client via the OAuth
         ``redirect_uri`` as a query parameter. The ``link_correlation_id`` is ephemeral and expires in a brief period,
@@ -13959,9 +13970,9 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             http_method="POST",
             url_template=self._server.default("/link/oauth/correlation_id/exchange"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[LinkOauthCorrelationIdExchangeRequest | LinkOauthCorrelationIdExchangeRequestDict](body),
+            body=json_body[LinkOAuthCorrelationIdExchangeRequest | LinkOAuthCorrelationIdExchangeRequestDict](body),
             auth_scheme=AllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[LinkOauthCorrelationIdExchangeResponse],
+            decoder=json_decoder[LinkOAuthCorrelationIdExchangeResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14071,10 +14082,10 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
     def oauth_introspect(
         self,
-        body: OauthIntrospectRequest | OauthIntrospectRequestDict,
+        body: OAuthIntrospectRequest | OAuthIntrospectRequestDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
-    ) -> ApiResult[OauthIntrospectResponse, RawError]:
+    ) -> ApiResult[OAuthIntrospectResponse, RawError]:
         """``/oauth/introspect`` returns metadata about an access token or refresh token.
 
         Note: This endpoint supports ``Content-Type: application/x-www-form-urlencoded`` as well as JSON. The fields for
@@ -14091,16 +14102,16 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             http_method="POST",
             url_template=self._server.default("/oauth/introspect"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[OauthIntrospectRequest | OauthIntrospectRequestDict](body),
+            body=json_body[OAuthIntrospectRequest | OAuthIntrospectRequestDict](body),
             auth_scheme=AllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[OauthIntrospectResponse],
+            decoder=json_decoder[OAuthIntrospectResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
 
     def oauth_revoke(
-        self, body: OauthRevokeRequest | OauthRevokeRequestDict, *, request_options: RequestOptionsOrDict | None = None
-    ) -> ApiResult[OauthRevokeResponse, RawError]:
+        self, body: OAuthRevokeRequest | OAuthRevokeRequestDict, *, request_options: RequestOptionsOrDict | None = None
+    ) -> ApiResult[OAuthRevokeResponse, RawError]:
         """``/oauth/revoke`` revokes an access or refresh token, preventing any further use. If a refresh token is
         revoked, all access and refresh tokens derived from it are also revoked, including exchanged tokens.
 
@@ -14118,16 +14129,16 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             http_method="POST",
             url_template=self._server.default("/oauth/revoke"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[OauthRevokeRequest | OauthRevokeRequestDict](body),
+            body=json_body[OAuthRevokeRequest | OAuthRevokeRequestDict](body),
             auth_scheme=AllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[OauthRevokeResponse],
+            decoder=json_decoder[OAuthRevokeResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
 
     def oauth_token(
-        self, body: OauthTokenRequest | OauthTokenRequestDict, *, request_options: RequestOptionsOrDict | None = None
-    ) -> ApiResult[OauthTokenResponse, RawError]:
+        self, body: OAuthTokenRequest | OAuthTokenRequestDict, *, request_options: RequestOptionsOrDict | None = None
+    ) -> ApiResult[OAuthTokenResponse, RawError]:
         """``/oauth/token`` issues an access token and refresh token depending on the ``grant_type`` provided. This
         endpoint supports ``Content-Type: application/x-www-form-urlencoded`` as well as JSON. The fields for the form
         are equivalent to the fields for JSON and conform to the OAuth 2.0 specification.
@@ -14143,9 +14154,9 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             http_method="POST",
             url_template=self._server.default("/oauth/token"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[OauthTokenRequest | OauthTokenRequestDict](body),
+            body=json_body[OAuthTokenRequest | OAuthTokenRequestDict](body),
             auth_scheme=AllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[OauthTokenResponse],
+            decoder=json_decoder[OAuthTokenResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )
@@ -14235,10 +14246,10 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
 
     def partner_customer_oauth_institutions_get(
         self,
-        body: PartnerCustomerOauthInstitutionsGetRequest | PartnerCustomerOauthInstitutionsGetRequestDict,
+        body: PartnerCustomerOAuthInstitutionsGetRequest | PartnerCustomerOAuthInstitutionsGetRequestDict,
         *,
         request_options: RequestOptionsOrDict | None = None,
-    ) -> ApiResult[PartnerCustomerOauthInstitutionsGetResponse, RawError]:
+    ) -> ApiResult[PartnerCustomerOAuthInstitutionsGetResponse, RawError]:
         """The ``/partner/customer/oauth_institutions/get`` endpoint is used by reseller partners to retrieve
         OAuth-institution registration information about a single end customer. To learn how to set up a webhook to
         listen to status update events, visit the `reseller documentation
@@ -14255,11 +14266,11 @@ class ApiWithRawResponse(SecuredRawResponse[RawClient, Server, AuthSchemes]):
             http_method="POST",
             url_template=self._server.default("/partner/customer/oauth_institutions/get"),
             headers=[param[UUID]("Idempotency-Key", uuid4())],
-            body=json_body[PartnerCustomerOauthInstitutionsGetRequest | PartnerCustomerOauthInstitutionsGetRequestDict](
+            body=json_body[PartnerCustomerOAuthInstitutionsGetRequest | PartnerCustomerOAuthInstitutionsGetRequestDict](
                 body
             ),
             auth_scheme=AllSchemes(self._auth.client_id, self._auth.secret, self._auth.plaid_version),
-            decoder=json_decoder[PartnerCustomerOauthInstitutionsGetResponse],
+            decoder=json_decoder[PartnerCustomerOAuthInstitutionsGetResponse],
             error_mapper=raw_error_response,
             request_options=request_options,
         )

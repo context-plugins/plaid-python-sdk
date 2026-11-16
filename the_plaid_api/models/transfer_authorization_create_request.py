@@ -4,7 +4,7 @@ from pydantic import Field
 from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Optional, OptionalNullable, SdkBaseModel
-from .enums.achclass import AchclassOrStr
+from .enums.ach_class import AchClassOrStr
 from .enums.transfer_credit_funds_source import TransferCreditFundsSourceOrStr
 from .enums.transfer_network import TransferNetworkOrStr
 from .enums.transfer_type import TransferTypeOrStr
@@ -86,7 +86,7 @@ class TransferAuthorizationCreateRequest(SdkBaseModel):
     specify the exact amount of the transfer, up to a maximum of the amount authorized. If this field is left blank when
     calling ``/transfer/create``, the maximum amount authorized in the ``authorization_id`` will be sent."""
 
-    ach_class: Optional[AchclassOrStr] = UNSET
+    ach_class: Optional[AchClassOrStr] = UNSET
     """Specifies the use case of the transfer. Required for transfers on an ACH network. For more details, see `ACH SEC
     codes <https://plaid.com/docs/transfer/creating-transfers/#ach-sec-codes>`__.
 
@@ -190,7 +190,7 @@ class TransferAuthorizationCreateRequestDict(TypedDict):
     type_: TransferTypeOrStr
     network: TransferNetworkOrStr
     amount: str
-    ach_class: NotRequired[AchclassOrStr]
+    ach_class: NotRequired[AchClassOrStr]
     wire_details: NotRequired[TransferWireDetailsDict | None]
     user: TransferAuthorizationUserInRequestDict
     device: NotRequired[TransferAuthorizationDeviceDict]

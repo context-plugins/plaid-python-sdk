@@ -5,7 +5,7 @@ from typing_extensions import TypedDict
 
 from ..core import SdkBaseModel
 from .enums.address_purpose_label import AddressPurposeLabelOrStr
-from .enums.pobox_status import PoboxStatusOrStr
+from .enums.po_box_status import PoBoxStatusOrStr
 
 
 class IdentityVerificationAutofillAddress(SdkBaseModel):
@@ -41,7 +41,7 @@ class IdentityVerificationAutofillAddress(SdkBaseModel):
     """Valid, capitalized, two-letter ISO code representing the country of this object. Must be in ISO 3166-1 alpha-2
     form."""
 
-    po_box: PoboxStatusOrStr
+    po_box: PoBoxStatusOrStr
     """Field describing whether the associated address is a post office box. Will be ``yes`` when a P.O. box is
     detected, ``no`` when Plaid confirmed the address is not a P.O. box, and ``no_data`` when Plaid was not able to
     determine if the address is a P.O. box."""
@@ -59,5 +59,5 @@ class IdentityVerificationAutofillAddressDict(TypedDict):
     region: str | None
     postal_code: str | None
     country: str
-    po_box: PoboxStatusOrStr
+    po_box: PoBoxStatusOrStr
     type_: AddressPurposeLabelOrStr

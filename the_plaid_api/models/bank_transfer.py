@@ -6,7 +6,7 @@ from typing_extensions import TypedDict
 from ..core import RFC3339DateTime, SdkBaseModel
 from .bank_transfer_failure import BankTransferFailure, BankTransferFailureDict
 from .bank_transfer_user import BankTransferUser, BankTransferUserDict
-from .enums.achclass import AchclassOrStr
+from .enums.ach_class import AchClassOrStr
 from .enums.bank_transfer_direction import BankTransferDirectionOrStr
 from .enums.bank_transfer_network import BankTransferNetworkOrStr
 from .enums.bank_transfer_status import BankTransferStatusOrStr
@@ -19,7 +19,7 @@ class BankTransfer(SdkBaseModel):
     id: str
     """Plaid's unique identifier for a bank transfer."""
 
-    ach_class: AchclassOrStr
+    ach_class: AchClassOrStr
     """Specifies the use case of the transfer. Required for transfers on an ACH network. For more details, see `ACH SEC
     codes <https://plaid.com/docs/transfer/creating-transfers/#ach-sec-codes>`__.
 
@@ -90,7 +90,7 @@ class BankTransfer(SdkBaseModel):
 
 class BankTransferDict(TypedDict):
     id: str
-    ach_class: AchclassOrStr
+    ach_class: AchClassOrStr
     account_id: str
     type_: BankTransferTypeOrStr
     user: BankTransferUserDict

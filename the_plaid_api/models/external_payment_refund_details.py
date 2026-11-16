@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing_extensions import TypedDict
 
 from ..core import SdkBaseModel
-from .recipient_bacsnullable import RecipientBacsnullable, RecipientBacsnullableDict
+from .recipient_bacs_nullable import RecipientBacsNullable, RecipientBacsNullableDict
 
 
 class ExternalPaymentRefundDetails(SdkBaseModel):
@@ -15,7 +15,7 @@ class ExternalPaymentRefundDetails(SdkBaseModel):
     iban: str | None
     """The International Bank Account Number (IBAN) for the account."""
 
-    bacs: RecipientBacsnullable | None
+    bacs: RecipientBacsNullable | None
     """An object containing a Bacs account number and sort code. If an IBAN is not provided or if this recipient needs
     to accept domestic GBP-denominated payments, Bacs data is required."""
 
@@ -23,4 +23,4 @@ class ExternalPaymentRefundDetails(SdkBaseModel):
 class ExternalPaymentRefundDetailsDict(TypedDict):
     name: str
     iban: str | None
-    bacs: RecipientBacsnullableDict | None
+    bacs: RecipientBacsNullableDict | None

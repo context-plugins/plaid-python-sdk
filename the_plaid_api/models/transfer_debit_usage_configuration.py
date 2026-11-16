@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing_extensions import TypedDict
 
 from ..core import SdkBaseModel
-from .enums.achclass import AchclassOrStr
+from .enums.ach_class import AchClassOrStr
 from .enums.originator_expected_transfer_frequency import OriginatorExpectedTransferFrequencyOrStr
 
 
@@ -23,7 +23,7 @@ class TransferDebitUsageConfiguration(SdkBaseModel):
     expected_monthly_amount: str
     """The originator's monthly expected ACH debit processing amount for the next 6-12 months."""
 
-    sec_codes: list[AchclassOrStr]
+    sec_codes: list[AchClassOrStr]
     """Specifies the expected use cases for the originator's debit transfers. This should be a list that contains one or
     more of the following codes:
 
@@ -45,4 +45,4 @@ class TransferDebitUsageConfigurationDict(TypedDict):
     expected_highest_amount: str
     expected_average_amount: str
     expected_monthly_amount: str
-    sec_codes: list[AchclassOrStr]
+    sec_codes: list[AchClassOrStr]

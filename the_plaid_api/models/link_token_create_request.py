@@ -47,7 +47,7 @@ from .link_token_create_request_statements import LinkTokenCreateRequestStatemen
 from .link_token_create_request_transfer import LinkTokenCreateRequestTransfer, LinkTokenCreateRequestTransferDict
 from .link_token_create_request_update import LinkTokenCreateRequestUpdate, LinkTokenCreateRequestUpdateDict
 from .link_token_create_request_user import LinkTokenCreateRequestUser, LinkTokenCreateRequestUserDict
-from .link_token_euconfig import LinkTokenEuconfig, LinkTokenEuconfigDict
+from .link_token_eu_config import LinkTokenEuConfig, LinkTokenEuConfigDict
 from .link_token_investments import LinkTokenInvestments, LinkTokenInvestmentsDict
 from .link_token_investments_auth import LinkTokenInvestmentsAuth, LinkTokenInvestmentsAuthDict
 from .link_token_transactions import LinkTokenTransactions, LinkTokenTransactionsDict
@@ -262,7 +262,7 @@ class LinkTokenCreateRequest(SdkBaseModel):
     accounts will not be added to the Item. If the user selects only excluded account subtypes, the link attempt will
     fail and the user will be prompted to try again."""
 
-    eu_config: Optional[LinkTokenEuconfig] = UNSET
+    eu_config: Optional[LinkTokenEuConfig] = UNSET
     """Configuration parameters for EU flows"""
 
     institution_id: Optional[str] = UNSET
@@ -406,7 +406,7 @@ class LinkTokenCreateRequestDict(TypedDict):
     institution_data: NotRequired[LinkTokenCreateInstitutionDataDict]
     card_switch: NotRequired[LinkTokenCreateCardSwitchDict]
     account_filters: NotRequired[LinkTokenAccountFiltersDict]
-    eu_config: NotRequired[LinkTokenEuconfigDict]
+    eu_config: NotRequired[LinkTokenEuConfigDict]
     institution_id: NotRequired[str]
     payment_configuration: NotRequired[LinkTokenCreateRequestPaymentConfigurationDict]
     payment_initiation: NotRequired[LinkTokenCreateRequestPaymentInitiationDict]

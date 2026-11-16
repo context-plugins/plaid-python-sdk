@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Optional, OptionalNullable, RFC3339DateTime, SdkBaseModel
-from .enums.achclass import AchclassOrStr
+from .enums.ach_class import AchClassOrStr
 from .enums.transfer_authorization_guarantee_decision import TransferAuthorizationGuaranteeDecisionOrStr
 from .enums.transfer_intent_authorization_decision import TransferIntentAuthorizationDecisionOrStr
 from .enums.transfer_intent_create_mode import TransferIntentCreateModeOrStr
@@ -98,7 +98,7 @@ class TransferIntentGet(SdkBaseModel):
     transfer will be sent over ACH as long as an ``ach_class`` is provided in the request. If RTP isn't supported by the
     account and no ``ach_class`` is provided, the transfer will fail to be submitted."""
 
-    ach_class: Optional[AchclassOrStr] = UNSET
+    ach_class: Optional[AchClassOrStr] = UNSET
     """Specifies the use case of the transfer. Required for transfers on an ACH network. For more details, see `ACH SEC
     codes <https://plaid.com/docs/transfer/creating-transfers/#ach-sec-codes>`__.
 
@@ -157,7 +157,7 @@ class TransferIntentGetDict(TypedDict):
     amount: str
     mode: TransferIntentCreateModeOrStr
     network: NotRequired[TransferIntentCreateNetworkOrStr]
-    ach_class: NotRequired[AchclassOrStr]
+    ach_class: NotRequired[AchClassOrStr]
     user: TransferUserInResponseDict
     description: str
     metadata: NotRequired[dict[str, str] | None]

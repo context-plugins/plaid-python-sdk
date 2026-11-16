@@ -4,7 +4,7 @@ from pydantic import EmailStr
 from typing_extensions import NotRequired, TypedDict
 
 from ..core import UNSET, Date, Optional, OptionalNullable, SdkBaseModel
-from .beacon_user_idnumber import BeaconUserIdnumber, BeaconUserIdnumberDict
+from .beacon_user_id_number import BeaconUserIdNumber, BeaconUserIdNumberDict
 from .beacon_user_name import BeaconUserName, BeaconUserNameDict
 from .beacon_user_request_address import BeaconUserRequestAddress, BeaconUserRequestAddressDict
 from .beacon_user_request_depository_account import (
@@ -36,7 +36,7 @@ class BeaconUserRequestData(SdkBaseModel):
     phone_number: OptionalNullable[str] = UNSET
     """A phone number in E.164 format."""
 
-    id_number: OptionalNullable[BeaconUserIdnumber] = UNSET
+    id_number: OptionalNullable[BeaconUserIdNumber] = UNSET
     """The ID number associated with a Beacon User."""
 
     ip_address: OptionalNullable[str] = UNSET
@@ -56,6 +56,6 @@ class BeaconUserRequestDataDict(TypedDict):
     address: NotRequired[BeaconUserRequestAddressDict | None]
     email_address: NotRequired[EmailStr]
     phone_number: NotRequired[str | None]
-    id_number: NotRequired[BeaconUserIdnumberDict | None]
+    id_number: NotRequired[BeaconUserIdNumberDict | None]
     ip_address: NotRequired[str | None]
     depository_accounts: NotRequired[list[BeaconUserRequestDepositoryAccountDict]]

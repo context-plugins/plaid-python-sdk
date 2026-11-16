@@ -4,7 +4,7 @@ from typing_extensions import TypedDict
 
 from ..core import RFC3339DateTime, SdkBaseModel
 from .business_digital_presence_check import BusinessDigitalPresenceCheck, BusinessDigitalPresenceCheckDict
-from .business_kybcheck import BusinessKybcheck, BusinessKybcheckDict
+from .business_kyb_check import BusinessKybCheck, BusinessKybCheckDict
 from .business_risk_check import BusinessRiskCheck, BusinessRiskCheckDict
 from .business_search_terms import BusinessSearchTerms, BusinessSearchTermsDict
 from .enums.business_verification_status_overall import BusinessVerificationStatusOverallOrStr
@@ -38,7 +38,7 @@ class BusinessVerificationCreateResponse(SdkBaseModel):
     search_terms: BusinessSearchTerms
     """The business information that was used to perform the verification search"""
 
-    kyb_check: BusinessKybcheck | None
+    kyb_check: BusinessKybCheck | None
     """Results from the KYB (Know Your Business) identity verification check"""
 
     risk_check: BusinessRiskCheck | None
@@ -63,7 +63,7 @@ class BusinessVerificationCreateResponseDict(TypedDict):
     redacted_at: RFC3339DateTime | None
     status: BusinessVerificationStatusOverallOrStr
     search_terms: BusinessSearchTermsDict
-    kyb_check: BusinessKybcheckDict | None
+    kyb_check: BusinessKybCheckDict | None
     risk_check: BusinessRiskCheckDict | None
     digital_presence_check: BusinessDigitalPresenceCheckDict | None
     request_id: str

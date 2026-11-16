@@ -13,7 +13,4 @@ class Server:
     config: ServerConfig
 
     def default(self, path: str) -> UrlTemplate:
-        return self.config.default.resolve(self.environment, path)
-
-    def access_token_server(self, path: str) -> UrlTemplate:
-        return self.config.access_token_server.resolve(self.environment, path)
+        return self.config.resolve(self.environment, path)
